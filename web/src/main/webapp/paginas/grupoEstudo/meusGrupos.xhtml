@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/template/template.xhtml"
+	xmlns:p="http://primefaces.org/ui"
+>
+	<ui:define name="conteudo">
+	<section  class="content-header">
+		<h1>
+			<h:outputText value="#{mensagens['display.menu.grupos.estudo']}" />
+			<small><h:outputText value="#{mensagens['display.meus.grupos']}" /> </small>	
+		</h1>
+		<ol class="breadcrumb">
+			<li>
+				<h:outputLink>
+					<i class="fa fa-dashboard"/> 
+					<h:outputText value="#{mensagens['display.voce.esta.em']}" />
+				</h:outputLink>
+			</li>
+			<li>
+				<h:outputText value="#{mensagens['display.menu.grupos.estudo']}" />
+			</li>
+			<li class="active">
+				<h:outputText value="#{mensagens['display.meus.grupos']}" />
+			</li>
+		</ol>
+	</section>
+	<section class="content">
+		<h:form prependId="false" id="form">
+				<div class="clear"/>
+				<div class="aviso" >
+					<h:messages id="mensagens" fatalClass="callout callout-danger"  errorClass="callout callout-warning" infoClass="callout callout-success" warnClass="callout callout-info"/>
+				</div>
+						
+				<ui:repeat var="grupoEstudo" value="#{meusGruposBean.grupoEstudos}">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="box box-solid">
+							<div class="box-header">
+								<h3 class="box-title">
+									<h:commandLink  action="#{meusGruposBean.detalharGrupoEstudo(grupoEstudo)}" value="#{grupoEstudo.noGrupo} " />
+								</h3>
+							</div>
+							<div class="box-body">
+								<p>
+									<h:outputText value="#{mensagens['display.ultimos.topicos']}" />
+								</p>
+								<ul class="list-unstyled">
+									<ui:repeat var="topico" value="#{grupoEstudo.topicosGrupo}">
+									<li>
+										<h:outputText value="#{topico.dtCriacao}" rendered="#{empty topico.dtUltimaAtualizacao}">
+											<f:convertDateTime timeZone="America/Sao_Paulo" locale="pt_BR" pattern="dd/MM/yyyy"/>
+										</h:outputText> 
+										<h:outputText value="#{topico.dtUltimaAtualizacao}" rendered="#{not empty topico.dtUltimaAtualizacao}">>
+											<f:convertDateTime timeZone="America/Sao_Paulo" locale="pt_BR" pattern="dd/MM/yyyy"/>
+										</h:outputText> 
+									</li>
+									
+									</ui:repeat>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+				</ui:repeat>
+						
+			<div class="clear"/>
+			
+			</h:form>
+		</section>
+	</ui:define>
+</ui:composition>

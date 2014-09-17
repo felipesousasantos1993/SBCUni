@@ -1,0 +1,77 @@
+package br.com.sbcuni.grupoEstudo.service;
+
+import java.io.Serializable;
+import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.ejb.EJB;
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+
+import br.com.sbcuni.categoria.service.CategoriaServiceBean;
+import br.com.sbcuni.exception.SbcuniException;
+import br.com.sbcuni.grupoEstudo.GrupoEstudo;
+import br.com.sbcuni.topico.entity.Topico;
+import br.com.sbcuni.usuario.entity.Usuario;
+
+@Stateless
+public class GrupoEstudoSerivceBean implements Serializable {
+
+	private static final long serialVersionUID = -1335213839879763222L;
+
+	@PersistenceContext
+	private EntityManager entityManager;
+	
+	@EJB
+	private CategoriaServiceBean categoriaServiceBean;
+	
+	private StringBuffer queryAlunosGrupoEstudo = new StringBuffer("SELECT u.idUsuario FROM Usuario u WHERE u.idusuario IN (SELECT alunos_idusuario FROM grupoestudo_usuario WHERE grupos_idgrupoestudo = ?) ORDER BY u.nome ASC");
+	
+	
+	public void criarGrupoEstudo(GrupoEstudo grupoEstudo) throws SbcuniException {
+		try {
+			entityManager.persist(grupoEstudo);
+		} catch (Exception e) {
+			throw new SbcuniException("Erro ao criar grupod de estudo", e);
+		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<GrupoEstudo> consultarGruposProfessor(Usuario usuario) {
+		Query query = entityManager.createNamedQuery("GrupoEstudo.consultarGruposProfessor");
+		query.setParameter("idProfessor", usuario.getIdUsuario());
+		try {
+			List<GrupoEstudo> grupoEstudos = query.getResultList();
+			for (GrupoEstudo grupoEstudo : grupoEstudos) {
+				grupoEstudo.setAlunos(consultarAlunosGrupoEstudo(grupoEstudo));
+				for (Topico topico : grupoEstudo.getTopicosGrupo()) {
+					topico.setCategorias(categoriaServiceBean.buscarCategoriaTopico(topico));
+				}
+			}
+			return grupoEstudos;
+		} catch (NoResultException e) {
+			return null;
+		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Usuario> consultarAlunosGrupoEstudo(GrupoEstudo grupoEstudo) {
+		Query query = entityManager.createNativeQuery(queryAlunosGrupoEstudo.toString());
+		query.setParameter(1, grupoEstudo.getIdGrupoEstudo());
+		try {
+			List<BigInteger> ids = query.getResultList();
+			List<Usuario> alunos = new ArrayList<Usuario>();
+			for (BigInteger bigInteger : ids) {
+				alunos.add(entityManager.find(Usuario.class, bigInteger.longValue()));
+			}
+			return alunos;
+		} catch (NoResultException e) {
+			return null;
+		}
+	}
+	
+}

@@ -1,0 +1,225 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	<f:facet name="menu" />
+		<aside class="left-side sidebar-offcanvas">
+			<section class="sidebar">
+				<div class="user-panel">
+					<div class="pull-left image">
+						<h:graphicImage value="/resources/img/avatar.png" styleClass="img-circle" alt="Foto Perfil" />
+					</div>
+					<div class="pull-left info">
+						<p>Olá, visitante</p>
+					</div>
+					
+				</div>
+				 <form action="#" method="post" class="sidebar-form">
+                        <div class="input-group">
+                        	<h:inputText id="pesquisar" value="" styleClass="form-control"/>
+                            <span class="input-group-btn">
+                                <button type='submit'  name='seach' id='search-btn' class="btn btn-flat"><i class="fa fa-search"></i></button>
+                            </span>
+                        </div>
+                    </form>
+                <h:form >
+				<ul class="sidebar-menu">
+					<li class="treeview">
+						<h:outputLink>
+							<i class="fa fa-bar-chart-o"/>
+							<span>
+								<h:outputText value="#{mensagens['display.gerencia.sistema']}" />
+							</span>
+							<i class="fa fa-angle-left pull-right"/>
+						</h:outputLink>
+						<ul class="treeview-menu">
+							<li>
+								<h:outputLink value="#{facesContext.externalContext.requestContextPath}/paginas/gerencia/cadastrar.jsf" style="margin-left: 10px;">
+									<i class="fa fa-angle-double-right"/>
+									<h:outputText value="#{mensagens['display.cadastrar']}" />
+								</h:outputLink>
+							</li>
+							<li>
+								<h:outputLink value="#{facesContext.externalContext.requestContextPath}/paginas/gerencia/consultar.jsf" style="margin-left: 10px;">
+									<i class="fa fa-angle-double-right"/>
+									<h:outputText value="#{mensagens['display.alterar']}" />
+								</h:outputLink>
+							</li>
+							<li>
+								<h:outputLink value="#{facesContext.externalContext.requestContextPath}/paginas/gerencia/consultar.jsf" style="margin-left: 10px;">
+									<i class="fa fa-angle-double-right"/>
+									<h:outputText value="#{mensagens['display.consultar']}" />
+								</h:outputLink>
+							</li>
+							<li>
+								<h:outputLink value="#{facesContext.externalContext.requestContextPath}/paginas/gerencia/consultar.jsf" style="margin-left: 10px;">
+									<i class="fa fa-angle-double-right"/>
+									<h:outputText value="#{mensagens['display.excluir']}" />
+								</h:outputLink>
+							</li>
+						</ul>
+					</li>
+					<li class="treeview">
+						<h:outputLink>
+							<i class="fa fa-book"/>
+							<span>
+								<h:outputText value="#{mensagens['display.aluno']}" />
+							</span>
+							<i class="fa fa-angle-left pull-right"/>
+						</h:outputLink>
+						<ul class="treeview-menu">
+							<li>
+								<h:commandLink immediate="true" action="#{menuBean.telaCadastrarUsuario(1)}" style="margin-left: 10px;">
+									<i class="fa fa-angle-double-right"/>
+									<h:outputText value="#{mensagens['display.cadastrar']}" />
+								</h:commandLink>
+							</li>
+							<li>
+								<h:commandLink immediate="true" action="#{menuBean.telaConsultarUsuario(1)}" style="margin-left: 10px;">
+									<i class="fa fa-angle-double-right"/>
+									<h:outputText value="#{mensagens['display.alterar']}" />
+								</h:commandLink>
+							</li>
+							<li>
+								<h:commandLink immediate="true" action="#{menuBean.telaConsultarUsuario(1)}" style="margin-left: 10px;">
+									<i class="fa fa-angle-double-right"/>
+									<h:outputText value="#{mensagens['display.consultar']}" />
+								</h:commandLink>
+							</li>
+							<li>
+								<h:commandLink immediate="true" action="#{menuBean.telaConsultarUsuario(1)}" style="margin-left: 10px;">
+									<i class="fa fa-angle-double-right"/>
+									<h:outputText value="#{mensagens['display.excluir']}" />
+								</h:commandLink>
+							</li>
+						</ul>
+					</li>
+					<li class="treeview">
+						<h:outputLink>
+							<i class="fa fa-book"/>
+							<span>
+								<h:outputText value="#{mensagens['display.professor']}" />
+							</span>
+							<i class="fa fa-angle-left pull-right"/>
+						</h:outputLink>
+						<ul class="treeview-menu">
+							<li>
+								<h:commandLink immediate="true" action="#{menuBean.telaCadastrarUsuario(2)}" style="margin-left: 10px;">
+									<i class="fa fa-angle-double-right"/>
+									<h:outputText value="#{mensagens['display.cadastrar']}" />
+								</h:commandLink>
+							</li>
+							<li>
+								<h:commandLink immediate="true" action="#{menuBean.telaConsultarUsuario(2)}" style="margin-left: 10px;">
+									<i class="fa fa-angle-double-right"/>
+									<h:outputText value="#{mensagens['display.alterar']}" />
+								</h:commandLink>
+							</li>
+							<li>
+								<h:commandLink immediate="true" action="#{menuBean.telaConsultarUsuario(2)}" style="margin-left: 10px;">
+									<i class="fa fa-angle-double-right"/>
+									<h:outputText value="#{mensagens['display.consultar']}" />
+								</h:commandLink>
+							</li>
+							<li>
+								<h:commandLink immediate="true" action="#{menuBean.telaConsultarUsuario(2)}" style="margin-left: 10px;">
+									<i class="fa fa-angle-double-right"/>
+									<h:outputText value="#{mensagens['display.excluir']}" />
+								</h:commandLink>
+							</li>
+						</ul>
+					</li>
+					<li class="treeview">
+						<h:outputLink>
+							<i class="fa fa-book"/>
+							<span>
+								<h:outputText value="#{mensagens['display.coordenador']}" />
+							</span>
+							<i class="fa fa-angle-left pull-right"/>
+						</h:outputLink>
+						<ul class="treeview-menu">
+							<li>
+								<h:commandLink immediate="true" action="#{menuBean.telaCadastrarUsuario(3)}" style="margin-left: 10px;" >
+									<i class="fa fa-angle-double-right"/>
+									<h:outputText value="#{mensagens['display.cadastrar']}" />
+								</h:commandLink>
+							</li>
+							<li>
+								<h:commandLink immediate="true" action="#{menuBean.telaConsultarUsuario(3)}" style="margin-left: 10px;">
+									<i class="fa fa-angle-double-right"/>
+									<h:outputText value="#{mensagens['display.alterar']}" />
+								</h:commandLink>
+							</li>
+							<li>
+								<h:commandLink immediate="true" action="#{menuBean.telaConsultarUsuario(3)}" style="margin-left: 10px;">
+									<i class="fa fa-angle-double-right"/>
+									<h:outputText value="#{mensagens['display.consultar']}" />
+								</h:commandLink>
+							</li>
+							<li>
+								<h:commandLink immediate="true" action="#{menuBean.telaConsultarUsuario(3)}" style="margin-left: 10px;">
+									<i class="fa fa-angle-double-right"/>
+									<h:outputText value="#{mensagens['display.excluir']}" />
+								</h:commandLink>
+							</li>
+						</ul>
+					</li>
+					<li class="treeview">
+						<h:outputLink>
+							<i class="fa fa-comments-o"/>
+							<span>
+								<h:outputText value="#{mensagens['display.menu.topico']}" />
+							</span>
+							<i class="fa fa-angle-left pull-right"/>
+						</h:outputLink>
+						<ul class="treeview-menu">
+							<li>
+								<h:outputLink value="#{facesContext.externalContext.requestContextPath}/paginas/topico/novoTopico.jsf"  style="margin-left: 10px;" >
+									<i class="fa fa-angle-double-right"/>
+									<h:outputText value="#{mensagens['display.novo.topico']}" />
+								</h:outputLink>
+							</li>
+							<li>
+								<h:outputLink value="#{facesContext.externalContext.requestContextPath}/paginas/topico/meusTopicos.jsf"  style="margin-left: 10px;" >
+									<i class="fa fa-angle-double-right"/>
+									<h:outputText value="#{mensagens['display.meus.topicos']}" />
+								</h:outputLink>
+							</li>
+							<li>
+								<h:outputLink value="#{facesContext.externalContext.requestContextPath}/paginas/topico/ultimosTopicos.jsf"  style="margin-left: 10px;" >
+									<i class="fa fa-angle-double-right"/>
+									<h:outputText value="#{mensagens['display.ultimos.topicos']}" />
+								</h:outputLink>
+							</li>
+						</ul>
+					</li>
+					<li class="treeview">
+						<h:outputLink>
+							<i class="fa fa-group"/>
+							<span>
+								<h:outputText value="#{mensagens['display.menu.grupos.estudo']}" />
+							</span>
+							<i class="fa fa-angle-left pull-right"/>
+						</h:outputLink>
+						<ul class="treeview-menu">
+							<li>
+								<h:outputLink value="#{facesContext.externalContext.requestContextPath}/paginas/grupoEstudo/criarGrupo.jsf"  style="margin-left: 10px;" >
+									<i class="fa fa-angle-double-right"/>
+									<h:outputText value="#{mensagens['display.criar.grupo.estudo']}" />
+								</h:outputLink>
+							</li>
+							<li>
+								<h:outputLink value="#{facesContext.externalContext.requestContextPath}/paginas/grupoEstudo/meusGrupos.jsf"  style="margin-left: 10px;" >
+									<i class="fa fa-angle-double-right"/>
+									<h:outputText value="#{mensagens['display.meus.grupos']}" />
+								</h:outputLink>
+							</li>
+						</ul>
+					</li>
+				</ul>
+				</h:form>
+			</section>
+		</aside>
+</ui:composition>

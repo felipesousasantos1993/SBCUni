@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/template/template.xhtml"
+	xmlns:p="http://primefaces.org/ui"
+>
+	<ui:define name="conteudo">
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/> 
+	<section  class="content-header">
+		<h1>
+			<h:outputText value="#{mensagens['display.menu.topico']}" />
+			<small><h:outputText value="#{mensagens['display.novo.topico']}" /> </small>	
+		</h1>
+		<ol class="breadcrumb">
+			<li>
+				<h:outputLink>
+					<i class="fa fa-dashboard"/> 
+					<h:outputText value="#{mensagens['display.voce.esta.em']}" />
+				</h:outputLink>
+			</li>
+			<li>
+				<h:outputText value="#{mensagens['display.menu.topico']}" />
+			</li>
+			<li class="active">
+				<h:outputText value="#{mensagens['display.novo.topico']}" />
+			</li>
+		</ol>
+	</section>
+	<section class="content">
+		<h:form prependId="false" id="form">
+		<h:inputHidden id="validator" validator="novoTopicoValidator" />
+			<div class="row">
+				<div class="col-md-12">
+					<div class="box box-primary">
+						<div class="box-header">
+							<h3 class="box-title">
+								<h:outputText value="#{mensagens['display.dados.topico']}" />
+								<small>
+									<h:outputText value="#{mensagens['display.aviso.campos.obrigatorios']}" />
+								</small>
+							</h3>
+						</div>
+						
+						<div class="clear"/>
+						<div class="aviso" >
+							<h:messages id="mensagens" fatalClass="callout callout-danger"  errorClass="callout callout-warning" infoClass="callout callout-success" warnClass="callout callout-info"/>
+						</div>
+						
+						<div class="box-body"  >
+							<div class="form-group">
+								<label>
+									<h:outputText value="#{mensagens['display.titulo']} *"/>
+								</label>
+								<h:inputText id="titulo" value="#{novoTopicoBean.novoTopico.titulo}"  styleClass="form-control x45" />
+							</div>
+							<div class="form-group"> 
+								<label>
+									<h:outputText value="#{mensagens['display.descricao']} *"/>
+								</label>
+								<h:inputTextarea id="descricao" value="#{novoTopicoBean.novoTopico.descricao}"  styleClass="textarea form-control x95" style="height:260px !important; overflow: hidden !important;"/>
+							</div>
+							<div class="form-group">
+								<label>
+									<h:outputText value="#{mensagens['display.categoria']} *"/>
+								</label>
+								<br/>
+								<p:autoComplete converter="categoriaConverter"  multiple="true" completeMethod="#{autoCompleteBean.completeCategoria}" var="categoria" itemValue="#{categoria}" itemLabel="#{categoria.deCategoria}" forceSelection="true" value="#{novoTopicoBean.categoriasSelecionadas}" autocomplete="true"  />
+							</div>
+						</div>
+						
+						<div class="clear"/>
+						
+						<div class="box-footer">
+							<h:commandButton  action="#{novoTopicoBean.postarTopico}" value="Confirmar" styleClass="btn btn-default"/>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="clear"/>
+			
+			</h:form>
+		</section>
+	</ui:define>
+</ui:composition>

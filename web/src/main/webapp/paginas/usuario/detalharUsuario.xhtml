@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/template/template.xhtml"
+>
+	<ui:define name="conteudo">
+	<section class="content-header">
+		<h1>
+			<h:outputText value="#{mensagens['display.aluno']}"  rendered="#{detalharUsuarioBean.usuario.perfil eq 1}"/>
+				<h:outputText value="#{mensagens['display.professor']}"  rendered="#{detalharUsuarioBean.usuario.perfil eq 2}"/>
+				<h:outputText value="#{mensagens['display.coordenador']}"  rendered="#{detalharUsuarioBean.usuario.perfil eq 3}"/>
+			<small>
+				<h:outputText value="#{mensagens['display.detalhar.aluno']}"  rendered="#{detalharUsuarioBean.usuario.perfil eq 1}"/>
+				<h:outputText value="#{mensagens['display.detalhar.professor']}"  rendered="#{detalharUsuarioBean.usuario.perfil eq 2}"/>
+				<h:outputText value="#{mensagens['display.detalhar.coordenador']}"  rendered="#{detalharUsuarioBean.usuario.perfil eq 3}"/>
+			</small>	
+		</h1>
+		<ol class="breadcrumb">
+			<li>
+				<h:outputLink>
+					<i class="fa fa-dashboard"/> 
+					<h:outputText value="#{mensagens['display.voce.esta.em']}" />
+				</h:outputLink>
+			</li>
+			<li>
+				<h:outputText value="#{mensagens['display.aluno']}"  rendered="#{detalharUsuarioBean.usuario.perfil eq 1}"/>
+				<h:outputText value="#{mensagens['display.professor']}"  rendered="#{detalharUsuarioBean.usuario.perfil eq 2}"/>
+				<h:outputText value="#{mensagens['display.coordenador']}"  rendered="#{detalharUsuarioBean.usuario.perfil eq 3}"/>
+			</li>
+			<li>
+				<h:outputText value="#{mensagens['display.listar.aluno']}"  rendered="#{detalharUsuarioBean.usuario.perfil eq 1}"/>
+				<h:outputText value="#{mensagens['display.listar.professor']}"  rendered="#{detalharUsuarioBean.usuario.perfil eq 2}"/>
+				<h:outputText value="#{mensagens['display.listar.coordenador']}"  rendered="#{detalharUsuarioBean.usuario.perfil eq 3}"/>
+			</li>
+			<li class="active">
+				<h:outputText value="#{mensagens['display.detalhar.aluno']}"  rendered="#{detalharUsuarioBean.usuario.perfil eq 1}"/>
+				<h:outputText value="#{mensagens['display.detalhar.professor']}"  rendered="#{detalharUsuarioBean.usuario.perfil eq 2}"/>
+				<h:outputText value="#{mensagens['display.detalhar.coordenador']}"  rendered="#{detalharUsuarioBean.usuario.perfil eq 3}"/>
+			</li>
+		</ol>
+	</section>
+	<section class="content">
+		<h:form prependId="false" id="form">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="box box-primary">
+						<div class="box-header">
+							<h3 class="box-title">
+								<h:outputText value="#{mensagens['display.dados.aluno']}" rendered="#{detalharUsuarioBean.usuario.perfil eq 1}"/>
+								<h:outputText value="#{mensagens['display.dados.professor']}" rendered="#{detalharUsuarioBean.usuario.perfil eq 2}"/>
+								<h:outputText value="#{mensagens['display.dados.coordenador']}" rendered="#{detalharUsuarioBean.usuario.perfil eq 3}"/>
+							</h3>
+						</div>
+						
+						<div class="clear"/>
+					
+						<div class="aviso" >
+							<h:messages id="mensagens" fatalClass="callout callout-danger"  errorClass="callout callout-warning" infoClass="callout callout-success" warnClass="callout callout-info"/>
+						</div>
+						
+						<div class="box-body">
+							<dl>
+								<dt>
+									<h:outputText value="#{mensagens['display.perfil']}: " />
+								</dt>
+								<dd>
+									<h:outputText id="perfil" value="#{detalharUsuarioBean.usuario.dePerfil}"/>
+								</dd>
+							</dl>
+							<dl>
+								<dt>
+									<h:outputText value="#{mensagens['display.nome.completo']}:" />
+								</dt>
+								<dd>
+									<h:outputText id="nome" value="#{detalharUsuarioBean.usuario.nome}"/>
+								</dd>
+							</dl>
+							<dl>
+								<dt>
+									<h:outputText value="#{mensagens['display.matricula']}: "/>
+								</dt>
+								<dd>
+									<h:outputText id="matricula" value="#{detalharUsuarioBean.usuario.matricula}"/>
+								</dd>
+							</dl>
+							<dl>
+								<dt>
+									<h:outputText value="#{mensagens['display.cpf']}: " />	
+								</dt>
+								<dd>
+									<h:outputText id="cpf" value="#{detalharUsuarioBean.usuario.cpf}" converter="cpfConverter"/>
+								</dd>
+							</dl>
+							<dl>
+								<dt>
+									<h:outputText value="#{mensagens['display.email']}: " />
+								</dt>
+								<dd>
+									<h:outputText id="email" value="#{detalharUsuarioBean.usuario.email}"/>
+								</dd>
+							</dl>
+							<dl>
+								<dt>
+									<h:outputText value="#{mensagens['display.status']}: " />
+								</dt>
+								<dd>
+									<h:outputText id="status" value="#{detalharUsuarioBean.usuario.deStatus}"/>
+								</dd>
+							</dl>
+						</div>
+						
+						<div class="clear"/>
+						
+						<div class="box-footer">
+							<h:commandButton action="#{detalharUsuarioBean.telaAlterar()}" styleClass="btn btn-warning" value="#{mensagens['display.alterar']}" />
+							<h:commandButton action="#{detalharUsuarioBean.telaExcluir()}" styleClass="btn btn-danger" value="#{mensagens['display.excluir']}" />
+							<h:commandButton action="#{detalharUsuarioBean.telaConsultar()}" styleClass="btn btn-default" value="#{mensagens['display.consultar']}" />
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="clear"/>
+			</h:form>
+		</section>
+	</ui:define>
+</ui:composition>
