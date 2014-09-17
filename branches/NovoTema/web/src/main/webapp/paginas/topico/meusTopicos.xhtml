@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/template/template.xhtml"
+>
+	<ui:define name="conteudo">
+	<section class="content-header">
+		<h1>
+			<h:outputText value="#{mensagens['display.menu.topico']}" />
+			<small><h:outputText value="#{mensagens['display.meus.topicos']}" /> </small>	
+		</h1>
+		<ol class="breadcrumb">
+			<li>
+				<h:outputLink>
+					<i class="fa fa-dashboard"/> 
+					<h:outputText value="#{mensagens['display.voce.esta.em']}" />
+				</h:outputLink>
+			</li>
+			<li>
+				<h:outputText value="#{mensagens['display.menu.topico']}" />
+			</li>
+			<li class="active">
+				<h:outputText value="#{mensagens['display.meus.topicos']}" />
+			</li>
+		</ol>
+	</section>
+	<section id="content" class="content">
+		<h:form prependId="false" id="form">
+		<h:inputHidden id="validator"/>
+			<div class="row">
+				<div class="col-md-12">
+				
+				<div class="clear"/>
+				
+					<div class="aviso" >
+						<h:messages id="mensagens" fatalClass="callout callout-danger"  errorClass="callout callout-warning" infoClass="callout callout-success" warnClass="callout callout-info"/>
+					</div>
+					
+					<ul class="linhaDoTempo">
+						<ui:repeat var="topico" varStatus="topicoStatus" value="#{meusTopicosBean.meusTopicos}">
+							<li class="linhaDoTempo-inverted">
+								
+								<h:outputFormat rendered="#{topicoStatus.index eq 0}" >
+									<div class="linhaDoTempo-badge info">
+										<i class="glyphicon glyphicon-home"/>
+									</div>
+								</h:outputFormat>
+								<h:outputFormat rendered="#{topicoStatus.index gt 0}" >
+									<div class="linhaDoTempo-badge success">
+										<i class="glyphicon glyphicon-comment"/>
+									</div>
+								</h:outputFormat>
+								
+								 <div id="panel" class="linhaDoTempo-panel">
+								 <h:panelGroup id="avaliacao">
+								 	<div class="linhaDoTempo-heading">
+								 		  <h4 class="linhaDoTempo-title"><h:commandLink immediate="true" action="#{meusTopicosBean.detalharTopico(topico)}" value="#{topico.titulo}"/> </h4>
+								 		  <div class="box-tools pull-right topico-avaliacao" align="right">
+								 		 		
+								 		 		<div class="label bg-red">
+										 			<h:outputText value="#{topico.nuAvaliacaoPositivas}" />
+										 		</div>
+										 		<div class="label bg-green">
+										 			<h:outputText value="#{topico.nuAvaliacaoNegativas}" />
+										 		</div>
+								 		 		
+										 		<div class="btn-group-vertical" style="top: -25px;">
+										 			<h:panelGroup rendered="#{topico.avaliacaoUsuario.avaliacao == false}"> 
+										 		 		<h:commandLink styleClass="btn btn-default" >
+										 		 			<i class="glyphicon glyphicon-thumbs-up" style="font-size:18px;"/>
+										 		 			<f:ajax event="click" render="avaliacao" listener="#{meusTopicosBean.curtirTopico(topico)}" immediate="true" execute="@form"/>
+										 		 		</h:commandLink>
+										 		 		<h:commandLink styleClass="btn btn-default disabled-editado" >
+										 		 			<i class="glyphicon glyphicon-thumbs-down" style="font-size:18px;"/>
+										 		 			<f:ajax event="click" render="avaliacao" listener="#{meusTopicosBean.removerAvaliacaoTopico(topico)}" immediate="true" execute="@form"/>
+										 		 		</h:commandLink>
+										 		 	</h:panelGroup>
+										 		 	<h:panelGroup rendered="#{topico.avaliacaoUsuario.avaliacao == true}">
+										 		 		<h:commandLink styleClass="btn btn-default disabled-editado">
+											 		 		<i class="glyphicon glyphicon-thumbs-up" style="font-size:18px;"/>
+											 		 		<f:ajax event="click" render="avaliacao" listener="#{meusTopicosBean.removerAvaliacaoTopico(topico)}" immediate="true" execute="@form"/>
+										 		 		</h:commandLink>
+											 		 	<h:commandLink styleClass="btn btn-default">
+											 		 		<i class="glyphicon glyphicon-thumbs-down" style="font-size:18px;"/>
+											 		 		<f:ajax event="click" execute="avaliacao" render="avaliacao" listener="#{meusTopicosBean.descurtirTopico(topico)}"/>
+										 		 		</h:commandLink>
+										 		 	</h:panelGroup>
+										 		 	<h:panelGroup rendered="#{empty topico.avaliacaoUsuario}">
+										 		 		<h:commandLink styleClass="btn btn-default" >
+										 		 			<i class="glyphicon glyphicon-thumbs-up" style="font-size:18px;"/>
+										 		 			<f:ajax event="click" render="avaliacao" listener="#{meusTopicosBean.curtirTopico(topico)}" immediate="true" execute="@form"/>
+										 		 		</h:commandLink>
+										 		 		<h:commandLink styleClass="btn btn-default">
+											 		 		<i class="glyphicon glyphicon-thumbs-down" style="font-size:18px;"/>
+											 		 		<f:ajax event="click" execute="avaliacao" render="avaliacao" listener="#{meusTopicosBean.descurtirTopico(topico)}"/>
+										 		 		</h:commandLink>
+										 		 		
+										 		 	</h:panelGroup>
+									 		 	</div>
+								 		 </div>
+								 		 <p>
+									 		 <small class="text-muted"><i class="glyphicon glyphicon-time" style="margin-right: 2px;"/> 
+								 		  		<h:outputText value="#{topico.dtCriacao}" >
+													<f:convertDateTime locale="pt_BR" timeZone="America/Sao_Paulo" pattern="EEE, dd/MM/yyyy - hh:mm"/>
+												</h:outputText>
+												<label><h:outputText value="#{mensagens['display.atualizado.em']}: " rendered="#{not empty topico.dtUltimaAtualizacao}"/> </label>
+											   	<h:outputText value="#{topico.dtUltimaAtualizacao}" rendered="#{not empty topico.dtUltimaAtualizacao}" >
+													<f:convertDateTime locale="pt_BR" timeZone="America/Sao_Paulo" pattern="EEE, dd/MM/yyyy - hh:mm"/>
+												</h:outputText>
+									 		  </small>
+								 		 </p>
+								 		 	<small>
+								 		  		<label>
+								 		  			<h:outputText style="margin-right: 2px;" value="#{mensagens['display.autor']}: " />
+								 		  		</label>
+								 		  		<h:outputText value="#{topico.usuario.nome}" />
+								 		  	</small>
+								 		</div>
+									 <!--  	
+									 <div class="linhaDoTempo-body">
+								 		<dl>
+								 			<dd><h:outputText escape="false" value="#{topico.descricao}" /> </dd>
+								 		</dl>
+								 	</div>
+									 -->
+								 		<div class="linhaDoTempo-footer">
+							                <h:commandLink action="#{meusTopicosBean.detalharTopico(topico)}" value="#{mensagens['display.visualizar']}" styleClass="btn btn-default btn-sm btn-flat">
+							                	<i class="glyphicon glyphicon-zoom-in"/>
+							                </h:commandLink>
+						                 	<h:commandLink action="#{meusTopicosBean.telaAtualizarTopico(topico)}" value="#{mensagens['display.alterar']}" styleClass="btn btn-default btn-sm btn-flat marginLeft_10" >
+						                 		<i class="fa fa-edit"/>
+						                 	</h:commandLink>
+					                  		<h:commandLink title="Excluir" value="#{mensagens['display.excluir']}" styleClass="btn btn-default btn-sm marginLeft_10 btn-flat">
+					                  			<i class="glyphicon glyphicon-trash"/>
+												<f:ajax event="click" execute="@this" onevent="showModalDelete('modalExcluir')"  listener="#{meusTopicosBean.topicoExcluir(topico)}" />	
+											</h:commandLink>
+										<div class="box-tools pull-right" align="right">
+											<ui:repeat var="categoria" value="#{topico.categorias}">
+												<h:outputText styleClass="label bg-black marginLeft_5" value="#{categoria.deCategoria}" />
+											</ui:repeat>
+										</div>
+								 	</div>
+								 	</h:panelGroup>
+							 	</div>
+							</li>
+						
+						</ui:repeat>
+					
+					</ul>
+					
+				
+				</div>
+			</div>
+			
+			<div class="clear"/>
+			
+			</h:form>
+			
+		</section>
+		<ui:include src="/paginas/util/modalGenerico.xhtml" >
+		    <ui:param name="bean" value="#{meusTopicosBean}" />
+		    <ui:param name="nomeModal" value="modalExcluir" />
+		    <ui:param name="titulo" value="#{mensagens['display.confirma.exclusao.topico']}" />
+		    <ui:param name="mensagem" value="" />
+		</ui:include>
+	</ui:define>
+</ui:composition>

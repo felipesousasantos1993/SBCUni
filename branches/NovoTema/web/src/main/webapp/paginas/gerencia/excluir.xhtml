@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/template/template.xhtml"
+>
+	<ui:define name="conteudo">
+	<section class="content-header">
+		<h1>
+			<h:outputText value="#{mensagens['display.gerencia.sistema']}" />
+			<small><h:outputText value="#{mensagens['display.cadastrar']}" /> </small>	
+		</h1>
+		<ol class="breadcrumb">
+			<li>
+				<h:outputLink>
+					<i class="fa fa-dashboard"/> 
+					<h:outputText value="#{mensagens['display.voce.esta.em']}" />
+				</h:outputLink>
+			</li>
+			<li>
+				<h:outputText value="#{mensagens['display.gerencia.sistema']}" />
+			</li>
+			<li class="active">
+				<h:outputText value="#{mensagens['display.excluir']}" />
+			</li>
+		</ol>
+	</section>
+	<section class="content">
+		<h:form prependId="false" id="form">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="box box-primary">
+						<div class="box-header">
+							<h3 class="box-title">
+								<h:outputText value="#{mensagens['display.confirma.exclusao.usuario']}" />
+							</h3>
+						</div>
+						
+						<div class="clear"/>
+						
+						<div class="aviso" >
+							<h:messages id="mensagens" fatalClass="callout callout-danger"  errorClass="callout callout-warning" infoClass="callout callout-success" warnClass="callout callout-info"/>
+						</div>
+						
+						<div class="box-body">
+							<dl>
+								<dt>
+									<h:outputText value="#{mensagens['display.perfil']}: " />
+								</dt>
+								<dd>
+									<h:outputText id="perfil" value="#{excluirBean.usuario.dePerfil}"/>
+								</dd>
+							</dl>
+							<dl>
+								<dt>
+									<h:outputText value="#{mensagens['display.nome.completo']}:" />
+								</dt>
+								<dd>
+									<h:outputText id="nome" value="#{excluirBean.usuario.nome}"/>
+								</dd>
+							</dl>
+							<dl>
+								<dt>
+									<h:outputText value="#{mensagens['display.matricula']}: "/>
+								</dt>
+								<dd>
+									<h:outputText id="matricula" value="#{excluirBean.usuario.matricula}"/>
+								</dd>
+							</dl>
+							<dl>
+								<dt>
+									<h:outputText value="#{mensagens['display.cpf']}: " />	
+								</dt>
+								<dd>
+									<h:outputText id="cpf" value="#{excluirBean.usuario.cpf}" converter="cpfConverter"/>
+								</dd>
+							</dl>
+							<dl>
+								<dt>
+									<h:outputText value="#{mensagens['display.email']}: " />
+								</dt>
+								<dd>
+									<h:outputText id="email" value="#{excluirBean.usuario.email}"/>
+								</dd>
+							</dl>
+							<dl>
+								<dt>
+									<h:outputText value="#{mensagens['display.senha']}: " />
+								</dt>
+								<dd>
+									<h:outputText id="senha" value="#{excluirBean.usuario.senha}"/>
+								</dd>
+							</dl>
+							<dl>
+								<dt>
+									<h:outputText value="#{mensagens['display.status']}: " />
+								</dt>
+								<dd>
+									<h:outputText id="status" value="#{excluirBean.usuario.deStatus}"/>
+								</dd>
+							</dl>
+						</div>
+						
+						<div class="clear"/>
+						
+						<div class="box-footer">
+							<h:commandButton action="#{excluirBean.excluirUsuario()}" styleClass="btn btn-danger" value="#{mensagens['display.excluir']}" />
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="clear"/>
+			</h:form>
+		</section>
+	</ui:define>
+</ui:composition>

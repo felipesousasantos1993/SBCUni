@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/template/template.xhtml"
+	xmlns:p="http://primefaces.org/ui"
+>
+	<ui:define name="conteudo">
+	<section  class="content-header">
+		<h1>
+			<h:outputText value="#{mensagens['display.menu.grupos.estudo']}" />
+			<small><h:outputText value="#{mensagens['display.detalhe.grupo']}" /> </small>	
+		</h1>
+		<ol class="breadcrumb">
+			<li>
+				<h:outputLink>
+					<i class="fa fa-dashboard"/> 
+					<h:outputText value="#{mensagens['display.voce.esta.em']}" />
+				</h:outputLink>
+			</li>
+			<li>
+				<h:outputText value="#{mensagens['display.menu.grupos.estudo']}" />
+			</li>
+			<li >
+				<h:outputText value="#{mensagens['display.meus.grupos']}" />
+			</li>
+			<li class="active">
+				<h:outputText value="#{mensagens['display.detalhe.grupo']}" />
+			</li>
+		</ol>
+	</section>
+	<section class="content">
+		<h:form prependId="false" id="form">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="box box-primary">
+						<div class="box-header">
+							<h3 class="box-title">
+								<h:outputText value="#{detalheGrupoEstudoBean.grupoEstudo.noGrupo}" />
+							</h3>
+						</div>
+						
+						<div class="clear"/>
+						<div class="aviso" >
+							<h:messages id="mensagens" fatalClass="callout callout-danger"  errorClass="callout callout-warning" infoClass="callout callout-success" warnClass="callout callout-info"/>
+						</div>
+						
+						<div class="box-body"  >
+							<dl>
+								<dt>
+									<h:outputText value="#{mensagens['display.professor']}: "/>
+								</dt>
+								<dd>
+									<h:outputText id="professor" value="#{detalheGrupoEstudoBean.grupoEstudo.professor.nome}" />
+								</dd>
+							</dl>
+							<div style="margin-bottom:20px;">
+								<h:commandLink value="#{mensagens['display.criar.topico']}" action="#{detalheGrupoEstudoBean.telaNovoTopico()}" styleClass="btn btn-default btn-xs">
+									<i class="fa fa-flag"/>
+								</h:commandLink>
+								<h:commandLink value="#{mensagens['display.excluir.topico']}" action="#" styleClass="btn btn-default btn-xs marginLeft_10">
+									<i class="fa fa-minus-circle"/>
+								</h:commandLink>
+								<h:commandLink value="#{mensagens['display.incluir.aluno']}" action="#" styleClass="btn btn-default btn-xs marginLeft_10">
+									<i class="fa fa-user"/>
+								</h:commandLink>
+								<h:commandLink value="#{mensagens['display.excluir.aluno']}" action="#" styleClass="btn btn-default btn-xs marginLeft_10">
+									<i class="fa fa-times"/>
+								</h:commandLink>
+								<h:commandLink value="#{mensagens['display.ver.linha.tempo']}" action="#" styleClass="btn btn-default btn-xs marginLeft_10">
+									<i class="fa fa-clock-o"/>
+								</h:commandLink>
+								<h:commandLink value="#{mensagens['display.editar.nome.grupo']}" action="#" styleClass="btn btn-default btn-xs marginLeft_10">
+									<i class="fa fa-edit"/>
+								</h:commandLink>
+							</div>
+							<div class="clear"/>
+							
+								<div class="nav-tabs-custom">
+									<ul class="nav nav-tabs">
+										<li>
+											<a href="#tab_alunos" data-toggle="tab">
+												<h:outputText value="#{mensagens['display.alunos']}" />
+											</a>
+										</li>
+										<li>
+											<a href="#tab_topicos" data-toggle="tab">
+												<h:outputText value="#{mensagens['display.topicos']}" />
+											</a>
+										</li>
+									</ul>
+									<div class="tab-content">
+										<div id="tab_alunos" class="tab-pane">
+											<div class="box-body table-responsive no-padding">
+												<h:dataTable
+													id="tabelaAlunos"
+													value="#{detalheGrupoEstudoBean.grupoEstudo.alunos}"
+													var="aluno"
+													styleClass="table table-hover"
+												>
+													<h:column>
+														<f:facet name="header">
+															<h:outputText value="#" />
+														</f:facet>
+														<h:outputText value="" />
+													</h:column>
+													<h:column>
+														<f:facet name="header">
+															<h:outputText value="#{mensagens['display.nome']}" />
+														</f:facet>
+														<h:outputText value="#{aluno.nome}" />
+													</h:column>
+													<h:column>
+														<f:facet name="header">
+															<h:outputText value="#{mensagens['display.matricula']}" />
+														</f:facet>
+														<h:outputText value="#{aluno.matricula}" />
+													</h:column>
+													<h:column>
+														<f:facet name="header">
+															<h:outputText value="#{mensagens['display.topicos']}" />
+														</f:facet>
+														<h:outputText value="" />
+													</h:column>
+													<h:column>
+														<f:facet name="header">
+															<h:outputText value="#{mensagens['display.comentarios']}" />
+														</f:facet>
+														<h:outputText value="" />
+													</h:column>
+												</h:dataTable>
+											</div>
+										</div>
+										<div id="tab_topicos" class="tab-pane">
+											<div class="box-body table-responsive no-padding">
+												<h:dataTable
+													id="tabelaTopico"
+													value="#{detalheGrupoEstudoBean.grupoEstudo.topicosGrupo}"
+													var="topico"
+													styleClass="table table-hover"
+													rendered="#{not empty detalheGrupoEstudoBean.grupoEstudo.topicosGrupo}"
+												>
+													<h:column>
+														<f:facet name="header">
+															<h:outputText value="#" />
+														</f:facet>
+														<h:outputText value="" />
+													</h:column>
+													<h:column>
+														<f:facet name="header">
+															<h:outputText value="#{mensagens['display.criado.em']}" />
+														</f:facet>
+														<h:commandLink action="#{detalheGrupoEstudoBean.detalharTopico(topico)}" >
+															<h:outputText  value="#{topico.dtCriacao}" >
+																<f:convertDateTime timeZone="America/Sao_Paulo" locale="pt_BR" pattern="dd/MM/yyyy - hh:mm"/>
+															</h:outputText>
+														</h:commandLink>
+													</h:column>
+													<h:column>
+														<f:facet name="header">
+															<h:outputText value="#{mensagens['display.titulo']}" />
+														</f:facet>
+														<h:commandLink action="#{detalheGrupoEstudoBean.detalharTopico(topico)}" value="#{topico.titulo}" />
+													</h:column>
+													<h:column>
+														<f:facet name="header">
+															<h:outputText value="#{mensagens['display.categoria']}" />
+														</f:facet>
+														<ui:repeat var="categoria" value="#{topico.categorias}">
+															<span class="label bg-black"><h:outputText value="#{categoria.deCategoria}" /></span>
+														</ui:repeat>
+													</h:column>
+													<h:column>
+														<f:facet name="header">
+															<h:outputText value="#{mensagens['display.comentarios']}" />
+														</f:facet>
+														<h:outputText value="" />
+													</h:column>
+													<h:column>
+														<f:facet name="header">
+															<h:outputText value="#{mensagens['display.avaliacao']}" />
+														</f:facet>
+														<span class="label bg-blue"><h:outputText value="#{topico.nuAvaliacaoPositivas}" /></span>
+														<span class="label bg-red"><h:outputText value="#{topico.nuAvaliacaoNegativas}" /></span>
+													</h:column>
+												</h:dataTable>
+											</div>
+										</div>
+									</div>
+								</div>
+						</div>
+						
+						<div class="clear"/>
+						
+					</div>
+				</div>
+			</div>
+			
+			<div class="clear"/>
+			
+			</h:form>
+		</section>
+	</ui:define>
+</ui:composition>

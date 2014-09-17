@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/template/template.xhtml"
+>
+	<ui:define name="conteudo">
+	<section class="content-header">
+		<h1>
+			<h:outputText value="#{mensagens['display.menu.topico']}" />
+			<small><h:outputText value="#{mensagens['display.meus.topicos']}" /> </small>	
+		</h1>
+		<ol class="breadcrumb">
+			<li>
+				<h:outputLink>
+					<i class="fa fa-dashboard"/> 
+					<h:outputText value="#{mensagens['display.voce.esta.em']}" />
+				</h:outputLink>
+			</li>
+			<li>
+				<h:outputText value="#{mensagens['display.menu.topico']}" />
+			</li>
+			<li>
+				<h:outputText value="#{mensagens['display.meus.topicos']}" />
+			</li>
+			<li class="active">
+				<h:outputText value="#{mensagens['display.visualizar.topico']}" />
+			</li>
+		</ol>
+	</section>
+	<section class="content">
+		<h:form prependId="false" id="form">
+		<h:inputHidden id="validator"/>
+			<div class="row">
+				<div class="col-md-12">
+				
+				<div class="clear"/>
+				
+					<div class="aviso" >
+						<h:messages id="mensagens" fatalClass="callout callout-danger"  errorClass="callout callout-warning" infoClass="callout callout-success" warnClass="callout callout-info"/>
+					</div>
+					
+					<ul class="linhaDoTempo">
+						<li class="linhaDoTempo-inverted">
+							<div class="linhaDoTempo-badge info">
+								<i class="glyphicon glyphicon-home"></i>
+							</div>
+							<div class="linhaDoTempo-panel">
+								<div class="linhaDoTempo-heading">
+									<h4 class="linhaDoTempo-title">
+										<h:outputText value="#{visualizarTopicoBean.topico.titulo}"/>
+									</h4>
+									<div class="linhaDoTempo-title">
+										<div class="box-tools pull-right topico-avaliacao">
+										
+										</div>
+									</div>
+									<p>
+										<small class="text-muted">
+											<i class="glyphicon glyphicon-time" style="margin-right: 2px;"/> 
+											<h:outputText value="#{visualizarTopicoBean.topico.dtCriacao}" >
+													<f:convertDateTime locale="pt_BR" timeZone="America/Sao_Paulo" pattern="EEE, dd/MM/yyyy - hh:mm"/>
+											</h:outputText>
+											<label><h:outputText value="#{mensagens['display.atualizado.em']}: " rendered="#{not empty visualizarTopicoBean.topico.dtUltimaAtualizacao}"/> </label>
+										   	<h:outputText value="#{visualizarTopicoBean.topico.dtUltimaAtualizacao}" rendered="#{not empty visualizarTopicoBean.topico.dtUltimaAtualizacao}" >
+												<f:convertDateTime locale="pt_BR" timeZone="America/Sao_Paulo" pattern="EEE, dd/MM/yyyy - hh:mm"/>
+											</h:outputText>
+										</small>
+									</p>
+									<small>
+										<label><h:outputText value="#{mensagens['display.autor']}: " /> </label>
+									</small>
+									<h:outputText value="#{visualizarTopicoBean.topico.usuario.nome}" />
+								</div>
+								<div class="linhaDoTempo-body">
+									<p>
+										<h:outputText value="#{visualizarTopicoBean.topico.descricao}" escape="false" />
+									</p>
+								</div>
+								<div class="linhaDoTempo-footer">
+									<a href="#descricao">
+										<h:outputLabel styleClass="btn btn-default btn-xs btn-flat" value="#{mensagens['display.comentar']}"  >
+											<i class="fa fa-comment-o" style="margin-right: 2px;"/>
+											<f:ajax event="click" render="@all" execute="descricao"   listener="#{visualizarTopicoBean.habilitarCampoComentario}"/>
+										</h:outputLabel>
+									</a>
+									<div class="box-tools pull-right" align="right">
+										<ui:repeat var="categoria" value="#{visualizarTopicoBean.topico.categorias}">
+											<h:outputText styleClass="label bg-black marginLeft_5" value="#{categoria.deCategoria}" />
+										</ui:repeat>
+									</div>
+								</div>
+							</div>
+						</li>
+					</ul>
+					<div>
+						<hr class="hrEditado"/>
+					</div>
+					<!-- <h6>
+						<h:outputText value="#{mensagens['display.nenhum.comentario.seja.primeiro']}" rendered="#{empty visualizarTopicoBean.topico.comentarios}"/>
+					</h6>
+					 -->
+					<ul class="timeline">
+						<ui:repeat var="comentario" varStatus="comentarioStatus" value="#{visualizarTopicoBean.topico.comentarios}">
+							<li>
+								<h:graphicImage value="/resources/img/avatar.png" styleClass="img-circle img-circle-timeline" alt="Foto Perfil" />
+								<div class="timeline-item">
+								 <h:panelGroup id="avaliacao">
+									<small class="text-muted">
+										<i class="glyphicon glyphicon-time" style="margin-right: 2px;"></i>
+										<h:outputText value="#{comentario.dtCriacao}" >
+											<f:convertDateTime timeZone="America/Sao_Paulo" locale="pt_BR" pattern="EEE, dd/MM/yyyy - hh:mm"/>
+										</h:outputText>
+										<label><h:outputText value="#{mensagens['display.atualizado.em']}: "  rendered="#{not empty comentario.dtUltimaAtualizacao}"/> </label>
+										<h:outputText value="#{comentario.dtUltimaAtualizacao}"  rendered="#{not empty comentario.dtUltimaAtualizacao}">
+											<f:convertDateTime timeZone="America/Sao_Paulo" locale="pt_BR" pattern="EEE, dd/MM/yyyy - hh:mm"/>
+										</h:outputText>
+									</small>
+									<h5 class="timeline-header" style="font-size:11px;">
+										<label>
+											<h:outputText value="#{mensagens['display.autor']}: " />
+										</label>
+										<h:outputText value="#{comentario.usuario.nome}" />
+										<div class="box-tools pull-right topico-avaliacao" align="right">
+								 		 		
+					 		 		<div class="label bg-blue">
+							 			<h:outputText value="#{comentario.nuAvaliacaoPositivas}" />
+							 		</div>
+							 		<div class="label bg-red">
+							 			<h:outputText value="#{comentario.nuAvaliacaoNegativas}" />
+							 		</div>
+					 		 		
+							 		<div class="btn-group-vertical" style="top: -25px;">
+							 			<h:panelGroup rendered="#{comentario.avaliacaoUsuario.avaliacao == false}"> 
+							 		 		<h:commandLink styleClass="btn btn-default" >
+							 		 			<i class="glyphicon glyphicon-thumbs-up" style="font-size:14px;"/>
+							 		 			<f:ajax event="click" render="avaliacao" listener="#{visualizarTopicoBean.curtirComentario(comentario)}" immediate="true" execute="@form"/>
+							 		 		</h:commandLink>
+							 		 		<h:commandLink styleClass="btn btn-default disabled-editado">
+							 		 			<i class="glyphicon glyphicon-thumbs-down" style="font-size:14px;"/>
+							 		 			<f:ajax event="click" render="avaliacao" listener="#{visualizarTopicoBean.removerAvaliacaoComentario(comentario)}" immediate="true" execute="@form"/>
+							 		 		</h:commandLink>
+							 		 	</h:panelGroup>
+							 		 	<h:panelGroup rendered="#{comentario.avaliacaoUsuario.avaliacao == true}">
+							 		 		<h:commandLink styleClass="btn btn-default disabled-editado">
+								 		 		<i class="glyphicon bs-glyphicons glyphicon-thumbs-up" style="font-size:14px;"/>
+								 		 		<f:ajax event="click" render="avaliacao" listener="#{visualizarTopicoBean.removerAvaliacaoComentario(comentario)}" immediate="true" execute="@form"/>
+							 		 		</h:commandLink>
+								 		 	<h:commandLink styleClass="btn btn-default">
+								 		 		<i class="glyphicon glyphicon-thumbs-down" style="font-size:14px;"/>
+								 		 		<f:ajax event="click" execute="avaliacao" render="avaliacao" listener="#{visualizarTopicoBean.descurtirComentario(comentario)}"/>
+							 		 		</h:commandLink>
+							 		 	</h:panelGroup>
+							 		 	<h:panelGroup rendered="#{empty comentario.avaliacaoUsuario}">
+							 		 		<h:commandLink styleClass="btn btn-default" >
+							 		 			<i class="glyphicon glyphicon-thumbs-up" style="font-size:14px;"/> 
+							 		 			<f:ajax event="click" render="avaliacao" listener="#{visualizarTopicoBean.curtirComentario(comentario)}" immediate="true" execute="@form"/>
+							 		 		</h:commandLink>
+							 		 		<h:commandLink styleClass="btn btn-default">
+								 		 		<i class="glyphicon glyphicon-thumbs-down" style="font-size:14px;"/>
+								 		 		<f:ajax event="click" execute="avaliacao" render="avaliacao" listener="#{visualizarTopicoBean.descurtirComentario(comentario)}"/>
+							 		 		</h:commandLink>
+							 		 		
+							 		 	</h:panelGroup>
+						 		 	</div>
+						 		 </div>
+									</h5>
+									<div class="timeline-body">
+										<h:outputText value="#{comentario.descricao}" escape="false"/>
+									</div>
+									<div class="timeline-footer">
+										<h:outputLabel styleClass="labelLink" rendered="#{usuarioSessionBean.usuarioSessao.idUsuario eq comentario.usuario.idUsuario}" title="Clique aqui para editar o comentário">
+											<i class="glyphicon glyphicon-edit marginLeft_5"/>
+											<f:ajax event="click" render="@all" listener="#{visualizarTopicoBean.editarComentario(comentario)}"/>
+										</h:outputLabel>
+										
+										<h:outputLabel styleClass="labelLink" rendered="#{usuarioSessionBean.usuarioSessao.idUsuario eq comentario.usuario.idUsuario}" title="Clique aqui para excluir o comentário">
+											<i class="glyphicon glyphicon-trash marginLeft_10"/>
+											<f:ajax event="click" render="excluirComentario" listener="#{visualizarTopicoBean.exibirMsgExcluir(comentarioStatus.index)}" />
+										</h:outputLabel>
+										
+										<h:panelGroup id="excluirComentario" styleClass="transition">
+											<h:outputText id="msgExcluir" value="#{mensagens['display.confirma.exclusao.comentario']}" styleClass="marginLeft_5 transition" rendered="#{visualizarTopicoBean.msgExcluirComentario and visualizarTopicoBean.idComentario eq comentarioStatus.index}" />
+											<h:outputLabel id="btnExcluirSim" value="#{mensagens['display.sim']}" styleClass="marginLeft_10 labelLink" rendered="#{visualizarTopicoBean.msgExcluirComentario and visualizarTopicoBean.idComentario eq comentarioStatus.index}">
+												<f:ajax event="click" render="@form" listener="#{visualizarTopicoBean.excluirComentario(comentario)}" />
+											</h:outputLabel>
+											<h:outputLabel id="btnExcluirNao" value="#{mensagens['display.nao']}" styleClass="marginLeft_10 labelLink" rendered="#{visualizarTopicoBean.msgExcluirComentario and visualizarTopicoBean.idComentario eq comentarioStatus.index}" >
+												<f:ajax event="click" render="@form" listener="#{visualizarTopicoBean.fecharMsgExcluir}"/>
+											</h:outputLabel>
+										</h:panelGroup>
+									</div>
+									</h:panelGroup>
+								</div>
+							</li>
+						</ui:repeat>
+						
+						<h:panelGroup rendered="#{not empty visualizarTopicoBean.topico.comentarios}">
+						<li><i class="fa fa-clock-o"/> </li>
+						</h:panelGroup>
+						<div class="box-comentario">
+							<h:panelGroup rendered="#{visualizarTopicoBean.textAreaComentario}" >
+								<h:inputText id="descricao"  value="#{visualizarTopicoBean.comentario.descricao}"  styleClass="textarea form-control x95" style="height:20% !important; overflow: hidden !important;"/>
+								<h:outputLabel value="#{mensagens['display.ok']}"  styleClass="btn  btn-xs" >
+									<f:ajax event="click" render="@form" execute="descricao" listener="#{visualizarTopicoBean.comentar()}"/>
+								</h:outputLabel>
+								<h:outputLabel  value="#{mensagens['display.cancelar']}" styleClass="btn btn-xs marginLeft_5 ">
+									<f:ajax event="click" render="@form" listener="#{visualizarTopicoBean.desabilitarCampoComentario()}"/>
+								</h:outputLabel>
+							</h:panelGroup>
+						</div>
+					</ul>
+					
+				</div>
+			</div>
+			<div class="clear"/>
+			
+			</h:form>
+		</section>
+	</ui:define>
+</ui:composition>
