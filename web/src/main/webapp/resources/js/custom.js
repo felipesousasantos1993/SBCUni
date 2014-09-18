@@ -2,7 +2,7 @@
 $(document).ready(function() {
 	mascaras();
 	marcaDagua();
-	$('.textarea').wysihtml5();
+	/*$('.textarea').wysihtml5();*/
 } );
 
 function editorTexto() {

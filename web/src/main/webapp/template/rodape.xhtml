@@ -7,17 +7,20 @@
 	<f:facet name="rodape" />
 
 	<h:outputScript library="js" name="jquery.js" />
-	<h:outputScript library="js" name="jquery-ui-1.10.3.js" />
+	<h:outputScript library="js" name="jquery.min.js" />
 	<h:outputScript library="js" name="bootstrap.min.js" />
-	<h:outputScript library="js" name="plugins/morris/morris.js" />
-	<h:outputScript library="js" name="plugins/jqueryKnob/jquery.knob.js" />
-	<h:outputScript library="js" name="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js" />
-	<h:outputScript library="js" name="plugins/iCheck/icheck.min.js" />
-	<h:outputScript library="js" name="plugins/datatables/jquery.dataTables.js" />
-	<h:outputScript library="js" name="plugins/datatables/dataTables.bootstrap.js" />
-	<h:outputScript library="js" name="bootstrap-mask.js" />
-	<h:outputScript library="js" name="AdminLTE/app.js" />
+	<h:outputScript library="js" name="pixel-admin.min.js" />
+	<h:outputScript library="js" name="jquery.mockjax.js" />
+	<h:outputScript library="js" name="demo-mock.js" />
 	<h:outputScript library="js" name="custom.js" />
-	<h:outputScript library="js" name="select2.js" />
-	<h:outputScript library="js" name="AdminLTE/demo.js" />
+	<script type="text/javascript">
+	init.push(function () {
+		$('body').on('click', '.header-1, .header-2', function () {
+			$('html,body').animate({ scrollTop: $($(this).attr('href')).offset().top - $('#main-navbar').outerHeight() }, 1000);
+			return false;
+		});
+	});
+
+	window.PixelAdmin.start(init);
+</script>
 </ui:composition>

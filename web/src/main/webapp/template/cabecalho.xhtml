@@ -5,247 +5,230 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 	<f:facet name="cabecalho" />
-	<header class="header">
-		<h:outputLink styleClass="logo">
-			<h:outputText value="Faloo" />
-		</h:outputLink>
-		<nav class="navbar navbar-static-top" role="navigation">
-			<a href="#" class="navbar-btn sidebar-toggle" data-toggle="offcanvas" role="button">
-                   <span class="sr-only">Toggle navigation</span>
-                   <span class="icon-bar"></span>
-                   <span class="icon-bar"></span>
-                   <span class="icon-bar"></span>
-               </a>
-			<div class="navbar-right">
-		<ul class="nav navbar-nav">
-			<li class="dropdown messages-menu"><a href="#"
-				class="dropdown-toggle" data-toggle="dropdown"> <i class="fa fa-envelope"></i> <span class="label label-success">4</span>
-			</a>
-				<ul class="dropdown-menu">
-					<li class="header">Você tem 4 mensagens</li>
-					<li>
-						<!-- inner menu: contains the actual data -->
-						<ul class="menu">
-							<li>
-								<!-- start message --> <a href="#">
-									<div class="pull-left">
-										<h:graphicImage value="/resources/img/avatar.png"
-											styleClass="img-circle" alt="Foto Perfil" />
-									</div>
-									<h4>
-										Equipe de Suporte <small><i class="fa fa-clock-o"></i>
-											5 minutos</small>
-									</h4>
-									<p>Porque não comprar um novo tema incrível?</p>
-							</a>
-							</li>
-							<!-- end message -->
-							<li><a href="#">
-									<div class="pull-left">
-										<h:graphicImage value="/resources/img/avatar.png"
-											styleClass="img-circle" alt="Foto Perfil" />
-									</div>
-									<h4>
-										AdminLTE Design Team <small><i class="fa fa-clock-o"></i>
-											2 horas</small>
-									</h4>
-									<p>Porque não comprar um novo tema incrível?</p>
-							</a></li>
-							<li><a href="#">
-									<div class="pull-left">
-										<h:graphicImage value="/resources/img/avatar.png"
-											styleClass="img-circle" alt="Foto Perfil" />
-									</div>
-									<h4>
-										Desenvolvedores <small><i class="fa fa-clock-o"></i>
-											Hoje</small>
-									</h4>
-									<p>Why not buy a new awesome theme?</p>
-							</a></li>
-							<li><a href="#">
-									<div class="pull-left">
-										<h:graphicImage value="/resources/img/avatar.png"
-											styleClass="img-circle" alt="Foto Perfil" />
-									</div>
-									<h4>
-										Departamento de Vendas <small><i class="fa fa-clock-o"></i>
-											Ontem</small>
-									</h4>
-									<p>Why not buy a new awesome theme?</p>
-							</a></li>
-							<li><a href="#">
-									<div class="pull-left">
-										<h:graphicImage value="/resources/img/avatar.png" styleClass="img-circle" alt="Foto Perfil" />
-									</div>
-									<h4>
-										Reviewers <small><i class="fa fa-clock-o"></i> 2 days</small>
-									</h4>
-									<p>Why not buy a new awesome theme?</p>
-							</a></li>
-								</ul>
-								</li>
-							<li class="footer"><a href="#">Visualizar Todos Mensagens</a></li>
-						</ul>
-					</li>
-					<li class="dropdown notifications-menu">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <i class="fa fa-warning"></i>
-                                <span class="label label-warning">10</span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li class="header">You have 10 notifications</li>
-                                <li>
-                                    <!-- inner menu: contains the actual data -->
-                                    <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 200px;"><ul class="menu" style="overflow: hidden; width: 100%; height: 200px;">
-                                        <li>
-                                            <a href="#">
-                                                <i class="ion ion-ios7-people info"></i> 5 new members joined today
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                <i class="fa fa-warning danger"></i> Very long description here that may not fit into the page and may cause design problems
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                <i class="fa fa-users warning"></i> 5 new members joined
-                                            </a>
-                                        </li>
+	<div id="main-navbar" class="navbar navbar-inverse" role="navigation">
+		<!-- Main menu toggle -->
+		<button type="button" id="main-menu-toggle"><i class="navbar-icon fa fa-bars icon"></i><span class="hide-menu-text">HIDE MENU</span></button>
+		
+		<div class="navbar-inner">
+			<!-- Main navbar header -->
+			<div class="navbar-header">
 
-                                        <li>
-                                            <a href="#">
-                                                <i class="ion ion-ios7-cart success"></i> 25 sales made
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                <i class="ion ion-ios7-person danger"></i> You changed your username
-                                            </a>
-                                        </li>
-                                    </ul><div class="slimScrollBar" />
-                                    <div class="slimScrollRail" style="width: 3px; height: 100%; position: absolute; top: 0px; display: none; border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px; opacity: 0.2; z-index: 90; right: 1px; background: rgb(51, 51, 51);"></div></div>
-                                </li>
-                                <li class="footer"><a href="#">View all</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown tasks-menu">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <i class="fa fa-tasks"></i>
-                                <span class="label label-danger">9</span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li class="header">You have 9 tasks</li>
-                                <li>
-                                    <!-- inner menu: contains the actual data -->
-                                    <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 200px;"><ul class="menu" style="overflow: hidden; width: 100%; height: 200px;">
-                                        <li><!-- Task item -->
-                                            <a href="#">
-                                                <h3>
-                                                    Design some buttons
-                                                    <small class="pull-right">20%</small>
-                                                </h3>
-                                                <div class="progress xs">
-                                                    <div class="progress-bar progress-bar-aqua" style="width: 20%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                                                        <span class="sr-only">20% Complete</span>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </li><!-- end task item -->
-                                        <li><!-- Task item -->
-                                            <a href="#">
-                                                <h3>
-                                                    Create a nice theme
-                                                    <small class="pull-right">40%</small>
-                                                </h3>
-                                                <div class="progress xs">
-                                                    <div class="progress-bar progress-bar-green" style="width: 40%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                                                        <span class="sr-only">40% Complete</span>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </li><!-- end task item -->
-                                        <li><!-- Task item -->
-                                            <a href="#">
-                                                <h3>
-                                                    Some task I need to do
-                                                    <small class="pull-right">60%</small>
-                                                </h3>
-                                                <div class="progress xs">
-                                                    <div class="progress-bar progress-bar-red" style="width: 60%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                                                        <span class="sr-only">60% Complete</span>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </li><!-- end task item -->
-                                        <li><!-- Task item -->
-                                            <a href="#">
-                                                <h3>
-                                                    Make beautiful transitions
-                                                    <small class="pull-right">80%</small>
-                                                </h3>
-                                                <div class="progress xs">
-                                                    <div class="progress-bar progress-bar-yellow" style="width: 80%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                                                        <span class="sr-only">80% Complete</span>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </li><!-- end task item -->
-                                    </ul><div class="slimScrollBar" style="width: 3px; position: absolute; top: 0px; opacity: 0.4; display: block; border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px; z-index: 99; right: 1px; background: rgb(0, 0, 0);"></div><div class="slimScrollRail" style="width: 3px; height: 100%; position: absolute; top: 0px; display: none; border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px; opacity: 0.2; z-index: 90; right: 1px; background: rgb(51, 51, 51);"></div></div>
-                                </li>
-                                <li class="footer">
-                                    <a href="#">View all tasks</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="dropdown user user-menu">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <i class="glyphicon glyphicon-user"></i>
-                                <span>
-                                	<h:outputText value="#{usuarioSessionBean.usuarioSessao.nome}" />
-                                <i class="caret"></i></span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <!-- User image -->
-                                <li class="user-header bg-light-blue">
-                               	  	<h:graphicImage value="/resources/img/avatar.png" styleClass="img-circle" alt="Foto Perfil" />
-                                    <p>
-                                        <h:outputText value="#{usuarioSessionBean.usuarioSessao.nome}" />
-                                        <small>
-                                        	<h:outputText value="#{mensagens['display.membro.desde']} " />
-                                        	<h:outputText value="#{usuarioSessionBean.usuarioSessao.dtCadastro}" >
-                                        		<f:convertDateTime timeZone="America/Sao_Paulo" locale="pt_BR" pattern="MMMMMMMMM yyyy"/>
-                                        	</h:outputText>
-                                        </small>
-                                    </p>
-                                </li>
-                                <!-- Menu Body -->
-                                <li class="user-body">
-                                    <div class="col-xs-4 text-center">
-                                        <a href="#">Followers</a>
-                                    </div>
-                                    <div class="col-xs-4 text-center">
-                                        <a href="#">Sales</a>
-                                    </div>
-                                    <div class="col-xs-4 text-center">
-                                        <a href="#">Friends</a>
-                                    </div>
-                                </li>
-                                <!-- Menu Footer-->
-                                <li class="user-footer">
-                                <h:form>
-                                    <div class="pull-left">
-                                    	<h:commandLink value="#{mensagens['display.perfil']}" action="#" styleClass="btn btn-default btn-fla"/>
-                                    </div>
-                                    <div class="pull-right">
-                                    	<h:commandLink  value="#{mensagens['display.sair']}" action="#{loginBean.deslogar()}" styleClass="btn btn-default btn-flat"/>
-                                    </div>
-                                </h:form>
-                                </li>
-                            </ul>
-                        </li>
-				</ul>
-			</div>
-		</nav>
-	</header>
+				<!-- Logo -->
+				<a href="http://infinite-woodland-5276.herokuapp.com/index.html" class="navbar-brand">
+					Faloo
+				</a>
+
+				<!-- Main navbar toggle -->
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-navbar-collapse"><i class="navbar-icon fa fa-bars"></i></button>
+
+			</div> <!-- / .navbar-header -->
+
+			<div id="main-navbar-collapse" class="collapse navbar-collapse main-navbar-collapse">
+				<div>
+					<div class="right clearfix">
+						<ul class="nav navbar-nav pull-right right-navbar-nav">
+							<li class="nav-icon-btn nav-icon-btn-danger dropdown">
+								<a href="#notifications" class="dropdown-toggle" data-toggle="dropdown">
+									<span class="label">5</span>
+									<i class="nav-icon fa fa-bullhorn"></i>
+									<span class="small-screen-text">Notificações</span>
+								</a>
+
+								<!-- NOTIFICATIONS -->
+								
+								<!-- Javascript -->
+								<script>
+									init.push(function () {
+										$('#main-navbar-notifications').slimScroll({ height: 250 });
+									});
+								</script>
+								<!-- / Javascript -->
+
+								<div class="dropdown-menu widget-notifications no-padding" style="width: 300px">
+									<div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 250px;"><div class="notifications-list" id="main-navbar-notifications" style="overflow: hidden; width: auto; height: 250px;">
+
+										<div class="notification">
+											<div class="notification-title text-danger">SYSTEM</div>
+											<div class="notification-description"><strong>Error 500</strong>: Syntax error in index.php at line <strong>461</strong>.</div>
+											<div class="notification-ago">12h ago</div>
+											<div class="notification-icon fa fa-hdd-o bg-danger"></div>
+										</div> <!-- / .notification -->
+
+										<div class="notification">
+											<div class="notification-title text-info">STORE</div>
+											<div class="notification-description">You have <strong>9</strong> new orders.</div>
+											<div class="notification-ago">12h ago</div>
+											<div class="notification-icon fa fa-truck bg-info"></div>
+										</div> <!-- / .notification -->
+
+										<div class="notification">
+											<div class="notification-title text-default">CRON DAEMON</div>
+											<div class="notification-description">Job <strong>"Clean DB"</strong> has been completed.</div>
+											<div class="notification-ago">12h ago</div>
+											<div class="notification-icon fa fa-clock-o bg-default"></div>
+										</div> <!-- / .notification -->
+
+										<div class="notification">
+											<div class="notification-title text-success">SYSTEM</div>
+											<div class="notification-description">Server <strong>up</strong>.</div>
+											<div class="notification-ago">12h ago</div>
+											<div class="notification-icon fa fa-hdd-o bg-success"></div>
+										</div> <!-- / .notification -->
+
+										<div class="notification">
+											<div class="notification-title text-warning">SYSTEM</div>
+											<div class="notification-description"><strong>Warning</strong>: Processor load <strong>92%</strong>.</div>
+											<div class="notification-ago">12h ago</div>
+											<div class="notification-icon fa fa-hdd-o bg-warning"></div>
+										</div> <!-- / .notification -->
+
+									</div><div class="slimScrollBar" style="width: 7px; position: absolute; top: 0px; opacity: 0.4; display: none; border-top-left-radius: 7px; border-top-right-radius: 7px; border-bottom-right-radius: 7px; border-bottom-left-radius: 7px; z-index: 99; right: 1px; background: rgb(0, 0, 0);"></div><div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-top-left-radius: 7px; border-top-right-radius: 7px; border-bottom-right-radius: 7px; border-bottom-left-radius: 7px; opacity: 0.2; z-index: 90; right: 1px; background: rgb(51, 51, 51);"></div></div> <!-- / .notifications-list -->
+									<a href="#" class="notifications-link">MORE NOTIFICATIONS</a>
+								</div> <!-- / .dropdown-menu -->
+							</li>
+							<li class="nav-icon-btn nav-icon-btn-success dropdown">
+								<a href="#messages" class="dropdown-toggle" data-toggle="dropdown">
+									<span class="label">10</span>
+									<i class="nav-icon fa fa-envelope"></i>
+									<span class="small-screen-text">Income messages</span>
+								</a>
+
+								<!-- MESSAGES -->
+								
+								<!-- Javascript -->
+								<script>
+									init.push(function () {
+										$('#main-navbar-messages').slimScroll({ height: 250 });
+									});
+								</script>
+								<!-- / Javascript -->
+
+								<div class="dropdown-menu widget-messages-alt no-padding" style="width: 300px;">
+									<div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 250px;"><div class="messages-list" id="main-navbar-messages" style="overflow: hidden; width: auto; height: 250px;">
+
+										<div class="message">
+											<h:graphicImage library="img" value="/resources/img/2.jpg" styleClass="message-avatar"/>
+											<a href="#" class="message-subject">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</a>
+											<div class="message-description">
+												from <a href="#">Robert Jang</a>
+												2h ago
+											</div>
+										</div> <!-- / .message -->
+
+										<div class="message">
+											<h:graphicImage library="img" value="/resources/img/2.jpg" styleClass="message-avatar"/>
+											<a href="#" class="message-subject">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</a>
+											<div class="message-description">
+												from <a href="#">Michelle Bortz</a>
+												2h ago
+											</div>
+										</div> <!-- / .message -->
+
+										<div class="message">
+											<h:graphicImage library="img" value="/resources/img/2.jpg" styleClass="message-avatar"/>
+											<a href="#" class="message-subject">Lorem ipsum dolor sit amet.</a>
+											<div class="message-description">
+												from <a href="#">Timothy Owens</a>
+												2h ago
+											</div>
+										</div> <!-- / .message -->
+
+										<div class="message">
+											<h:graphicImage library="img" value="/resources/img/2.jpg" styleClass="message-avatar"/>
+											<a href="#" class="message-subject">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</a>
+											<div class="message-description">
+												from <a href="#">Denise Steiner</a>
+												2h ago
+											</div>
+										</div> <!-- / .message -->
+
+										<div class="message">
+											<h:graphicImage library="img" value="/resources/img/2.jpg" styleClass="message-avatar"/>
+											<a href="#" class="message-subject">Lorem ipsum dolor sit amet.</a>
+											<div class="message-description">
+												from <a href="#">Robert Jang</a>
+												2h ago
+											</div>
+										</div> <!-- / .message -->
+
+										<div class="message">
+											<h:graphicImage library="img" value="/resources/img/2.jpg" styleClass="message-avatar"/>
+											<a href="#" class="message-subject">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</a>
+											<div class="message-description">
+												from <a href="#">Robert Jang</a>
+												2h ago
+											</div>
+										</div> <!-- / .message -->
+
+										<div class="message">
+											<h:graphicImage library="img" value="/resources/img/2.jpg" styleClass="message-avatar"/>
+											<a href="#" class="message-subject">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</a>
+											<div class="message-description">
+												from <a href="#">Michelle Bortz</a>
+												2h ago
+											</div>
+										</div> <!-- / .message -->
+
+										<div class="message">
+											<h:graphicImage library="img" value="/resources/img/2.jpg" styleClass="message-avatar"/>
+											<a href="#" class="message-subject">Lorem ipsum dolor sit amet.</a>
+											<div class="message-description">
+												from <a href="#">Timothy Owens</a>
+												2h ago
+											</div>
+										</div> <!-- / .message -->
+
+										<div class="message">
+											<h:graphicImage library="img" value="/resources/img/2.jpg" styleClass="message-avatar"/>
+											<a href="#" class="message-subject">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</a>
+											<div class="message-description">
+												from <a href="#">Denise Steiner</a>
+												2h ago
+											</div>
+										</div> <!-- / .message -->
+
+										<div class="message">
+											<h:graphicImage library="img" value="/resources/img/2.jpg" styleClass="message-avatar"/>
+											<a href="#" class="message-subject">Lorem ipsum dolor sit amet.</a>
+											<div class="message-description">
+												from <a href="#">Robert Jang</a>
+												2h ago
+											</div>
+										</div> <!-- / .message -->
+
+									</div><div class="slimScrollBar" style="width: 7px; position: absolute; top: 0px; opacity: 0.4; display: none; border-top-left-radius: 7px; border-top-right-radius: 7px; border-bottom-right-radius: 7px; border-bottom-left-radius: 7px; z-index: 99; right: 1px; background: rgb(0, 0, 0);"></div><div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-top-left-radius: 7px; border-top-right-radius: 7px; border-bottom-right-radius: 7px; border-bottom-left-radius: 7px; opacity: 0.2; z-index: 90; right: 1px; background: rgb(51, 51, 51);"></div></div> <!-- / .messages-list -->
+									<a href="#" class="messages-link"><h:outputText value="#{mensagens['display.mais.mensagens.cap']}" /> </a>
+								</div> <!-- / .dropdown-menu -->
+							</li>
+					<!-- /3. $END_NAVBAR_ICON_BUTTONS -->
+
+							<li>
+								<form class="navbar-form pull-left">
+									<input type="text" class="form-control" placeholder="Search"/>
+								</form>
+							</li>
+
+							<li class="dropdown">
+								<h:form id="formSair" prependId="false" style="margin-left: 10px;">
+									<a href="#" class="dropdown-toggle user-menu" data-toggle="dropdown">
+										<h:graphicImage library="img" value="/resources/img/2.jpg" styleClass="message-avatar"/>
+										<span>John Doe</span>
+									</a>
+									<ul class="dropdown-menu">
+										<li><a href="#"><h:outputText value="#{mensagens['display.perfil']}" /> </a></li>
+										<li class="divider"></li>
+										<li>
+											<h:commandLink value="#{mensagens['display.sair']}" action="#{loginBean.deslogar}" >
+												<i class="dropdown-icon fa fa-power-off"/>
+											</h:commandLink>
+										</li>
+									</ul>
+								</h:form>
+							</li>
+						</ul> <!-- / .navbar-nav -->
+					</div> <!-- / .right -->
+				</div>
+			</div> <!-- / #main-navbar-collapse -->
+		</div> <!-- / .navbar-inner -->
+	</div>
 </ui:composition>

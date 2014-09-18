@@ -8,15 +8,16 @@
 	template="/template/template.xhtml"
 >
 	<ui:define name="conteudo">
-	<section class="content-header">
+	<div class="page-header">
 		<h1>
-			<h:outputText value="#{mensagens['display.menu.topico']}" />
-			<small><h:outputText value="#{mensagens['display.meus.topicos']}" /> </small>	
+			<span class="text-light-gray">
+				<h:outputText value="#{mensagens['display.menu.topico']}/ " />
+			</span>
+			<h:outputText value="#{mensagens['display.ultimos.topicos']}" /> 
 		</h1>
 		<ol class="breadcrumb">
 			<li>
 				<h:outputLink>
-					<i class="fa fa-dashboard"/> 
 					<h:outputText value="#{mensagens['display.voce.esta.em']}" />
 				</h:outputLink>
 			</li>
@@ -27,8 +28,8 @@
 				<h:outputText value="#{mensagens['display.meus.topicos']}" />
 			</li>
 		</ol>
-	</section>
-	<section id="content" class="content">
+	</div>
+	<div id="content" class="content">
 		<h:form prependId="false" id="form">
 		<h:inputHidden id="validator"/>
 			<div class="row">
@@ -128,13 +129,13 @@
 								 	</div>
 									 -->
 								 		<div class="linhaDoTempo-footer">
-							                <h:commandLink action="#{meusTopicosBean.detalharTopico(topico)}" value="#{mensagens['display.visualizar']}" styleClass="btn btn-default btn-sm btn-flat">
+							                <h:commandLink action="#{meusTopicosBean.detalharTopico(topico)}" value="#{mensagens['display.visualizar']}" styleClass="btn btn-default btn-xs  ">
 							                	<i class="glyphicon glyphicon-zoom-in"/>
 							                </h:commandLink>
-						                 	<h:commandLink action="#{meusTopicosBean.telaAtualizarTopico(topico)}" value="#{mensagens['display.alterar']}" styleClass="btn btn-default btn-sm btn-flat marginLeft_10" >
+						                 	<h:commandLink action="#{meusTopicosBean.telaAtualizarTopico(topico)}" value="#{mensagens['display.alterar']}" styleClass="btn btn-default btn-xs   marginLeft_10" >
 						                 		<i class="fa fa-edit"/>
 						                 	</h:commandLink>
-					                  		<h:commandLink title="Excluir" value="#{mensagens['display.excluir']}" styleClass="btn btn-default btn-sm marginLeft_10 btn-flat">
+					                  		<h:commandLink title="Excluir" value="#{mensagens['display.excluir']}" styleClass="btn btn-default btn-xs marginLeft_10">
 					                  			<i class="glyphicon glyphicon-trash"/>
 												<f:ajax event="click" execute="@this" onevent="showModalDelete('modalExcluir')"  listener="#{meusTopicosBean.topicoExcluir(topico)}" />	
 											</h:commandLink>
@@ -160,7 +161,7 @@
 			
 			</h:form>
 			
-		</section>
+		</div>
 		<ui:include src="/paginas/util/modalGenerico.xhtml" >
 		    <ui:param name="bean" value="#{meusTopicosBean}" />
 		    <ui:param name="nomeModal" value="modalExcluir" />
