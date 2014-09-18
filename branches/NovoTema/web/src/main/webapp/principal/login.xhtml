@@ -1,45 +1,69 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
->
-	<html class="lockscreen">
-		<h:head>	
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	<html class="gt-ie8 gt-ie9 not-ie pxajs">
+		<h:head>
 			<title>Faloo - Login</title>
-	       	<h:outputStylesheet library="css" name="bootstrap.min.css" />
-			<h:outputStylesheet library="css" name="font-awesome.min.css" />
-			<h:outputStylesheet library="css" name="AdminLTE.css" />
+			 <h:outputStylesheet library="css" name="bootstrap.min.css" />
+			 <h:outputStylesheet library="css" name="codemirror.min.css" />
+			 <h:outputStylesheet library="css" name="pages.min.css" />
+			 <h:outputStylesheet library="css" name="pixel-admin.min.css" />
+			 <h:outputStylesheet library="css" name="rtl.min.css" />
+			 <h:outputStylesheet library="css" name="themes.min.css" />
+			 <h:outputStylesheet library="css" name="widgets.min.css" />
+			 <h:outputScript library="js" name="jquery.min.js" />
+			<h:outputScript library="js" name="marca-dagua.js"/>
 		</h:head>
-		<h:form id="form" prependId="false">
-			<div class="center" style="padding-top:15%;">
-				
-				<div class="lockscreen-item">
-					<div class="lockscreen-credentials">
-						<div class="input-group">
-							<h:inputText id="matricula" autocomplete="off" required="true" value="#{loginBean.matricula}"  styleClass="form-control" title="Insira a matrícula"/>
-						</div>
-						<div class="input-group">
-							<h:inputSecret id="senha" autocomplete="off" required="true" value="#{loginBean.senha}" styleClass="form-control" title="Insira a senha"/>
-							
-							<div class="input-group-btn">
-								<h:commandLink action="#{loginBean.logar}" styleClass="btn btn-flat" title="Logar">
-									<i class="fa fa-arrow-right text-muted"/>
-								</h:commandLink>
-	                        </div>
-						</div>
-					</div>
-					<h:messages />
-					<div class="lockscreen-credentials"></div>
-				</div>
+		
+		<style type="text/css">.jqstooltip { position: absolute;left: 0px;top: 0px;visibility: hidden;background: rgb(0, 0, 0) transparent;background-color: rgba(0,0,0,0.6);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000);-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000)";color: white;font: 10px arial, san serif;text-align: left;white-space: nowrap;padding: 5px;border: 1px solid white;z-index: 10000;}.jqsfield { color: white;font: 10px arial, san serif;text-align: left;}</style>
+		<h:body styleClass="theme-default page-signin">
+			<div id="page-signin-bg">
+				<div class="overlay"/>
+				<h:graphicImage value="/resources/img/bg-login.jpg"  library="img"/>
 			</div>
-		</h:form>
-		<h:outputScript library="js" name="jquery.js" />
-		<h:outputScript library="js" name="jquery-ui-1.10.3.js" />
-		<h:outputScript library="js" name="bootstrap.min.js" />
-		<h:outputScript library="js" name="marcaDagua.js" />
-
+				<div class="signin-container">
+					<div class="signin-info">
+						<a href="index.html" class="logo">
+							<!-- <img src="assets/demo/logo-big.png" alt="" style="margin-top: -5px;"> -->
+							<h:outputText value="#{mensagens['display.faloo']}" />
+						</a>
+						<div class="slogan">
+							<h:outputText value="#{mensagens['display.slogan']}" />
+						</div>
+						<ul>
+							<li>
+								<i class="fa fa-group signin-icon"/>
+								<h:outputText value="#{mensagens['display.grupos.estudo']}" />
+							</li>
+						</ul>
+					</div>
+					<div class="signin-form">
+						<h:form id="signin-form_id" prependId="false">
+							<div class="signin-text">
+								<span><h:outputText value="#{mensagens['display.entre.com.sua.conta']}" /> </span>
+							</div>
+							<div class="form-group w-icon">
+								<h:inputText id="matricula" value="#{loginBean.matricula}" required="true" requiredMessage="#{mensagens['display.campo.obrigatorio']}" autocomplete="off" maxlength="13" styleClass="form-control input-lg" />
+								<span class="fa fa-user signin-form-icon"/>
+							</div>
+							<h:message for="matricula"   errorClass="tooltip-warning"/>
+							<div class="form-group w-icon">
+								<h:inputSecret  id="senha" value="#{loginBean.senha}" required="true" requiredMessage="#{mensagens['display.campo.obrigatorio']}" autocomplete="off" maxlength="8" styleClass="form-control input-lg" />
+								<span class="fa fa-lock signin-form-icon"/>
+							</div>
+							<h:message for="senha"  errorClass="tooltip-warning"/>
+							<div class="form-actions">
+								<h:commandButton action="#{loginBean.logar}" value="#{mensagens['display.entrar.cap']}" styleClass="signin-btn bg-primary"/>
+								<h:commandLink value="#{mensagens['display.esqueceu.sua.senha']}" action="#" styleClass="forgot-password" />
+							</div>
+						</h:form>
+					
+					</div>
+					
+				</div>
+		</h:body>
 	</html>
 </ui:composition>
