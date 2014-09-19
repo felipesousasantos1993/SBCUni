@@ -47,8 +47,8 @@
 		<h:form prependId="false" id="form">
 			<div class="row">
 				<div class="col-md-12">
-					<div class="box box-primary">
-						<div class="box-header">
+					<div class="panel">
+						<div class="panel-heading">
 							<h3 class="box-title">
 								<h:outputText value="#{mensagens['display.dados.aluno']}" rendered="#{detalharUsuarioBean.usuario.perfil eq 1}"/>
 								<h:outputText value="#{mensagens['display.dados.professor']}" rendered="#{detalharUsuarioBean.usuario.perfil eq 2}"/>
@@ -62,7 +62,7 @@
 							<h:messages id="mensagens" fatalClass="callout callout-danger"  errorClass="callout callout-warning" infoClass="callout callout-success" warnClass="callout callout-info"/>
 						</div>
 						
-						<div class="box-body">
+						<div class="panel-body">
 							<dl>
 								<dt>
 									<h:outputText value="#{mensagens['display.perfil']}: " />
@@ -115,7 +115,7 @@
 						
 						<div class="clear"/>
 						
-						<div class="box-footer">
+						<div class="panel-footer">
 							<h:commandButton action="#{detalharUsuarioBean.telaAlterar()}" styleClass="btn btn-warning" value="#{mensagens['display.alterar']}" />
 							<h:commandButton action="#{detalharUsuarioBean.telaExcluir()}" styleClass="btn btn-danger" value="#{mensagens['display.excluir']}" />
 							<h:commandButton action="#{detalharUsuarioBean.telaConsultar()}" styleClass="btn btn-default" value="#{mensagens['display.consultar']}" />

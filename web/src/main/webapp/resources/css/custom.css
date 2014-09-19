@@ -1,7 +1,74 @@
 @CHARSET "ISO-8859-1";
+.x5 {
+	width: 5%;
+}
+.x10 {
+	width: 10%;
+}
+.x15 {
+	width: 25%;
+}
+.x20 {
+	width: 20%;
+}
+.x25 {
+	width: 25%;
+}
+.x30 {
+	width: 30%;
+}
+.x35 {
+	width: 35%;
+}
+.x40 {
+	width: 40%;
+}
+.x45 {
+	width: 45%;
+}
+.x50 {
+	width: 50%;
+}
+.x55 {
+	width: 55%;
+}
+.x60 {
+	width: 60%;
+}
+.x65 {
+	width: 65%;
+}
+.x70 {
+	width: 70%;
+}
+.x75 {
+	width: 75%;
+}
+.x80 {
+	width: 80%;
+}
+.x85 {
+	width: 85%;
+}
+.x90 {
+	width: 90%;
+}
+.x95 {
+	width: 95%;
+}
+.x100 {
+	width: 100%;
+}
 .marginLeft_5 {
 	margin-left: 5px;
 }
+
 .marginLeft_10 {
 	margin-left: 10px;
+}
+
+#mensagens {
+	font-weight: 700;
+	margin-left: -40px;
+	list-style: none;
 }
