@@ -32,8 +32,8 @@
 		<h:form prependId="false" id="form">
 			<div class="row">
 				<div class="col-md-12">
-					<div class="box box-primary">
-						<div class="box-header">
+					<div class="panel">
+						<div class="panel-heading">
 							<h3 class="box-title">
 								<h:outputText value="#{mensagens['display.criar.grupo.estudo']}" />
 							</h3>
@@ -44,7 +44,7 @@
 							<h:messages id="mensagens" fatalClass="callout callout-danger"  errorClass="callout callout-warning" infoClass="callout callout-success" warnClass="callout callout-info"/>
 						</div>
 						
-						<div class="box-body"  >
+						<div class="panel-body"  >
 							<div class="form-group">
 								<label>
 									<h:outputText value="#{mensagens['display.nome.grupo']} *"/>
@@ -64,7 +64,7 @@
 						
 						<div class="clear"/>
 						
-						<div class="box-footer">
+						<div class="panel-footer">
 							<h:commandButton  action="#{criarGrupoEstudoBean.criarGrupo}" value="Confirmar" styleClass="btn btn-default"/>
 						</div>
 					</div>

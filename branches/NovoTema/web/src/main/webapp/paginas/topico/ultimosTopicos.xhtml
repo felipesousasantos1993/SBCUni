@@ -62,40 +62,40 @@
 								 		  <h4 class="linhaDoTempo-title"><h:commandLink immediate="true" action="#{ultimosTopicosBean.detalharTopico(topico)}" value="#{topico.titulo}"/> </h4>
 								 		  <div class="box-tools pull-right topico-avaliacao" align="right">
 									 			<h:panelGroup rendered="#{topico.avaliacaoUsuario.avaliacao == false}"> 
-									 		 		<h:commandLink  >
+									 		 		<h:commandLink >
 									 		 			<h:outputText value="#{topico.nuAvaliacaoPositivas}" />
 									 		 			<i class="glyphicon glyphicon-thumbs-up" />
 									 		 			<f:ajax event="click" render="avaliacao" listener="#{ultimosTopicosBean.curtirTopico(topico)}" immediate="true" execute="@form"/>
 									 		 		</h:commandLink>
-									 		 		<h:commandLink styleClass="disabled-editado">
-											 			<h:outputText value="#{topico.nuAvaliacaoNegativas}" />
+									 		 		<h:commandLink styleClass="disabled-editado marginLeft_10">
 									 		 			<i class="glyphicon glyphicon-thumbs-down" />
 									 		 			<f:ajax event="click" render="avaliacao" listener="#{meusTopicosBean.removerAvaliacaoTopico(topico)}" immediate="true" execute="@form"/>
 									 		 		</h:commandLink>
+										 			<h:outputText value="#{topico.nuAvaliacaoNegativas}" styleClass="marginLeft_10"/>
 									 		 	</h:panelGroup>
 									 		 	<h:panelGroup rendered="#{topico.avaliacaoUsuario.avaliacao == true}">
-										 			<h:outputText value="#{topico.nuAvaliacaoPositivas}" />
 									 		 		<h:commandLink styleClass="disabled-editado">
+											 			<h:outputText value="#{topico.nuAvaliacaoPositivas}" />
 										 		 		<i class="glyphicon glyphicon-thumbs-up" />
 										 		 		<f:ajax event="click" render="avaliacao" listener="#{meusTopicosBean.removerAvaliacaoTopico(topico)}" immediate="true" execute="@form"/>
 									 		 		</h:commandLink>
-										 		 	<h:commandLink >
+										 		 	<h:commandLink styleClass="marginLeft_10">
 										 		 		<i class="glyphicon glyphicon-thumbs-down" />
 										 		 		<f:ajax event="click" execute="avaliacao" render="avaliacao" listener="#{ultimosTopicosBean.descurtirTopico(topico)}"/>
 									 		 		</h:commandLink>
-										 			<h:outputText value="#{topico.nuAvaliacaoNegativas}" />
+										 			<h:outputText value="#{topico.nuAvaliacaoNegativas}" styleClass="marginLeft_10"/>
 									 		 	</h:panelGroup>
 									 		 	<h:panelGroup rendered="#{empty topico.avaliacaoUsuario}">
-										 			<h:outputText value="#{topico.nuAvaliacaoPositivas}" />
 									 		 		<h:commandLink  >
+											 			<h:outputText value="#{topico.nuAvaliacaoPositivas}" />
 									 		 			<i class="glyphicon glyphicon-thumbs-up" />
 									 		 			<f:ajax event="click" render="avaliacao" listener="#{ultimosTopicosBean.curtirTopico(topico)}" immediate="true" execute="@form"/>
 									 		 		</h:commandLink>
-									 		 		<h:commandLink >
+									 		 		<h:commandLink styleClass="marginLeft_10">
 										 		 		<i class="glyphicon glyphicon-thumbs-down" />
 										 		 		<f:ajax event="click" execute="avaliacao" render="avaliacao" listener="#{ultimosTopicosBean.descurtirTopico(topico)}"/>
 									 		 		</h:commandLink>
-										 			<h:outputText value="#{topico.nuAvaliacaoNegativas}" />
+										 			<h:outputText value="#{topico.nuAvaliacaoNegativas}" styleClass="marginLeft_10"/>
 									 		 	</h:panelGroup>
 								 		 	</div>
 								 		  <p>
@@ -117,19 +117,19 @@
 								 		  	</small>
 								 	</div>
 								 		<div class="linhaDoTempo-footer">
-							                <h:commandLink action="#{ultimosTopicosBean.detalharTopico(topico)}"  value="#{mensagens['display.visualizar']}" styleClass="btn btn-default btn-xs">
+							                <h:commandLink action="#{ultimosTopicosBean.detalharTopico(topico)}"  value="#{mensagens['display.visualizar']}" styleClass="btn btn-default btn-outline btn-xs">
 							                	<i class="glyphicon glyphicon-zoom-in"/>
 							                </h:commandLink>
-						                 	<h:commandLink action="#{ultimosTopicosBean.telaAtualizarTopico(topico)}" rendered="#{topico.usuario.idUsuario eq usuarioSessionBean.usuarioSessao.idUsuario}" value="#{mensagens['display.alterar']}" styleClass="btn btn-default btn-xs marginLeft_10" >
+						                 	<h:commandLink action="#{ultimosTopicosBean.telaAtualizarTopico(topico)}" rendered="#{topico.usuario.idUsuario eq usuarioSessionBean.usuarioSessao.idUsuario}" value="#{mensagens['display.alterar']}" styleClass="btn btn-default btn-outline btn-xs marginLeft_10" >
 						                 		<span class="fa fa-edit"/>
 						                 	</h:commandLink>
-					                  		<h:commandLink title="Excluir" value="#{mensagens['display.excluir']}" rendered="#{topico.usuario.idUsuario eq usuarioSessionBean.usuarioSessao.idUsuario}" styleClass="btn btn-default btn-xs marginLeft_10">
+					                  		<h:commandLink title="Excluir" value="#{mensagens['display.excluir']}" rendered="#{topico.usuario.idUsuario eq usuarioSessionBean.usuarioSessao.idUsuario}" styleClass="btn btn-danger btn-outline btn-xs marginLeft_10">
 					                  			<i class="glyphicon glyphicon-trash"/>
 												<f:ajax event="click" execute="@this" onevent="showModalDelete('modalExcluir')"  listener="#{ultimosTopicosBean.topicoExcluir(topico)}" />	
 											</h:commandLink>
 										<div class="box-tools pull-right" align="right">
 											<ui:repeat var="categoria" value="#{topico.categorias}">
-												<h:outputText styleClass="label bg-black marginLeft_5" value="#{categoria.deCategoria}" />
+												<h:outputText styleClass="label label-tag marginLeft_5" value="#{categoria.deCategoria}" />
 											</ui:repeat>
 										</div>
 								 	</div>

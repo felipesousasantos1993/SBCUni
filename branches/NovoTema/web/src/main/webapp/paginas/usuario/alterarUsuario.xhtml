@@ -53,8 +53,8 @@
 		<h:inputHidden id="validator" validator="usuarioValidator" />
  			<div class="row">
 				<div class="col-md-12">
-					<div class="box box-primary">
-						<div class="box-header">
+					<div class="panel">
+						<div class="panel-heading">
 							<h3 class="box-title">
 								<h:outputText value="#{mensagens['display.alterar.usuario']}" />
 								<small>
@@ -68,7 +68,7 @@
 							<h:messages id="mensagens" fatalClass="callout callout-danger"  errorClass="callout callout-warning" infoClass="callout callout-success" warnClass="callout callout-info"/>
 						</div>
 						
-						<div class="box-body">
+						<div class="panel-body">
 							<div class="form-group">
 								<label><h:outputText value="#{mensagens['display.perfil']}:"  /></label>
 								<h:selectOneMenu id="perfil"  value="#{alterarUsuarioBean.usuario.perfil}" styleClass="form-control x15">
@@ -130,7 +130,7 @@
 							</div>
 							<br/>
 							</div>
-							<div class="box-footer">
+							<div class="panel-footer">
 								<h:commandButton value="#{mensagens['display.alterar']}" styleClass="btn btn-success" action="#{alterarUsuarioBean.alterarUsuario()}" />
 								<h:commandButton value="#{mensagens['display.limpar']}" styleClass="btn btn-warning" action="#" type="reset"/>
 								<h:commandButton value="#{mensagens['display.voltar']}" immediate="true" styleClass="btn btn-default" action="#{alterarUsuarioBean.voltarDetalheUsuario()}" />

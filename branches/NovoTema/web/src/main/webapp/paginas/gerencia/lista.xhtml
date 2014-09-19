@@ -8,35 +8,27 @@
 	template="/template/template.xhtml"
 >
 	<ui:define name="conteudo">
-	<div id="content-wrapper">
-		<h1>
-			<h:outputText value="#{mensagens['display.gerencia.sistema']}" />
-			<small><h:outputText value="#{mensagens['display.lista']}" /> </small>	
-		</h1>
-		<ol class="breadcrumb">
+	<div class="page-header">
+		<ol class="breadcrumb breadcrumb-page">
 			<li>
 				<h:outputLink>
-					<i class="fa fa-dashboard"/> 
 					<h:outputText value="#{mensagens['display.voce.esta.em']}" />
 				</h:outputLink>
 			</li>
 			<li>
 				<h:outputText value="#{mensagens['display.gerencia.sistema']}" />
 			</li>
-			<li >
-				<h:outputText value="#{mensagens['display.consultar']}" />
-			</li>
 			<li class="active">
-				<h:outputText value="#{mensagens['display.lista']}" />
+				<h:outputText value="#{mensagens['display.cadastrar.usuario']}" />
 			</li>
 		</ol>
-	</section>
-	<section class="content">
+	</div>
+	<div id="content" class="content">
 		<h:form prependId="false" id="form">
  			<div class="row">
 				<div class="col-md-12">
-					<div class="box box-primary">
-						<div class="box-header">
+					<div class="panel">
+						<div class="panel-heading">
 							<h3 class="box-title">
 								<h:outputText value="#{mensagens['display.lista.usuarios']}" />
 								<small>
@@ -50,14 +42,14 @@
 							<h:messages id="mensagens" globalOnly="true"  errorClass="aviso-error" infoClass="aviso-sucesso" warnClass="aviso-alerta"/>
 						</div>
 						
-						<div class="box-body">
+						<div class="panel-body">
 							<h:panelGroup>
-								<div class="box-body table-responsive">
+								<div class="panel-body table-responsive">
 									<h:dataTable
 										id="listaUsuarios"
 										value="#{listaBean.usuarios}"
 										var="usuario"
-										styleClass="table table-bordered table-striped"
+										styleClass="table table-striped table-bordered dataTable no-footer"
 									>
 										<h:column>
 											<f:facet name="header">
@@ -99,7 +91,7 @@
 										</h:column>
 									</h:dataTable>
 								</div>
-								<div class="box-footer">
+								<div class="panel-footer">
 									<h:commandButton action="#{listaBean.voltarConsulta()}" value="#{mensagens['display.voltar']}" styleClass="btn btn-default"/>
 								</div>
 							</h:panelGroup>
@@ -109,6 +101,6 @@
 			</div>
 
 			</h:form>
-		</section>
+		</div>
 	</ui:define>
 </ui:composition>

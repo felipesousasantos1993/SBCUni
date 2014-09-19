@@ -8,15 +8,10 @@
 	template="/template/template.xhtml"
 >
 	<ui:define name="conteudo">
-	<div id="content-wrapper">
-		<h1>
-			<h:outputText value="#{mensagens['display.gerencia.sistema']}" />
-			<small><h:outputText value="#{mensagens['display.consultar']}" /> </small>	
-		</h1>
-		<ol class="breadcrumb">
+	<div class="page-header">
+		<ol class="breadcrumb breadcrumb-page">
 			<li>
 				<h:outputLink>
-					<i class="fa fa-dashboard"/> 
 					<h:outputText value="#{mensagens['display.voce.esta.em']}" />
 				</h:outputLink>
 			</li>
@@ -24,32 +19,22 @@
 				<h:outputText value="#{mensagens['display.gerencia.sistema']}" />
 			</li>
 			<li class="active">
-				<h:outputText value="#{mensagens['display.consultar']}" />
+				<h:outputText value="#{mensagens['display.cadastrar.usuario']}" />
 			</li>
 		</ol>
-	</section>
-	<section class="content">
+	</div>
+	<div id="content" class="content">
 		<h:form prependId="false" id="form">
 		<h:inputHidden id="validator" validator="consultarUsuarioValidator"/>
 			<div class="row">
 				<div class="col-md-12">
-					<div class="box box-primary">
-						<div class="box-header">
-							<h3 class="box-title">
-								<h:outputText value="#{mensagens['display.tipo.filtro']}" />
-								<small>
-									<h:outputText value="#{mensagens['display.selecione.tipo.filtro']}" />
-								</small>
-							</h3>
+					<h:messages id="mensagens"  errorClass="alert alert-danger alert-dark" infoClass="alert alert-info alert-dark" warnClass="alert alert-dark"/>
+					<div class="panel">
+						<div class="panel-heading">
+							<h:outputText value="#{mensagens['display.consultar.usuario']}" />
+							<h6 class="text-light-gray text-semibold text-xs"><h:outputText value="#{mensagens['display.selecione.tipo.filtro']}"  /></h6>
 						</div>
-						
-						<div class="clear"/>
-						
-						<div class="aviso" >
-							<h:messages id="mensagens" fatalClass="callout callout-danger"  errorClass="callout callout-warning" infoClass="callout callout-success" warnClass="callout callout-info"/>
-						</div>
-						
-						<div class="box-body">
+						<div class="panel-body">
 							<h:selectOneRadio id="tpFiltro" layout="pageDirection" value="#{consultaBean.tpFiltro}">
 								<f:selectItem itemLabel="#{mensagens['display.por.nome']}" itemValue="1" />
 								<f:selectItem itemLabel="#{mensagens['display.por.email']}" itemValue="2"/>
@@ -60,28 +45,28 @@
 								<f:ajax event="change"  render="filtros"  onevent="mascaras()"/>
 							</h:selectOneRadio>
 							<h:panelGroup id="filtros" >
-								<h:outputLabel rendered="#{consultaBean.tpFiltro eq 1}">
+								<h:outputLabel styleClass="control-label" rendered="#{consultaBean.tpFiltro eq 1}">
 									<h:outputText id="nome" value="#{mensagens['display.nome']}"/>
 								</h:outputLabel>
-								<h:inputText id="nomeInput" value="#{consultaBean.usuario.nome}" maxlength="58" styleClass="form-control x45" autocomplete="off" rendered="#{consultaBean.tpFiltro eq 1}"/>
+								<h:inputText id="nomeInput" value="#{consultaBean.usuario.nome}" maxlength="58" styleClass="form-control x40" autocomplete="off" rendered="#{consultaBean.tpFiltro eq 1}"/>
 								
-								<h:outputLabel rendered="#{consultaBean.tpFiltro eq 2}">
+								<h:outputLabel styleClass="control-label" rendered="#{consultaBean.tpFiltro eq 2}">
 									<h:outputText id="email" value="#{mensagens['display.email']}"/>
 								</h:outputLabel >
-								<h:inputText id="emailInput" value="#{consultaBean.usuario.email}"  maxlength="50" styleClass="form-control x45" autocomplete="off" rendered="#{consultaBean.tpFiltro eq 2}"/>
+								<h:inputText id="emailInput" value="#{consultaBean.usuario.email}"  maxlength="50" styleClass="form-control x40" autocomplete="off" rendered="#{consultaBean.tpFiltro eq 2}"/>
 								
-								<h:outputLabel rendered="#{consultaBean.tpFiltro eq 3}">
+								<h:outputLabel styleClass="control-label" rendered="#{consultaBean.tpFiltro eq 3}">
 									<h:outputText id="matricula" value="#{mensagens['display.matricula']}"  />
 								</h:outputLabel >
 								<h:inputText id="matriculaInput" value="#{consultaBean.usuario.matricula}" maxlength="13" styleClass="form-control x15" autocomplete="off" rendered="#{consultaBean.tpFiltro eq 3}"/>
 								
-								<h:outputLabel rendered="#{consultaBean.tpFiltro eq 4}">
+								<h:outputLabel styleClass="control-label" rendered="#{consultaBean.tpFiltro eq 4}">
 									<h:outputText id="cpf" value="#{mensagens['display.cpf']}"/>
 								</h:outputLabel>
 								<h:inputText id="cpfInput" value="#{consultaBean.usuario.cpf}"  maxlength="11" onfocus="mascaras()" styleClass="form-control cpf x15" autocomplete="off" rendered="#{consultaBean.tpFiltro eq 4}"/>
 								
 								<div class="form-group">
-									<h:outputLabel rendered="#{consultaBean.tpFiltro eq 5}">
+									<h:outputLabel styleClass="control-label" rendered="#{consultaBean.tpFiltro eq 5}">
 										<h:outputText id="perfil" value="#{mensagens['display.perfil']}"/>
 									</h:outputLabel>
 									<h:selectOneMenu id="perfilSelect"  value="#{consultaBean.usuario.perfil}" styleClass="form-control x25" rendered="#{consultaBean.tpFiltro eq 5}">
@@ -93,19 +78,14 @@
 								</div>
 							</h:panelGroup>
 						</div>
-						
-						<div class="clear"/>
-						
-						<div class="box-footer">
+						<div class="panel-footer">
 							<h:commandButton  action="#{consultaBean.consultarUsuario()}" value="#{mensagens['display.pesquisar']}" styleClass="btn btn-default"/>
 						</div>
 					</div>
 				</div>
 			</div>
 			
-			<div class="clear"/>
-			
 			</h:form>
-		</section>
+		</div>
 	</ui:define>
 </ui:composition>
