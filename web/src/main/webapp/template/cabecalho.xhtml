@@ -17,7 +17,7 @@
 				<a href="#" class="navbar-brand">
 					<h:graphicImage value="/resources/img/logo_principal.png"  library="img"/>
 				</a>
-				<br/>
+
 				<!-- Main navbar toggle -->
 				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-navbar-collapse"><i class="navbar-icon fa fa-bars"></i></button>
 
@@ -25,6 +25,14 @@
 
 			<div id="main-navbar-collapse" class="collapse navbar-collapse main-navbar-collapse">
 				<div>
+					<ul class="nav navbar-nav">
+						<li>
+							<h:outputLink value="#{facesContext.externalContext.requestContextPath}/principal/index.jsf">
+								<h:outputText value="#{mensagens['display.inicio.caps']}" />
+							</h:outputLink>
+						</li>
+					</ul>
+				
 					<div class="right clearfix">
 						<ul class="nav navbar-nav pull-right right-navbar-nav">
 							<li class="nav-icon-btn nav-icon-btn-danger dropdown">
@@ -203,8 +211,8 @@
 					<!-- /3. $END_NAVBAR_ICON_BUTTONS -->
 
 							<li>
-								<form class="navbar-form pull-left">
-									<input type="text" class="form-control" placeholder="Search"/>
+								<form prependId="false" class="navbar-form pull-left">
+									<h:inputText id="pesquisar" value="" styleClass="form-control" />
 								</form>
 							</li>
 
@@ -212,10 +220,12 @@
 								<h:form id="formSair" prependId="false" style="margin-left: 10px;">
 									<a href="#" class="dropdown-toggle user-menu" data-toggle="dropdown">
 										<h:graphicImage library="img" value="/resources/img/2.jpg" styleClass="message-avatar"/>
-										<span>John Doe</span>
+										<span>
+											<h:outputText value="#{usuarioSessionBean.usuarioSessao.nome}" />
+										</span>
 									</a>
 									<ul class="dropdown-menu">
-										<li><a href="#"><h:outputText value="#{mensagens['display.perfil']}" /> </a></li>
+										<li><a href="#{facesContext.externalContext.requestContextPath}/paginas/usuario/perfil.jsf"><h:outputText value="#{mensagens['display.perfil']}" /> </a></li>
 										<li class="divider"></li>
 										<li>
 											<h:commandLink value="#{mensagens['display.sair']}" action="#{loginBean.deslogar}" >
