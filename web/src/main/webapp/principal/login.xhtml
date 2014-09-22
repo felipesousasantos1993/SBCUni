@@ -16,19 +16,20 @@
 			 <h:outputStylesheet library="css" name="widgets.min.css" />
 			 <h:outputScript library="js" name="jquery.min.js" />
 			<h:outputScript library="js" name="marca-dagua.js"/>
+			<link rel="shortcut icon" type="image/x-icon" href="#{request.contextPath}/resources/img/fav.ico" />
 		</h:head>
 		
 		<style type="text/css">.jqstooltip { position: absolute;left: 0px;top: 0px;visibility: hidden;background: rgb(0, 0, 0) transparent;background-color: rgba(0,0,0,0.6);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000);-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000)";color: white;font: 10px arial, san serif;text-align: left;white-space: nowrap;padding: 5px;border: 1px solid white;z-index: 10000;}.jqsfield { color: white;font: 10px arial, san serif;text-align: left;}</style>
 		<h:body styleClass="theme-default page-signin">
 			<div id="page-signin-bg">
 				<div class="overlay"/>
-				<h:graphicImage value="/resources/img/bg-login.jpg"  library="img"/>
+				<h:graphicImage value="/resources/img/bg-login2.jpg"  library="img"/>
 			</div>
 				<div class="signin-container">
 					<div class="signin-info">
 						<a href="index.html" class="logo">
 							<!-- <img src="assets/demo/logo-big.png" alt="" style="margin-top: -5px;"> -->
-							<h:outputText value="#{mensagens['display.faloo']}" />
+								<h:graphicImage value="/resources/img/logo.png"  library="img"/>
 						</a>
 						<div class="slogan">
 							<h:outputText value="#{mensagens['display.slogan']}" />
