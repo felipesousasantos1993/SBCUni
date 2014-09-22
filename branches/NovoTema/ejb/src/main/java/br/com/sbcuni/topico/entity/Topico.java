@@ -55,6 +55,9 @@ public class Topico implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dtUltimaAtualizacao;
 	
+	@Column(name = "nuVisualizacoes", nullable = true)
+	private Integer nuVisualizacoes;
+	
 	@ManyToMany(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY,  targetEntity = Categoria.class)
 	private List<Categoria> categorias;
 	
@@ -184,5 +187,20 @@ public class Topico implements Serializable {
 	public void setDtCriacao(Date dtCriacao) {
 		this.dtCriacao = dtCriacao;
 	}
+	
+	public Integer getNuComentarios() {
+		if (null != comentarios) {
+			return comentarios.size();
+		}
+		return null;
+	}
 
+	public Integer getNuVisualizacoes() {
+		return nuVisualizacoes;
+	}
+
+	public void setNuVisualizacoes(Integer nuVisualizacoes) {
+		this.nuVisualizacoes = nuVisualizacoes;
+	}
+	
 }

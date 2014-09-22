@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="iso-8859-1"?>
 <!DOCTYPE html>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -9,15 +9,10 @@
 >
 	<ui:define name="conteudo">
 	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/> 
-	<section  class="content-header">
-		<h1>
-			<h:outputText value="#{mensagens['display.menu.topico']}" />
-			<small><h:outputText value="#{mensagens['display.novo.topico']}" /> </small>	
-		</h1>
-		<ol class="breadcrumb">
+	<div class="page-header">
+		<ol class="breadcrumb breadcrumb-page">
 			<li>
 				<h:outputLink>
-					<i class="fa fa-dashboard"/> 
 					<h:outputText value="#{mensagens['display.voce.esta.em']}" />
 				</h:outputLink>
 			</li>
@@ -25,28 +20,19 @@
 				<h:outputText value="#{mensagens['display.menu.topico']}" />
 			</li>
 			<li class="active">
-				<h:outputText value="#{mensagens['display.novo.topico']}" />
+				<h:outputText value="#{mensagens['display.ultimos.topicos']}" />
 			</li>
 		</ol>
-	</section>
-	<section class="content">
+		<h:messages id="mensagens"  errorClass="alert alert-danger alert-dark" infoClass="alert alert-info alert-dark" warnClass="alert alert-dark"/>
+	</div>
+	<div id="content" class="content">
 		<h:form prependId="false" id="form">
 		<h:inputHidden id="validator" validator="novoTopicoValidator" />
 			<div class="row">
 				<div class="col-md-12">
 					<div class="panel">
 						<div class="panel-heading">
-							<h3 class="box-title">
-								<h:outputText value="#{mensagens['display.dados.topico']}" />
-								<small>
-									<h:outputText value="#{mensagens['display.aviso.campos.obrigatorios']}" />
-								</small>
-							</h3>
-						</div>
-						
-						<div class="clear"/>
-						<div class="aviso" >
-							<h:messages id="mensagens" fatalClass="callout callout-danger"  errorClass="callout callout-warning" infoClass="callout callout-success" warnClass="callout callout-info"/>
+							<span class="panel-title"><h:outputText value="#{mensagens['display.novo.topico']}" /></span>
 						</div>
 						
 						<div class="panel-body"  >
@@ -60,29 +46,43 @@
 								<label>
 									<h:outputText value="#{mensagens['display.descricao']} *"/>
 								</label>
-								<h:inputTextarea id="descricao" value="#{novoTopicoBean.novoTopico.descricao}"  styleClass="textarea form-control x95" style="height:260px !important; overflow: hidden !important;"/>
+								<h:inputTextarea id="descricao" value="#{novoTopicoBean.novoTopico.descricao}"  styleClass="editorTexto form-control x95" style="height:260px !important; overflow: hidden !important;"/>
 							</div>
 							<div class="form-group">
 								<label>
 									<h:outputText value="#{mensagens['display.categoria']} *"/>
 								</label>
-								<br/>
 								<p:autoComplete converter="categoriaConverter"  multiple="true" completeMethod="#{autoCompleteBean.completeCategoria}" var="categoria" itemValue="#{categoria}" itemLabel="#{categoria.deCategoria}" forceSelection="true" value="#{novoTopicoBean.categoriasSelecionadas}" autocomplete="true"  />
+								
+								<!-- 
+								<div class="select2-container select2-container-multi form-control" id="s2id_jquery-select2-multiple">
+									<div class="select2-drop select2-drop-multi select2-display-none">   
+										<ul class="select2-results">   
+											<li class="select2-no-results">Nenhuma categoria encontrada </li>
+										</ul>
+									</div>
+								</div>
+								<select multiple="multiple"  id="jquery-select2-multiple" class="form-control autocomplete select2-offscreen x20" tabindex="-1">
+									<ui:repeat var="categoria" value="#{novoTopicoBean.categorias}">
+										<option  value="#{categoria}">
+											<h:outputText value="#{categoria.deCategoria}" />
+										</option>
+									</ui:repeat>
+								</select>
+								 -->
+								 
+							</div>
+							
 							</div>
 						</div>
 						
-						<div class="clear"/>
-						
 						<div class="panel-footer">
-							<h:commandButton  action="#{novoTopicoBean.postarTopico}" value="Confirmar" styleClass="btn btn-default"/>
+							<h:commandButton  action="#{novoTopicoBean.postarTopico}" value="#{mensagens['display.confirmar']}" styleClass="btn btn-primary btn-xs"/>
 						</div>
 					</div>
 				</div>
-			</div>
-			
-			<div class="clear"/>
 			
 			</h:form>
-		</section>
+		</div>
 	</ui:define>
 </ui:composition>

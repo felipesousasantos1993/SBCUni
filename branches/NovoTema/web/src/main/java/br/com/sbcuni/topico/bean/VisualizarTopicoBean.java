@@ -46,6 +46,7 @@ public class VisualizarTopicoBean extends GenericBean {
 	private Comentario comentario = new Comentario();
 	
 	private int idComentario;
+	private Integer idEditar = null;
 	
 	public void comentar() {
 		if (Util.isNull(comentario.getIdComentario())) {
@@ -60,6 +61,7 @@ public class VisualizarTopicoBean extends GenericBean {
 			topico.setComentarios(comentarioServiceBean.consultarComentariosTopico(topico));
 			textAreaComentario = Boolean.FALSE;
 			comentario = new Comentario();
+			desabilitarCampoComentario();
 			for (Comentario comentario : topico.getComentarios()) {
 				avaliacaoServiceBean.definirAvaliacaoComentario(comentario);
 				comentario.setAvaliacaoUsuario(avaliacaoServiceBean.verificarAvaliacaoUsuarioComentario(UsuarioSessionBean.getInstance().getUsuarioSessao(), comentario));
@@ -89,6 +91,7 @@ public class VisualizarTopicoBean extends GenericBean {
 	
 	public void desabilitarCampoComentario() {
 		setTextAreaComentario(Boolean.FALSE);
+		setIdEditar(null);
 	}
 	
 	public void exibirMsgExcluir(Integer id) {
@@ -100,9 +103,10 @@ public class VisualizarTopicoBean extends GenericBean {
 		msgExcluirComentario = Boolean.FALSE;
 	}
 	
-	public void editarComentario(Comentario c) {
+	public void editarComentario(Comentario c, Integer id) {
 		textAreaComentario = Boolean.TRUE;
 		comentario = c;
+		idEditar = id;
 	}
 	
 	
@@ -144,5 +148,13 @@ public class VisualizarTopicoBean extends GenericBean {
 
 	public void setIdComentario(int idComentario) {
 		this.idComentario = idComentario;
+	}
+
+	public Integer getIdEditar() {
+		return idEditar;
+	}
+
+	public void setIdEditar(Integer idEditar) {
+		this.idEditar = idEditar;
 	}
 }

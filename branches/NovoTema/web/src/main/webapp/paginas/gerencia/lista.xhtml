@@ -18,83 +18,77 @@
 			<li>
 				<h:outputText value="#{mensagens['display.gerencia.sistema']}" />
 			</li>
+			<li>
+				<h:outputText value="#{mensagens['display.consultar.usuario']}" />
+			</li>
 			<li class="active">
-				<h:outputText value="#{mensagens['display.cadastrar.usuario']}" />
+				<h:outputText value="#{mensagens['display.lista.usuarios']}" />
 			</li>
 		</ol>
+		<h:messages id="mensagens"  errorClass="alert alert-danger alert-dark" infoClass="alert alert-info alert-dark" warnClass="alert alert-dark"/>
 	</div>
 	<div id="content" class="content">
 		<h:form prependId="false" id="form">
  			<div class="row">
 				<div class="col-md-12">
 					<div class="panel">
+					
 						<div class="panel-heading">
-							<h3 class="box-title">
-								<h:outputText value="#{mensagens['display.lista.usuarios']}" />
-								<small>
-									<h:outputText value="#{mensagens['display.clique.usuario.detalhar']}" />
-								</small>
-							</h3>
-						</div>
-						
-						<div class="clear"/>
-						<div class="aviso">
-							<h:messages id="mensagens" globalOnly="true"  errorClass="aviso-error" infoClass="aviso-sucesso" warnClass="aviso-alerta"/>
+							<h:outputText value="#{mensagens['display.lista.usuarios']}" />
+							<h6 class="text-light-gray text-semibold text-xs"><h:outputText value="#{mensagens['display.clique.usuario.detalhar']}"  /></h6>
 						</div>
 						
 						<div class="panel-body">
-							<h:panelGroup>
-								<div class="panel-body table-responsive">
-									<h:dataTable
-										id="listaUsuarios"
-										value="#{listaBean.usuarios}"
-										var="usuario"
-										styleClass="table table-striped table-bordered dataTable no-footer"
-									>
-										<h:column>
-											<f:facet name="header">
-												<h:outputText value="#{mensagens['display.cpf']}" />
-											</f:facet>
-											<h:commandLink action="#{listaBean.detalharUsuario(usuario)}" styleClass="cpf"  >
-												<h:outputText value="#{usuario.cpf}" converter="cpfConverter"/>
-											</h:commandLink> 
-										</h:column>
-										<h:column>
-											<f:facet name="header">
-												<h:outputText value="#{mensagens['display.nome']}" />
-											</f:facet>
-											<h:commandLink action="#{listaBean.detalharUsuario(usuario)}" value="#{usuario.nome}" />
-										</h:column>
-										<h:column>
-											<f:facet name="header">
-												<h:outputText value="#{mensagens['display.matricula']}" />
-											</f:facet>
-											<h:commandLink action="#{listaBean.detalharUsuario(usuario)}" value="#{usuario.matricula}" />
-										</h:column>
-										<h:column>
-											<f:facet name="header">
-												<h:outputText value="#{mensagens['display.email']}" />
-											</f:facet>
-											<h:commandLink action="#{listaBean.detalharUsuario(usuario)}" value="#{usuario.email}" />
-										</h:column>
-										<h:column>
-											<f:facet name="header">
-												<h:outputText value="#{mensagens['display.perfil']}" />
-											</f:facet>
-											<h:commandLink action="#{listaBean.detalharUsuario(usuario)}" value="#{usuario.dePerfil}" />
-										</h:column>
-										<h:column>
-											<f:facet name="header">
-												<h:outputText value="#{mensagens['display.status']}" />
-											</f:facet>
-											<h:commandLink action="#{listaBean.detalharUsuario(usuario)}" value="#{usuario.deStatus}" />
-										</h:column>
-									</h:dataTable>
-								</div>
-								<div class="panel-footer">
-									<h:commandButton action="#{listaBean.voltarConsulta()}" value="#{mensagens['display.voltar']}" styleClass="btn btn-default"/>
-								</div>
-							</h:panelGroup>
+							<div class="panel-body table-responsive">
+								<h:dataTable
+									id="listaUsuarios"
+									value="#{listaBean.usuarios}"
+									var="usuario"
+									styleClass="table table-striped table-bordered dataTable no-footer"
+								>
+									<h:column>
+										<f:facet name="header">
+											<h:outputText value="#{mensagens['display.cpf']}" />
+										</f:facet>
+										<h:commandLink action="#{listaBean.detalharUsuario(usuario)}" styleClass="cpf"  >
+											<h:outputText value="#{usuario.cpf}" converter="cpfConverter"/>
+										</h:commandLink> 
+									</h:column>
+									<h:column>
+										<f:facet name="header">
+											<h:outputText value="#{mensagens['display.nome']}" />
+										</f:facet>
+										<h:commandLink action="#{listaBean.detalharUsuario(usuario)}" value="#{usuario.nome}" />
+									</h:column>
+									<h:column>
+										<f:facet name="header">
+											<h:outputText value="#{mensagens['display.matricula']}" />
+										</f:facet>
+										<h:commandLink action="#{listaBean.detalharUsuario(usuario)}" value="#{usuario.matricula}" />
+									</h:column>
+									<h:column>
+										<f:facet name="header">
+											<h:outputText value="#{mensagens['display.email']}" />
+										</f:facet>
+										<h:commandLink action="#{listaBean.detalharUsuario(usuario)}" value="#{usuario.email}" />
+									</h:column>
+									<h:column>
+										<f:facet name="header">
+											<h:outputText value="#{mensagens['display.perfil']}" />
+										</f:facet>
+										<h:commandLink action="#{listaBean.detalharUsuario(usuario)}" value="#{usuario.dePerfil}" />
+									</h:column>
+									<h:column>
+										<f:facet name="header">
+											<h:outputText value="#{mensagens['display.status']}" />
+										</f:facet>
+										<h:commandLink action="#{listaBean.detalharUsuario(usuario)}" value="#{usuario.deStatus}" />
+									</h:column>
+								</h:dataTable>
+							</div>
+						</div>
+						<div class="panel-footer">
+							<h:commandButton action="#{listaBean.voltarConsulta()}" value="#{mensagens['display.voltar']}" styleClass="btn btn-default btn-xs"/>
 						</div>
 					</div>
 				</div>

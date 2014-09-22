@@ -8,21 +8,10 @@
 	template="/template/template.xhtml"
 >
 	<ui:define name="conteudo">
-	<div id="content-wrapper">
-		<h1>
-			<h:outputText value="#{mensagens['display.aluno']}"  rendered="#{detalharUsuarioBean.usuario.perfil eq 1}"/>
-				<h:outputText value="#{mensagens['display.professor']}"  rendered="#{detalharUsuarioBean.usuario.perfil eq 2}"/>
-				<h:outputText value="#{mensagens['display.coordenador']}"  rendered="#{detalharUsuarioBean.usuario.perfil eq 3}"/>
-			<small>
-				<h:outputText value="#{mensagens['display.detalhar.aluno']}"  rendered="#{detalharUsuarioBean.usuario.perfil eq 1}"/>
-				<h:outputText value="#{mensagens['display.detalhar.professor']}"  rendered="#{detalharUsuarioBean.usuario.perfil eq 2}"/>
-				<h:outputText value="#{mensagens['display.detalhar.coordenador']}"  rendered="#{detalharUsuarioBean.usuario.perfil eq 3}"/>
-			</small>	
-		</h1>
-		<ol class="breadcrumb">
+	<div class="page-header">
+		<ol class="breadcrumb breadcrumb-page">
 			<li>
 				<h:outputLink>
-					<i class="fa fa-dashboard"/> 
 					<h:outputText value="#{mensagens['display.voce.esta.em']}" />
 				</h:outputLink>
 			</li>
@@ -30,6 +19,11 @@
 				<h:outputText value="#{mensagens['display.aluno']}"  rendered="#{detalharUsuarioBean.usuario.perfil eq 1}"/>
 				<h:outputText value="#{mensagens['display.professor']}"  rendered="#{detalharUsuarioBean.usuario.perfil eq 2}"/>
 				<h:outputText value="#{mensagens['display.coordenador']}"  rendered="#{detalharUsuarioBean.usuario.perfil eq 3}"/>
+			</li>
+			<li>
+				<h:outputText value="#{mensagens['display.consultar.aluno']}"  rendered="#{detalharUsuarioBean.usuario.perfil eq 1}"/>
+				<h:outputText value="#{mensagens['display.consultar.professor']}"  rendered="#{detalharUsuarioBean.usuario.perfil eq 2}"/>
+				<h:outputText value="#{mensagens['display.consultar.coordenador']}"  rendered="#{detalharUsuarioBean.usuario.perfil eq 3}"/>
 			</li>
 			<li>
 				<h:outputText value="#{mensagens['display.listar.aluno']}"  rendered="#{detalharUsuarioBean.usuario.perfil eq 1}"/>
@@ -42,24 +36,17 @@
 				<h:outputText value="#{mensagens['display.detalhar.coordenador']}"  rendered="#{detalharUsuarioBean.usuario.perfil eq 3}"/>
 			</li>
 		</ol>
-	</section>
-	<section class="content">
+		<h:messages id="mensagens"  errorClass="alert alert-danger alert-dark" infoClass="alert alert-info alert-dark" warnClass="alert alert-dark"/>
+	</div>
+	<div id="content" class="content">
 		<h:form prependId="false" id="form">
 			<div class="row">
 				<div class="col-md-12">
 					<div class="panel">
 						<div class="panel-heading">
-							<h3 class="box-title">
-								<h:outputText value="#{mensagens['display.dados.aluno']}" rendered="#{detalharUsuarioBean.usuario.perfil eq 1}"/>
-								<h:outputText value="#{mensagens['display.dados.professor']}" rendered="#{detalharUsuarioBean.usuario.perfil eq 2}"/>
-								<h:outputText value="#{mensagens['display.dados.coordenador']}" rendered="#{detalharUsuarioBean.usuario.perfil eq 3}"/>
-							</h3>
-						</div>
-						
-						<div class="clear"/>
-					
-						<div class="aviso" >
-							<h:messages id="mensagens" fatalClass="callout callout-danger"  errorClass="callout callout-warning" infoClass="callout callout-success" warnClass="callout callout-info"/>
+							<h:outputText value="#{mensagens['display.dados.aluno']}" rendered="#{detalharUsuarioBean.usuario.perfil eq 1}"/>
+							<h:outputText value="#{mensagens['display.dados.professor']}" rendered="#{detalharUsuarioBean.usuario.perfil eq 2}"/>
+							<h:outputText value="#{mensagens['display.dados.coordenador']}" rendered="#{detalharUsuarioBean.usuario.perfil eq 3}"/>
 						</div>
 						
 						<div class="panel-body">
@@ -112,19 +99,15 @@
 								</dd>
 							</dl>
 						</div>
-						
-						<div class="clear"/>
-						
 						<div class="panel-footer">
-							<h:commandButton action="#{detalharUsuarioBean.telaAlterar()}" styleClass="btn btn-warning" value="#{mensagens['display.alterar']}" />
-							<h:commandButton action="#{detalharUsuarioBean.telaExcluir()}" styleClass="btn btn-danger" value="#{mensagens['display.excluir']}" />
-							<h:commandButton action="#{detalharUsuarioBean.telaConsultar()}" styleClass="btn btn-default" value="#{mensagens['display.consultar']}" />
+							<h:commandButton action="#{detalharUsuarioBean.telaConsultar()}" styleClass="btn btn-primary btn-outline btn-xs" value="#{mensagens['display.consultar']}" />
+							<h:commandButton action="#{detalharUsuarioBean.telaAlterar()}" styleClass="btn btn-warning btn-outline btn-xs marginLeft_10" value="#{mensagens['display.alterar']}" />
+							<h:commandButton action="#{detalharUsuarioBean.telaExcluir()}" styleClass="btn btn-danger btn-outline btn-xs marginLeft_10" value="#{mensagens['display.excluir']}" />
 						</div>
 					</div>
 				</div>
 			</div>
-			<div class="clear"/>
 			</h:form>
-		</section>
+		</div>
 	</ui:define>
 </ui:composition>

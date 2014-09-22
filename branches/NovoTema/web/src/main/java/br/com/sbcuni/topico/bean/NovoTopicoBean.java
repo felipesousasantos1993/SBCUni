@@ -69,6 +69,11 @@ public class NovoTopicoBean extends GenericBean {
 
 	}
 	
+	public String telaDetalharGrupo() {
+		WebResources.getFlash().put(WebResources.GRUPO_ESTUDO, grupoEstudo);
+		return Tela.DETALHE_GRUPO_ESTUDO;
+	}
+	
 	public Topico getNovoTopico() {
 		return novoTopico;
 	}

@@ -22,13 +22,13 @@
 				<h:outputText value="#{mensagens['display.cadastrar.usuario']}" />
 			</li>
 		</ol>
+		<h:messages id="mensagens"  errorClass="alert alert-danger alert-dark" infoClass="alert alert-info alert-dark" warnClass="alert alert-dark"/>
 	</div>
 	<div id="content" class="content">
 		<h:form prependId="false" id="form">
 		<h:inputHidden id="validator" validator="consultarUsuarioValidator"/>
 			<div class="row">
 				<div class="col-md-12">
-					<h:messages id="mensagens"  errorClass="alert alert-danger alert-dark" infoClass="alert alert-info alert-dark" warnClass="alert alert-dark"/>
 					<div class="panel">
 						<div class="panel-heading">
 							<h:outputText value="#{mensagens['display.consultar.usuario']}" />
@@ -79,7 +79,7 @@
 							</h:panelGroup>
 						</div>
 						<div class="panel-footer">
-							<h:commandButton  action="#{consultaBean.consultarUsuario()}" value="#{mensagens['display.pesquisar']}" styleClass="btn btn-default"/>
+							<h:commandButton  action="#{consultaBean.consultarUsuario()}" value="#{mensagens['display.pesquisar']}" styleClass="btn btn-primary btn-xs"/>
 						</div>
 					</div>
 				</div>

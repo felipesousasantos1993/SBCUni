@@ -141,7 +141,8 @@
 }
 .linhaDoTempo-body {
 	max-height: 150px;
-	overflow-y: hidden;	
+	overflow-y: hidden;
+	padding-bottom: 20px;	
 }
 
 .linhaDoTempo-body > p,

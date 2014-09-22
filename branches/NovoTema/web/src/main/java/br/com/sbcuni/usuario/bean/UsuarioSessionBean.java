@@ -36,6 +36,10 @@ public class UsuarioSessionBean extends Sessao implements Serializable {
 		destruir();
 		return Tela.LOGIN;
 	}
+	
+	public void removerSessao() {
+		destruir();
+	}
 
 	public Usuario getUsuarioSessao() {
 		this.argumento = Usuario.class.getSimpleName().toLowerCase();

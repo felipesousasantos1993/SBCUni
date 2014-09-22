@@ -15,7 +15,9 @@
 					<h:graphicImage library="img" value="/resources/img/2.jpg" />
 					<div class="btn-group">
 						<a href="#" class="btn btn-xs btn-primary btn-outline dark" title="#{mensagens['display.hint.minhas.mensagens']}"><i class="fa fa-envelope"/></a>
-						<a href="#" class="btn btn-xs btn-primary btn-outline dark" title="#{mensagens['display.hint.meu.perfil']}"><i class="fa fa-user"/></a>
+						<h:commandLink action="#{menuBean.telaPerfil(usuarioSessionBean.usuarioSessao)}" styleClass="btn btn-xs btn-primary btn-outline dark" title="#{mensagens['display.hint.meu.perfil']}">
+							<i class="fa fa-user"/>
+						</h:commandLink>
 						<h:commandLink action="#{loginBean.deslogar}" styleClass="btn btn-xs btn-danger btn-outline dark" title="#{mensagens['display.hint.sair']}">
 							<i class="fa fa-power-off"/>
 						</h:commandLink>	
@@ -24,7 +26,7 @@
 			</div>
 			<ul class="navigation">
 				<li>
-					<a href="index.html"><i class="menu-icon fa fa-dashboard"></i><span class="mm-text mmc-dropdown-delay animated fadeIn">Dashboard</span></a>
+					<a href="index.html"><i class="menu-icon fa fa-dashboard"></i><span class="mm-text mmc-dropdown-delay animated fadeIn"><h:outputText value="#{mensagens['display.painel.principal']}" /> </span></a>
 				</li>
 				<li class="mm-dropdown mm-dropdown-root">
 					<a href="#"><i class="menu-icon fa fa-th"></i><span class="mm-text mmc-dropdown-delay animated fadeIn"><h:outputText value="#{mensagens['display.gerencia.sistema']}" /></span> </a>

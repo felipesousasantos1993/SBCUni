@@ -8,40 +8,31 @@
 	xmlns:p="http://primefaces.org/ui"
 >
 	<ui:define name="conteudo">
-	<section  class="content-header">
-		<h1>
-			<h:outputText value="#{mensagens['display.menu.grupos.estudo']}" />
-			<small><h:outputText value="#{mensagens['display.criar.grupo.estudo']}" /> </small>	
-		</h1>
-		<ol class="breadcrumb">
+	<div class="page-header">
+		<ol class="breadcrumb breadcrumb-page">
 			<li>
 				<h:outputLink>
-					<i class="fa fa-dashboard"/> 
 					<h:outputText value="#{mensagens['display.voce.esta.em']}" />
 				</h:outputLink>
 			</li>
 			<li>
-				<h:outputText value="#{mensagens['display.menu.grupos.estudo']}" />
+				<h:outputText value="#{mensagens['display.grupos.estudo']}" />
 			</li>
 			<li class="active">
 				<h:outputText value="#{mensagens['display.criar.grupo.estudo']}" />
 			</li>
 		</ol>
-	</section>
-	<section class="content">
+		<h:messages id="mensagens"  errorClass="alert alert-danger alert-dark" infoClass="alert alert-info alert-dark" warnClass="alert alert-dark"/>
+	</div>
+	<div id="content" class="content">
 		<h:form prependId="false" id="form">
 			<div class="row">
 				<div class="col-md-12">
 					<div class="panel">
 						<div class="panel-heading">
-							<h3 class="box-title">
+							<span class="panel-title">
 								<h:outputText value="#{mensagens['display.criar.grupo.estudo']}" />
-							</h3>
-						</div>
-						
-						<div class="clear"/>
-						<div class="aviso" >
-							<h:messages id="mensagens" fatalClass="callout callout-danger"  errorClass="callout callout-warning" infoClass="callout callout-success" warnClass="callout callout-info"/>
+							</span>
 						</div>
 						
 						<div class="panel-body"  >
@@ -62,18 +53,14 @@
 							</div>
 						</div>
 						
-						<div class="clear"/>
-						
 						<div class="panel-footer">
-							<h:commandButton  action="#{criarGrupoEstudoBean.criarGrupo}" value="Confirmar" styleClass="btn btn-default"/>
+							<h:commandButton  action="#{criarGrupoEstudoBean.criarGrupo}" value="Confirmar" styleClass="btn btn-primary btn-xs"/>
 						</div>
 					</div>
 				</div>
 			</div>
 			
-			<div class="clear"/>
-			
 			</h:form>
-		</section>
+		</div>
 	</ui:define>
 </ui:composition>

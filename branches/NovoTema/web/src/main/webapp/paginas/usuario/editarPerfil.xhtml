@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/template/template.xhtml"
+>
+	<ui:define name="conteudo">
+	<div class="page-header">
+		<ol class="breadcrumb breadcrumb-page">
+			<li>
+				<h:outputLink>
+					<h:outputText value="#{mensagens['display.voce.esta.em']}" />
+				</h:outputLink>
+			</li>
+			<li>
+				<h:outputText value="#{usuarioSessionBean.usuarioSessao.dePerfil}" />
+			</li>
+			<li class="active">
+				<h:outputText value="#{mensagens['display.editar.perfil']}" />
+			</li>
+		</ol>
+		<h:messages id="mensagens"  errorClass="alert alert-danger alert-dark" infoClass="alert alert-info alert-dark" warnClass="alert alert-dark"/>
+	</div>
+	<div id="content" class="content">
+ 			<div class="row">
+				<div class="col-md-12">
+					<h:form prependId="false" styleClass="form-horizontal">
+						<div class="form-group">
+							<label for="nome" class="col-sm-2 control-label"><h:outputText value="#{mensagens['display.nome']} " /> </label>
+							<div class="col-sm-6">
+								<h:inputText id="nome" value="#{editarPerfilBean.usuario.nome}" styleClass="form-control nome" required="true"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="cpf" class="col-sm-2 control-label"><h:outputText value="#{mensagens['display.cpf']} " /> </label>
+							<div class="col-sm-2">
+								<h:inputText id="cpf" value="#{editarPerfilBean.usuario.cpf}" styleClass="form-control cpf"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="email" class="col-sm-2 control-label"><h:outputText value="#{mensagens['display.email']}"  /> </label>
+							<div class="col-sm-6">
+								<h:inputText id="email" value="#{editarPerfilBean.usuario.email}" styleClass="form-control email" required="true"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="telefone" class="col-sm-2 control-label"><h:outputText value="#{mensagens['display.telefone']} " /> </label>
+							<div class="col-sm-2">
+								<h:inputText id="telefone" value="#{editarPerfilBean.usuario.telFixo}" styleClass="form-control telefone telfixo"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="celular" class="col-sm-2 control-label"><h:outputText value="#{mensagens['display.celular']} " /> </label>
+							<div class="col-sm-2">
+								<h:inputText id="celular" value="#{editarPerfilBean.usuario.telCelular}" styleClass="form-control telefone telcelular"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="cidade" class="col-sm-2 control-label"><h:outputText value="#{mensagens['display.cidade']} " /> </label>
+							<div class="col-sm-4">
+								<h:inputText id="cidade" value="#{editarPerfilBean.usuario.cidade}" styleClass="form-control cidade"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="estado" class="col-sm-2 control-label"><h:outputText value="#{mensagens['display.estado']} " /> </label>
+							<div class="col-sm-2">
+								<h:selectOneMenu id="estado" value="#{editarPerfilBean.usuario.estado}" styleClass="form-control estado">
+									<f:selectItem itemValue="#{editarPerfilBean.usuario.estado}" itemLabel="#{mensagens['display.selecione']}"/>
+									<f:selectItems var="estado" value="#{editarPerfilBean.estados}"/>
+								</h:selectOneMenu>
+							</div>
+						</div>
+							<div class="form-group">
+							<label for="sobreMim" class="col-sm-2 control-label"><h:outputText value="#{mensagens['display.sobre.mim']} " /> </label>
+							<div class="col-sm-6">
+								<h:inputTextarea id="sobreMim" onfocus="expandirPorId(this.id)"  rows="1" onblur="reduzirPorId(this.id)"  value="#{editarPerfilBean.usuario.sobreMim}" styleClass="sobre form-control expandir"/>
+							</div>
+						</div>
+						
+						<hr/>
+						<div class="col-sm-offset-2 col-sm-10">
+							<h:commandButton value="#{mensagens['display.editar.perfil']}" styleClass="btn btn-primary btn-xs" action="#{editarPerfilBean.alterarPerfil}" />
+							<h:commandButton value="#{mensagens['display.voltar']}" immediate="true" styleClass="btn btn-default btn-xs marginLeft_10" action="#{editarPerfilBean.voltarTelaPerfil}" />
+						</div>
+					</h:form>
+				</div>
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>

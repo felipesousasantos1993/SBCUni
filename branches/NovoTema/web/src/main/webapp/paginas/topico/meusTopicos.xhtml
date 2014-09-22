@@ -9,13 +9,7 @@
 >
 	<ui:define name="conteudo">
 	<div class="page-header">
-		<h1>
-			<span class="text-light-gray">
-				<h:outputText value="#{mensagens['display.menu.topico']}/ " />
-			</span>
-			<h:outputText value="#{mensagens['display.ultimos.topicos']}" /> 
-		</h1>
-		<ol class="breadcrumb">
+		<ol class="breadcrumb breadcrumb-page">
 			<li>
 				<h:outputLink>
 					<h:outputText value="#{mensagens['display.voce.esta.em']}" />
@@ -28,19 +22,13 @@
 				<h:outputText value="#{mensagens['display.meus.topicos']}" />
 			</li>
 		</ol>
+		<h:messages id="mensagens"  errorClass="alert alert-danger alert-dark" infoClass="alert alert-info alert-dark" warnClass="alert alert-dark"/>
 	</div>
 	<div id="content" class="content">
 		<h:form prependId="false" id="form">
 		<h:inputHidden id="validator"/>
 			<div class="row">
 				<div class="col-md-12">
-				
-				<div class="clear"/>
-				
-					<div class="aviso" >
-						<h:messages id="mensagens" fatalClass="callout callout-danger"  errorClass="callout callout-warning" infoClass="callout callout-success" warnClass="callout callout-info"/>
-					</div>
-					
 					<ul class="linhaDoTempo">
 						<ui:repeat var="topico" varStatus="topicoStatus" value="#{meusTopicosBean.meusTopicos}">
 							<li class="linhaDoTempo-inverted">
@@ -60,48 +48,43 @@
 								 <h:panelGroup id="avaliacao">
 								 	<div class="linhaDoTempo-heading">
 								 		  <h4 class="linhaDoTempo-title"><h:commandLink immediate="true" action="#{meusTopicosBean.detalharTopico(topico)}" value="#{topico.titulo}"/> </h4>
-								 		  <div class="box-tools pull-right topico-avaliacao" align="right">
-								 		 		
-								 		 		<div class="label bg-red">
-										 			<h:outputText value="#{topico.nuAvaliacaoPositivas}" />
-										 		</div>
-										 		<div class="label bg-green">
-										 			<h:outputText value="#{topico.nuAvaliacaoNegativas}" />
-										 		</div>
-								 		 		
-										 		<div class="btn-group-vertical" style="top: -25px;">
+								 		  <div class="box-tools pull-right" align="right">
 										 			<h:panelGroup rendered="#{topico.avaliacaoUsuario.avaliacao == false}"> 
-										 		 		<h:commandLink styleClass="btn btn-default" >
-										 		 			<i class="glyphicon glyphicon-thumbs-up" style="font-size:18px;"/>
-										 		 			<f:ajax event="click" render="avaliacao" listener="#{meusTopicosBean.curtirTopico(topico)}" immediate="true" execute="@form"/>
-										 		 		</h:commandLink>
-										 		 		<h:commandLink styleClass="btn btn-default disabled-editado" >
-										 		 			<i class="glyphicon glyphicon-thumbs-down" style="font-size:18px;"/>
-										 		 			<f:ajax event="click" render="avaliacao" listener="#{meusTopicosBean.removerAvaliacaoTopico(topico)}" immediate="true" execute="@form"/>
-										 		 		</h:commandLink>
-										 		 	</h:panelGroup>
-										 		 	<h:panelGroup rendered="#{topico.avaliacaoUsuario.avaliacao == true}">
-										 		 		<h:commandLink styleClass="btn btn-default disabled-editado">
-											 		 		<i class="glyphicon glyphicon-thumbs-up" style="font-size:18px;"/>
-											 		 		<f:ajax event="click" render="avaliacao" listener="#{meusTopicosBean.removerAvaliacaoTopico(topico)}" immediate="true" execute="@form"/>
-										 		 		</h:commandLink>
-											 		 	<h:commandLink styleClass="btn btn-default">
-											 		 		<i class="glyphicon glyphicon-thumbs-down" style="font-size:18px;"/>
-											 		 		<f:ajax event="click" execute="avaliacao" render="avaliacao" listener="#{meusTopicosBean.descurtirTopico(topico)}"/>
-										 		 		</h:commandLink>
-										 		 	</h:panelGroup>
-										 		 	<h:panelGroup rendered="#{empty topico.avaliacaoUsuario}">
-										 		 		<h:commandLink styleClass="btn btn-default" >
-										 		 			<i class="glyphicon glyphicon-thumbs-up" style="font-size:18px;"/>
-										 		 			<f:ajax event="click" render="avaliacao" listener="#{meusTopicosBean.curtirTopico(topico)}" immediate="true" execute="@form"/>
-										 		 		</h:commandLink>
-										 		 		<h:commandLink styleClass="btn btn-default">
-											 		 		<i class="glyphicon glyphicon-thumbs-down" style="font-size:18px;"/>
-											 		 		<f:ajax event="click" execute="avaliacao" render="avaliacao" listener="#{meusTopicosBean.descurtirTopico(topico)}"/>
-										 		 		</h:commandLink>
-										 		 		
-										 		 	</h:panelGroup>
-									 		 	</div>
+									 		 		<h:commandLink >
+									 		 			<h:outputText value="#{topico.nuAvaliacaoPositivas}" />
+									 		 			<i class="glyphicon glyphicon-thumbs-up" />
+									 		 			<f:ajax event="click" render="avaliacao" listener="#{meusTopicosBean.curtirTopico(topico)}" immediate="true" execute="@form"/>
+									 		 		</h:commandLink>
+									 		 		<h:commandLink styleClass="disabled-editado marginLeft_10">
+									 		 			<i class="glyphicon glyphicon-thumbs-down" />
+									 		 			<f:ajax event="click" render="avaliacao" listener="#{meusTopicosBean.removerAvaliacaoTopico(topico)}" immediate="true" execute="@form"/>
+									 		 		</h:commandLink>
+										 			<h:outputText value="#{topico.nuAvaliacaoNegativas}" styleClass="marginLeft_10"/>
+									 		 	</h:panelGroup>
+									 		 	<h:panelGroup rendered="#{topico.avaliacaoUsuario.avaliacao == true}">
+									 		 		<h:commandLink styleClass="disabled-editado">
+											 			<h:outputText value="#{topico.nuAvaliacaoPositivas}" />
+										 		 		<i class="glyphicon glyphicon-thumbs-up" />
+										 		 		<f:ajax event="click" render="avaliacao" listener="#{meusTopicosBean.removerAvaliacaoTopico(topico)}" immediate="true" execute="@form"/>
+									 		 		</h:commandLink>
+										 		 	<h:commandLink styleClass="marginLeft_10">
+										 		 		<i class="glyphicon glyphicon-thumbs-down" />
+										 		 		<f:ajax event="click" execute="avaliacao" render="avaliacao" listener="#{meusTopicosBean.descurtirTopico(topico)}"/>
+									 		 		</h:commandLink>
+										 			<h:outputText value="#{topico.nuAvaliacaoNegativas}" styleClass="marginLeft_10"/>
+									 		 	</h:panelGroup>
+									 		 	<h:panelGroup rendered="#{empty topico.avaliacaoUsuario}">
+									 		 		<h:commandLink  >
+											 			<h:outputText value="#{topico.nuAvaliacaoPositivas}" />
+									 		 			<i class="glyphicon glyphicon-thumbs-up" />
+									 		 			<f:ajax event="click" render="avaliacao" listener="#{meusTopicosBean.curtirTopico(topico)}" immediate="true" execute="@form"/>
+									 		 		</h:commandLink>
+									 		 		<h:commandLink styleClass="marginLeft_10">
+										 		 		<i class="glyphicon glyphicon-thumbs-down" />
+										 		 		<f:ajax event="click" execute="avaliacao" render="avaliacao" listener="#{ultimosTopicosBean.descurtirTopico(topico)}"/>
+									 		 		</h:commandLink>
+										 			<h:outputText value="#{topico.nuAvaliacaoNegativas}" styleClass="marginLeft_10"/>
+									 		 	</h:panelGroup>
 								 		 </div>
 								 		 <p>
 									 		 <small class="text-muted"><i class="glyphicon glyphicon-time" style="margin-right: 2px;"/> 
@@ -129,19 +112,19 @@
 								 	</div>
 									 -->
 								 		<div class="linhaDoTempo-footer">
-							                <h:commandLink action="#{meusTopicosBean.detalharTopico(topico)}" value="#{mensagens['display.visualizar']}" styleClass="btn btn-default btn-xs  ">
+							                <h:commandLink action="#{meusTopicosBean.detalharTopico(topico)}" value="#{mensagens['display.visualizar']}" styleClass="btn btn-default btn-xs btn-outline">
 							                	<i class="glyphicon glyphicon-zoom-in"/>
 							                </h:commandLink>
-						                 	<h:commandLink action="#{meusTopicosBean.telaAtualizarTopico(topico)}" value="#{mensagens['display.alterar']}" styleClass="btn btn-default btn-xs   marginLeft_10" >
+						                 	<h:commandLink action="#{meusTopicosBean.telaAtualizarTopico(topico)}" value="#{mensagens['display.alterar']}" styleClass="btn btn-default btn-xs btn-outline marginLeft_10" >
 						                 		<i class="fa fa-edit"/>
 						                 	</h:commandLink>
-					                  		<h:commandLink title="Excluir" value="#{mensagens['display.excluir']}" styleClass="btn btn-default btn-xs marginLeft_10">
+					                  		<h:commandLink title="Excluir" value="#{mensagens['display.excluir']}" styleClass="btn btn-danger btn-xs btn-outline marginLeft_10">
 					                  			<i class="glyphicon glyphicon-trash"/>
 												<f:ajax event="click" execute="@this" onevent="showModalDelete('modalExcluir')"  listener="#{meusTopicosBean.topicoExcluir(topico)}" />	
 											</h:commandLink>
 										<div class="box-tools pull-right" align="right">
 											<ui:repeat var="categoria" value="#{topico.categorias}">
-												<h:outputText styleClass="label bg-black marginLeft_5" value="#{categoria.deCategoria}" />
+												<h:outputText styleClass="label label-tag marginLeft_5" value="#{categoria.deCategoria}" />
 											</ui:repeat>
 										</div>
 								 	</div>

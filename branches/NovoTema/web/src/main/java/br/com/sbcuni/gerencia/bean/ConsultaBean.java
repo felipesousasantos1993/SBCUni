@@ -59,14 +59,14 @@ public class ConsultaBean extends GenericBean {
 					WebResources.getFlash().put(WebResources.USUARIO, usuarios.get(0));
 					return Tela.DETALHAR;
 				} else if (usuarios.isEmpty()) {
-					exibirMsgAviso("display.nenhum.usuario.encontrado");
+					exibirMsgAviso(GenericBean.getMensagem("display.nenhum.usuario.encontrado", WebResources.MENSAGEM));
 					return null;
 				}
 				
 			case Constantes.FILTRO_EMAIL:
 				usuario = usuarioServiceBean.consultarPorEmail(usuario.getEmail(), 1);
 				if (Util.isNull(usuario)) {
-					exibirMsgAviso("display.nenhum.usuario.encontrado");
+					exibirMsgAviso(GenericBean.getMensagem("display.nenhum.usuario.encontrado", WebResources.MENSAGEM));
 					return null;
 				}
 				WebResources.getFlash().put(WebResources.USUARIO, usuario);
@@ -75,7 +75,7 @@ public class ConsultaBean extends GenericBean {
 			case Constantes.FILTRO_MATRICULA:
 				usuario = usuarioServiceBean.consultarPorMatricula(usuario.getMatricula(), 1);
 				if (Util.isNull(usuario)) {
-					exibirMsgAviso("display.nenhum.usuario.encontrado");
+					exibirMsgAviso(GenericBean.getMensagem("display.nenhum.usuario.encontrado", WebResources.MENSAGEM));
 					return null;
 				}
 				WebResources.getFlash().put(WebResources.USUARIO, usuario);
@@ -84,7 +84,7 @@ public class ConsultaBean extends GenericBean {
 			case Constantes.FILTRO_CPF:
 				usuario = usuarioServiceBean.consultarPorCpf(Util.retiraMascara(usuario.getCpf()), 1);
 				if (Util.isNull(usuario)) {
-					exibirMsgAviso("display.nenhum.usuario.encontrado");
+					exibirMsgAviso(GenericBean.getMensagem("display.nenhum.usuario.encontrado", WebResources.MENSAGEM));
 					return null;
 				}
 				WebResources.getFlash().put(WebResources.USUARIO, usuario);
@@ -99,14 +99,14 @@ public class ConsultaBean extends GenericBean {
 					WebResources.getFlash().put(WebResources.USUARIO, usuarios.get(0));
 					return Tela.DETALHAR;
 				} else if (usuarios.isEmpty()) {
-					exibirMsgAviso("display.nenhum.usuario.encontrado");
+					exibirMsgAviso(GenericBean.getMensagem("display.nenhum.usuario.encontrado", WebResources.MENSAGEM));
 					return null;
 				}
 				
 			case Constantes.FILTRO_TODOS:
 				usuarios = usuarioServiceBean.buscarTodos();
 				if (usuarios.isEmpty()) {
-					exibirMsgAviso("display.nenhum.usuario.encontrado");
+					exibirMsgAviso(GenericBean.getMensagem("display.nenhum.usuario.encontrado", WebResources.MENSAGEM));
 					return null;
 				}
 				WebResources.getFlash().put(WebResources.LISTA_USUARIOS, usuarios);
