@@ -8,45 +8,40 @@
 	template="/template/template.xhtml"
 >
 	<ui:define name="conteudo">
-	<div id="content-wrapper">
-		<h1>
-			<h:outputText value="#{mensagens['display.gerencia.sistema']}" />
-			<small><h:outputText value="#{mensagens['display.cadastrar']}" /> </small>	
-		</h1>
-		<ol class="breadcrumb">
+	<div class="page-header">
+		<ol class="breadcrumb breadcrumb-page">
 			<li>
 				<h:outputLink>
-					<i class="fa fa-dashboard"/> 
 					<h:outputText value="#{mensagens['display.voce.esta.em']}" />
 				</h:outputLink>
 			</li>
 			<li>
 				<h:outputText value="#{mensagens['display.gerencia.sistema']}" />
 			</li>
+			<li>
+				<h:outputText value="#{mensagens['display.consultar.usuario']}" />
+			</li>
+			<li>
+				<h:outputText value="#{mensagens['display.lista.usuarios']}" />
+			</li>
 			<li class="active">
-				<h:outputText value="#{mensagens['display.detalhe']}" />
+				<h:outputText value="#{mensagens['display.detalhar']}" />
 			</li>
 		</ol>
-	</section>
-	<section class="content">
+		<h:messages id="mensagens"  errorClass="alert alert-danger alert-dark" infoClass="alert alert-info alert-dark" warnClass="alert alert-dark"/>
+	</div>
+	<div id="content" class="content">
 		<h:form prependId="false" id="form">
 			<div class="row">
 				<div class="col-md-12">
+					
 					<div class="panel">
 						<div class="panel-heading">
-							<h3 class="box-title">
-								<h:outputText value="#{mensagens['display.dados.aluno']}" rendered="#{detalhaBean.usuario.perfil eq 1}"/>
-								<h:outputText value="#{mensagens['display.dados.professor']}" rendered="#{detalhaBean.usuario.perfil eq 2}"/>
-								<h:outputText value="#{mensagens['display.dados.coordenador']}" rendered="#{detalhaBean.usuario.perfil eq 3}"/>
-							</h3>
+							<h:outputText value="#{mensagens['display.dados.aluno']}" rendered="#{detalhaBean.usuario.perfil eq 1}"/>
+							<h:outputText value="#{mensagens['display.dados.professor']}" rendered="#{detalhaBean.usuario.perfil eq 2}"/>
+							<h:outputText value="#{mensagens['display.dados.coordenador']}" rendered="#{detalhaBean.usuario.perfil eq 3}"/>
 						</div>
-						
-						<div class="clear"/>
-						
-												<div class="aviso" >
-							<h:messages id="mensagens" fatalClass="callout callout-danger"  errorClass="callout callout-warning" infoClass="callout callout-success" warnClass="callout callout-info"/>
-						</div>
-						
+					
 						<div class="panel-body">
 							<dl>
 								<dt>
@@ -106,18 +101,15 @@
 							</dl>
 						</div>
 						
-						<div class="clear"/>
-						
 						<div class="panel-footer">
-							<h:commandButton action="#{detalhaBean.telaAlterar()}" styleClass="btn btn-warning" value="#{mensagens['display.alterar']}" />
-							<h:commandButton action="#{detalhaBean.telaConfirmaExcluir()}" styleClass="btn btn-danger" value="#{mensagens['display.excluir']}" />
-							<h:commandButton action="#{detalhaBean.telaConsultar()}" styleClass="btn btn-default" value="#{mensagens['display.consultar']}" />
+							<h:commandButton action="#{detalhaBean.telaConsultar}" styleClass="btn btn-primary btn-outline btn-xs" value="#{mensagens['display.consultar']}" />
+							<h:commandButton action="#{detalhaBean.telaAlterar}" styleClass="btn btn-warning btn-outline btn-xs marginLeft_10"  value="#{mensagens['display.alterar']}" />
+							<h:commandButton action="#{detalhaBean.telaConfirmaExcluir}" styleClass="btn btn-danger btn-outline btn-xs marginLeft_10" value="#{mensagens['display.excluir']}" />
 						</div>
 					</div>
 				</div>
 			</div>
-			<div class="clear"/>
 			</h:form>
-		</section>
+		</div>
 	</ui:define>
 </ui:composition>

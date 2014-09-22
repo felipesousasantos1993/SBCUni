@@ -22,25 +22,13 @@
 				<h:outputText value="#{mensagens['display.ultimos.topicos']}" />
 			</li>
 		</ol>
-		<h1>
-			<span class="text-light-gray">
-				<h:outputText value="#{mensagens['display.menu.topico']}/ " />
-			</span>
-			<h:outputText value="#{mensagens['display.ultimos.topicos']}" /> 
-		</h1>
+		<h:messages id="mensagens"  errorClass="alert alert-danger alert-dark" infoClass="alert alert-info alert-dark" warnClass="alert alert-dark"/>
 	</div>
 	<div id="content" class="content">
 		<h:form prependId="false" id="form">
 		<h:inputHidden id="validator"/>
 			<div class="row">
 				<div class="col-md-12">
-				
-				<div class="clear"/>
-				
-					<div class="aviso" >
-						<h:messages id="mensagens" fatalClass="callout callout-danger"  errorClass="callout callout-warning" infoClass="callout callout-success" warnClass="callout callout-info"/>
-					</div>
-					
 					<ul class="linhaDoTempo">
 						<ui:repeat var="topico" varStatus="topicoStatus" value="#{ultimosTopicosBean.topicos}">
 							<li class="linhaDoTempo-inverted">
@@ -60,7 +48,7 @@
 								 <h:panelGroup id="avaliacao">
 								 	<div class="linhaDoTempo-heading">
 								 		  <h4 class="linhaDoTempo-title"><h:commandLink immediate="true" action="#{ultimosTopicosBean.detalharTopico(topico)}" value="#{topico.titulo}"/> </h4>
-								 		  <div class="box-tools pull-right topico-avaliacao" align="right">
+								 		  <div class="box-tools pull-right" align="right">
 									 			<h:panelGroup rendered="#{topico.avaliacaoUsuario.avaliacao == false}"> 
 									 		 		<h:commandLink >
 									 		 			<h:outputText value="#{topico.nuAvaliacaoPositivas}" />
@@ -69,7 +57,7 @@
 									 		 		</h:commandLink>
 									 		 		<h:commandLink styleClass="disabled-editado marginLeft_10">
 									 		 			<i class="glyphicon glyphicon-thumbs-down" />
-									 		 			<f:ajax event="click" render="avaliacao" listener="#{meusTopicosBean.removerAvaliacaoTopico(topico)}" immediate="true" execute="@form"/>
+									 		 			<f:ajax event="click" render="avaliacao" listener="#{ultimosTopicosBean.removerAvaliacaoTopico(topico)}" immediate="true" execute="@form"/>
 									 		 		</h:commandLink>
 										 			<h:outputText value="#{topico.nuAvaliacaoNegativas}" styleClass="marginLeft_10"/>
 									 		 	</h:panelGroup>
@@ -77,7 +65,7 @@
 									 		 		<h:commandLink styleClass="disabled-editado">
 											 			<h:outputText value="#{topico.nuAvaliacaoPositivas}" />
 										 		 		<i class="glyphicon glyphicon-thumbs-up" />
-										 		 		<f:ajax event="click" render="avaliacao" listener="#{meusTopicosBean.removerAvaliacaoTopico(topico)}" immediate="true" execute="@form"/>
+										 		 		<f:ajax event="click" render="avaliacao" listener="#{ultimosTopicosBean.removerAvaliacaoTopico(topico)}" immediate="true" execute="@form"/>
 									 		 		</h:commandLink>
 										 		 	<h:commandLink styleClass="marginLeft_10">
 										 		 		<i class="glyphicon glyphicon-thumbs-down" />

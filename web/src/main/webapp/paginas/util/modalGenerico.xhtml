@@ -12,7 +12,7 @@
 	<div class="modal-dialog modal-sm">
 		<div class="modal-content">
 			<h:form>
-				<h:panelGroup rendered="#{titulo != null}">
+				<h:panelGroup rendered="#{not empty titulo}">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal">
 							<span aria-hidden="true"></span><span class="sr-only">Close</span>
@@ -20,12 +20,12 @@
 						<h4 class="modal-title" id="myModalLabel"><h:outputText value="#{titulo} ?" /></h4>
 					</div>
 				</h:panelGroup>
-				<h:panelGroup rendered="#{null != mensagem}">
+				<h:panelGroup rendered="#{not empty mensagem}">
 					<div class="modal-body"><h:outputText value="#{mensagem}"  /> </div>
 				</h:panelGroup>
 				<div class="modal-footer">
-					<h:commandLink styleClass="btn btn-default"	value="#{mensagens['display.sim']}"	action="#{bean.excluir}" />
-					<button type="button" class="btn btn-default" data-dismiss="modal"><h:outputText value="#{mensagens['display.nao']}" /> </button>
+					<h:commandLink styleClass="btn btn-primary btn-xs"	value="#{mensagens['display.sim']}"	action="#{bean.excluir}" />
+					<button type="button" class="btn btn-default btn-xs" data-dismiss="modal"><h:outputText value="#{mensagens['display.nao']}" /> </button>
 				</div>
 		</h:form>
 		</div>

@@ -8,15 +8,10 @@
 	template="/template/template.xhtml"
 >
 	<ui:define name="conteudo">
-	<div id="content-wrapper">
-		<h1>
-			<h:outputText value="#{mensagens['display.cadastrar.usuario']}" />
-			<small><h:outputText value="#{mensagens['display.cadastrar']}" /> </small>	
-		</h1>
-		<ol class="breadcrumb">
+		<div class="page-header">
+		<ol class="breadcrumb breadcrumb-page">
 			<li>
 				<h:outputLink>
-					<i class="fa fa-dashboard"/> 
 					<h:outputText value="#{mensagens['display.voce.esta.em']}" />
 				</h:outputLink>
 			</li>
@@ -26,31 +21,21 @@
 				<h:outputText value="#{mensagens['display.coordenador']}"  rendered="#{cadastrarUsuarioBean.usuario.perfil eq 3}"/>
 			</li>
 			<li class="active">
-				<h:outputText value="#{mensagens['display.cadastrar']}" />
+				<h:outputText value="#{mensagens['display.cadastrar.usuario']}" />
 			</li>
 		</ol>
-	</section>
-	<section class="content">
+		<h:messages id="mensagens"  errorClass="alert alert-danger alert-dark" infoClass="alert alert-info alert-dark" warnClass="alert alert-dark"/>
+	</div>
+	<div id="content" class="content">
 		<h:form prependId="false" id="form">
 		<h:inputHidden id="validator" validator="usuarioValidator"/>
 			<div class="row">
 				<div class="col-md-12">
 					<div class="panel">
 						<div class="panel-heading">
-												
-							<h3 class="box-title">
-								<h:outputText value="#{mensagens['display.dados.aluno']}"  rendered="#{cadastrarUsuarioBean.usuario.perfil eq 1}"/>
-								<h:outputText value="#{mensagens['display.dados.professor']}"  rendered="#{cadastrarUsuarioBean.usuario.perfil eq 2}"/>
-								<h:outputText value="#{mensagens['display.dados.coordenador']}"  rendered="#{cadastrarUsuarioBean.usuario.perfil eq 3}"/>
-								<small>
-									<h:outputText value="#{mensagens['display.todos.campos.obrigatorios']}" />
-								</small>
-							</h3>
-						</div>
-						
-						<div class="clear"/>
-						<div class="aviso" >
-							<h:messages id="mensagens" fatalClass="callout callout-danger"  errorClass="callout callout-warning" infoClass="callout callout-success" warnClass="callout callout-info"/>
+							<h:outputText value="#{mensagens['display.dados.aluno']}"  rendered="#{cadastrarUsuarioBean.usuario.perfil eq 1}"/>
+							<h:outputText value="#{mensagens['display.dados.professor']}"  rendered="#{cadastrarUsuarioBean.usuario.perfil eq 2}"/>
+							<h:outputText value="#{mensagens['display.dados.coordenador']}"  rendered="#{cadastrarUsuarioBean.usuario.perfil eq 3}"/>
 						</div>
 						
 						<div class="panel-body">
@@ -92,19 +77,15 @@
 								<h:selectBooleanCheckbox value="#{cadastrarUsuarioBean.usuario.status}"/>
 							</div>
 						</div>
-						<br/>
-						<div class="clear"/>
 						
 						<div class="panel-footer">
-							<h:commandButton  action="#{cadastrarUsuarioBean.cadastrarUsuario()}" value="#{mensagens['display.confirmar']}" styleClass="btn btn-default"/>
-							<h:commandButton value="#{mensagens['display.limpar']}" styleClass="btn btn-warning" action="#" type="reset"/>
+							<h:commandButton  action="#{cadastrarUsuarioBean.cadastrarUsuario()}" value="#{mensagens['display.confirmar']}" styleClass="btn btn-primary btn-xs"/>
+							<h:commandButton value="#{mensagens['display.limpar']}" styleClass="btn btn-warning btn-xs marginLeft_10" action="#" type="reset"/>
 						</div>
 					</div>
 				</div>
 			</div>
-			
-			
 			</h:form>
-		</section>
+		</div>
 	</ui:define>
 </ui:composition>

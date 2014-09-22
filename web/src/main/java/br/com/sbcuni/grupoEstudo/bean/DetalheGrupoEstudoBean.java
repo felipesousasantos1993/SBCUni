@@ -7,6 +7,7 @@ import javax.faces.bean.ViewScoped;
 
 import br.com.sbcuni.avaliacao.service.AvaliacaoServiceBean;
 import br.com.sbcuni.bean.GenericBean;
+import br.com.sbcuni.comentario.service.ComentarioServiceBean;
 import br.com.sbcuni.constantes.Tela;
 import br.com.sbcuni.grupoEstudo.GrupoEstudo;
 import br.com.sbcuni.topico.entity.Topico;
@@ -27,10 +28,13 @@ public class DetalheGrupoEstudoBean extends GenericBean {
 		grupoEstudo = (GrupoEstudo) WebResources.getFlash().get(WebResources.GRUPO_ESTUDO);
 		for (Topico t : grupoEstudo.getTopicosGrupo()) {
 			avaliacaoServiceBean.definirAvaliacaoTopico(t);
+			t.setComentarios(comentarioServiceBean.consultarComentariosTopico(t));
 		}
 	}
 	@EJB
 	private AvaliacaoServiceBean avaliacaoServiceBean;
+	@EJB
+	private ComentarioServiceBean comentarioServiceBean;
 	
 	private GrupoEstudo grupoEstudo;
 	

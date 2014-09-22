@@ -39,10 +39,6 @@ public class MeusGruposBean extends GenericBean {
 	
 	private List<GrupoEstudo> grupoEstudos;
 	
-	public String detalharGrupoEstudo(GrupoEstudo grupoEstudo) {
-		WebResources.getFlash().put(WebResources.GRUPO_ESTUDO, grupoEstudo);
-		return Tela.DETALHE_GRUPO_ESTUDO;
-	}
 
 	public List<GrupoEstudo> getGrupoEstudos() {
 		return grupoEstudos;

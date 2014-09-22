@@ -5,6 +5,7 @@ import javax.faces.bean.ViewScoped;
 
 import br.com.sbcuni.bean.GenericBean;
 import br.com.sbcuni.constantes.Tela;
+import br.com.sbcuni.usuario.entity.Usuario;
 import br.com.sbcuni.util.WebResources;
 
 @ManagedBean
@@ -25,6 +26,11 @@ public class MenuBean extends GenericBean {
 	public String telaConsultarUsuario(Integer perfil) {
 		WebResources.getFlash().put(WebResources.PERFIL, perfil);
 		return Tela.CONSULTAR_USUARIO_MENU;
+	}
+	
+	public String telaPerfil(Usuario usuario) {
+		WebResources.getFlash().put(WebResources.USUARIO, usuario);
+		return Tela.PEFIL_PATH;
 	}
 	
 }

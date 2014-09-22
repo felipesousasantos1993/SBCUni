@@ -8,15 +8,10 @@
 	template="/template/template.xhtml"
 >
 	<ui:define name="conteudo">
-	<div id="content-wrapper">
-		<h1>
-			<h:outputText value="#{mensagens['display.gerencia.sistema']}" />
-			<small><h:outputText value="#{mensagens['display.cadastrar']}" /> </small>	
-		</h1>
-		<ol class="breadcrumb">
+	<div class="page-header">
+		<ol class="breadcrumb breadcrumb-page">
 			<li>
 				<h:outputLink>
-					<i class="fa fa-dashboard"/> 
 					<h:outputText value="#{mensagens['display.voce.esta.em']}" />
 				</h:outputLink>
 			</li>
@@ -24,34 +19,28 @@
 				<h:outputText value="#{mensagens['display.gerencia.sistema']}" />
 			</li>
 			<li>
-				<h:outputText value="#{mensagens['display.consultar']}" />
+				<h:outputText value="#{mensagens['display.consultar.usuario']}" />
 			</li>
-			<li >
-				<h:outputText value="#{mensagens['display.lista']}" />
+			<li>
+				<h:outputText value="#{mensagens['display.lista.usuarios']}" />
+			</li>
+			<li>
+				<h:outputText value="#{mensagens['display.detalhar']}" />
 			</li>
 			<li class="active">
-				<h:outputText value="#{mensagens['display.alterar']}" />
+				<h:outputText value="#{mensagens['display.alterar.usuario']}" />
 			</li>
 		</ol>
-	</section>
-	<section class="content">
-		<h:form prependId="false">
+		<h:messages id="mensagens"  errorClass="alert alert-danger alert-dark" infoClass="alert alert-info alert-dark" warnClass="alert alert-dark"/>
+	</div>
+	<div id="content" class="content">
+	<h:form prependId="false">
 		<h:inputHidden id="validator" validator="cadastrarValidator" />
  			<div class="row">
 				<div class="col-md-12">
 					<div class="panel">
 						<div class="panel-heading">
-							<h3 class="box-title">
-								<h:outputText value="#{mensagens['display.alterar.usuario']}" />
-								<small>
-									<h:outputText value="#{mensagens['display.todos.campos.obrigatorios']}" />
-								</small>
-							</h3>
-						</div>
-						
-						<div class="clear"/>
-						<div class="aviso" >
-							<h:messages id="mensagens" fatalClass="callout callout-danger"  errorClass="callout callout-warning" infoClass="callout callout-success" warnClass="callout callout-info"/>
+							<h:outputText value="#{mensagens['display.alterar.usuario']}" />
 						</div>
 						
 						<div class="panel-body">
@@ -112,13 +101,13 @@
 							<br/>
 							</div>
 							<div class="panel-footer">
-								<h:commandButton value="#{mensagens['display.alterar']}" styleClass="btn btn-default" action="#{alterarBean.alterarUsuario()}" />
-								<h:commandButton value="#{mensagens['display.limpar']}" styleClass="btn btn-warning" action="#" type="reset"/>
+								<h:commandButton value="#{mensagens['display.alterar']}" styleClass="btn btn-primary btn-xs" action="#{alterarBean.alterarUsuario()}" />
+								<h:commandButton value="#{mensagens['display.limpar']}" styleClass="btn btn-default btn-xs marginLeft_10" action="#" type="reset"/>
 							</div>
 						</div>
 					</div>
 				</div>
 			</h:form>
-		</section>
+		</div>
 	</ui:define>
 </ui:composition>

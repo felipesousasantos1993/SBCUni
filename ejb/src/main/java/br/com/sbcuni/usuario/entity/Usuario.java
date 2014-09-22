@@ -71,6 +71,21 @@ public class Usuario implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dtCadastro;
 	
+	@Column(name = "telFixo", nullable = true)
+	private String telFixo;
+	
+	@Column(name = "telCelular", nullable = true)
+	private String telCelular;
+	
+	@Column(name = "cidade", nullable = true)
+	private String cidade;
+	
+	@Column(name = "estado", nullable = true)
+	private String estado;
+	
+	@Column(name = "sobreMim", length = 255, nullable = true)
+	private String sobreMim;
+	
 	@Column(name = "dtUltimoAcesso", nullable = true)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dtUltimoAcesso;
@@ -256,6 +271,46 @@ public class Usuario implements Serializable {
 
 	public String getMatriculaNomeAluno() {
 		return matricula.concat(" - ").concat(nome);
+	}
+
+	public String getTelFixo() {
+		return telFixo;
+	}
+
+	public void setTelFixo(String telFixo) {
+		this.telFixo = telFixo;
+	}
+
+	public String getTelCelular() {
+		return telCelular;
+	}
+
+	public void setTelCelular(String telCelular) {
+		this.telCelular = telCelular;
+	}
+
+	public String getCidade() {
+		return cidade;
+	}
+
+	public void setCidade(String cidade) {
+		this.cidade = cidade;
+	}
+
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+
+	public String getSobreMim() {
+		return sobreMim;
+	}
+
+	public void setSobreMim(String sobreMim) {
+		this.sobreMim = sobreMim;
 	}
 
 }

@@ -22,13 +22,13 @@
 				<h:outputText value="#{mensagens['display.cadastrar.usuario']}" />
 			</li>
 		</ol>
+		<h:messages id="mensagens"  errorClass="alert alert-danger alert-dark" infoClass="alert alert-info alert-dark" warnClass="alert alert-dark"/>
 	</div>
 	<div id="content" class="content">
 		<h:form prependId="false">
 		<h:inputHidden id="validator" validator="cadastrarValidator" />
  			<div class="row">
 				<div class="col-sm-12">
-					<h:messages id="mensagens"  errorClass="alert alert-danger alert-dark" infoClass="alert alert-info alert-dark" warnClass="alert alert-dark"/>
 					<div class="panel">
 						<div class="panel-heading">
 							<span class="panel-title"><h:outputText value="#{mensagens['display.cadastrar.usuario']}" /> </span>

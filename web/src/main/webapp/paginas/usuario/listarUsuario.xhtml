@@ -8,31 +8,22 @@
 	template="/template/template.xhtml"
 >
 	<ui:define name="conteudo">
-	<div id="content-wrapper">
-		<h1>
-			<h:outputText value="#{mensagens['display.aluno']}"  rendered="#{listarUsuarioBean.perfil eq 1}"/>
-			<h:outputText value="#{mensagens['display.professor']}"  rendered="#{listarUsuarioBean.perfil eq 2}"/>
-			<h:outputText value="#{mensagens['display.coordenador']}"  rendered="#{listarUsuarioBean.perfil eq 3}"/>
-			<small>
-				<h:outputText value="#{mensagens['display.listar.aluno']}"  rendered="#{listarUsuarioBean.perfil eq 1}"/>
-				<h:outputText value="#{mensagens['display.listar.professor']}"  rendered="#{listarUsuarioBean.perfil eq 2}"/>
-				<h:outputText value="#{mensagens['display.listar.coordenador']}"  rendered="#{listarUsuarioBean.perfil eq 3}"/>
-			</small>	
-		</h1>
-		<ol class="breadcrumb">
+	<div class="page-header">
+		<ol class="breadcrumb breadcrumb-page">
 			<li>
 				<h:outputLink>
-					<i class="fa fa-dashboard"/> 
 					<h:outputText value="#{mensagens['display.voce.esta.em']}" />
 				</h:outputLink>
-			</li>
-			<li>
-				<h:outputText value="#{mensagens['display.usuario']}" />
 			</li>
 			<li>
 				<h:outputText value="#{mensagens['display.aluno']}"  rendered="#{listarUsuarioBean.perfil eq 1}"/>
 				<h:outputText value="#{mensagens['display.professor']}"  rendered="#{listarUsuarioBean.perfil eq 2}"/>
 				<h:outputText value="#{mensagens['display.coordenador']}"  rendered="#{listarUsuarioBean.perfil eq 3}"/>
+			</li>
+			<li>
+				<h:outputText value="#{mensagens['display.consultar.aluno']}"  rendered="#{listarUsuarioBean.perfil eq 1}"/>
+				<h:outputText value="#{mensagens['display.consultar.professor']}"  rendered="#{listarUsuarioBean.perfil eq 2}"/>
+				<h:outputText value="#{mensagens['display.consultar.coordenador']}"  rendered="#{listarUsuarioBean.perfil eq 3}"/>
 			</li>
 			<li class="active">
 				<h:outputText value="#{mensagens['display.listar.aluno']}"  rendered="#{listarUsuarioBean.perfil eq 1}"/>
@@ -40,28 +31,21 @@
 				<h:outputText value="#{mensagens['display.listar.coordenador']}"  rendered="#{listarUsuarioBean.perfil eq 3}"/>
 			</li>
 		</ol>
-	</section>
-	<section class="content">
+		<h:messages id="mensagens"  errorClass="alert alert-danger alert-dark" infoClass="alert alert-info alert-dark" warnClass="alert alert-dark"/>
+	</div>
+	<div id="content" class="content">
 		<h:form prependId="false" id="form">
  			<div class="row">
 				<div class="col-md-12">
 					<div class="panel">
 						<div class="panel-heading">
-							<h3 class="box-title">
-								<h:outputText value="#{mensagens['display.listar.aluno']}"  rendered="#{listarUsuarioBean.perfil eq 1}"/>
-								<h:outputText value="#{mensagens['display.listar.professor']}"  rendered="#{listarUsuarioBean.perfil eq 2}"/>
-								<h:outputText value="#{mensagens['display.listar.coordenador']}"  rendered="#{listarUsuarioBean.perfil eq 3}"/>
-								<small>
-									<h:outputText value="#{mensagens['display.clique.usuario.detalhar']}" />
-								</small>
-							</h3>
+							<h:outputText value="#{mensagens['display.listar.aluno']}"  rendered="#{listarUsuarioBean.perfil eq 1}"/>
+							<h:outputText value="#{mensagens['display.listar.professor']}"  rendered="#{listarUsuarioBean.perfil eq 2}"/>
+							<h:outputText value="#{mensagens['display.listar.coordenador']}"  rendered="#{listarUsuarioBean.perfil eq 3}"/>
+							<h6 class="text-light-gray text-semibold text-xs">
+								<h:outputText value="#{mensagens['display.clique.usuario.detalhar']}" />
+							</h6>
 						</div>
-						
-						<div class="clear"/>
-						<div class="aviso">
-							<h:messages id="mensagens" globalOnly="true"  errorClass="aviso-error" infoClass="aviso-sucesso" warnClass="aviso-alerta"/>
-						</div>
-						
 						<div class="panel-body">
 							<h:panelGroup>
 								<div class="panel-body table-responsive">
@@ -69,7 +53,7 @@
 										id="listaUsuarios"
 										value="#{listarUsuarioBean.usuarios}"
 										var="usuario"
-										styleClass="table table-bordered table-striped"
+										styleClass="table table-striped table-bordered dataTable no-footer"
 									>
 										<h:column>
 											<f:facet name="header">
@@ -111,16 +95,15 @@
 										</h:column>
 									</h:dataTable>
 								</div>
-								<div class="panel-footer">
-									<h:commandButton action="#{listarUsuarioBean.voltarTelaConsulta()}" immediate="true" value="#{mensagens['display.voltar']}" styleClass="btn btn-default"/>
-								</div>
 							</h:panelGroup>
+						</div>
+						<div class="panel-footer">
+							<h:commandButton action="#{listarUsuarioBean.voltarTelaConsulta()}" immediate="true" value="#{mensagens['display.voltar']}" styleClass="btn btn-default btn-xs"/>
 						</div>
 					</div>
 				</div>
 			</div>
-
 			</h:form>
-		</section>
+		</div>
 	</ui:define>
 </ui:composition>

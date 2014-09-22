@@ -8,21 +8,10 @@
 	template="/template/template.xhtml"
 >
 	<ui:define name="conteudo">
-	<div id="content-wrapper">
-		<h1>
-			<h:outputText value="#{mensagens['display.aluno']}"  rendered="#{alterarUsuarioBean.usuario.perfil eq 1}"/>
-			<h:outputText value="#{mensagens['display.professor']}"  rendered="#{alterarUsuarioBean.usuario.perfil eq 2}"/>
-			<h:outputText value="#{mensagens['display.coordenador']}"  rendered="#{alterarUsuarioBean.usuario.perfil eq 3}"/>
-			<small>
-				<h:outputText value="#{mensagens['display.alterar.aluno']}"  rendered="#{alterarUsuarioBean.usuario.perfil eq 1}"/>
-				<h:outputText value="#{mensagens['display.alterar.professor']}"  rendered="#{alterarUsuarioBean.usuario.perfil eq 2}"/>
-				<h:outputText value="#{mensagens['display.alterar.coordenador']}"  rendered="#{alterarUsuarioBean.usuario.perfil eq 3}"/>
-			</small>	
-		</h1>
-		<ol class="breadcrumb">
+	<div class="page-header">
+		<ol class="breadcrumb breadcrumb-page">
 			<li>
 				<h:outputLink>
-					<i class="fa fa-dashboard"/> 
 					<h:outputText value="#{mensagens['display.voce.esta.em']}" />
 				</h:outputLink>
 			</li>
@@ -30,6 +19,11 @@
 				<h:outputText value="#{mensagens['display.aluno']}"  rendered="#{alterarUsuarioBean.usuario.perfil eq 1}"/>
 				<h:outputText value="#{mensagens['display.professor']}"  rendered="#{alterarUsuarioBean.usuario.perfil eq 2}"/>
 				<h:outputText value="#{mensagens['display.coordenador']}"  rendered="#{alterarUsuarioBean.usuario.perfil eq 3}"/>
+			</li>
+			<li>
+				<h:outputText value="#{mensagens['display.consultar.aluno']}"  rendered="#{alterarUsuarioBean.usuario.perfil eq 1}"/>
+				<h:outputText value="#{mensagens['display.consultar.professor']}"  rendered="#{alterarUsuarioBean.usuario.perfil eq 2}"/>
+				<h:outputText value="#{mensagens['display.consultar.coordenador']}"  rendered="#{alterarUsuarioBean.usuario.perfil eq 3}"/>
 			</li>
 			<li>
 				<h:outputText value="#{mensagens['display.listar.aluno']}"  rendered="#{alterarUsuarioBean.usuario.perfil eq 1}"/>
@@ -47,27 +41,17 @@
 				<h:outputText value="#{mensagens['display.alterar.coordenador']}"  rendered="#{alterarUsuarioBean.usuario.perfil eq 3}"/>
 			</li>
 		</ol>
-	</section>
-	<section class="content">
+		<h:messages id="mensagens"  errorClass="alert alert-danger alert-dark" infoClass="alert alert-info alert-dark" warnClass="alert alert-dark"/>
+	</div>
+	<div id="content" class="content">
 		<h:form prependId="false">
 		<h:inputHidden id="validator" validator="usuarioValidator" />
  			<div class="row">
 				<div class="col-md-12">
 					<div class="panel">
 						<div class="panel-heading">
-							<h3 class="box-title">
-								<h:outputText value="#{mensagens['display.alterar.usuario']}" />
-								<small>
-									<h:outputText value="#{mensagens['display.todos.campos.obrigatorios']}" />
-								</small>
-							</h3>
+							<h:outputText value="#{mensagens['display.alterar.usuario']}" />
 						</div>
-						
-						<div class="clear"/>
-						<div class="aviso" >
-							<h:messages id="mensagens" fatalClass="callout callout-danger"  errorClass="callout callout-warning" infoClass="callout callout-success" warnClass="callout callout-info"/>
-						</div>
-						
 						<div class="panel-body">
 							<div class="form-group">
 								<label><h:outputText value="#{mensagens['display.perfil']}:"  /></label>
@@ -128,17 +112,16 @@
 								<br/>
 								<h:selectBooleanCheckbox value="#{alterarUsuarioBean.usuario.status}" />
 							</div>
-							<br/>
-							</div>
-							<div class="panel-footer">
-								<h:commandButton value="#{mensagens['display.alterar']}" styleClass="btn btn-success" action="#{alterarUsuarioBean.alterarUsuario()}" />
-								<h:commandButton value="#{mensagens['display.limpar']}" styleClass="btn btn-warning" action="#" type="reset"/>
-								<h:commandButton value="#{mensagens['display.voltar']}" immediate="true" styleClass="btn btn-default" action="#{alterarUsuarioBean.voltarDetalheUsuario()}" />
-							</div>
+						</div>
+						<div class="panel-footer">
+							<h:commandButton value="#{mensagens['display.alterar']}" styleClass="btn btn-primary btn-xs" action="#{alterarUsuarioBean.alterarUsuario()}" />
+							<h:commandButton value="#{mensagens['display.limpar']}" styleClass="btn btn-warning btn-xs marginLeft_10" action="#" type="reset"/>
+							<h:commandButton value="#{mensagens['display.voltar']}" immediate="true" styleClass="btn btn-default btn-xs marginLeft_10" action="#{alterarUsuarioBean.voltarDetalheUsuario()}" />
 						</div>
 					</div>
 				</div>
+			</div>
 			</h:form>
-		</section>
+		</div>
 	</ui:define>
 </ui:composition>

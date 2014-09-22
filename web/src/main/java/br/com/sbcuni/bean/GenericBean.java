@@ -9,6 +9,7 @@ import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.model.SelectItem;
 
 import br.com.sbcuni.avaliacao.entity.Avaliacao;
 import br.com.sbcuni.avaliacao.service.AvaliacaoServiceBean;
@@ -16,8 +17,10 @@ import br.com.sbcuni.comentario.entity.Comentario;
 import br.com.sbcuni.constantes.Constantes;
 import br.com.sbcuni.constantes.Tela;
 import br.com.sbcuni.exception.SbcuniException;
+import br.com.sbcuni.grupoEstudo.GrupoEstudo;
 import br.com.sbcuni.topico.entity.Topico;
 import br.com.sbcuni.usuario.bean.UsuarioSessionBean;
+import br.com.sbcuni.usuario.entity.Usuario;
 import br.com.sbcuni.util.Util;
 import br.com.sbcuni.util.WebResources;
 
@@ -58,6 +61,10 @@ public class GenericBean implements Serializable {
 	public static String detalharTopico(Topico topico) {
 		WebResources.getFlash().put(WebResources.TOPICO, topico);
 		return Tela.VISUALIZAR_TOPICO_PATH;
+	}
+	public static String detalharGrupoEstudo(GrupoEstudo grupoEstudo) {
+		WebResources.getFlash().put(WebResources.GRUPO_ESTUDO, grupoEstudo);
+		return Tela.DETALHE_GRUPO_ESTUDO_PATH;
 	}
 
 	public static String telaAtualizarTopico(Topico topico) {
@@ -178,7 +185,19 @@ public class GenericBean implements Serializable {
 		String saida = buffer.toString();
 		return saida.substring(0, saida.length() - 1).replace("-", " > ");
 	}
+	
+	public  List<SelectItem> getEstados() {
+		List<SelectItem> estados = new ArrayList<SelectItem>();
+		estados.add(new SelectItem("RJ", "RJ"));
+		estados.add(new SelectItem("SP", "SP"));
+		return estados;
+	}
 
+	public String perfilUsuario(Usuario usuario) {
+		WebResources.getFlash().put(WebResources.USUARIO, usuario);
+		return Tela.PEFIL_PATH;
+	}
+	
 	protected ResourceBundle getMessages() {
 		if (messages == null) {
 			messages = ResourceBundle.getBundle("br.gov.caixa.sbcuni.mensagens.mensagens");

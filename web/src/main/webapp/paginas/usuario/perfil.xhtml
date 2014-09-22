@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/template/template.xhtml"
+>
+	<ui:define name="conteudo">
+	<div class="page-header">
+		<ol class="breadcrumb breadcrumb-page">
+			<li>
+				<h:outputLink>
+					<h:outputText value="#{mensagens['display.voce.esta.em']}" />
+				</h:outputLink>
+			</li>
+			<li class="active">
+				<h:outputText value="#{mensagens['display.perfil']}"  />
+			</li>
+		</ol>
+		<h:messages id="mensagens"  errorClass="alert alert-danger alert-dark" infoClass="alert alert-info alert-dark" warnClass="alert alert-dark"/>
+	</div>
+	<h:form prependId="false">
+	<div class="page-profile">
+		<div class="profile-full-name">
+			<span class="text-semibold">
+				<h:outputText value="#{perfilBean.usuario.nome}" />
+			</span>		
+		</div>
+		<div class="profile-row">
+			<div class="left-col">
+				<div class="profile-block">
+					<div class="panel profile-photo">
+						<h:graphicImage library="img" value="/resources/img/2.jpg" />
+					</div>
+					<h:panelGroup rendered="#{perfilBean.usuario.idUsuario eq usuarioSessionBean.usuarioSessao.idUsuario}">
+						<h:outputLink  value="#{facesContext.externalContext.requestContextPath}/paginas/usuario/editarPerfil.jsf" styleClass="btn btn-primary" >
+							<i class="fa fa-user" style="margin-right: 5px;"/>
+							<h:outputText value="#{mensagens['display.editar.perfil']}" />
+						</h:outputLink>
+						<h:commandLink action="#{perfilBean.telaMudarSenha}" styleClass="btn btn-success btn-xs marginLeft_10">
+							<i class="fa fa-lock"/>
+						</h:commandLink>
+					</h:panelGroup>
+				</div>
+					<div class="panel panel-transparent">
+						<div class="panel-heading">
+							<span class="panel-title">
+								<h:outputText value="#{mensagens['display.perfil']}" />
+							</span>						
+						</div>
+						<div class="panel-body">
+							<h:outputText value="#{perfilBean.usuario.sobreMim}" escape="false" />
+						</div>
+					</div>
+					<div class="panel panel-transparent">
+						<div class="panel-heading">
+							<span class="panel-title">
+								<h:outputText value="#{mensagens['display.informacoes']}" />
+							</span>						
+						</div>
+						<div class="list-group">
+							<div class="list-group-item">
+								<strong><h:outputText value="#{mensagens['display.perfil']}" /> </strong>
+								<h:outputText value="#{perfilBean.usuario.dePerfil}" />
+							</div>
+							<div class="list-group-item">
+								<strong><h:outputText value="#{mensagens['display.matricula']}" /> </strong>
+								<h:outputText value="#{perfilBean.usuario.matricula}" />
+							</div>
+							<div class="list-group-item">
+								<strong><h:outputText value="#{mensagens['display.cpf']}" /> </strong>
+								<h:outputText value="#{perfilBean.usuario.cpf}" />
+							</div>
+							<div class="list-group-item">
+								<strong><h:outputText value="#{mensagens['display.email']}" /> </strong>
+								<h:outputText value="#{perfilBean.usuario.email}" />
+							</div>
+							<div class="list-group-item">
+								<strong><h:outputText value="#{mensagens['display.status']}" /> </strong>
+								<h:outputText value="#{perfilBean.usuario.deStatus}" />
+							</div>
+							<div class="list-group-item">
+								<strong><h:outputText value="#{mensagens['display.membro.desde']}" /> </strong>
+								<h:outputText value="#{perfilBean.usuario.dtCadastro}" >
+									<f:convertDateTime timeZone="America/Sao_Paulo" locale="pt_BR" pattern="EEEE yyyy"/>
+								</h:outputText> 
+							</div>
+							<div class="list-group-item">
+								<strong><h:outputText value="#{mensagens['display.telefone']}" rendered="#{not empty perfilBean.usuario.telFixo}"/> </strong>
+								<h:outputText value="#{perfilBean.usuario.telFixo}" rendered="#{not empty perfilBean.usuario.telFixo}"/>
+							</div>
+							<div class="list-group-item">
+								<strong><h:outputText value="#{mensagens['display.celular']}" rendered="#{not empty perfilBean.usuario.telCelular}"/> </strong>
+								<h:outputText value="#{perfilBean.usuario.telCelular}" rendered="#{not empty perfilBean.usuario.telCelular}"/>
+							</div>
+							<div class="list-group-item">
+								<strong><h:outputText value="#{mensagens['display.cidade']}" rendered="#{not empty perfilBean.usuario.cidade}"/> </strong>
+								<h:outputText value="#{perfilBean.usuario.cidade}" rendered="#{not empty perfilBean.usuario.cidade}"/>
+							</div>
+							<div class="list-group-item">
+								<strong><h:outputText value="#{mensagens['display.estado']}" rendered="#{not empty perfilBean.usuario.estado}"/> </strong>
+								<h:outputText value="#{perfilBean.usuario.estado}" rendered="#{not empty perfilBean.usuario.estado}"/>
+							</div>
+						</div>
+					</div>
+					<div class="panel panel-transparent">
+						<div class="panel-heading">
+							<span class="panel-title">
+								<h:outputText value="#{mensagens['display.estatisticas']}" />
+							</span>						
+						</div>
+						<div class="list-group">
+							<div class="list-group-item">
+								<i class="fa fa-bullhorn"/>
+								<strong><h:outputText value="#{mensagens['display.topicos']}" /> </strong>
+								<h:outputText value="1" />
+							</div>
+							<div class="list-group-item">
+								<i class="fa fa-comment-o"/>
+								<strong><h:outputText value="#{mensagens['display.comentarios']}" /> </strong>
+								<h:outputText value="2" />
+							</div>
+						</div>
+					</div>
+					<div class="panel panel-transparent">
+						<div class="panel-heading">
+							<span class="panel-title">
+								<h:outputText value="#{mensagens['display.grupos.estudo']}" />
+							</span>						
+						</div>
+						<div class="list-group">
+							<ui:repeat var="grupoEstudo" value="#{perfilBean.grupoEstudos}">
+								<div class="list-group-item">
+									<h:commandLink action="#{perfilBean.detalharGrupoEstudo(grupoEstudo)}"  value="#{grupoEstudo.noGrupo}" styleClass="label label-primary"/>
+								</div>
+							</ui:repeat>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</h:form>
+	</ui:define>
+</ui:composition>

@@ -38,9 +38,12 @@ public class Tela implements Serializable {
 	public static final String CONSULTAR_ALTERAR_USUARIO_MENU = "/paginas/usuario/consultarAlterarUsuario.jsf";
 	public static final String CONSULTAR_USUARIO_MENU = "/paginas/usuario/consultarUsuario.jsf";
 	public static final String CONSULTAR_EXCLUIR_USUARIO_MENU = "/paginas/usuario/consultarExcluirUsuario.jsf";
+	public static final String PEFIL_PATH = "/paginas/usuario/perfil.jsf";
+	public static final String MUDAR_SENHA_PATH = "/paginas/usuario/mudarSenha.jsf";
 
 	// GRUPO DE ESTUDO
 	public static final String MEUS_GRUPOS = "meusGrupos";
 	public static final String DETALHE_GRUPO_ESTUDO = "detalheGrupoEstudo";
+	public static final String DETALHE_GRUPO_ESTUDO_PATH = "/paginas/grupoEstudo/detalheGrupoEstudo.jsf";
 	public static final String NOVO_TOPICO_GRUPO_ESTUDO = "novoTopicoGrupoEstudo";
 }

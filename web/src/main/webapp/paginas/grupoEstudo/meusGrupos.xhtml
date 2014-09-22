@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="ISO-8859-1"?>
 <!DOCTYPE html>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -8,43 +8,37 @@
 	xmlns:p="http://primefaces.org/ui"
 >
 	<ui:define name="conteudo">
-	<section  class="content-header">
-		<h1>
-			<h:outputText value="#{mensagens['display.menu.grupos.estudo']}" />
-			<small><h:outputText value="#{mensagens['display.meus.grupos']}" /> </small>	
-		</h1>
-		<ol class="breadcrumb">
+	<div class="page-header">
+		<ol class="breadcrumb breadcrumb-page">
 			<li>
 				<h:outputLink>
-					<i class="fa fa-dashboard"/> 
 					<h:outputText value="#{mensagens['display.voce.esta.em']}" />
 				</h:outputLink>
 			</li>
 			<li>
-				<h:outputText value="#{mensagens['display.menu.grupos.estudo']}" />
+				<h:outputText value="#{mensagens['display.grupos.estudo']}" />
 			</li>
 			<li class="active">
-				<h:outputText value="#{mensagens['display.meus.grupos']}" />
+				<h:outputText value="#{mensagens['display.criar.grupo.estudo']}" />
 			</li>
 		</ol>
-	</section>
-	<section class="content">
+		<h:messages id="mensagens"  errorClass="alert alert-danger alert-dark" infoClass="alert alert-info alert-dark" warnClass="alert alert-dark"/>
+	</div>
+	<div id="content" class="content">
 		<h:form prependId="false" id="form">
-				<div class="clear"/>
-				<div class="aviso" >
-					<h:messages id="mensagens" fatalClass="callout callout-danger"  errorClass="callout callout-warning" infoClass="callout callout-success" warnClass="callout callout-info"/>
-				</div>
-						
-				<ui:repeat var="grupoEstudo" value="#{meusGruposBean.grupoEstudos}">
+			<ui:repeat var="grupoEstudo" value="#{meusGruposBean.grupoEstudos}">
 				<div class="row">
-					<div class="col-lg-12">
-						<div class="box box-solid">
-							<div class="panel-heading">
-								<h3 class="box-title">
-									<h:commandLink  action="#{meusGruposBean.detalharGrupoEstudo(grupoEstudo)}" value="#{grupoEstudo.noGrupo} " />
-								</h3>
-							</div>
-							<div class="panel-body">
+					<div class="col-sm-12">
+						<div class="list-group">
+							<h:commandLink  action="#{meusGruposBean.detalharGrupoEstudo(grupoEstudo)}" styleClass="list-group-item" >
+								<h4 class="list-group-item-heading">
+									 <h:outputText value="#{grupoEstudo.noGrupo} " />
+								</h4>
+								<span class="badge badge-primary" title="Alunos" >
+									<h:outputText value="#{grupoEstudo.alunos.size()}" />
+								</span> 
+								<span class="badge badge-success" title="Tópicos"> <h:outputText value="#{grupoEstudo.topicosGrupo.size()}" /> </span>
+								<p class="list-group-item-text">
 								<p>
 									<h:outputText value="#{mensagens['display.ultimos.topicos']}" />
 								</p>
@@ -57,19 +51,20 @@
 										<h:outputText value="#{topico.dtUltimaAtualizacao}" rendered="#{not empty topico.dtUltimaAtualizacao}">>
 											<f:convertDateTime timeZone="America/Sao_Paulo" locale="pt_BR" pattern="dd/MM/yyyy"/>
 										</h:outputText> 
+										
+										<h:outputText value="#{topico.titulo}" />
 									</li>
 									
 									</ui:repeat>
 								</ul>
-							</div>
+							</p>
+							</h:commandLink>
 						</div>
 					</div>
 				</div>
 				</ui:repeat>
 						
-			<div class="clear"/>
-			
 			</h:form>
-		</section>
+		</div>
 	</ui:define>
 </ui:composition>

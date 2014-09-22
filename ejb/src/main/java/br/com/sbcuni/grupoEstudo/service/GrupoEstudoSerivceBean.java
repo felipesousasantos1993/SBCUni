@@ -31,6 +31,7 @@ public class GrupoEstudoSerivceBean implements Serializable {
 	
 	private StringBuffer queryAlunosGrupoEstudo = new StringBuffer("SELECT u.idUsuario FROM Usuario u WHERE u.idusuario IN (SELECT alunos_idusuario FROM grupoestudo_usuario WHERE grupos_idgrupoestudo = ?) ORDER BY u.nome ASC");
 	
+	private StringBuffer queryGruposEstudosUsuario = new StringBuffer("SELECT idgrupoestudo FROM grupoestudo  WHERE idgrupoestudo IN (SELECT grupos_idgrupoestudo FROM grupoestudo_usuario where alunos_idusuario = ?)");
 	
 	public void criarGrupoEstudo(GrupoEstudo grupoEstudo) throws SbcuniException {
 		try {
@@ -53,6 +54,38 @@ public class GrupoEstudoSerivceBean implements Serializable {
 				}
 			}
 			return grupoEstudos;
+		} catch (NoResultException e) {
+			return null;
+		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<GrupoEstudo> consultarGruposUsuario(Usuario usuario) {
+		Query query = entityManager.createNativeQuery(queryGruposEstudosUsuario.toString());
+		query.setParameter(1, usuario.getIdUsuario());
+		try {
+			List<GrupoEstudo> grupoEstudos = new ArrayList<GrupoEstudo>();
+			List<BigInteger> ids = query.getResultList();
+			for (BigInteger bigInteger : ids) {
+				grupoEstudos.add(buscarGrupoEstudoId(bigInteger.longValue()));
+			}
+			for (GrupoEstudo grupoEstudo : grupoEstudos) {
+				grupoEstudo.setAlunos(consultarAlunosGrupoEstudo(grupoEstudo));
+				for (Topico topico : grupoEstudo.getTopicosGrupo()) {
+					topico.setCategorias(categoriaServiceBean.buscarCategoriaTopico(topico));
+				}
+			}
+			return grupoEstudos;
+		} catch (NoResultException e) {
+			return null;
+		}
+	}
+	
+	public GrupoEstudo buscarGrupoEstudoId(Long id) {
+		Query query = entityManager.createNamedQuery("GrupoEstudo.buscarGrupoEstudoId");
+		query.setParameter("idGrupo", id);
+		try {
+			return (GrupoEstudo) query.getSingleResult();
 		} catch (NoResultException e) {
 			return null;
 		}

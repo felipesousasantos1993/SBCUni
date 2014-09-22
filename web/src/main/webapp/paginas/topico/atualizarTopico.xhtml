@@ -8,47 +8,30 @@
 	template="/template/template.xhtml"
 >
 	<ui:define name="conteudo">
-	<div id="content-wrapper">
-		<h1>
-			<h:outputText value="#{mensagens['display.menu.topico']}" />
-			<small><h:outputText value="#{mensagens['display.atualizar.topico']}" /> </small>	
-		</h1>
-		<ol class="breadcrumb">
+	<div class="page-header">
+		<ol class="breadcrumb breadcrumb-page">
 			<li>
 				<h:outputLink>
-					<i class="fa fa-dashboard"/> 
 					<h:outputText value="#{mensagens['display.voce.esta.em']}" />
 				</h:outputLink>
 			</li>
 			<li>
 				<h:outputText value="#{mensagens['display.menu.topico']}" />
 			</li>
-			<li>
-				<h:outputText value="#{mensagens['display.meus.topicos']}" />
-			</li>
 			<li class="active">
 				<h:outputText value="#{mensagens['display.atualizar.topico']}" />
 			</li>
 		</ol>
-	</section>
-	<section class="content">
+		<h:messages id="mensagens"  errorClass="alert alert-danger alert-dark" infoClass="alert alert-info alert-dark" warnClass="alert alert-dark"/>
+	</div>
+	<div id="content" class="content">
 		<h:form prependId="false" id="form">
 		<h:inputHidden id="validator" validator="novoTopicoValidator" />
 			<div class="row">
 				<div class="col-md-12">
 					<div class="panel">
 						<div class="panel-heading">
-							<h3 class="box-title">
-								<h:outputText value="#{mensagens['display.dados.topico']}" />
-								<small>
-									<h:outputText value="#{mensagens['display.aviso.campos.obrigatorios']}" />
-								</small>
-							</h3>
-						</div>
-						
-						<div class="clear"/>
-						<div class="aviso" >
-							<h:messages id="mensagens" fatalClass="callout callout-danger"  errorClass="callout callout-warning" infoClass="callout callout-success" warnClass="callout callout-info"/>
+							<span class="panel-title"><h:outputText value="#{mensagens['display.dados.topico']}" /></span> 
 						</div>
 						
 						<div class="panel-body"  >
@@ -62,7 +45,7 @@
 								<label>
 									<h:outputText value="#{mensagens['display.descricao']} *"/>
 								</label>
-								<h:inputTextarea id="descricao" value="#{atualizarTopicoBean.topico.descricao}"  styleClass="textarea form-control x95" style="height:260px !important; overflow: hidden !important;"/>
+								<h:inputTextarea id="descricao" value="#{atualizarTopicoBean.topico.descricao}"  styleClass="editorTexto form-control x95" style="height:260px !important; overflow: hidden !important;"/>
 							</div>
 							<div class="form-group">
 								<label>
@@ -73,18 +56,14 @@
 							</div>
 						</div>
 						
-						<div class="clear"/>
-						
 						<div class="panel-footer">
-							<h:commandButton  action="#{atualizarTopicoBean.alterarTopico()}" value="#{mensagens['display.atualizar']}" styleClass="btn btn-success"/>
+							<h:commandButton  action="#{atualizarTopicoBean.alterarTopico()}" value="#{mensagens['display.atualizar']}" styleClass="btn btn-primary btn-outline btn-xs"/>
 						</div>
 					</div>
 				</div>
 			</div>
 			
-			<div class="clear"/>
-			
 			</h:form>
-		</section>
+		</div>
 	</ui:define>
 </ui:composition>

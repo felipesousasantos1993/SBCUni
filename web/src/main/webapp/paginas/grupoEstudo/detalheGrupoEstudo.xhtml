@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="iso-8859-1"?>
 <!DOCTYPE html>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -8,43 +8,30 @@
 	xmlns:p="http://primefaces.org/ui"
 >
 	<ui:define name="conteudo">
-	<section  class="content-header">
-		<h1>
-			<h:outputText value="#{mensagens['display.menu.grupos.estudo']}" />
-			<small><h:outputText value="#{mensagens['display.detalhe.grupo']}" /> </small>	
-		</h1>
-		<ol class="breadcrumb">
+	<div class="page-header">
+		<ol class="breadcrumb breadcrumb-page">
 			<li>
 				<h:outputLink>
-					<i class="fa fa-dashboard"/> 
 					<h:outputText value="#{mensagens['display.voce.esta.em']}" />
 				</h:outputLink>
 			</li>
 			<li>
-				<h:outputText value="#{mensagens['display.menu.grupos.estudo']}" />
-			</li>
-			<li >
-				<h:outputText value="#{mensagens['display.meus.grupos']}" />
+				<h:outputText value="#{mensagens['display.grupos.estudo']}" />
 			</li>
 			<li class="active">
 				<h:outputText value="#{mensagens['display.detalhe.grupo']}" />
 			</li>
 		</ol>
-	</section>
-	<section class="content">
+		<h:messages id="mensagens"  errorClass="alert alert-danger alert-dark" infoClass="alert alert-info alert-dark" warnClass="alert alert-dark"/>
+	</div>
 		<h:form prependId="false" id="form">
 			<div class="row">
 				<div class="col-md-12">
 					<div class="panel">
 						<div class="panel-heading">
-							<h3 class="box-title">
+							<span class="panel-title">
 								<h:outputText value="#{detalheGrupoEstudoBean.grupoEstudo.noGrupo}" />
-							</h3>
-						</div>
-						
-						<div class="clear"/>
-						<div class="aviso" >
-							<h:messages id="mensagens" fatalClass="callout callout-danger"  errorClass="callout callout-warning" infoClass="callout callout-success" warnClass="callout callout-info"/>
+							</span>
 						</div>
 						
 						<div class="panel-body"  >
@@ -92,115 +79,53 @@
 										</li>
 									</ul>
 									<div class="tab-content">
-										<div id="tab_alunos" class="tab-pane">
-											<div class="panel-body table-responsive no-padding">
-												<h:dataTable
-													id="tabelaAlunos"
-													value="#{detalheGrupoEstudoBean.grupoEstudo.alunos}"
-													var="aluno"
-													styleClass="table table-hover"
-												>
-													<h:column>
-														<f:facet name="header">
-															<h:outputText value="#" />
-														</f:facet>
-														<h:outputText value="" />
-													</h:column>
-													<h:column>
-														<f:facet name="header">
-															<h:outputText value="#{mensagens['display.nome']}" />
-														</f:facet>
-														<h:outputText value="#{aluno.nome}" />
-													</h:column>
-													<h:column>
-														<f:facet name="header">
-															<h:outputText value="#{mensagens['display.matricula']}" />
-														</f:facet>
-														<h:outputText value="#{aluno.matricula}" />
-													</h:column>
-													<h:column>
-														<f:facet name="header">
-															<h:outputText value="#{mensagens['display.topicos']}" />
-														</f:facet>
-														<h:outputText value="" />
-													</h:column>
-													<h:column>
-														<f:facet name="header">
-															<h:outputText value="#{mensagens['display.comentarios']}" />
-														</f:facet>
-														<h:outputText value="" />
-													</h:column>
-												</h:dataTable>
-											</div>
+										<div id="tab_alunos" class="tab-pane fade widget-followers ">
+											<ui:repeat var="aluno" value="#{detalheGrupoEstudoBean.grupoEstudo.alunos}">
+												<div class="follower">
+													<h:graphicImage library="img" value="/resources/img/2.jpg" styleClass="follower-avatar"/>
+													<div class="body">
+														<div class="follower-controls">
+															<span class="badge badge-primary" title="Tópcos">
+																<h:outputText value="1" />
+															</span>
+															<span class="badge badge-success" title="Comentários">
+																<h:outputText value="1" />
+															</span>
+															<h:commandLink action="#" immediate="true" value="#{mensagens['display.enviar.mensagem']}" styleClass="btn btn-default btn-xs marginLeft_5"/>
+														</div>
+													
+														<h:commandLink action="#{detalheGrupoEstudoBean.perfilUsuario(aluno)}" immediate="true" value="#{aluno.nome}" styleClass="follower-name"/>
+														<br/>
+														<h:outputText value="#{aluno.email}" styleClass="follower-username"/>
+													</div>
+												</div>
+											</ui:repeat>
 										</div>
-										<div id="tab_topicos" class="tab-pane">
-											<div class="panel-body table-responsive no-padding">
-												<h:dataTable
-													id="tabelaTopico"
-													value="#{detalheGrupoEstudoBean.grupoEstudo.topicosGrupo}"
-													var="topico"
-													styleClass="table table-hover"
-													rendered="#{not empty detalheGrupoEstudoBean.grupoEstudo.topicosGrupo}"
-												>
-													<h:column>
-														<f:facet name="header">
-															<h:outputText value="#" />
-														</f:facet>
-														<h:outputText value="" />
-													</h:column>
-													<h:column>
-														<f:facet name="header">
-															<h:outputText value="#{mensagens['display.criado.em']}" />
-														</f:facet>
-														<h:commandLink action="#{detalheGrupoEstudoBean.detalharTopico(topico)}" >
-															<h:outputText  value="#{topico.dtCriacao}" >
-																<f:convertDateTime timeZone="America/Sao_Paulo" locale="pt_BR" pattern="dd/MM/yyyy - hh:mm"/>
-															</h:outputText>
-														</h:commandLink>
-													</h:column>
-													<h:column>
-														<f:facet name="header">
-															<h:outputText value="#{mensagens['display.titulo']}" />
-														</f:facet>
-														<h:commandLink action="#{detalheGrupoEstudoBean.detalharTopico(topico)}" value="#{topico.titulo}" />
-													</h:column>
-													<h:column>
-														<f:facet name="header">
-															<h:outputText value="#{mensagens['display.categoria']}" />
-														</f:facet>
-														<ui:repeat var="categoria" value="#{topico.categorias}">
-															<span class="label bg-black"><h:outputText value="#{categoria.deCategoria}" /></span>
-														</ui:repeat>
-													</h:column>
-													<h:column>
-														<f:facet name="header">
-															<h:outputText value="#{mensagens['display.comentarios']}" />
-														</f:facet>
-														<h:outputText value="" />
-													</h:column>
-													<h:column>
-														<f:facet name="header">
-															<h:outputText value="#{mensagens['display.avaliacao']}" />
-														</f:facet>
-														<span class="label bg-blue"><h:outputText value="#{topico.nuAvaliacaoPositivas}" /></span>
-														<span class="label bg-red"><h:outputText value="#{topico.nuAvaliacaoNegativas}" /></span>
-													</h:column>
-												</h:dataTable>
+										<div id="tab_topicos" class="tab-pane fade widget-followers ">
+											<ui:repeat var="topico" value="#{detalheGrupoEstudoBean.grupoEstudo.topicosGrupo}">
+											<div class="follower">
+												<h:graphicImage library="img" value="/resources/img/2.jpg" styleClass="follower-avatar"/>
+												<div class="body">
+													<div class="follower-controls">
+														<span class="badge badge-primary" title="Comentários">
+															<h:outputText value="#{topico.nuComentarios}" />
+														</span>
+														<h:commandLink action="#" value="#{mensagens['display.comentar']}" styleClass="btn btn-default btn-xs marginLeft_5"/>
+													</div>
+												
+													<h:commandLink action="#{detalheGrupoEstudoBean.detalharTopico(topico)}" value="#{topico.titulo}" styleClass="follower-name"/>
+													<br/>
+													<h:outputText value="#{topico.usuario.nome}" styleClass="follower-username"/>
+												</div>
 											</div>
+											</ui:repeat>
 										</div>
 									</div>
-								</div>
+							</div>
 						</div>
-						
-						<div class="clear"/>
-						
 					</div>
 				</div>
 			</div>
-			
-			<div class="clear"/>
-			
-			</h:form>
-		</section>
+		</h:form>
 	</ui:define>
 </ui:composition>
