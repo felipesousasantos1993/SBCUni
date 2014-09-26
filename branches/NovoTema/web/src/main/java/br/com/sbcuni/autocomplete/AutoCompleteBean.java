@@ -36,5 +36,9 @@ public class AutoCompleteBean {
 	public List<Usuario> completarUsuario(String query) {
 		return usuarioServiceBean.consultarAlunoNomeOuMatricula(query, query);
 	}
+	
+	public List<Usuario> completarUsuarioEmail(String query) {
+		return usuarioServiceBean.consultarAlunoNomeOuEmail(query, query);
+	}
 
 }
