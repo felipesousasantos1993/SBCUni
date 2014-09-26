@@ -46,4 +46,7 @@ public class Tela implements Serializable {
 	public static final String DETALHE_GRUPO_ESTUDO = "detalheGrupoEstudo";
 	public static final String DETALHE_GRUPO_ESTUDO_PATH = "/paginas/grupoEstudo/detalheGrupoEstudo.jsf";
 	public static final String NOVO_TOPICO_GRUPO_ESTUDO = "novoTopicoGrupoEstudo";
+
+	public static final String CAIXA_ENTRADA = "/paginas/mensagens/caixaEntrada.jsf";
+
 }

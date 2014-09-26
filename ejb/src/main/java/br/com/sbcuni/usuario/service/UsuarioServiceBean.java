@@ -148,7 +148,7 @@ public class UsuarioServiceBean implements Serializable {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<Usuario> buscarTodos() throws SbcuniException {
+	public List<Usuario> buscarTodos() {
 		Query query = entityManager.createNamedQuery("Usuario.buscarTodos");
 		try {
 			return query.getResultList();
@@ -180,4 +180,23 @@ public class UsuarioServiceBean implements Serializable {
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
+	public List<Usuario> consultarAlunoNomeOuEmail(String nome, String email) {
+		Query query = entityManager.createNamedQuery("Usuario.consultarAlunoNomeOuEmail");
+		query.setParameter("nome", nome.concat("%").toLowerCase());
+		query.setParameter("email", email.concat("%"));
+		try {
+			return query.getResultList();
+		} catch (NoResultException e) {
+			return null;
+		}
+	}
+	
+	public Usuario consultarUsuarioPorId(Long idUsuario) {
+		try {
+			return entityManager.find(Usuario.class, idUsuario);
+		} catch (NoResultException e) {
+			return null;
+		}
+	}
 }

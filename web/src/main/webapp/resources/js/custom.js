@@ -34,8 +34,11 @@ $(document).ready(function() {
 	});
 });
 $(document).ready(function() {
-	$(".autocomplete").select2({
+	$(".autocompleteCategoria").select2({
 		placeholder: "Selecione a categoria",
+	});
+	$(".autocompleteUsuario").select2({
+		placeholder: "Digite os destinatários...",
 	});
 });
 
@@ -54,6 +57,31 @@ function reduzirPorId(id) {
 	if(document.getElementById(id).value == "") {
 		$('#'.concat(id)).attr('rows', '1').autosize();
 		$('#'.concat(id)).css('height', 'auto').autosize();
+	}
+}
+function tabEnviados() {
+	$('#tabEnviados').addClass('active');
+	$('#tabPrincipal').removeClass('active');
+	$('#tabLixeira').removeClass('active');
+}
+function tabPrincipal() {
+	$('#tabEnviados').removeClass('active');
+	$('#tabPrincipal').addClass('active');
+	$('#tabLixeira').removeClass('active');
+}
+function tabLixeira() {
+	$('#tabEnviados').removeClass('active');
+	$('#tabPrincipal').removeClass('active');
+	$('#tabLixeira').addClass('active');
+}
+
+function verificaTabEmail() {
+	if ($('#tabPrincipal').hasClass('active')) {
+		return 1;
+	} else if ($('#tabEnviados').hasClass('active')) {
+		return 2;
+	} else if ($('#tabLixeira').hasClass('active')) {
+		return 3;
 	}
 }
 /*

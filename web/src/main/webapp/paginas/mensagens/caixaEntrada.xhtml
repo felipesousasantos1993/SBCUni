@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+>
+<html class="gt-ie8 gt-ie9 not-ie pxajs">
+<h:head>
+	<title>Faloo . Compartilhe Conhecimento</title>
+	 <h:outputStylesheet library="css" name="bootstrap.min.css" />
+	 <h:outputStylesheet library="css" name="codemirror.min.css" />
+	 <h:outputStylesheet library="css" name="pages.min.css" />
+	 <h:outputStylesheet library="css" name="pixel-admin.min.css" />
+	 <h:outputStylesheet library="css" name="rtl.min.css" />
+	 <h:outputStylesheet library="css" name="themes.min.css" />
+	 <h:outputStylesheet library="css" name="widgets.min.css" />
+	 <h:outputStylesheet library="css" name="custom.css" />
+	 <h:outputStylesheet library="css" name="linhaDoTempo.css" />
+	 <link rel="shortcut icon" type="image/x-icon" href="#{request.contextPath}/resources/img/fav.ico" />
+</h:head>
+<script>var init = [];</script>
+<div id="main-wrapper">
+<!-- CABECALHO -->
+<ui:insert name="cabecalho">
+	<ui:include src="/template/cabecalho.xhtml" />
+</ui:insert>
+<!-- MENU -->
+<ui:insert name="menu">
+	<ui:include src="/template/menu.xhtml" />
+</ui:insert>	
+<h:body styleClass="theme-default main-menu-animated page-mail animate-mm-sm animate-mm-md animate-mm-lg animate-mm-sm animate-mm-md animate-mm-lg">
+
+<!-- CONTEUDO -->
+<h:form prependId="false">
+<div id="content-wrapper">
+	<div class="mail-nav">
+		<div class="compose-btn">
+			<a href="#{facesContext.externalContext.requestContextPath}/paginas/mensagens/novaMensagem.jsf" class="btn btn-primary btn-labeled btn-block"><i class="btn-label fa fa-pencil-square-o"/><h:outputText value="#{mensagens['display.nova.mensagem']}" /> </a>
+		</div>
+		<div class="navigation">
+			<ul class="sections">
+				<li id="tabPrincipal" class="active">
+					<h:commandLink>
+						<i class="m-nav-icon fa fa-inbox"/>
+						<f:ajax event="click" render="msgs" onevent="tabPrincipal()" listener="#{caixaEntradaBean.exibirMsgsRecebidas()}"/>
+						<h:outputText value="#{mensagens['display.principal']}" />
+						<span class="label pull-right">
+							<h:outputText value="#{caixaEntradaBean.nuMsgRecebidas}" />
+						</span>
+					</h:commandLink>
+				</li>
+				<li id="tabEnviados">
+					<h:commandLink   >
+						<i class="m-nav-icon fa fa-envelope"/>
+						<f:ajax event="click" render="msgs" onevent="tabEnviados()" listener="#{caixaEntradaBean.exibirMsgsEnviadas()}"/>
+						<h:outputText value="#{mensagens['display.enviados']}"  />
+						<span class="label pull-right">
+							<h:outputText value="#{caixaEntradaBean.nuMsgEnviadas}" />
+						</span>
+					</h:commandLink>
+				</li>
+				<li id="tabLixeira">
+					<h:commandLink>
+						<i class="m-nav-icon fa fa-trash-o"/>
+						<f:ajax event="click" render="msgs" onevent="tabLixeira()" listener="#{caixaEntradaBean.exibirMsgsExcluidas()}"/>
+						<h:outputText value="#{mensagens['display.lixeira']}" />
+						<span class="label pull-right">
+							<h:outputText value="#{caixaEntradaBean.nuMsgExcluidas}" />
+						</span>
+					</h:commandLink>
+				</li>
+				<li class="divider"/>
+			</ul>
+		</div>
+	</div>
+	<div class="mail-container">
+		<div class="mail-container-header">
+			<h:outputText value="#{mensagens['display.caixa.entrada']}" />
+			<form action="" class="pull-right" style="width: 200px;margin-top: 3px;">
+				<div class="form-group input-group-sm has-feedback no-margin">
+					<h:inputText id="procurar" styleClass="form-control" />
+					<span class="fa fa-search form-control-feedback" style="top: -1px"></span>
+				</div>
+			</form>
+		</div>
+		<div class="mail-controls clearfix">
+			<div class="btn-toolbar wide-btns pull-left" role="toolbar">
+
+				<div class="btn-group">
+					<div class="btn-group">
+						<button type="button" class="btn dropdown-toggle" data-toggle="dropdown"><i class="fa fa-check-square-o"></i><i class="fa fa-caret-down"></i></button>
+						<ul class="dropdown-menu" role="menu">
+							<li>
+								<h:commandLink immediate="true" value="#{mensagens['display.selecionar.todas']}"  >
+									<f:ajax event="click" render="msgs"  listener="#{caixaEntradaBean.selecionarTodasMsgs()}"/>
+								</h:commandLink>
+							</li>
+							<li>
+								<h:commandLink immediate="true" value="#{mensagens['display.deselecionar.todas']}"  >
+									<f:ajax event="click" render="msgs"  listener="#{caixaEntradaBean.deselecionarTodasMsgs()}"/>
+								</h:commandLink>
+							</li>
+							<li class="divider"/>
+							<li>
+								<h:commandLink immediate="true" value="#{mensagens['display.marcar.como.lida']}"  >
+									<f:ajax event="click" render="msgs"  listener="#{caixaEntradaBean.marcarMsgs()}"/>
+								</h:commandLink>
+							</li>
+							<li>
+								<h:commandLink immediate="true" value="#{mensagens['display.marcar.como.nao.lida']}"  >
+									<f:ajax event="click" render="msgs"  listener="#{caixaEntradaBean.desmarcarMsgs()}"/>
+								</h:commandLink>
+							</li>
+						</ul>
+					</div>
+					<button type="button" class="btn"><i class="fa fa-repeat"></i></button>
+				</div>
+
+				<div class="btn-group">
+					<button type="button" class="btn" title="#{mensagens['display.atualizar']}"><i class="fa fa fa-file-text-o"/></button>
+					<button type="button" class="btn"><i class="fa fa-exclamation-circle"/></button>
+					<button type="button" class="btn"><i class="fa fa-trash-o"/></button>
+				</div>
+
+			</div>
+
+		</div>
+
+		<h:panelGroup id="msgs">
+			<h:panelGroup rendered="#{caixaEntradaBean.msgRecebidas}">
+				<ul class="mail-list">
+					<ui:repeat var="mensagem" value="#{caixaEntradaBean.mensagemsRecebidas}"  >
+						<li class="mail-item unread">
+							<div class="m-chck"><label class="px-single"><h:selectBooleanCheckbox value="#{mensagem.selecionada}" styleClass="px" /><span class="lbl"></span></label></div>
+							<div class="m-star"></div>
+							<div class="m-from"><a href=""><h:outputText value="#{mensagem.remetente.nome}" /> </a></div>
+							<div class="m-subject"><a href=""><h:outputText value="#{mensagem.titulo}" /> </a></div>
+							<div class="m-date">
+								<h:outputText value="#{mensagem.dtEnvio}" > 
+									<f:convertDateTime timeZone="America/Sao_Paulo" locale="pt_BR" pattern="hh:mm"/>
+								</h:outputText>
+							</div>
+						</li>
+					</ui:repeat>
+				</ul>
+			</h:panelGroup>
+			
+			<h:panelGroup rendered="#{caixaEntradaBean.msgEnviadas}">
+				<ul class="mail-list">
+					<ui:repeat var="mensagem" value="#{caixaEntradaBean.mensagemEnviadas}"  >
+						<li class="mail-item unread">
+							<div class="m-chck"><label class="px-single"><h:selectBooleanCheckbox value="#{mensagem.selecionada}" styleClass="px" /><span class="lbl"></span></label></div>
+							<div class="m-star"></div>
+							<div class="m-from"><a href=""><h:outputText value="#{mensagem.remetente.nome}" /> </a></div>
+							<div class="m-subject"><a href=""><h:outputText value="#{mensagem.titulo}" /> </a></div>
+							<div class="m-date">
+								<h:outputText value="#{mensagem.dtEnvio}" > 
+									<f:convertDateTime timeZone="America/Sao_Paulo" locale="pt_BR" pattern="hh:mm"/>
+								</h:outputText>
+							</div>
+						</li>
+					</ui:repeat>
+				</ul>
+			</h:panelGroup>
+			
+			<h:panelGroup rendered="#{caixaEntradaBean.msgExcluidas}">
+				<ul class="mail-list">
+					<ui:repeat var="mensagem" value="#{caixaEntradaBean.mensagensExcluidas}"  >
+						<li class="mail-item unread">
+							<div class="m-chck"><label class="px-single"><h:selectBooleanCheckbox value="#{mensagem.selecionada}" styleClass="px" /><span class="lbl"></span></label></div>
+							<div class="m-star"></div>
+							<div class="m-from"><a href=""><h:outputText value="#{mensagem.remetente.nome}" /> </a></div>
+							<div class="m-subject"><a href=""><h:outputText value="#{mensagem.titulo}" /> </a></div>
+							<div class="m-date">
+								<h:outputText value="#{mensagem.dtEnvio}" > 
+									<f:convertDateTime timeZone="America/Sao_Paulo" locale="pt_BR" pattern="hh:mm"/>
+								</h:outputText>
+							</div>
+						</li>
+					</ui:repeat>
+				</ul>
+			</h:panelGroup>
+		</h:panelGroup>
+
+		</div>
+	</div>
+</h:form>
+	<div id="main-menu-bg"/>
+	</h:body>
+	
+	<!-- RODAPE -->
+	<ui:insert name="rodape">
+		<ui:include src="/template/rodape.xhtml" />
+	</ui:insert>
+	</div>
+	</html>
+</ui:composition>

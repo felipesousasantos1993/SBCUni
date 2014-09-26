@@ -8871,7 +8871,8 @@ a.list-group-item.active .badge {
 @media ( min-width :768px) {
 	.form-horizontal .control-label {
 		margin-bottom: 0;
-		padding-top: 7px
+		padding-top: 7px;
+		font-weight: bold;
 	}
 }
 
