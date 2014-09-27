@@ -12,6 +12,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import br.com.sbcuni.categoria.entity.Categoria;
+import br.com.sbcuni.exception.SbcuniException;
 import br.com.sbcuni.topico.entity.Topico;
 
 @Stateless
@@ -39,5 +40,23 @@ public class CategoriaServiceBean implements Serializable {
 			return null;
 		}
 	}
+	
+	public void criarCategoria(Categoria categoria) throws SbcuniException {
+		try {
+			entityManager.persist(categoria);
+		} catch (Exception e) {
+			throw new SbcuniException("Erro ao criar categoria.", e);
+		}
+	}
+	
+	public void excluirCategoria(Categoria categoria) throws SbcuniException {
+		try {
+			categoria = entityManager.find(Categoria.class, categoria.getIdCategoria());
+			entityManager.remove(categoria);
+		} catch (Exception e) {
+			throw new SbcuniException("Erro ao excluir usuário", e);
+		}
+	}
+	
 	
 }
