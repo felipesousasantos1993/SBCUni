@@ -40,6 +40,9 @@ $(document).ready(function() {
 	$(".autocompleteUsuario").select2({
 		placeholder: "Digite os destinatários...",
 	});
+	$(".autocompleteAlunos").select2({
+		placeholder: "Insira os alunos...",
+	});
 });
 
 $(document).ready(function() {
@@ -90,6 +93,17 @@ $('.comentar').blur(function() {
 	$('.comentar').css('height', 'auto').autosize();
 	$('#btnComentar').css('display', 'none');
 });*/
-	
 
 
+
+$(document).ready(function() {
+	$('#timeline-centered').switcher();
+	$('#timeline-centered').on($('html').hasClass('ie8') ? "propertychange" : "change", function () {
+		var turn_on = $(this).is(':checked');
+		if (turn_on) {
+			$('.timeline').addClass('centered');
+		} else {
+			$('.timeline').removeClass('centered');
+		}
+	});
+});

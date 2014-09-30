@@ -11,6 +11,7 @@ import br.com.sbcuni.constantes.Tela;
 import br.com.sbcuni.exception.SbcuniException;
 import br.com.sbcuni.usuario.entity.Usuario;
 import br.com.sbcuni.usuario.service.UsuarioServiceBean;
+import br.com.sbcuni.util.Util;
 import br.com.sbcuni.util.WebResources;
 
 @ManagedBean
@@ -25,6 +26,7 @@ public class AlterarUsuarioBean extends GenericBean {
 	
 	private Usuario usuario;
 	private Boolean alterarSenha = Boolean.FALSE;
+	private Boolean inativo;
 	
 
 	@EJB
@@ -37,6 +39,12 @@ public class AlterarUsuarioBean extends GenericBean {
 
 	public String alterarUsuario() {
 		try {
+			if (inativo) {
+				usuario.setStatus(Boolean.FALSE);
+			} else {
+				usuario.setStatus(Boolean.TRUE);
+			}
+			usuario.setCpf(Util.retiraMascara(usuario.getCpf()));
 			usuarioServiceBean.alterarUsuario(usuario);
 			if (usuario.getPerfil().equals(Constantes.PERFIL_ALUNO)) {
 				exibirMsgSucesso(getMensagem("display.aluno.alterado.sucesso", WebResources.MENSAGEM));
@@ -45,6 +53,7 @@ public class AlterarUsuarioBean extends GenericBean {
 			} else if (usuario.getPerfil().equals(Constantes.PERFIL_COODERNADOR)) {
 				exibirMsgSucesso(getMensagem("display.coordenador.alterado.sucesso", WebResources.MENSAGEM));
 			}
+			WebResources.getFlash().put(WebResources.USUARIO, usuario);
 			return Tela.DETALHAR_USUARIO;
 		} catch (SbcuniException e) {
 			exibirMsgErro(getMensagem(e.getMessage(), WebResources.MENSAGEM));
@@ -71,6 +80,14 @@ public class AlterarUsuarioBean extends GenericBean {
 
 	public void setAlterarSenha(Boolean alterarSenha) {
 		this.alterarSenha = alterarSenha;
+	}
+
+	public Boolean getInativo() {
+		return inativo;
+	}
+
+	public void setInativo(Boolean inativo) {
+		this.inativo = inativo;
 	}
 	
 }

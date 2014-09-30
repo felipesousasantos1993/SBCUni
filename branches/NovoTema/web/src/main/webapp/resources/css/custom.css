@@ -1,4 +1,4 @@
-@CHARSET "ISO-8859-1";
+]@CHARSET "ISO-8859-1";
 .x5 {
 	width: 5%;
 }
@@ -86,4 +86,44 @@
 	cursor: pointer;
 	color: #4083a9;
 }
+.msg {
+	display: block;
+	border: 1px solid;
+	padding: 5px 10px;
+	border-radius: 2px;
+	margin-top: 2px;
+	position: relative;
+	font-weight:700;
+	font-size:10px;	
+	margin-bottom: 10px;
+}
 
+.error {
+	color: #fff;
+	background: #e66454;
+	border-color: #df3c28;
+	background-image: linear-gradient(45deg,rgba(255,255,255,.04)25%,transparent 25%,transparent 50%,rgba(255,255,255,.04)50%,rgba(255,255,255,.04)75%,transparent 75%,transparent);
+	background-size: 20px 20px;
+}
+.msg:before {
+	border-bottom: solid;
+	border-width: 7px;
+	left: 16px;
+	top: -7px;
+	border-bottom-color: #e66454;
+	content: "";
+	position: absolute;
+	border-left: 6px solid transparent;
+	border-right: 6px solid transparent;
+}
+
+.avaliacao {
+	margin-left: 10px;
+	margin-top: -15px;
+	position: absolute;
+}
+.nuComentariosTopico  {
+	margin-right: 10px;
+	margin-top: -15px;
+	margin-left: 10px;
+}

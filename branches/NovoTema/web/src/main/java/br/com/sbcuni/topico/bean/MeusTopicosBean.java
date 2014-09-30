@@ -11,6 +11,7 @@ import javax.faces.bean.ViewScoped;
 
 import br.com.sbcuni.avaliacao.service.AvaliacaoServiceBean;
 import br.com.sbcuni.bean.GenericBean;
+import br.com.sbcuni.comentario.service.ComentarioServiceBean;
 import br.com.sbcuni.constantes.Tela;
 import br.com.sbcuni.topico.entity.Topico;
 import br.com.sbcuni.topico.service.TopicoServiceBean;
@@ -33,6 +34,8 @@ public class MeusTopicosBean extends GenericBean implements Serializable {
 	private TopicoServiceBean topicoServiceBean;
 	@EJB
 	private AvaliacaoServiceBean avaliacaoServiceBean;
+	@EJB
+	private ComentarioServiceBean comentarioServiceBean;
 	
 	private Topico topicoExcluir;
 	
@@ -40,6 +43,7 @@ public class MeusTopicosBean extends GenericBean implements Serializable {
 	public void init() {
 		meusTopicos = topicoServiceBean.buscarTopicoPorUsuario(UsuarioSessionBean.getInstance().getUsuarioSessao().getIdUsuario());
 		for (Topico topico : meusTopicos) {
+			topico.setComentarios(comentarioServiceBean.consultarComentariosTopico(topico));
 			avaliacaoServiceBean.definirAvaliacaoTopico(topico);
 			topico.setAvaliacaoUsuario(avaliacaoServiceBean.verificarAvaliacaoUsuarioTopico(UsuarioSessionBean.getInstance().getUsuarioSessao(), topico));
 		}

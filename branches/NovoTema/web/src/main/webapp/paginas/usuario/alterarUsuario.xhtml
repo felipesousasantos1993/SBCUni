@@ -45,80 +45,80 @@
 	</div>
 	<div id="content" class="content">
 		<h:form prependId="false">
-		<h:inputHidden id="validator" validator="usuarioValidator" />
  			<div class="row">
 				<div class="col-md-12">
-					<div class="panel">
-						<div class="panel-heading">
-							<h:outputText value="#{mensagens['display.alterar.usuario']}" />
-						</div>
-						<div class="panel-body">
-							<div class="form-group">
-								<label><h:outputText value="#{mensagens['display.perfil']}:"  /></label>
-								<h:selectOneMenu id="perfil"  value="#{alterarUsuarioBean.usuario.perfil}" styleClass="form-control x15">
-									<f:selectItem itemLabel="#{mensagens['display.selecione']}" itemValue="0" />
-									<f:selectItem itemLabel="#{mensagens['display.aluno']}" itemValue="1" />
-									<f:selectItem itemLabel="#{mensagens['display.professor']}" itemValue="2" />
-									<f:selectItem itemLabel="#{mensagens['display.coordenador']}" itemValue="3" />
-								</h:selectOneMenu>
+					<h:form id="form" prependId="false" styleClass="form-horizontal">
+						<div class="panel">
+							<div class="panel-heading">
+								<span class="panel-title"><h:outputText value="#{mensagens['display.cadastrar.usuario']}" /> </span>
 							</div>
-							<div class="form-group">
-								<label>
-									<h:outputText value="#{mensagens['display.nome']}:" />
-								</label>
-								<h:inputText id="nome"  value="#{alterarUsuarioBean.usuario.nome}" maxlength="58" styleClass="form-control x40" autocomplete="off"/>
-							</div>
-							<div class="form-group">
-								<label>
-									<h:outputText value="#{mensagens['display.cpf']}:" />	
-								</label>
-								<h:inputText id="cpf" value="#{alterarUsuarioBean.usuario.cpf}" maxlength="11"  styleClass="form-control cpf x15" autocomplete="off" />
-							</div>
-							<div class="form-group">
-								<label>
-									<h:outputText value="#{mensagens['display.email']}:" />
-								</label>
-								<h:inputText id="email" value="#{alterarUsuarioBean.usuario.email}" maxlength="50" styleClass="form-control x40"  autocomplete="off"/>
-							</div>
-							
-							<div class="checkbox">
-								<label>
-									<h:outputText value="#{mensagens['display.pergunta.alterar.senha']}:" />
-								</label>
-								<br/>
-								<h:selectBooleanCheckbox id="alterarSenha" value="#{alterarUsuarioBean.alterarSenha}" >
-									<f:ajax event="click" render="senhas" />
-								</h:selectBooleanCheckbox>
-							</div>
-							
-							<h:panelGroup id="senhas" rendered="#{alterarUsuarioBean.alterarSenha}">
+							<div class="panel-body">
 								<div class="form-group">
-									<label>
-										<h:outputText value="#{mensagens['display.senha']}:" />
+									<label class="control-label col-sm-2">
+										<h:outputText value="#{mensagens['display.nome']}:" />
 									</label>
-									<h:inputSecret id="senha" value="#{alterarUsuarioBean.usuario.senha}" maxlength="8" styleClass="form-control x10" autocomplete="off" />
+									<div class="col-sm-4">
+										<h:inputText id="nome"  value="#{alterarUsuarioBean.usuario.nome}" maxlength="58" styleClass="form-control x4" autocomplete="off" required="true" requiredMessage="#{mensagens['display.campo.obrigatorio']}"/>
+										<h:message for="nome" errorClass="msg error"/>
+									</div>
 								</div>
 								<div class="form-group">
-									<label>
-										<h:outputText value="#{mensagens['display.confirme.senha']}:"  />
+									<label class="control-label col-sm-2">
+										<h:outputText value="#{mensagens['display.matricula']}:" />	
 									</label>
-									<h:inputSecret id="confirmarSenha"  value="#{alterarUsuarioBean.usuario.senha}" styleClass="form-control x10" maxlength="8" autocomplete="off"/>
+									<div class="col-sm-2">
+										<div class="input-group">
+											<div class="input-group-btn">
+												<h:commandButton id="btnGerarMatricula" styleClass="btn btn-primary"  value="#{mensagens['display.gerar']}" action="#" disabled="#{alterarUsuarioBean.usuario.perfil == 0}" immediate="true">
+													<f:ajax event="click" render="matricula" listener="#{alterarUsuarioBean.gerarMatricula()}"/>
+												</h:commandButton>
+											</div>
+											<h:inputText id="matricula" value="#{alterarUsuarioBean.usuario.matricula}" readonly="true" maxlength="11"  styleClass="form-control" autocomplete="off" required="true" requiredMessage="#{mensagens['display.campo.obrigatorio']}"/>
+										</div>
+										<h:message for="matricula" errorClass="msg error"/>
+									</div>
 								</div>
-							</h:panelGroup>
-							<div class="checkbox">
-								<label>
-									<h:outputText value="#{mensagens['display.status']}:" />
-								</label>
-								<br/>
-								<h:selectBooleanCheckbox value="#{alterarUsuarioBean.usuario.status}" />
+								<div class="form-group">
+									<label class="control-label col-sm-2">
+										<h:outputText value="#{mensagens['display.cpf']}:" />	
+									</label>
+									<div class="col-sm-2">
+										<h:inputText id="cpf" value="#{alterarUsuarioBean.usuario.cpf}" maxlength="11"  styleClass="form-control cpf" autocomplete="off" required="true" requiredMessage="#{mensagens['display.campo.obrigatorio']}"/>
+										<h:message for="cpf" errorClass="msg error"/>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="control-label col-sm-2">
+										<h:outputText value="#{mensagens['display.email']}:" />
+									</label>
+									<div class="col-sm-4">
+										<h:inputText id="email" validatorMessage="#{mensagens['display.email.invalido']}" required="true" requiredMessage="#{mensagens['display.campo.obrigatorio']}" value="#{alterarUsuarioBean.usuario.email}" maxlength="50" styleClass="form-control"  autocomplete="off">
+											<f:validateRegex  for="email" pattern="#{alterarUsuarioBean.emailPattern}"/>
+										</h:inputText>
+										<h:message for="email" errorClass="msg error"/>
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-sm-offset-2 col-sm-10">
+										<div class="checkbox">
+											<label>
+												<h:outputText value="#{mensagens['display.inativo']}"/>
+												<h:selectBooleanCheckbox id="inativo" value="#{alterarUsuarioBean.inativo}" />
+											</label>
+											<h:message for="inativo" errorClass="msg error"/>
+										</div>
+									</div>
+								</div>
 							</div>
-						</div>
-						<div class="panel-footer">
-							<h:commandButton value="#{mensagens['display.alterar']}" styleClass="btn btn-primary btn-xs" action="#{alterarUsuarioBean.alterarUsuario()}" />
-							<h:commandButton value="#{mensagens['display.limpar']}" styleClass="btn btn-warning btn-xs marginLeft_10" action="#" type="reset"/>
-							<h:commandButton value="#{mensagens['display.voltar']}" immediate="true" styleClass="btn btn-default btn-xs marginLeft_10" action="#{alterarUsuarioBean.voltarDetalheUsuario()}" />
-						</div>
-					</div>
+							<div class="panel-footer">
+								<div class="form-group">
+									<div class="col-sm-offset-2 col-sm-10">
+										<h:commandButton value="#{mensagens['display.alterar']}" styleClass="btn btn-primary btn-xs" action="#{alterarUsuarioBean.alterarUsuario()}" />
+									</div>
+								</div>
+							</div>
+						</div>	
+					</h:form>
 				</div>
 			</div>
 			</h:form>

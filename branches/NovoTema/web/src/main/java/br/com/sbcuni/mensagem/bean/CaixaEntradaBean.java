@@ -10,9 +10,11 @@ import javax.faces.bean.ViewScoped;
 
 import br.com.sbcuni.bean.GenericBean;
 import br.com.sbcuni.constantes.Constantes;
+import br.com.sbcuni.constantes.Tela;
 import br.com.sbcuni.mensagem.entity.Mensagem;
 import br.com.sbcuni.mensagem.service.MensagemServiceBean;
 import br.com.sbcuni.usuario.bean.UsuarioSessionBean;
+import br.com.sbcuni.util.Util;
 
 @ManagedBean
 @ViewScoped
@@ -37,15 +39,74 @@ public class CaixaEntradaBean extends GenericBean {
 	
 	@PostConstruct
 	public void init() {
+		msgRecebidas = Boolean.TRUE;
+		atualizarCaixaEntrada();
+	}
+	
+	public void atualizarCaixaEntrada() {
 		mensagemsRecebidas = mensagemServiceBean.consultarCaixaEntradaUsuario(UsuarioSessionBean.getInstance().getUsuarioSessao());
 		mensagemEnviadas = mensagemServiceBean.consultarMensagemEnviadasUsuario(UsuarioSessionBean.getInstance().getUsuarioSessao());
-		msgRecebidas = Boolean.TRUE;
-		for (Mensagem mensagem : mensagemsRecebidas) {
+		mensagensExcluidas = new ArrayList<Mensagem>();
+		List<Mensagem> msgAuxRecebida = new ArrayList<Mensagem>(mensagemsRecebidas);
+		for (Mensagem mensagem : msgAuxRecebida) {
 			if (mensagem.getTipo().equals(Constantes.MSG_LIXIERA)) {
 				mensagemsRecebidas.remove(mensagem);
 				mensagensExcluidas.add(mensagem);
 			}
 		}
+		List<Mensagem> msgAuxEnviada = new ArrayList<Mensagem>(mensagemEnviadas);
+		for (Mensagem mensagem : msgAuxEnviada) {
+			if (mensagem.getTipo().equals(Constantes.MSG_LIXIERA)) {
+				mensagemEnviadas.remove(mensagem);
+				mensagensExcluidas.add(mensagem);
+			}
+		}
+	}
+	
+	public String atualizarMsg() {
+		atualizarCaixaEntrada();
+		return Tela.CAIXA_ENTRADA;
+	}
+	
+	public String excluirMsg() {
+		if (msgRecebidas) {
+			excluirMsgSelecionadas(mensagemsRecebidas);
+		} else if (msgEnviadas) {
+			excluirMsgSelecionadas(mensagemEnviadas);
+		}
+		atualizarCaixaEntrada();
+		return Tela.CAIXA_ENTRADA;
+	}
+	
+	public String removerLixeiraMsgs() {
+		removerLixeira(mensagensExcluidas);
+		atualizarCaixaEntrada();
+		return Tela.CAIXA_ENTRADA;
+	}
+	
+	public void excluirMsgSelecionadas(List<Mensagem> list) {
+		for (Mensagem mensagem : list) {
+			if(!Util.isNull(mensagem.getSelecionada())) {
+				if (mensagem.getSelecionada()) {
+					mensagem.setTipo(Constantes.MSG_LIXIERA);
+					mensagemServiceBean.enviarMensagem(mensagem);
+				}
+			}
+		}
+	}
+	public void removerLixeira(List<Mensagem> list) {
+		for (Mensagem mensagem : list) {
+			if(!Util.isNull(mensagem.getSelecionada())) {
+				if (mensagem.getSelecionada()) {
+					mensagem.setTipo(Constantes.MSG_PRINCIPAL);
+					mensagemServiceBean.enviarMensagem(mensagem);
+				}
+			}
+		}
+	}
+	
+	public void selecionarMsg(Mensagem mensagem) {
+		mensagem.setSelecionada(Boolean.TRUE);
 	}
 	
 	public void selecionarTodasMsgs() {
@@ -67,6 +128,7 @@ public class CaixaEntradaBean extends GenericBean {
 		}
 	}
 	
+	
 	// SELECIONAR
 	
 	public void selecionarTodasMensagem(List<Mensagem> lista) {
@@ -79,8 +141,6 @@ public class CaixaEntradaBean extends GenericBean {
 			m.setSelecionada(Boolean.FALSE);
 		}
 	}
-	
-	// MARCAR
 	
 	
 	public void exibirMsgsRecebidas() {

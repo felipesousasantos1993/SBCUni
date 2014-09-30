@@ -24,6 +24,10 @@ public class CadastrarBean extends GenericBean {
 	
 	private Usuario usuario = new Usuario();
 	
+	private Boolean inativo;
+	
+	
+	
 	@PostConstruct
 	public void init() {
 		usuario.setPerfil(0);
@@ -31,13 +35,18 @@ public class CadastrarBean extends GenericBean {
 	
 	public String cadastrarUsuario() {
 		try {
+			if (inativo) {
+				usuario.setStatus(Boolean.FALSE);
+			} else {
+				usuario.setStatus(Boolean.TRUE);
+			}
 			usuario.setCpf(Util.retiraMascara(usuario.getCpf()));
 			usuarioServiceBean.cadastrarUsuario(usuario);
 			WebResources.getFlash().put(WebResources.USUARIO, usuario);
-			exibirMsgSucesso(getMensagem("display.usuario.cadastrado.sucesso", WebResources.MENSAGEM));
+			exibirMsgInfo(getMensagem("display.usuario.cadastrado.sucesso", WebResources.MENSAGEM));
 			return Tela.DETALHAR;
 		} catch (SbcuniException e) {
-			exibirMsgErro(getMensagem(e.getMessage(), WebResources.MENSAGEM));
+			exibirMsgAviso(getMensagem(e.getMessage(), WebResources.MENSAGEM));
 			return null;
 		} catch (Exception e) {
 			exibirMsgErro(getMensagem(WebResources.ERRO_INESPERADO, WebResources.MENSAGEM));
@@ -57,6 +66,12 @@ public class CadastrarBean extends GenericBean {
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
-	
-	
+
+	public Boolean getInativo() {
+		return inativo;
+	}
+
+	public void setInativo(Boolean inativo) {
+		this.inativo = inativo;
+	}
 }

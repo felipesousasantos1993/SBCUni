@@ -52,13 +52,8 @@
 										<div class="comment-heading">
 											<h:commandLink action="#" value="#{comentario.usuario.nome}" />
 											<span>
-												<h:outputText value="#{comentario.dtCriacao}" >
-													<f:convertDateTime timeZone="America/Sao_Paulo" locale="pt_BR" pattern="EEE, dd/MM/yyyy - hh:mm"/>
-												</h:outputText>
-												<h:outputText value="#{mensagens['display.atualizado.em']}" styleClass="marginLeft_10" rendered="#{not empty comentario.dtUltimaAtualizacao}"/>
-												<h:outputText value="#{comentario.dtUltimaAtualizacao}" rendered="#{not empty comentario.dtUltimaAtualizacao}" styleClass="marginLeft_5"> 
-													<f:convertDateTime timeZone="America/Sao_Paulo" locale="pt_BR" pattern="EEE, dd/MM/yyyy - hh:mm"/>
-												</h:outputText>
+												<h:outputText value="#{comentario.tempoComentarioCriacao}"/>
+												<h:outputText value="#{comentario.tempoComentario}" rendered="#{not empty comentario.dtUltimaAtualizacao}" styleClass="marginLeft_5"/> 
 											</span>
 										</div>
 										<h:outputText value="#{comentario.descricao}" escape="false"  rendered="#{not (comentarioStatus.index eq visualizarTopicoBean.idEditar)}"/>
@@ -105,7 +100,7 @@
 								 		 		<h:outputLabel styleClass="labelLink">
 								 		 			<h:outputText value="#{comentario.nuAvaliacaoPositivas}" />
 								 		 			<i class="glyphicon glyphicon-thumbs-up" />
-								 		 			<h:outputLabel event="click" render="avaliacao" listener="#{visualizarTopicoBean.curtirComentario(comentario)}" immediate="true" />
+								 		 			<f:ajax event="click" render="avaliacao" listener="#{visualizarTopicoBean.curtirComentario(comentario)}" immediate="true" />
 								 		 		</h:outputLabel>
 								 		 		<h:outputLabel styleClass="disabled-editado labelLink marginLeft_10">
 								 		 			<i class="glyphicon glyphicon-thumbs-down" />

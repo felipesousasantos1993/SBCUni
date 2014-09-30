@@ -25,6 +25,7 @@ public class CadastrarUsuarioBean extends GenericBean {
 	}
 	
 	private Usuario usuario = new Usuario();
+	private Boolean inativo;
 	
 	@PostConstruct
 	public void init() {
@@ -36,15 +37,20 @@ public class CadastrarUsuarioBean extends GenericBean {
 	
 	public String cadastrarUsuario() {
 		try {
+			if (inativo) {
+				usuario.setStatus(Boolean.FALSE);
+			} else {
+				usuario.setStatus(Boolean.TRUE);
+			}
 			usuario.setMatricula(Util.gerarMatricula(usuario.getPerfil()));
 			usuario.setCpf(Util.retiraMascara(usuario.getCpf()));
 			usuarioServiceBean.cadastrarUsuario(usuario);
 			if (usuario.getPerfil().equals(Constantes.PERFIL_ALUNO)) {
-				exibirMsgInfo(getMensagem("display.aluno.cadastrado.sucesso", WebResources.MENSAGEM));
+				exibirMsgSucesso(getMensagem("display.aluno.cadastrado.sucesso", WebResources.MENSAGEM));
 			} else if (usuario.getPerfil().equals(Constantes.PERFIL_PROFESSOR)) {
-				exibirMsgInfo(getMensagem("display.professor.cadastrado.sucesso", WebResources.MENSAGEM));
+				exibirMsgSucesso(getMensagem("display.professor.cadastrado.sucesso", WebResources.MENSAGEM));
 			} else if (usuario.getPerfil().equals(Constantes.PERFIL_COODERNADOR)) {
-				exibirMsgInfo(getMensagem("display.coordenador.cadastrado.sucesso", WebResources.MENSAGEM));
+				exibirMsgSucesso(getMensagem("display.coordenador.cadastrado.sucesso", WebResources.MENSAGEM));
 			}
 			WebResources.getFlash().put(WebResources.USUARIO, usuario);
 			return Tela.DETALHAR_USUARIO;
@@ -65,6 +71,16 @@ public class CadastrarUsuarioBean extends GenericBean {
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+
+
+	public Boolean getInativo() {
+		return inativo;
+	}
+
+
+	public void setInativo(Boolean inativo) {
+		this.inativo = inativo;
 	}
 	
 	

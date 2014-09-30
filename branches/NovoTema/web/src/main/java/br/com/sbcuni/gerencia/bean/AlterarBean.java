@@ -27,6 +27,7 @@ public class AlterarBean extends GenericBean {
 	private UsuarioServiceBean usuarioServiceBean;
 	
 	private Usuario usuario;
+	private Boolean inativo;
 	
 	@PostConstruct
 	public void init() {
@@ -35,6 +36,11 @@ public class AlterarBean extends GenericBean {
 	
 	public String alterarUsuario() {
 		try {
+			if (inativo) {
+				usuario.setStatus(Boolean.FALSE);
+			} else {
+				usuario.setStatus(Boolean.TRUE);
+			}
 			usuario.setCpf(Util.retiraMascara(usuario.getCpf()));
 			usuarioServiceBean.alterarUsuario(usuario);
 			WebResources.getFlash().put(WebResources.USUARIO, usuario);
@@ -56,6 +62,14 @@ public class AlterarBean extends GenericBean {
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+
+	public Boolean getInativo() {
+		return inativo;
+	}
+
+	public void setInativo(Boolean inativo) {
+		this.inativo = inativo;
 	}
 	
 }

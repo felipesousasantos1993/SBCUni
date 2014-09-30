@@ -33,7 +33,7 @@
 				<h:form prependId="false" styleClass="form-horizontal">
 					<h:inputHidden id="validator"  validator="mudarSenhaValidator" />
 						<div class="form-group">
-							<label for="nome" class="col-sm-2 control-label"><h:outputText value="#{mensagens['display.senha.antiga']} " /> </label>
+							<label for="senhaAntiga" class="col-sm-2 control-label"><h:outputText value="#{mensagens['display.senha.antiga']} " /> </label>
 							<div class="col-sm-2">
 								<h:inputSecret  id="senhaAntiga" value="#{mudarSenhaBean.senhaAntiga}" styleClass="form-control senhaAntiga" required="true"/>
 							</div>
