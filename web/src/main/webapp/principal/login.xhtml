@@ -14,11 +14,11 @@
 			 <h:outputStylesheet library="css" name="rtl.min.css" />
 			 <h:outputStylesheet library="css" name="themes.min.css" />
 			 <h:outputStylesheet library="css" name="widgets.min.css" />
-			 <h:outputScript library="js" name="jquery.min.js" />
-			<h:outputScript library="js" name="marca-dagua.js"/>
+			 <h:outputStylesheet library="css" name="custom.css" />
+			<h:outputScript library="js" name="jquery.min.js" />
+			<h:outputScript library="js" name="marca-dagua.js" />
 			<link rel="shortcut icon" type="image/x-icon" href="#{request.contextPath}/resources/img/fav.ico" />
 		</h:head>
-		
 		<style type="text/css">.jqstooltip { position: absolute;left: 0px;top: 0px;visibility: hidden;background: rgb(0, 0, 0) transparent;background-color: rgba(0,0,0,0.6);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000);-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000)";color: white;font: 10px arial, san serif;text-align: left;white-space: nowrap;padding: 5px;border: 1px solid white;z-index: 10000;}.jqsfield { color: white;font: 10px arial, san serif;text-align: left;}</style>
 		<h:body styleClass="theme-default page-signin">
 			<div id="page-signin-bg">
@@ -50,15 +50,16 @@
 								<h:inputText id="matricula" value="#{loginBean.matricula}" required="true" requiredMessage="#{mensagens['display.campo.obrigatorio']}" autocomplete="off" maxlength="13" styleClass="form-control input-lg" />
 								<span class="fa fa-user signin-form-icon"/>
 							</div>
-							<h:message for="matricula"   errorClass="tooltip-warning"/>
+							<h:message for="matricula" errorClass="msg error"/>
 							<div class="form-group w-icon">
 								<h:inputSecret  id="senha" value="#{loginBean.senha}" required="true" requiredMessage="#{mensagens['display.campo.obrigatorio']}" autocomplete="off" maxlength="8" styleClass="form-control input-lg" />
 								<span class="fa fa-lock signin-form-icon"/>
 							</div>
-							<h:message for="senha"  errorClass="tooltip-warning"/>
+							<h:message for="senha" errorClass="msg error"/>
 							<div class="form-actions">
 								<h:commandButton action="#{loginBean.logar}" value="#{mensagens['display.entrar.cap']}" styleClass="signin-btn bg-primary"/>
 								<h:commandLink value="#{mensagens['display.esqueceu.sua.senha']}" action="#" styleClass="forgot-password" />
+								<h:messages id="mensagens" style="text-align: center;margin-top: 10px;margin-bottom: -30px;" globalOnly="true" fatalClass="alert alert-info alert-dark" errorClass="alert alert-info alert-dark" infoClass="alert alert-info alert-dark" warnClass="alert alert-info alert-dark"/>
 							</div>
 						</h:form>
 					

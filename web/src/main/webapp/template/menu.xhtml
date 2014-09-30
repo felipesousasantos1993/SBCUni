@@ -14,7 +14,7 @@
 
 					<h:graphicImage library="img" value="/resources/img/2.jpg" />
 					<div class="btn-group">
-						<a href="#" class="btn btn-xs btn-primary btn-outline dark" title="#{mensagens['display.hint.minhas.mensagens']}"><i class="fa fa-envelope"/></a>
+						<a href="#{facesContext.externalContext.requestContextPath}/paginas/mensagens/caixaEntrada.jsf" class="btn btn-xs btn-primary btn-outline dark" title="#{mensagens['display.hint.minhas.mensagens']}"><i class="fa fa-envelope"/></a>
 						<h:commandLink action="#{menuBean.telaPerfil(usuarioSessionBean.usuarioSessao)}" styleClass="btn btn-xs btn-primary btn-outline dark" title="#{mensagens['display.hint.meu.perfil']}">
 							<i class="fa fa-user"/>
 						</h:commandLink>
@@ -31,17 +31,22 @@
 				<li class="mm-dropdown mm-dropdown-root">
 					<a href="#"><i class="menu-icon fa fa-th"></i><span class="mm-text mmc-dropdown-delay animated fadeIn"><h:outputText value="#{mensagens['display.gerencia.sistema']}" /></span> </a>
 					<ul class="mmc-dropdown-delay animated fadeInLeft">
-						<li>
-							<a tabindex="-1" href="#{facesContext.externalContext.requestContextPath}/paginas/gerencia/cadastrar.jsf"><span class="mm-text"><h:outputText value="#{mensagens['display.cadastrar']}" /> </span></a>
-						</li>
-						<li>
-							<a tabindex="-1" href="#{facesContext.externalContext.requestContextPath}/paginas/gerencia/consultar.jsf"><span class="mm-text"><h:outputText value="#{mensagens['display.alterar']}" /> </span></a>
-						</li>
-						<li>
-							<a tabindex="-1" href="#{facesContext.externalContext.requestContextPath}/paginas/gerencia/consultar.jsf"><span class="mm-text"><h:outputText value="#{mensagens['display.consultar']}" /> </span></a>
-						</li>
-						<li>
-							<a tabindex="-1" href="#{facesContext.externalContext.requestContextPath}/paginas/gerencia/consultar.jsf"><span class="mm-text"><h:outputText value="#{mensagens['display.excluir']}" /> </span></a>
+						<li class="mm-dropdown">
+							<a tabindex="-1" href="#"><i class="menu-icon fa user"></i><span class="mm-text mmc-dropdown-delay animated fadeIn"><h:outputText value="#{mensagens['display.usuario']}" /></span> </a>
+							<ul class="mmc-dropdown-delay animated fadeInLeft">
+								<li>
+									<a tabindex="-1" href="#{facesContext.externalContext.requestContextPath}/paginas/gerencia/cadastrar.jsf"><span class="mm-text"><h:outputText value="#{mensagens['display.cadastrar']}" /> </span></a>
+								</li>
+								<li>
+									<a tabindex="-1" href="#{facesContext.externalContext.requestContextPath}/paginas/gerencia/consultar.jsf"><span class="mm-text"><h:outputText value="#{mensagens['display.alterar']}" /> </span></a>
+								</li>
+								<li>
+									<a tabindex="-1" href="#{facesContext.externalContext.requestContextPath}/paginas/gerencia/consultar.jsf"><span class="mm-text"><h:outputText value="#{mensagens['display.consultar']}" /> </span></a>
+								</li>
+								<li>
+									<a tabindex="-1" href="#{facesContext.externalContext.requestContextPath}/paginas/gerencia/consultar.jsf"><span class="mm-text"><h:outputText value="#{mensagens['display.excluir']}" /> </span></a>
+								</li>
+							</ul>
 						</li>
 					</ul>
 				</li>
