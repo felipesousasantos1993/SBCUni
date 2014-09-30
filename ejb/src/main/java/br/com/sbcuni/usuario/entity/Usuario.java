@@ -59,7 +59,7 @@ public class Usuario implements Serializable {
 	@Column(name = "matricula", length = 13, nullable = false)
 	private String matricula;
 
-	@Column(name = "senha", length = 8, nullable = false)
+	@Column(name = "senha", length = 8, nullable = true)
 	private String senha;
 	
 	@Column(name = "perfil", length = 1, nullable = false)

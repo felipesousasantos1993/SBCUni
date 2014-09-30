@@ -21,11 +21,14 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
+import org.joda.time.DateTime;
+
 import br.com.sbcuni.avaliacao.entity.Avaliacao;
 import br.com.sbcuni.categoria.entity.Categoria;
 import br.com.sbcuni.comentario.entity.Comentario;
 import br.com.sbcuni.grupoEstudo.GrupoEstudo;
 import br.com.sbcuni.usuario.entity.Usuario;
+import br.com.sbcuni.util.Util;
 
 @Entity
 @NamedQueries({
@@ -202,5 +205,14 @@ public class Topico implements Serializable {
 	public void setNuVisualizacoes(Integer nuVisualizacoes) {
 		this.nuVisualizacoes = nuVisualizacoes;
 	}
+	
+	public String getTempoTopico() {
+		return "Atualizado " + Util.getDiferencaTempo(new DateTime(getDtUltimaAtualizacao()));
+	}
+	
+	public String getTempoTopicoCriacao() {
+		return Util.getDiferencaTempo(new DateTime(getDtCriacao()));
+	}
+	
 	
 }
