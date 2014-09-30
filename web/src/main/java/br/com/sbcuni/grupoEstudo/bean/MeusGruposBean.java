@@ -9,11 +9,9 @@ import javax.faces.bean.ViewScoped;
 
 import br.com.sbcuni.bean.GenericBean;
 import br.com.sbcuni.constantes.Constantes;
-import br.com.sbcuni.constantes.Tela;
 import br.com.sbcuni.grupoEstudo.GrupoEstudo;
 import br.com.sbcuni.grupoEstudo.service.GrupoEstudoSerivceBean;
 import br.com.sbcuni.usuario.bean.UsuarioSessionBean;
-import br.com.sbcuni.util.WebResources;
 
 @ManagedBean
 @ViewScoped

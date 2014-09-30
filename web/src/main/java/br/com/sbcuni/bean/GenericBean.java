@@ -19,6 +19,7 @@ import br.com.sbcuni.constantes.Tela;
 import br.com.sbcuni.exception.SbcuniException;
 import br.com.sbcuni.grupoEstudo.GrupoEstudo;
 import br.com.sbcuni.topico.entity.Topico;
+import br.com.sbcuni.topico.service.TopicoServiceBean;
 import br.com.sbcuni.usuario.bean.UsuarioSessionBean;
 import br.com.sbcuni.usuario.entity.Usuario;
 import br.com.sbcuni.util.Util;
@@ -28,12 +29,14 @@ public class GenericBean implements Serializable {
 
 	private static final long serialVersionUID = -186630473546952482L;
 
-	private static final String MENSAGENS = "mensagens";
 	private String infos;
 	private transient ResourceBundle messages;
+	private String emailPattern = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
 
 	@EJB
 	private AvaliacaoServiceBean avaliacaoServiceBean;
+	@EJB
+	private TopicoServiceBean topicoServiceBean;
 
 	public static String getMensagem(String key, Object... args) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
@@ -43,23 +46,25 @@ public class GenericBean implements Serializable {
 	}
 
 	protected void exibirMsgSucesso(String mensagem) {
-		FacesContext.getCurrentInstance().addMessage(MENSAGENS, new FacesMessage(FacesMessage.SEVERITY_INFO, mensagem, MENSAGENS));
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, mensagem, null));
 	}
 
 	protected void exibirMsgAviso(String mensagem) {
-		FacesContext.getCurrentInstance().addMessage(MENSAGENS, new FacesMessage(FacesMessage.SEVERITY_ERROR, mensagem, MENSAGENS));
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, mensagem, null));
 	}
 
 	protected void exibirMsgErro(String mensagem) {
-		FacesContext.getCurrentInstance().addMessage(MENSAGENS, new FacesMessage(FacesMessage.SEVERITY_FATAL, mensagem, MENSAGENS));
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, mensagem, null));
 	}
 
 	protected void exibirMsgInfo(String mensagem) {
-		FacesContext.getCurrentInstance().addMessage(MENSAGENS, new FacesMessage(FacesMessage.SEVERITY_WARN, mensagem, MENSAGENS));
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, mensagem, null));
 	}
 
-	public static String detalharTopico(Topico topico) {
+	public String detalharTopico(Topico topico) {
 		WebResources.getFlash().put(WebResources.TOPICO, topico);
+		topico.setNuVisualizacoes(topico.getNuVisualizacoes()+1);
+		topicoServiceBean.alterarTopico(topico);
 		return Tela.VISUALIZAR_TOPICO_PATH;
 	}
 	public static String detalharGrupoEstudo(GrupoEstudo grupoEstudo) {
@@ -211,6 +216,14 @@ public class GenericBean implements Serializable {
 
 	public void setInfos(String infos) {
 		this.infos = infos;
+	}
+
+	public String getEmailPattern() {
+		return emailPattern;
+	}
+
+	public void setEmailPattern(String emailPattern) {
+		this.emailPattern = emailPattern;
 	}
 
 }

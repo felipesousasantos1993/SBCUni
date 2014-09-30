@@ -11,6 +11,7 @@ import javax.faces.bean.ViewScoped;
 
 import br.com.sbcuni.bean.GenericBean;
 import br.com.sbcuni.categoria.entity.Categoria;
+import br.com.sbcuni.categoria.service.CategoriaServiceBean;
 import br.com.sbcuni.constantes.Constantes;
 import br.com.sbcuni.constantes.Tela;
 import br.com.sbcuni.grupoEstudo.GrupoEstudo;
@@ -34,12 +35,14 @@ public class NovoTopicoBean extends GenericBean {
 
 	@EJB
 	private TopicoServiceBean topicoServiceBean;
+	@EJB
+	private CategoriaServiceBean categoriaServiceBean;
 
 	private Topico novoTopico = new Topico();
 	private List<Categoria> categorias;
 	private GrupoEstudo grupoEstudo;
 	
-	private List<Categoria> categoriasSelecionadas = new ArrayList<Categoria>();
+	private List<String> categoriasSelecionadas = new ArrayList<String>();
 	
 	/**
 	 * Método : populaTopico Descrição:
@@ -47,7 +50,12 @@ public class NovoTopicoBean extends GenericBean {
 	public void populaTopico() {
 		novoTopico.setDtCriacao(new Date());
 		novoTopico.setUsuario(UsuarioSessionBean.getInstance().getUsuarioSessao());
-		novoTopico.setCategorias(categoriasSelecionadas);
+		novoTopico.setNuVisualizacoes(0);
+		List<Categoria> categorias = new ArrayList<Categoria>();
+		for (String idCategoria : categoriasSelecionadas) {
+			categorias.add(categoriaServiceBean.buscarCategoriaPorId(Long.valueOf(idCategoria)));
+		}
+		novoTopico.setCategorias(categorias);
 	}
 
 	/**
@@ -61,7 +69,12 @@ public class NovoTopicoBean extends GenericBean {
 			}
 			topicoServiceBean.postarTopico(novoTopico);
 			exibirMsgSucesso(getMensagem("display.topico.criado.sucesso", Constantes.MENSAGEM));
-			return Tela.MEUS_TOPICOS;
+			if (!Util.isNull(grupoEstudo)) {
+				WebResources.getFlash().put(WebResources.GRUPO_ESTUDO, grupoEstudo);
+				return Tela.DETALHE_GRUPO_ESTUDO_PATH;
+			} else {
+				return Tela.MEUS_TOPICOS;
+			}
 		} catch (Exception e) {
 			exibirMsgAviso("Erro " + e.getMessage());
 			return null;
@@ -90,13 +103,6 @@ public class NovoTopicoBean extends GenericBean {
 		this.categorias = categorias;
 	}
 
-	public List<Categoria> getCategoriasSelecionadas() {
-		return categoriasSelecionadas;
-	}
-
-	public void setCategoriasSelecionadas(List<Categoria> categoriasSelecionadas) {
-		this.categoriasSelecionadas = categoriasSelecionadas;
-	}
 
 	public GrupoEstudo getGrupoEstudo() {
 		return grupoEstudo;
@@ -104,6 +110,14 @@ public class NovoTopicoBean extends GenericBean {
 
 	public void setGrupoEstudo(GrupoEstudo grupoEstudo) {
 		this.grupoEstudo = grupoEstudo;
+	}
+
+	public List<String> getCategoriasSelecionadas() {
+		return categoriasSelecionadas;
+	}
+
+	public void setCategoriasSelecionadas(List<String> categoriasSelecionadas) {
+		this.categoriasSelecionadas = categoriasSelecionadas;
 	}
 
 }

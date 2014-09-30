@@ -23,13 +23,12 @@
 				<h:outputText value="#{mensagens['display.ultimos.topicos']}" />
 			</li>
 		</ol>
-		<h:messages id="mensagens"  errorClass="alert alert-danger alert-dark" infoClass="alert alert-info alert-dark" warnClass="alert alert-dark"/>
+		<h:messages id="mensagens" globalOnly="true" fatalClass="alert alert-danger alert-dark" errorClass="alert alert-warning alert-dark" infoClass="alert alert-info alert-dark" warnClass="alert alert-dark"/>
 	</div>
 	<div id="content" class="content">
-		<h:form prependId="false" id="form">
-		<h:inputHidden id="validator" validator="novoTopicoValidator" />
-			<div class="row">
-				<div class="col-md-12">
+		<div class="row">
+			<div class="col-md-12">
+				<h:form prependId="false" id="form" styleClass="form-horizontal">
 					<div class="panel">
 						<div class="panel-heading">
 							<span class="panel-title"><h:outputText value="#{mensagens['display.novo.topico']}" /></span>
@@ -37,52 +36,49 @@
 						
 						<div class="panel-body"  >
 							<div class="form-group">
-								<label>
-									<h:outputText value="#{mensagens['display.titulo']} *"/>
+								<label class="control-label col-sm-2">
+									<h:outputText value="#{mensagens['display.titulo']}"/>
 								</label>
-								<h:inputText id="titulo" value="#{novoTopicoBean.novoTopico.titulo}"  styleClass="form-control x45" />
+								<div class="col-sm-10">
+									<h:inputText id="titulo" value="#{novoTopicoBean.novoTopico.titulo}"  styleClass="form-control" required="true" requiredMessage="#{mensagens['display.campo.obrigatorio']}"/>
+									<h:message for="titulo" errorClass="msg error"/>
+								</div>
 							</div>
 							<div class="form-group"> 
-								<label>
-									<h:outputText value="#{mensagens['display.descricao']} *"/>
+								<label class="control-label col-sm-2">
+									<h:outputText value="#{mensagens['display.descricao']}"/>
 								</label>
-								<h:inputTextarea id="descricao" value="#{novoTopicoBean.novoTopico.descricao}"  styleClass="editorTexto form-control x95" style="height:260px !important; overflow: hidden !important;"/>
+								<div class="col-sm-10">
+									<h:inputTextarea id="descricao" value="#{novoTopicoBean.novoTopico.descricao}"  styleClass="editorTexto form-control"  required="true" requiredMessage="#{mensagens['display.campo.obrigatorio']}"/>
+									<h:message for="descricao" errorClass="msg error"/>
+								</div>
 							</div>
 							<div class="form-group">
-								<label>
-									<h:outputText value="#{mensagens['display.categoria']} *"/>
+								<label class="control-label col-sm-2">
+									<h:outputText value="#{mensagens['display.categoria']}"/>
 								</label>
-								<p:autoComplete converter="categoriaConverter"  multiple="true" completeMethod="#{autoCompleteBean.completeCategoria}" var="categoria" itemValue="#{categoria}" itemLabel="#{categoria.deCategoria}" forceSelection="true" value="#{novoTopicoBean.categoriasSelecionadas}" autocomplete="true"  />
-								
-								<!-- 
-								<div class="select2-container select2-container-multi form-control" id="s2id_jquery-select2-multiple">
-									<div class="select2-drop select2-drop-multi select2-display-none">   
-										<ul class="select2-results">   
-											<li class="select2-no-results">Nenhuma categoria encontrada </li>
-										</ul>
+								<div class="col-sm-10">
+									<div class="select2-primary">
+										 <h:selectManyMenu id="categorias" value="#{novoTopicoBean.categoriasSelecionadas}"   styleClass="form-control autocompleteCategoria select2-offscreen" tabindex="-1" required="true" requiredMessage="#{mensagens['display.campo.obrigatorio']}">
+											<f:selectItems value="#{novoTopicoBean.categorias}"  var="categoria" itemValue="#{categoria.idCategoria}" itemLabel="#{categoria.deCategoria}"/>
+										</h:selectManyMenu>
 									</div>
+									<h:message for="categorias" errorClass="msg error"/>
 								</div>
-								<select multiple="multiple"  id="jquery-select2-multiple" class="form-control autocomplete select2-offscreen x20" tabindex="-1">
-									<ui:repeat var="categoria" value="#{novoTopicoBean.categorias}">
-										<option  value="#{categoria}">
-											<h:outputText value="#{categoria.deCategoria}" />
-										</option>
-									</ui:repeat>
-								</select>
-								 -->
-								 
 							</div>
 							
+						</div>
+						<div class="panel-footer">
+							<div class="form-group">
+								<div class="col-sm-offset-2 col-sm-10">
+									<h:commandButton  action="#{novoTopicoBean.postarTopico}" value="#{mensagens['display.confirmar']}" styleClass="btn btn-primary btn-xs"/>
+								</div>	
 							</div>
 						</div>
-						
-						<div class="panel-footer">
-							<h:commandButton  action="#{novoTopicoBean.postarTopico}" value="#{mensagens['display.confirmar']}" styleClass="btn btn-primary btn-xs"/>
-						</div>
 					</div>
+					</h:form>
 				</div>
-			
-			</h:form>
+			</div>
 		</div>
 	</ui:define>
 </ui:composition>

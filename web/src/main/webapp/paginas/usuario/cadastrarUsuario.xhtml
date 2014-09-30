@@ -24,68 +24,85 @@
 				<h:outputText value="#{mensagens['display.cadastrar.usuario']}" />
 			</li>
 		</ol>
-		<h:messages id="mensagens"  errorClass="alert alert-danger alert-dark" infoClass="alert alert-info alert-dark" warnClass="alert alert-dark"/>
+		<h:messages id="mensagens" globalOnly="true"  errorClass="alert alert-danger alert-dark" infoClass="alert alert-info alert-dark" warnClass="alert alert-dark"/>
 	</div>
 	<div id="content" class="content">
-		<h:form prependId="false" id="form">
-		<h:inputHidden id="validator" validator="usuarioValidator"/>
-			<div class="row">
-				<div class="col-md-12">
-					<div class="panel">
-						<div class="panel-heading">
-							<h:outputText value="#{mensagens['display.dados.aluno']}"  rendered="#{cadastrarUsuarioBean.usuario.perfil eq 1}"/>
-							<h:outputText value="#{mensagens['display.dados.professor']}"  rendered="#{cadastrarUsuarioBean.usuario.perfil eq 2}"/>
-							<h:outputText value="#{mensagens['display.dados.coordenador']}"  rendered="#{cadastrarUsuarioBean.usuario.perfil eq 3}"/>
-						</div>
-						
-						<div class="panel-body">
-							<div class="form-group">
-								<label>
-									<h:outputText value="#{mensagens['display.nome.completo']}:" />
-								</label>
-								<h:inputText id="nome" value="#{cadastrarUsuarioBean.usuario.nome}" maxlength="58" styleClass="form-control x45" autocomplete="off"/>
-							</div>
-							<div class="form-group">
-								<label>
-									<h:outputText value="#{mensagens['display.cpf']}:" />	
-								</label>
-								<h:inputText id="cpf" value="#{cadastrarUsuarioBean.usuario.cpf}" maxlength="11"  styleClass="cpf form-control x15" autocomplete="off"/>
-							</div>
-							<div class="form-group">
-								<label>
-									<h:outputText value="#{mensagens['display.email']}:" />
-								</label>
-								<h:inputText id="email" value="#{cadastrarUsuarioBean.usuario.email}" maxlength="50" styleClass="form-control x40"  autocomplete="off"/>
-							</div>
-							<div class="form-group">
-								<label>
-									<h:outputText value="#{mensagens['display.senha']}:" />
-								</label>
-								<h:inputSecret id="senha" value="#{cadastrarUsuarioBean.usuario.senha}" maxlength="8" styleClass="form-control x10" autocomplete="off"/>
-							</div>
-							<div class="form-group">
-								<label>
-									<h:outputText value="#{mensagens['display.confirme.senha']}:"  />
-								</label>
-								<h:inputSecret id="confirmarSenha"  styleClass="form-control x10" maxlength="8" autocomplete="off"/>
-							</div>
-							<div class="checkbox">
-								<label>
-									<h:outputText value="#{mensagens['display.status']}:"  />
-								</label>
-								<br/>
-								<h:selectBooleanCheckbox value="#{cadastrarUsuarioBean.usuario.status}"/>
+		<div class="row">
+			<div class="col-md-12">
+				<h:form id="form" prependId="false" styleClass="form-horizontal">
+				<div class="panel">
+					<div class="panel-heading">
+						<span class="panel-title"><h:outputText value="#{mensagens['display.cadastrar.usuario']}" /> </span>
+					</div>
+					<div class="panel-body">
+						<div class="form-group">
+							<label class="control-label col-sm-2">
+								<h:outputText value="#{mensagens['display.nome']}:" />
+							</label>
+							<div class="col-sm-4">
+								<h:inputText id="nome"  value="#{cadastrarUsuarioBean.usuario.nome}" maxlength="58" styleClass="form-control x4" autocomplete="off" required="true" requiredMessage="#{mensagens['display.campo.obrigatorio']}"/>
+								<h:message for="nome" errorClass="msg error"/>
 							</div>
 						</div>
-						
-						<div class="panel-footer">
-							<h:commandButton  action="#{cadastrarUsuarioBean.cadastrarUsuario()}" value="#{mensagens['display.confirmar']}" styleClass="btn btn-primary btn-xs"/>
-							<h:commandButton value="#{mensagens['display.limpar']}" styleClass="btn btn-warning btn-xs marginLeft_10" action="#" type="reset"/>
+						<div class="form-group">
+							<label class="control-label col-sm-2">
+								<h:outputText value="#{mensagens['display.matricula']}:" />	
+							</label>
+							<div class="col-sm-2">
+								<div class="input-group">
+									<div class="input-group-btn">
+										<h:commandButton id="btnGerarMatricula" styleClass="btn btn-primary"  value="#{mensagens['display.gerar']}" action="#" disabled="#{cadastrarUsuarioBean.usuario.perfil == 0}" immediate="true">
+											<f:ajax event="click" render="matricula" listener="#{cadastrarUsuarioBean.gerarMatricula()}"/>
+										</h:commandButton>
+									</div>
+									<h:inputText id="matricula" value="#{cadastrarUsuarioBean.usuario.matricula}" readonly="true" maxlength="11"  styleClass="form-control" autocomplete="off" required="true" requiredMessage="#{mensagens['display.campo.obrigatorio']}"/>
+								</div>
+								<h:message for="matricula" errorClass="msg error"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-sm-2">
+								<h:outputText value="#{mensagens['display.cpf']}:" />	
+							</label>
+							<div class="col-sm-2">
+								<h:inputText id="cpf" value="#{cadastrarUsuarioBean.usuario.cpf}" maxlength="11"  styleClass="form-control cpf" autocomplete="off" required="true" requiredMessage="#{mensagens['display.campo.obrigatorio']}"/>
+								<h:message for="cpf" errorClass="msg error"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-sm-2">
+								<h:outputText value="#{mensagens['display.email']}:" />
+							</label>
+							<div class="col-sm-4">
+								<h:inputText id="email" validatorMessage="#{mensagens['display.email.invalido']}" required="true" requiredMessage="#{mensagens['display.campo.obrigatorio']}" value="#{cadastrarUsuarioBean.usuario.email}" maxlength="50" styleClass="form-control"  autocomplete="off">
+									<f:validateRegex  for="email" pattern="#{cadastrarUsuarioBean.emailPattern}"/>
+								</h:inputText>
+								<h:message for="email" errorClass="msg error"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-sm-offset-2 col-sm-10">
+								<div class="checkbox">
+									<label>
+										<h:outputText value="#{mensagens['display.inativo']}"/>
+										<h:selectBooleanCheckbox id="inativo" value="#{cadastrarUsuarioBean.inativo}" />
+									</label>
+									<h:message for="inativo" errorClass="msg error"/>
+								</div>
+							</div>
 						</div>
 					</div>
-				</div>
-			</div>
+					<div class="panel-footer">
+						<div class="form-group">
+							<div class="col-sm-offset-2 col-sm-10">
+								<h:commandButton value="#{mensagens['display.cadastrar']}" styleClass="btn btn-primary btn-xs" action="#{cadastrarUsuarioBean.cadastrarUsuario()}" />
+							</div>
+						</div>
+					</div>
+				</div>	
 			</h:form>
+			</div>
+		</div>
 		</div>
 	</ui:define>
 </ui:composition>
