@@ -20,9 +20,12 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
+import org.joda.time.DateTime;
+
 import br.com.sbcuni.avaliacao.entity.Avaliacao;
 import br.com.sbcuni.topico.entity.Topico;
 import br.com.sbcuni.usuario.entity.Usuario;
+import br.com.sbcuni.util.Util;
 
 @Entity
 @NamedQueries({
@@ -149,4 +152,12 @@ public class Comentario implements Serializable {
 		this.dtCriacao = dtCriacao;
 	}
 
+	public String getTempoComentario() {
+		return "Atualizado " + Util.getDiferencaTempo(new DateTime(getDtUltimaAtualizacao()));
+	}
+	
+	public String getTempoComentarioCriacao() {
+		return Util.getDiferencaTempo(new DateTime(getDtCriacao()));
+	}
+	
 }

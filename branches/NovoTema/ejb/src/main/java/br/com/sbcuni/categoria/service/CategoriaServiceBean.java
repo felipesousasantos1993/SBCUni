@@ -40,6 +40,15 @@ public class CategoriaServiceBean implements Serializable {
 			return null;
 		}
 	}
+	public Categoria buscarCategoriaPorId(Long idCategoria) {
+		Query query = entityManager.createNamedQuery("Categoria.buscarCategoriaPorId");
+		query.setParameter("idCategoria", idCategoria);
+		try {
+			return (Categoria) query.getSingleResult();
+		} catch (NoResultException e) {
+			return null;
+		}
+	}
 	
 	public void criarCategoria(Categoria categoria) throws SbcuniException {
 		try {
