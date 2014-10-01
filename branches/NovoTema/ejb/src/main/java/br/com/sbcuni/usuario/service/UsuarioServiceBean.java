@@ -55,7 +55,7 @@ public class UsuarioServiceBean implements Serializable {
 		try {
 			entityManager.merge(usuario);
 		} catch (Exception e) {
-			throw new SbcuniException("", e);
+			throw new SbcuniException("Erro ao alterar usuario", e);
 		}
 	}
 	
@@ -119,7 +119,7 @@ public class UsuarioServiceBean implements Serializable {
 			return null;
 		}
 	}
-	public Usuario consultarPorMatricula(String matricula, Integer perfil) throws SbcuniException {
+	public Usuario consultarPorMatricula(String matricula, Integer perfil) {
 		StringBuffer q = new StringBuffer("SELECT u FROM Usuario u WHERE u.matricula = :matricula");
 		if (!perfil.equals(PERFIL_TODOS)) {
 			q.append(" and u.perfil =:perfil");

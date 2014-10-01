@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	<html class="gt-ie8 gt-ie9 not-ie pxajs">
+		<h:head>
+			<title>Faloo - Login</title>
+			 <h:outputStylesheet library="css" name="bootstrap.min.css" />
+			 <h:outputStylesheet library="css" name="codemirror.min.css" />
+			 <h:outputStylesheet library="css" name="pages.min.css" />
+			 <h:outputStylesheet library="css" name="pixel-admin.min.css" />
+			 <h:outputStylesheet library="css" name="rtl.min.css" />
+			 <h:outputStylesheet library="css" name="themes.min.css" />
+			 <h:outputStylesheet library="css" name="widgets.min.css" />
+			 <h:outputStylesheet library="css" name="custom.css" />
+			<h:outputScript library="js" name="jquery.min.js" />
+			<h:outputScript library="js" name="marca-dagua.js" />
+			<link rel="shortcut icon" type="image/x-icon" href="#{request.contextPath}/resources/img/fav.ico" />
+		</h:head>
+		<style type="text/css">.jqstooltip { position: absolute;left: 0px;top: 0px;visibility: hidden;background: rgb(0, 0, 0) transparent;background-color: rgba(0,0,0,0.6);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000);-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000)";color: white;font: 10px arial, san serif;text-align: left;white-space: nowrap;padding: 5px;border: 1px solid white;z-index: 10000;}.jqsfield { color: white;font: 10px arial, san serif;text-align: left;}</style>
+		<h:body styleClass="theme-default page-signup">
+			<div id="page-signup-bg">
+				<div class="overlay"/>
+				<h:graphicImage value="/resources/img/bg-login2.jpg"  library="img"/>
+			</div>
+				<div class="signup-container">
+					<div class="signup-header">
+						<a href="#" class="logo">
+							<h:graphicImage value="/resources/img/logo.png"  library="img"/>
+						</a>
+						<div class="slogan">
+							<h:outputText value="#{mensagens['display.slogan']}" />
+						</div>
+					</div>
+					<div class="signup-form">
+						<h:form id="signup-form_id" prependId="false">
+							<div class="signup-text">
+								<span><h:outputText value="#{mensagens['display.crie.sua.senha']}" /> </span>
+							</div>
+							<div class="form-group w-icon">
+								<h:inputText id="matricula2"  value="#{primeiroAcessoBean.matricula}" required="true" requiredMessage="#{mensagens['display.insira.sua.matricula']}" autocomplete="off" maxlength="13" styleClass="form-control input-lg" >
+									<f:ajax event="blur" render="senha msgMatricula msgSenha mensagens" listener="#{primeiroAcessoBean.verificarMatricula()}"/>
+								</h:inputText>
+								<span class="fa fa-user signup-form-icon"/>
+							</div>
+							<h:message id="msgMatricula" for="matricula2" errorClass="msg error"/>
+							
+							<br/>
+							
+							<div class="form-group w-icon">
+								<h:inputSecret  id="senha" value="#{primeiroAcessoBean.senha}" validatorMessage="#{mensagens['display.senha.deve.entre.6.8.digitos']}" disabled="#{not primeiroAcessoBean.inputSenha}" required="true" requiredMessage="#{mensagens['display.campo.obrigatorio']}" autocomplete="off" maxlength="8" styleClass="form-control input-lg" >
+									<f:ajax event="blur" render="btnCriarSenha msgMatricula msgSenha mensagens" listener="#{primeiroAcessoBean.validaSenha()}"/>
+									<f:validateLength minimum="6" maximum="8"  />
+								</h:inputSecret>
+								<span class="fa fa-lock signup-form-icon"/>
+							</div>
+							<h:message id="msgSenha" for="senha" errorClass="msg error"/>
+							<div class="form-actions">
+								<h:commandButton id="btnCriarSenha" action="#{primeiroAcessoBean.criarSenha()}" disabled="#{not primeiroAcessoBean.btnCriar}" value="#{mensagens['display.criar.senha']}" styleClass="signup-btn bg-primary"/>
+								<h:messages id="mensagens"  style="text-align: center;margin-top: 10px;margin-bottom: -30px;" globalOnly="true" fatalClass="alert alert-info alert-dark" errorClass="alert alert-info alert-dark" infoClass="alert alert-info alert-dark" warnClass="alert alert-info alert-dark"/>
+							</div>
+						</h:form>
+					</div>
+				</div>
+		</h:body>
+	</html>
+</ui:composition>

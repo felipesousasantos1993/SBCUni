@@ -1566,6 +1566,7 @@ html body.page-signup {
 .tl-body {
 	position: relative;
 	padding: 15px;
+	padding-bottom: 25px;
 	margin: 0
 }
 

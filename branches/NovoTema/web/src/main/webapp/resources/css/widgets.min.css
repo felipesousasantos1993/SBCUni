@@ -896,7 +896,6 @@
 }
 
 .panel .widget-followers .follower,.panel.widget-followers .follower {
-	margin: 0 -20px;
-	padding-left: 20px;
-	padding-right: 20px
+	padding-left: 5px;
+	padding-right: 5px
 }

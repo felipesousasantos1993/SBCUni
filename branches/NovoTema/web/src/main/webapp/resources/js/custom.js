@@ -107,3 +107,11 @@ $(document).ready(function() {
 		}
 	});
 });
+
+
+$(document).ready(function() {
+	$('.tooltips label').tooltip();
+});
+$(document).ready(function() {
+	$('.popovers button').popover();
+});

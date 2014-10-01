@@ -4,6 +4,7 @@ $(document).ready(function() {
 });
 function marcaDagua() {
 	$("#matricula").attr("placeholder", "Matrícula").blur();
+	$("#matricula2").attr("placeholder", "Digite sua matrícula").blur();
 	$("#senha").attr("placeholder", "Senha").blur();
 	$("#pesquisar").attr("placeholder", "Pesquisar...").blur();
 	$("#procurar").attr("placeholder", "Procurar").blur();
