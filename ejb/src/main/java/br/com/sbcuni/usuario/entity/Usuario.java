@@ -31,12 +31,12 @@ import br.com.sbcuni.topico.entity.Topico;
  * @version $Revision: 1.0 $
  */
 @Entity
-@NamedQueries({
-	@NamedQuery(name = "Usuario.buscarTodos", query = "SELECT u FROM Usuario u"),
+@NamedQueries({ 
+	@NamedQuery(name = "Usuario.buscarTodos", query = "SELECT u FROM Usuario u"), 
 	@NamedQuery(name = "Usuario.buscarPorPerfil", query = "SELECT u FROM Usuario u WHERE u.perfil =:perfil"),
 	@NamedQuery(name = "Usuario.consultarUsuarioLogin", query = "SELECT u FROM Usuario u WHERE u.matricula =:matricula AND u.senha =:senha"),
 	@NamedQuery(name = "Usuario.consultarAlunoNomeOuMatricula", query = "SELECT u FROM Usuario u WHERE lower(u.nome) like :nome OR u.matricula like :matricula AND u.perfil = 1"),
-	@NamedQuery(name = "Usuario.consultarAlunoNomeOuEmail", query = "SELECT u FROM Usuario u WHERE lower(u.nome) like :nome OR lower(u.email) like :matricula")
+	@NamedQuery(name = "Usuario.consultarAlunoNomeOuEmail", query = "SELECT u FROM Usuario u WHERE lower(u.nome) like :nome OR lower(u.email) like :matricula") 
 })
 public class Usuario implements Serializable {
 
@@ -49,7 +49,7 @@ public class Usuario implements Serializable {
 
 	@Column(name = "nome", length = 58, nullable = false)
 	private String nome;
-	
+
 	@Column(name = "cpf", length = 11, nullable = false)
 	private String cpf;
 
@@ -61,58 +61,60 @@ public class Usuario implements Serializable {
 
 	@Column(name = "senha", length = 8, nullable = true)
 	private String senha;
-	
+
 	@Column(name = "perfil", length = 1, nullable = false)
 	private Integer perfil;
-	
+
 	@Column(name = "status", nullable = false)
 	private Boolean status;
-	
+
 	@Column(name = "dtCadastro", nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dtCadastro;
-	
+
 	@Column(name = "telFixo", nullable = true)
 	private String telFixo;
-	
+
 	@Column(name = "telCelular", nullable = true)
 	private String telCelular;
-	
+
 	@Column(name = "cidade", nullable = true)
 	private String cidade;
-	
+
 	@Column(name = "estado", nullable = true)
 	private String estado;
-	
+
 	@Column(name = "sobreMim", length = 255, nullable = true)
 	private String sobreMim;
-	
+
 	@Column(name = "dtUltimoAcesso", nullable = true)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dtUltimoAcesso;
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "usuario" , targetEntity = Topico.class)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "usuario", targetEntity = Topico.class)
 	private List<Topico> topicos;
-	
+
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "usuario", targetEntity = Comentario.class)
 	private List<Comentario> comentarios;
-	
+
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "remetente", targetEntity = Mensagem.class)
 	private List<Mensagem> msgsEnviadas;
-	
+
 	@ManyToMany(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY, targetEntity = Mensagem.class, mappedBy = "destinatarios")
 	private List<Mensagem> msgsRecebidas;
-	
+
 	@ManyToMany(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY, targetEntity = GrupoEstudo.class, mappedBy = "alunos")
 	private List<GrupoEstudo> grupos;
-	
+
 	@OneToMany(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY, targetEntity = GrupoEstudo.class, mappedBy = "professor")
 	private List<GrupoEstudo> gruposEstudos;
-	
+
 	@Transient
 	private Boolean marcado = Boolean.FALSE;
-	
-	
+
+	@Transient
+	private Long nuComentariosNoGrupo;
+
 	public Long getIdUsuario() {
 		return idUsuario;
 	}
@@ -184,7 +186,7 @@ public class Usuario implements Serializable {
 	public void setMarcado(Boolean marcado) {
 		this.marcado = marcado;
 	}
-	
+
 	public String getDePerfil() {
 		if (perfil.equals(1)) {
 			return "Aluno";
@@ -197,7 +199,7 @@ public class Usuario implements Serializable {
 		}
 		return null;
 	}
-	
+
 	public String getDeStatus() {
 		if (status) {
 			return "Ativo";
@@ -312,6 +314,18 @@ public class Usuario implements Serializable {
 
 	public void setSobreMim(String sobreMim) {
 		this.sobreMim = sobreMim;
+	}
+
+	public Integer getNuTopicos() {
+		return getTopicos().size();
+	}
+
+	public Long getNuComentariosNoGrupo() {
+		return nuComentariosNoGrupo;
+	}
+
+	public void setNuComentariosNoGrupo(Long nuComentariosNoGrupo) {
+		this.nuComentariosNoGrupo = nuComentariosNoGrupo;
 	}
 
 }

@@ -29,7 +29,8 @@ import br.com.sbcuni.util.Util;
 
 @Entity
 @NamedQueries({
-	@NamedQuery(name = "Comentario.consultarComentariosTopico", query = "SELECT c FROM Comentario c JOIN FETCH c.usuario WHERE c.topico.idTopico =:idTopico ORDER BY c.dtCriacao ASC")
+	@NamedQuery(name = "Comentario.consultarComentariosTopico", query = "SELECT c FROM Comentario c JOIN FETCH c.usuario WHERE c.topico.idTopico =:idTopico ORDER BY c.dtCriacao ASC"),
+	@NamedQuery(name = "Comentario.consultarNuComentariosUsuarioGrupoEstudo", query = "SELECT count(c) FROM Comentario c WHERE c.usuario.idUsuario =:idUsuario AND c.topico.grupoEstudo.idGrupoEstudo =:idGrupoEstudo")
 })
 public class Comentario implements Serializable {
 

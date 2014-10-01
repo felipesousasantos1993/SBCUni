@@ -44,29 +44,20 @@
 								</dd>
 							</dl>
 							<div style="margin-bottom:20px;">
-								<h:commandLink value="#{mensagens['display.criar.topico']}" action="#{detalheGrupoEstudoBean.telaNovoTopico()}" styleClass="btn btn-default btn-xs">
+								<h:commandLink value="#{mensagens['display.criar.topico']}" action="#{detalheGrupoEstudoBean.telaNovoTopico()}" styleClass="btn btn-primary btn-outline btn-xs">
 									<i class="fa fa-flag"/>
 								</h:commandLink>
-								<h:commandLink value="#{mensagens['display.excluir.topico']}" action="#" styleClass="btn btn-default btn-xs marginLeft_10">
-									<i class="fa fa-minus-circle"/>
-								</h:commandLink>
-								<h:commandLink value="#{mensagens['display.incluir.aluno']}" action="#" styleClass="btn btn-default btn-xs marginLeft_10">
+								<h:commandLink value="#{mensagens['display.incluir.aluno']}" action="#" styleClass="btn btn-primary btn-outline btn-xs marginLeft_10">
 									<i class="fa fa-user"/>
 								</h:commandLink>
-								<h:commandLink value="#{mensagens['display.excluir.aluno']}" action="#" styleClass="btn btn-default btn-xs marginLeft_10">
-									<i class="fa fa-times"/>
-								</h:commandLink>
-								<h:commandLink value="#{mensagens['display.ver.linha.tempo']}" action="#" styleClass="btn btn-default btn-xs marginLeft_10">
-									<i class="fa fa-clock-o"/>
-								</h:commandLink>
-								<h:commandLink value="#{mensagens['display.editar.nome.grupo']}" action="#" styleClass="btn btn-default btn-xs marginLeft_10">
+								<h:commandLink value="#{mensagens['display.editar.nome.grupo']}" action="#" styleClass="btn btn-primary btn-outline btn-xs marginLeft_10">
 									<i class="fa fa-edit"/>
 								</h:commandLink>
 							</div>
 							<div class="clear"/>
 							
 								<div class="nav-tabs-custom">
-									<ul class="nav nav-tabs">
+									<ul class="nav nav-tabs nav-justified">
 										<li>
 											<a href="#tab_alunos" data-toggle="tab">
 												<h:outputText value="#{mensagens['display.alunos']}" />
@@ -84,21 +75,39 @@
 												<div class="follower">
 													<h:graphicImage library="img" value="/resources/img/2.jpg" styleClass="follower-avatar"/>
 													<div class="body">
-														<div class="follower-controls">
-															<span class="badge badge-primary" title="Tópcos">
-																<h:outputText value="1" />
-															</span>
-															<span class="badge badge-success" title="Comentários">
-																<h:outputText value="1" />
-															</span>
-															<h:commandLink action="#" immediate="true" value="#{mensagens['display.enviar.mensagem']}" styleClass="btn btn-default btn-xs marginLeft_5"/>
+														<h:panelGroup id="aluno">
+															<div class="follower-controls tooltips">
+																<h:outputFormat  id="msgExcluir" rendered="#{aluno.marcado}">
+																	<h:outputLabel styleClass="labelLink" value="#{mensagens['display.confirma.exclusao.aluno']}" />
+																	<h:outputLabel styleClass="labelLink marginLeft_5" value="#{mensagens['display.sim']}" >
+																		<f:ajax event="click" render="@form" listener="#{detalheGrupoEstudoBean.excluirAlunoGrupo(aluno)}"/>
+																	</h:outputLabel>
+																	<h:outputLabel styleClass="labelLink marginLeft_5" value="#{mensagens['display.nao']}" >
+																		<f:ajax event="click" render="aluno" listener="#{detalheGrupoEstudoBean.desmarcarAluno(aluno)}"/>
+																	</h:outputLabel>
+																</h:outputFormat>
+															
+																<h:outputLabel styleClass="badge badge-primary marginLeft_10" title="Tópicos criados pelo aluno">
+																	<h:outputText value="#{aluno.nuTopicos}" />
+																</h:outputLabel>
+																<h:outputLabel styleClass="badge badge-success marginLeft_5" title="Comentários do aluno">
+																	<h:outputText value="#{aluno.nuComentariosNoGrupo}" />
+																</h:outputLabel>
+																<h:outputLabel title="#{mensagens['display.enviar.mensagem']}"  styleClass="btn btn-outline btn-primary btn-xs marginLeft_10">
+																	<i class="fa fa-envelope"/>
+																</h:outputLabel>
+																<h:outputLabel title="#{mensagens['display.excluir.aluno']}" styleClass="btn btn-danger btn-outline btn-xs marginLeft_5">
+																	<i class="fa fa-times"/>
+																	<f:ajax event="click" render="aluno" listener="#{detalheGrupoEstudoBean.marcarAluno(aluno)}"/>
+																</h:outputLabel>
+															</div>
+															<h:commandLink action="#{detalheGrupoEstudoBean.perfilUsuario(aluno)}" immediate="true" value="#{aluno.nome}" styleClass="follower-name"/>
+															<br/>
+															<h:outputText value="#{aluno.email}" styleClass="follower-username"/>
+															</h:panelGroup>
 														</div>
-													
-														<h:commandLink action="#{detalheGrupoEstudoBean.perfilUsuario(aluno)}" immediate="true" value="#{aluno.nome}" styleClass="follower-name"/>
-														<br/>
-														<h:outputText value="#{aluno.email}" styleClass="follower-username"/>
 													</div>
-												</div>
+												<hr/>
 											</ui:repeat>
 										</div>
 										<div id="tab_topicos" class="tab-pane fade widget-followers ">
@@ -106,11 +115,16 @@
 											<div class="follower">
 												<h:graphicImage library="img" value="/resources/img/2.jpg" styleClass="follower-avatar"/>
 												<div class="body">
-													<div class="follower-controls">
-														<span class="badge badge-primary" title="Comentários">
+													<div class="follower-controls tooltips">
+														<button type="button" class="badge badge-primary " data-toggle="tooltip" data-placement="top" title="" data-original-title="Comentários do tópico">
 															<h:outputText value="#{topico.nuComentarios}" />
-														</span>
-														<h:commandLink action="#" value="#{mensagens['display.comentar']}" styleClass="btn btn-default btn-xs marginLeft_5"/>
+														</button>
+														<h:commandLink action="#" title="#{mensagens['display.comentar']}" styleClass="btn btn-primary btn-outline btn-xs marginLeft_5">
+															<i class="fa fa-comments-o"/>
+														</h:commandLink>
+														<h:commandLink title="#{mensagens['display.excluir.topico']}" styleClass="btn btn-danger btn-outline btn-xs marginLeft_5">
+															<i class="fa fa-minus-circle"/>
+														</h:commandLink>
 													</div>
 												
 													<h:commandLink action="#{detalheGrupoEstudoBean.detalharTopico(topico)}" value="#{topico.titulo}" styleClass="follower-name"/>
@@ -118,9 +132,17 @@
 													<h:outputText value="#{topico.usuario.nome}" styleClass="follower-username"/>
 												</div>
 											</div>
-											</ui:repeat>
-										</div>
+											<h:outputLabel styleClass="marginLeft_5">
+									 			<h:outputText value="#{topico.nuAvaliacaoPositivas}" />
+							 		 			<i class="glyphicon glyphicon-thumbs-up"/>
+									 			<h:outputText value="#{topico.nuAvaliacaoNegativas}" styleClass="marginLeft_10"/>
+								 		 		<i class="glyphicon glyphicon-thumbs-down" />
+											</h:outputLabel>
+											<h:outputText value="#{topico.tempoTopicoCriacao}" styleClass="marginLeft_10"/>
+											<hr/>
+										</ui:repeat>
 									</div>
+								</div>
 							</div>
 						</div>
 					</div>

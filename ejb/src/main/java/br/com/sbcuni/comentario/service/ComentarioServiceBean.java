@@ -11,6 +11,7 @@ import javax.persistence.Query;
 
 import br.com.sbcuni.comentario.entity.Comentario;
 import br.com.sbcuni.exception.SbcuniException;
+import br.com.sbcuni.grupoEstudo.GrupoEstudo;
 import br.com.sbcuni.topico.entity.Topico;
 import br.com.sbcuni.usuario.entity.Usuario;
 
@@ -52,6 +53,15 @@ public class ComentarioServiceBean implements Serializable {
 			return null; 
 		}
 	}
-	
+	public Long consultarNuComentariosUsuarioGrupoEstudo(Usuario usuario, GrupoEstudo grupoEstudo) {
+		Query query = entityManager.createNamedQuery("Comentario.consultarNuComentariosUsuarioGrupoEstudo");
+		query.setParameter("idUsuario", usuario.getIdUsuario());
+		query.setParameter("idGrupoEstudo", grupoEstudo.getIdGrupoEstudo());
+		try {
+			return (Long) query.getSingleResult();
+		} catch (NoResultException e) {
+			return null;
+		}
+	}
 	
 }
