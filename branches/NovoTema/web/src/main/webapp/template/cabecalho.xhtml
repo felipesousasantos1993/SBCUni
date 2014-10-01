@@ -115,7 +115,7 @@
 									<div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 250px;"><div class="messages-list" id="main-navbar-messages" style="overflow: hidden; width: auto; height: 250px;">
 
 										<div class="message">
-											<h:graphicImage library="img" value="/resources/img/2.jpg" styleClass="message-avatar"/>
+											<h:graphicImage library="img" value="/resources/img/avatares/#{usuarioSessionBean.usuarioSessao.avatar}.jpg" styleClass="message-avatar"/>
 											<a href="#" class="message-subject">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</a>
 											<div class="message-description">
 												from <a href="#">Robert Jang</a>
@@ -219,7 +219,7 @@
 							<li class="dropdown">
 								<h:form id="formSair" prependId="false" style="margin-left: 10px;">
 									<a href="#" class="dropdown-toggle user-menu" data-toggle="dropdown">
-										<h:graphicImage library="img" value="/resources/img/2.jpg" styleClass="message-avatar"/>
+										<h:graphicImage library="img" value="/resources/img/avatares/#{usuarioSessionBean.usuarioSessao.avatar}.jpg" styleClass="message-avatar"/>
 										<span>
 											<h:outputText value="#{usuarioSessionBean.usuarioSessao.nome}" />
 										</span>

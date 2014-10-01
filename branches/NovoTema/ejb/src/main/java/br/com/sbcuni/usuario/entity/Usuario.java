@@ -19,25 +19,22 @@ import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
 import br.com.sbcuni.comentario.entity.Comentario;
-import br.com.sbcuni.mensagem.entity.Mensagem;
 import br.com.sbcuni.grupoEstudo.GrupoEstudo;
+import br.com.sbcuni.mensagem.entity.Mensagem;
 import br.com.sbcuni.topico.entity.Topico;
 
 /**
- * Nome : Usuario 
- * Objetivo: Conter as informações da tabela Usuario.
+ * Nome : Usuario Objetivo: Conter as informações da tabela Usuario.
+ * 
  * @since : Data de criação 28/04/2014 13:29:50
  * @author Felipe de Sousa Santos
  * @version $Revision: 1.0 $
  */
 @Entity
-@NamedQueries({ 
-	@NamedQuery(name = "Usuario.buscarTodos", query = "SELECT u FROM Usuario u"), 
-	@NamedQuery(name = "Usuario.buscarPorPerfil", query = "SELECT u FROM Usuario u WHERE u.perfil =:perfil"),
-	@NamedQuery(name = "Usuario.consultarUsuarioLogin", query = "SELECT u FROM Usuario u WHERE u.matricula =:matricula AND u.senha =:senha"),
-	@NamedQuery(name = "Usuario.consultarAlunoNomeOuMatricula", query = "SELECT u FROM Usuario u WHERE lower(u.nome) like :nome OR u.matricula like :matricula AND u.perfil = 1"),
-	@NamedQuery(name = "Usuario.consultarAlunoNomeOuEmail", query = "SELECT u FROM Usuario u WHERE lower(u.nome) like :nome OR lower(u.email) like :matricula") 
-})
+@NamedQueries({ @NamedQuery(name = "Usuario.buscarTodos", query = "SELECT u FROM Usuario u"), @NamedQuery(name = "Usuario.buscarPorPerfil", query = "SELECT u FROM Usuario u WHERE u.perfil =:perfil"),
+		@NamedQuery(name = "Usuario.consultarUsuarioLogin", query = "SELECT u FROM Usuario u WHERE u.matricula =:matricula AND u.senha =:senha"),
+		@NamedQuery(name = "Usuario.consultarAlunoNomeOuMatricula", query = "SELECT u FROM Usuario u WHERE lower(u.nome) like :nome OR u.matricula like :matricula AND u.perfil = 1"),
+		@NamedQuery(name = "Usuario.consultarAlunoNomeOuEmail", query = "SELECT u FROM Usuario u WHERE lower(u.nome) like :nome OR lower(u.email) like :matricula") })
 public class Usuario implements Serializable {
 
 	private static final long serialVersionUID = 2367053252703641904L;
@@ -65,9 +62,6 @@ public class Usuario implements Serializable {
 	@Column(name = "perfil", length = 1, nullable = false)
 	private Integer perfil;
 
-	@Column(name = "status", nullable = false)
-	private Boolean status;
-
 	@Column(name = "dtCadastro", nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dtCadastro;
@@ -90,6 +84,9 @@ public class Usuario implements Serializable {
 	@Column(name = "dtUltimoAcesso", nullable = true)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dtUltimoAcesso;
+
+	@Column(name = "avatar", nullable = true)
+	private String avatar;
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "usuario", targetEntity = Topico.class)
 	private List<Topico> topicos;
@@ -171,14 +168,6 @@ public class Usuario implements Serializable {
 		this.cpf = cpf;
 	}
 
-	public Boolean getStatus() {
-		return status;
-	}
-
-	public void setStatus(Boolean status) {
-		this.status = status;
-	}
-
 	public Boolean getMarcado() {
 		return marcado;
 	}
@@ -198,14 +187,6 @@ public class Usuario implements Serializable {
 			return "Coordenador";
 		}
 		return null;
-	}
-
-	public String getDeStatus() {
-		if (status) {
-			return "Ativo";
-		} else {
-			return "Inativo";
-		}
 	}
 
 	public Date getDtCadastro() {
@@ -326,6 +307,14 @@ public class Usuario implements Serializable {
 
 	public void setNuComentariosNoGrupo(Long nuComentariosNoGrupo) {
 		this.nuComentariosNoGrupo = nuComentariosNoGrupo;
+	}
+
+	public String getAvatar() {
+		return avatar;
+	}
+
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
 	}
 
 }

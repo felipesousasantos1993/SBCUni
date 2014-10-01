@@ -1,4 +1,4 @@
-package br.com.sbcuni.gerencia.bean;
+package br.com.sbcuni.usuario.bean;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -10,61 +10,54 @@ import br.com.sbcuni.constantes.Tela;
 import br.com.sbcuni.exception.SbcuniException;
 import br.com.sbcuni.usuario.entity.Usuario;
 import br.com.sbcuni.usuario.service.UsuarioServiceBean;
-import br.com.sbcuni.util.Util;
 import br.com.sbcuni.util.WebResources;
 
-@ViewScoped
 @ManagedBean
-public class AlterarBean extends GenericBean {
+@ViewScoped
+public class EditarAvatarBean extends GenericBean {
 
-	private static final long serialVersionUID = -8031320886105914458L;
+	private static final long serialVersionUID = 4602050429391097163L;
 
-	public AlterarBean() {
+	public EditarAvatarBean() {
 		super();
 	}
 	
+	private Usuario usuario;
 	@EJB
 	private UsuarioServiceBean usuarioServiceBean;
 	
-	private Usuario usuario;
-	private Boolean inativo;
-	
 	@PostConstruct
 	public void init() {
-		usuario = (Usuario) WebResources.getFlash().get(WebResources.USUARIO);
+		usuario = UsuarioSessionBean.getInstance().getUsuarioSessao();
 	}
 	
-	public String alterarUsuario() {
+	public String editarAvatar() {
 		try {
-			usuario.setCpf(Util.retiraMascara(usuario.getCpf()));
 			usuarioServiceBean.alterarUsuario(usuario);
 			WebResources.getFlash().put(WebResources.USUARIO, usuario);
-			exibirMsgInfo("Usuário alterado com sucesso");
-			return Tela.DETALHAR;
+			exibirMsgSucesso(getMensagem("display.avatar.atualizado.sucesso", WebResources.MENSAGEM));
+			return Tela.PEFIL_PATH;
 		} catch (SbcuniException e) {
 			exibirMsgAviso(e.getMessage());
+			return null;
 		}
-		return null;
 	}
 	
-	public void gerarMatricula() {
-		usuario.setMatricula(Util.gerarMatricula(usuario.getPerfil()));
+	public void definirAvatar(String avatar) {
+		usuario.setAvatar(avatar);
 	}
-
+	
+	public String voltarTelaPerfil() {
+		WebResources.getFlash().put(WebResources.USUARIO, usuario);
+		return Tela.PEFIL_PATH;
+	}
+	
 	public Usuario getUsuario() {
 		return usuario;
 	}
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
-	}
-
-	public Boolean getInativo() {
-		return inativo;
-	}
-
-	public void setInativo(Boolean inativo) {
-		this.inativo = inativo;
 	}
 	
 }

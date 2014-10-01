@@ -35,11 +35,6 @@ public class CadastrarBean extends GenericBean {
 	
 	public String cadastrarUsuario() {
 		try {
-			if (inativo) {
-				usuario.setStatus(Boolean.FALSE);
-			} else {
-				usuario.setStatus(Boolean.TRUE);
-			}
 			usuario.setCpf(Util.retiraMascara(usuario.getCpf()));
 			usuarioServiceBean.cadastrarUsuario(usuario);
 			WebResources.getFlash().put(WebResources.USUARIO, usuario);

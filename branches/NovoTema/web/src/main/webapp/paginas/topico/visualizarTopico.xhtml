@@ -46,7 +46,7 @@
 						<div class="comentarios">
 						<ui:repeat var="comentario" varStatus="comentarioStatus" value="#{visualizarTopicoBean.topico.comentarios}">
 							<div class="comment">
-								<h:graphicImage value="/resources/img/2.jpg" styleClass="comment-avatar"/>
+								<h:graphicImage value="/resources/img/avatares/#{comentario.usuario.avatar}.jpg" styleClass="comment-avatar"/>
 								<div class="comment-body">
 									<div class="comment-text">
 										<div class="comment-heading">
@@ -138,7 +138,7 @@
 							</div>
 							</ui:repeat>
 							<div class="comment">
-								<h:graphicImage value="/resources/img/2.jpg" styleClass="comment-avatar"/>
+								<h:graphicImage value="/resources/img/avatares/#{usuarioSessionBean.usuarioSessao.avatar}.jpg" styleClass="comment-avatar"/>
 								<div class="comment-body">
 									<script type="text/javascript">
 										$(".comentar").attr("placeholder", "Escreva seu comentário");
