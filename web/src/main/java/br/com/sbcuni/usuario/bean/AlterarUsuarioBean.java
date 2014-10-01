@@ -39,11 +39,6 @@ public class AlterarUsuarioBean extends GenericBean {
 
 	public String alterarUsuario() {
 		try {
-			if (inativo) {
-				usuario.setStatus(Boolean.FALSE);
-			} else {
-				usuario.setStatus(Boolean.TRUE);
-			}
 			usuario.setCpf(Util.retiraMascara(usuario.getCpf()));
 			usuarioServiceBean.alterarUsuario(usuario);
 			if (usuario.getPerfil().equals(Constantes.PERFIL_ALUNO)) {

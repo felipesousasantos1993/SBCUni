@@ -115,4 +115,7 @@ public class GrupoEstudo implements Serializable {
 		this.dtUltimaAtualizacao = dtUltimaAtualizacao;
 	}
 	
+	public Integer getNuTopicos() {
+		return topicosGrupo.size();
+	}
 }

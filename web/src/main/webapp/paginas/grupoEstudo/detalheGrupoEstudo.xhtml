@@ -30,7 +30,41 @@
 					<div class="panel">
 						<div class="panel-heading">
 							<span class="panel-title">
-								<h:outputText value="#{detalheGrupoEstudoBean.grupoEstudo.noGrupo}" />
+								<h:outputLabel id="editarGrupo" onclick="abrirEditarGrupo()" styleClass="labelLink" value="#{detalheGrupoEstudoBean.grupoEstudo.noGrupo}" />
+								<small class="marginLeft_10">Clique para editar</small>
+								<div
+									id="panelEditarNomeGrupo"
+									class="popover fade bottom in editable-container editable-popup"
+									style="top: 35px; left: -105px; display: none; z-index: 10000;">
+									<div class="arrow" />
+									<h3 class="popover-title">Digite o nome do grupo</h3>
+									<div class="popover-content">
+										<div>
+											<div class="editableform-loading" style="display: none;"/>
+											<div class="control-group form-group">
+												<div>
+													<div class="editable-input" style="position: relative;">
+														<h:inputText id="novoNome" autocomplete="off" maxlength="50" value="#{detalheGrupoEstudoBean.grupoEstudo.noGrupo}" styleClass="form-control input-sm" style="padding-right: 24px;">
+															<f:ajax event="blur"/>
+														</h:inputText>
+													</div>
+													<div class="editable-buttons">
+														<h:outputLabel id="alterarNomeGrupo" onclick="fecharEditarGrupo()" styleClass="btn btn-primary btn-sm editable-submit">
+															<i class="glyphicon glyphicon-ok"/>
+															<f:ajax event="click" render="editarGrupo" listener="#{detalheGrupoEstudoBean.alteraNomeGrupo()}" />
+														</h:outputLabel>
+														<h:outputLabel id="fecharEditarGrupo" onclick="fecharEditarGrupo()"  styleClass="btn btn-default btn-sm editable-cancel">
+															<i class="glyphicon glyphicon-remove"/>
+														</h:outputLabel>
+													</div>
+												</div>
+												<div class="editable-error-block help-block" style="display: none;"/>
+											</div>
+										</div>
+									</div>
+								</div>
+
+
 							</span>
 						</div>
 						
@@ -46,12 +80,6 @@
 							<div style="margin-bottom:20px;">
 								<h:commandLink value="#{mensagens['display.criar.topico']}" action="#{detalheGrupoEstudoBean.telaNovoTopico()}" styleClass="btn btn-primary btn-outline btn-xs">
 									<i class="fa fa-flag"/>
-								</h:commandLink>
-								<h:commandLink value="#{mensagens['display.incluir.aluno']}" action="#" styleClass="btn btn-primary btn-outline btn-xs marginLeft_10">
-									<i class="fa fa-user"/>
-								</h:commandLink>
-								<h:commandLink value="#{mensagens['display.editar.nome.grupo']}" action="#" styleClass="btn btn-primary btn-outline btn-xs marginLeft_10">
-									<i class="fa fa-edit"/>
 								</h:commandLink>
 							</div>
 							<div class="clear"/>
@@ -73,14 +101,14 @@
 										<div id="tab_alunos" class="tab-pane fade widget-followers ">
 											<ui:repeat var="aluno" value="#{detalheGrupoEstudoBean.grupoEstudo.alunos}">
 												<div class="follower">
-													<h:graphicImage library="img" value="/resources/img/2.jpg" styleClass="follower-avatar"/>
+													<h:graphicImage library="img" value="/resources/img/avatares/#{aluno.avatar}.jpg" styleClass="follower-avatar"/>
 													<div class="body">
 														<h:panelGroup id="aluno">
 															<div class="follower-controls tooltips">
 																<h:outputFormat  id="msgExcluir" rendered="#{aluno.marcado}">
 																	<h:outputLabel styleClass="labelLink" value="#{mensagens['display.confirma.exclusao.aluno']}" />
 																	<h:outputLabel styleClass="labelLink marginLeft_5" value="#{mensagens['display.sim']}" >
-																		<f:ajax event="click" render="@form" listener="#{detalheGrupoEstudoBean.excluirAlunoGrupo(aluno)}"/>
+																		<f:ajax event="click" render="aluno" listener="#{detalheGrupoEstudoBean.excluirAlunoGrupo(aluno)}"/>
 																	</h:outputLabel>
 																	<h:outputLabel styleClass="labelLink marginLeft_5" value="#{mensagens['display.nao']}" >
 																		<f:ajax event="click" render="aluno" listener="#{detalheGrupoEstudoBean.desmarcarAluno(aluno)}"/>
@@ -109,17 +137,20 @@
 													</div>
 												<hr/>
 											</ui:repeat>
+											<h:commandLink value="#{mensagens['display.incluir.aluno']}" action="#" styleClass="btn btn-primary btn-outline btn-xs marginLeft_10">
+												<i class="fa fa-user"/>
+											</h:commandLink>
 										</div>
 										<div id="tab_topicos" class="tab-pane fade widget-followers ">
 											<ui:repeat var="topico" value="#{detalheGrupoEstudoBean.grupoEstudo.topicosGrupo}">
 											<div class="follower">
-												<h:graphicImage library="img" value="/resources/img/2.jpg" styleClass="follower-avatar"/>
+												<h:graphicImage library="img" value="/resources/img/avatares/#{topico.usuario.avatar}.jpg" styleClass="follower-avatar"/>
 												<div class="body">
 													<div class="follower-controls tooltips">
-														<button type="button" class="badge badge-primary " data-toggle="tooltip" data-placement="top" title="" data-original-title="Comentários do tópico">
+														<h:outputLabel styleClass="badge badge-primary"  title="Comentários do tópico">
 															<h:outputText value="#{topico.nuComentarios}" />
-														</button>
-														<h:commandLink action="#" title="#{mensagens['display.comentar']}" styleClass="btn btn-primary btn-outline btn-xs marginLeft_5">
+														</h:outputLabel>
+														<h:commandLink immediate="true" action="#{detalheGrupoEstudoBean.telaVisualizarTopico(topico)}" title="#{mensagens['display.comentar']}"  styleClass="btn btn-primary btn-outline btn-xs marginLeft_5">
 															<i class="fa fa-comments-o"/>
 														</h:commandLink>
 														<h:commandLink title="#{mensagens['display.excluir.topico']}" styleClass="btn btn-danger btn-outline btn-xs marginLeft_5">

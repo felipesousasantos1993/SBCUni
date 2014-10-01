@@ -137,7 +137,7 @@ public class UsuarioServiceBean implements Serializable {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<Usuario> consultarPorPerfil(Integer perfil) throws SbcuniException {
+	public List<Usuario> consultarPorPerfil(Integer perfil) {
 		Query query = entityManager.createNamedQuery("Usuario.buscarPorPerfil");
 		query.setParameter("perfil", perfil);
 		try {

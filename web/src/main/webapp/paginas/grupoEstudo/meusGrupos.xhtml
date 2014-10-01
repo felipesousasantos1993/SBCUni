@@ -29,15 +29,17 @@
 			<ui:repeat var="grupoEstudo" value="#{meusGruposBean.grupoEstudos}">
 				<div class="row">
 					<div class="col-sm-12">
-						<div class="list-group">
+						<div class="list-group tooltips">
 							<h:commandLink  action="#{meusGruposBean.detalharGrupoEstudo(grupoEstudo)}" styleClass="list-group-item" >
 								<h4 class="list-group-item-heading">
 									 <h:outputText value="#{grupoEstudo.noGrupo} " />
 								</h4>
-								<span class="badge badge-primary" title="Alunos" >
-									<h:outputText value="#{grupoEstudo.alunos.size()}" />
-								</span> 
-								<span class="badge badge-success" title="Tópicos"> <h:outputText value="#{grupoEstudo.topicosGrupo.size()}" /> </span>
+								<h:outputLabel class="badge badge-primary" title="Alunos" >
+									<h:outputText value="#{grupoEstudo.nuAlunos()}" />
+								</h:outputLabel> 
+								<h:outputLabel class="badge badge-success marginLeft_5" title="Tópicos"> 
+									<h:outputText value="#{grupoEstudo.nuTopicos}" /> 
+								</h:outputLabel>
 								<p class="list-group-item-text">
 								<p>
 									<h:outputText value="#{mensagens['display.ultimos.topicos']}" />

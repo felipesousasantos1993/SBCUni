@@ -32,7 +32,9 @@
 			<div class="left-col">
 				<div class="profile-block">
 					<div class="panel profile-photo">
-						<h:graphicImage library="img" value="/resources/img/2.jpg" />
+						<a href="#{facesContext.externalContext.requestContextPath}/paginas/usuario/editarAvatar.jsf">
+							<h:graphicImage library="img" value="/resources/img/avatares/#{usuarioSessionBean.usuarioSessao.avatar}.jpg" />
+						</a>
 					</div>
 					<h:panelGroup rendered="#{perfilBean.usuario.idUsuario eq usuarioSessionBean.usuarioSessao.idUsuario}">
 						<h:outputLink  value="#{facesContext.externalContext.requestContextPath}/paginas/usuario/editarPerfil.jsf" styleClass="btn btn-primary" >
@@ -76,10 +78,6 @@
 							<div class="list-group-item">
 								<strong><h:outputText value="#{mensagens['display.email']}" /> </strong>
 								<h:outputText value="#{perfilBean.usuario.email}" />
-							</div>
-							<div class="list-group-item">
-								<strong><h:outputText value="#{mensagens['display.status']}" /> </strong>
-								<h:outputText value="#{perfilBean.usuario.deStatus}" />
 							</div>
 							<div class="list-group-item">
 								<strong><h:outputText value="#{mensagens['display.membro.desde']}" /> </strong>

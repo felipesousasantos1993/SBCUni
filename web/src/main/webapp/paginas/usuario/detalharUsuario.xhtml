@@ -90,14 +90,6 @@
 									<h:outputText id="email" value="#{detalharUsuarioBean.usuario.email}"/>
 								</dd>
 							</dl>
-							<dl>
-								<dt>
-									<h:outputText value="#{mensagens['display.status']}: " />
-								</dt>
-								<dd>
-									<h:outputText id="status" value="#{detalharUsuarioBean.usuario.deStatus}"/>
-								</dd>
-							</dl>
 						</div>
 						<div class="panel-footer">
 							<h:commandButton action="#{detalharUsuarioBean.telaConsultar()}" styleClass="btn btn-primary btn-outline btn-xs" value="#{mensagens['display.consultar']}" />

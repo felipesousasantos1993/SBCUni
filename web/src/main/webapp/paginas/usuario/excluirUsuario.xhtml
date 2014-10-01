@@ -104,14 +104,6 @@
 									<h:outputText id="senha" value="#{excluirBean.usuario.senha}"/>
 								</dd>
 							</dl>
-							<dl>
-								<dt>
-									<h:outputText value="#{mensagens['display.status']}: " />
-								</dt>
-								<dd>
-									<h:outputText id="status" value="#{excluirBean.usuario.deStatus}"/>
-								</dd>
-							</dl>
 						</div>
 						<div class="panel-footer">
 							<h:commandButton action="#{excluirBean.excluirUsuario()}" styleClass="btn btn-danger" value="#{mensagens['display.excluir']}" />

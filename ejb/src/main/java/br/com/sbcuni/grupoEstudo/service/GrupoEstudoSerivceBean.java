@@ -41,6 +41,14 @@ public class GrupoEstudoSerivceBean implements Serializable {
 		}
 	}
 	
+	public void alterarGrupoEstudo(GrupoEstudo grupoEstudo) throws SbcuniException {
+		try {
+			entityManager.merge(grupoEstudo);
+		} catch (Exception e) {
+			throw new SbcuniException("Erro ao criar grupod de estudo", e);
+		}
+	}
+	
 	@SuppressWarnings("unchecked")
 	public List<GrupoEstudo> consultarGruposProfessor(Usuario usuario) {
 		Query query = entityManager.createNamedQuery("GrupoEstudo.consultarGruposProfessor");
