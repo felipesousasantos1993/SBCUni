@@ -213,6 +213,4 @@ public class Topico implements Serializable {
 	public String getTempoTopicoCriacao() {
 		return Util.getDiferencaTempo(new DateTime(getDtCriacao()));
 	}
-	
-	
 }

@@ -15,7 +15,6 @@ import br.com.sbcuni.grupoEstudo.service.GrupoEstudoSerivceBean;
 import br.com.sbcuni.topico.entity.Topico;
 import br.com.sbcuni.topico.service.TopicoServiceBean;
 import br.com.sbcuni.usuario.entity.Usuario;
-import br.com.sbcuni.usuario.service.UsuarioServiceBean;
 import br.com.sbcuni.util.WebResources;
 
 @ManagedBean
