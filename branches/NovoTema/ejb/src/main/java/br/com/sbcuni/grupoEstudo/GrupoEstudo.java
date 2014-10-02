@@ -118,4 +118,5 @@ public class GrupoEstudo implements Serializable {
 	public Integer getNuTopicos() {
 		return topicosGrupo.size();
 	}
+
 }

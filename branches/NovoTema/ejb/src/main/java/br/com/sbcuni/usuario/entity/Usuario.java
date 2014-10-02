@@ -317,4 +317,112 @@ public class Usuario implements Serializable {
 		this.avatar = avatar;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((avatar == null) ? 0 : avatar.hashCode());
+		result = prime * result + ((cidade == null) ? 0 : cidade.hashCode());
+		result = prime * result + ((cpf == null) ? 0 : cpf.hashCode());
+		result = prime * result + ((dtCadastro == null) ? 0 : dtCadastro.hashCode());
+		result = prime * result + ((dtUltimoAcesso == null) ? 0 : dtUltimoAcesso.hashCode());
+		result = prime * result + ((email == null) ? 0 : email.hashCode());
+		result = prime * result + ((estado == null) ? 0 : estado.hashCode());
+		result = prime * result + ((idUsuario == null) ? 0 : idUsuario.hashCode());
+		result = prime * result + ((matricula == null) ? 0 : matricula.hashCode());
+		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
+		result = prime * result + ((perfil == null) ? 0 : perfil.hashCode());
+		result = prime * result + ((senha == null) ? 0 : senha.hashCode());
+		result = prime * result + ((sobreMim == null) ? 0 : sobreMim.hashCode());
+		result = prime * result + ((telCelular == null) ? 0 : telCelular.hashCode());
+		result = prime * result + ((telFixo == null) ? 0 : telFixo.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Usuario other = (Usuario) obj;
+		if (avatar == null) {
+			if (other.avatar != null)
+				return false;
+		} else if (!avatar.equals(other.avatar))
+			return false;
+		if (cidade == null) {
+			if (other.cidade != null)
+				return false;
+		} else if (!cidade.equals(other.cidade))
+			return false;
+		if (cpf == null) {
+			if (other.cpf != null)
+				return false;
+		} else if (!cpf.equals(other.cpf))
+			return false;
+		if (dtCadastro == null) {
+			if (other.dtCadastro != null)
+				return false;
+		} else if (!dtCadastro.equals(other.dtCadastro))
+			return false;
+		if (dtUltimoAcesso == null) {
+			if (other.dtUltimoAcesso != null)
+				return false;
+		} else if (!dtUltimoAcesso.equals(other.dtUltimoAcesso))
+			return false;
+		if (email == null) {
+			if (other.email != null)
+				return false;
+		} else if (!email.equals(other.email))
+			return false;
+		if (estado == null) {
+			if (other.estado != null)
+				return false;
+		} else if (!estado.equals(other.estado))
+			return false;
+		if (idUsuario == null) {
+			if (other.idUsuario != null)
+				return false;
+		} else if (!idUsuario.equals(other.idUsuario))
+			return false;
+		if (matricula == null) {
+			if (other.matricula != null)
+				return false;
+		} else if (!matricula.equals(other.matricula))
+			return false;
+		if (nome == null) {
+			if (other.nome != null)
+				return false;
+		} else if (!nome.equals(other.nome))
+			return false;
+		if (perfil == null) {
+			if (other.perfil != null)
+				return false;
+		} else if (!perfil.equals(other.perfil))
+			return false;
+		if (senha == null) {
+			if (other.senha != null)
+				return false;
+		} else if (!senha.equals(other.senha))
+			return false;
+		if (sobreMim == null) {
+			if (other.sobreMim != null)
+				return false;
+		} else if (!sobreMim.equals(other.sobreMim))
+			return false;
+		if (telCelular == null) {
+			if (other.telCelular != null)
+				return false;
+		} else if (!telCelular.equals(other.telCelular))
+			return false;
+		if (telFixo == null) {
+			if (other.telFixo != null)
+				return false;
+		} else if (!telFixo.equals(other.telFixo))
+			return false;
+		return true;
+	}
 }

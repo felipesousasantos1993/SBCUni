@@ -160,5 +160,4 @@ public class Comentario implements Serializable {
 	public String getTempoComentarioCriacao() {
 		return Util.getDiferencaTempo(new DateTime(getDtCriacao()));
 	}
-	
 }

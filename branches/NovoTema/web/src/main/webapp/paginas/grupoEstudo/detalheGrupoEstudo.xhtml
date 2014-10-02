@@ -78,8 +78,11 @@
 								</dd>
 							</dl>
 							<div style="margin-bottom:20px;">
-								<h:commandLink value="#{mensagens['display.criar.topico']}" action="#{detalheGrupoEstudoBean.telaNovoTopico()}" styleClass="btn btn-primary btn-outline btn-xs">
+								<h:commandLink value="#{mensagens['display.criar.topico']}" immediate="true" action="#{detalheGrupoEstudoBean.telaNovoTopico()}" styleClass="btn btn-primary btn-outline btn-xs">
 									<i class="fa fa-flag"/>
+								</h:commandLink>
+								<h:commandLink value="#{mensagens['display.incluir.aluno']}" immediate="true" action="#{detalheGrupoEstudoBean.telaIncluirAluno()}" styleClass="btn btn-primary btn-outline btn-xs marginLeft_10">
+									<i class="fa fa-user"/>
 								</h:commandLink>
 							</div>
 							<div class="clear"/>
@@ -137,9 +140,6 @@
 													</div>
 												<hr/>
 											</ui:repeat>
-											<h:commandLink value="#{mensagens['display.incluir.aluno']}" action="#" styleClass="btn btn-primary btn-outline btn-xs marginLeft_10">
-												<i class="fa fa-user"/>
-											</h:commandLink>
 										</div>
 										<div id="tab_topicos" class="tab-pane fade widget-followers ">
 											<ui:repeat var="topico" value="#{detalheGrupoEstudoBean.grupoEstudo.topicosGrupo}">
