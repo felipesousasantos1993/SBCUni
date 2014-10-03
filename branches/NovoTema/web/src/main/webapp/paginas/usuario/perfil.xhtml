@@ -33,7 +33,7 @@
 				<div class="profile-block">
 					<div class="panel profile-photo">
 						<a href="#{facesContext.externalContext.requestContextPath}/paginas/usuario/editarAvatar.jsf">
-							<h:graphicImage library="img" value="/resources/img/avatares/#{perfilBean.usuario.avatar}.jpg" />
+							<h:graphicImage library="img" value="/resources/img/avatares/#{perfilBean.usuario.avatar}" />
 						</a>
 					</div>
 					<h:panelGroup rendered="#{perfilBean.usuario.idUsuario eq usuarioSessionBean.usuarioSessao.idUsuario}">

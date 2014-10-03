@@ -38,6 +38,7 @@ public class CadastrarUsuarioBean extends GenericBean {
 	public String cadastrarUsuario() {
 		try {
 			usuario.setMatricula(Util.gerarMatricula(usuario.getPerfil()));
+			usuario.setAvatar(Constantes.FOTO_PADRAO);
 			usuario.setCpf(Util.retiraMascara(usuario.getCpf()));
 			usuarioServiceBean.cadastrarUsuario(usuario);
 			if (usuario.getPerfil().equals(Constantes.PERFIL_ALUNO)) {

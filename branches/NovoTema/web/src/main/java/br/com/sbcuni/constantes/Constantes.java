@@ -27,4 +27,6 @@ public class Constantes implements Serializable {
 	
 	public static final Boolean AVALIACAO_POSITIVA = Boolean.TRUE;
 	public static final Boolean AVALIACAO_NEGATIVA = Boolean.FALSE;
+	
+	public static final String FOTO_PADRAO = "avatarp.jpg";
 }

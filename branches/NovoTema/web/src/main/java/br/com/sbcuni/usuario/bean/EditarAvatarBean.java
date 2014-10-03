@@ -1,9 +1,12 @@
 package br.com.sbcuni.usuario.bean;
 
+import java.io.File;
+
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
 import br.com.sbcuni.bean.GenericBean;
 import br.com.sbcuni.constantes.Tela;
@@ -23,12 +26,15 @@ public class EditarAvatarBean extends GenericBean {
 	}
 	
 	private Usuario usuario;
+	private File[] avatares;
 	@EJB
 	private UsuarioServiceBean usuarioServiceBean;
 	
 	@PostConstruct
 	public void init() {
 		usuario = UsuarioSessionBean.getInstance().getUsuarioSessao();
+		File dir = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("/resources/img/avatares"));
+		avatares = dir.listFiles();
 	}
 	
 	public String editarAvatar() {
@@ -58,6 +64,14 @@ public class EditarAvatarBean extends GenericBean {
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+
+	public File[] getAvatares() {
+		return avatares;
+	}
+
+	public void setAvatares(File[] avatares) {
+		this.avatares = avatares;
 	}
 	
 }

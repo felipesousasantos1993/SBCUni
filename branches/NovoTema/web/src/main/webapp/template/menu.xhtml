@@ -12,7 +12,7 @@
 				<div>
 					<div class="text-bg"><span class="text-slim">Olá,</span> <span class="text-semibold"><h:outputText value="#{usuarioSessionBean.usuarioSessao.nome}" /> </span></div>
 
-					<h:graphicImage library="img" value="/resources/img/avatares/#{usuarioSessionBean.usuarioSessao.avatar}.jpg" />
+					<h:graphicImage library="img" value="/resources/img/avatares/#{usuarioSessionBean.usuarioSessao.avatar}" />
 					<div class="btn-group">
 						<a href="#{facesContext.externalContext.requestContextPath}/paginas/mensagens/caixaEntrada.jsf" class="btn btn-xs btn-primary btn-outline dark" title="#{mensagens['display.hint.minhas.mensagens']}"><i class="fa fa-envelope"/></a>
 						<h:commandLink action="#{menuBean.telaPerfil(usuarioSessionBean.usuarioSessao)}" styleClass="btn btn-xs btn-primary btn-outline dark" title="#{mensagens['display.hint.meu.perfil']}">

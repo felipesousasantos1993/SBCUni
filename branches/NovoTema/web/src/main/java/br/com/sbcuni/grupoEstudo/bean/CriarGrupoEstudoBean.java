@@ -18,6 +18,7 @@ import br.com.sbcuni.grupoEstudo.service.GrupoEstudoSerivceBean;
 import br.com.sbcuni.usuario.bean.UsuarioSessionBean;
 import br.com.sbcuni.usuario.entity.Usuario;
 import br.com.sbcuni.usuario.service.UsuarioServiceBean;
+import br.com.sbcuni.util.RepeatPaginator;
 import br.com.sbcuni.util.WebResources;
 
 @ManagedBean
@@ -36,19 +37,22 @@ public class CriarGrupoEstudoBean extends GenericBean {
 	private UsuarioServiceBean usuarioServiceBean;
 	
 	private GrupoEstudo grupoEstudo = new GrupoEstudo();
-	private List<String> alunos = new ArrayList<String>();
 	private List<Usuario> listaAlunos = new ArrayList<Usuario>();
+	private RepeatPaginator repeatPaginator;
 	
 	@PostConstruct
 	public void init() throws SbcuniException {
 		listaAlunos = usuarioServiceBean.consultarPorPerfil(Constantes.PERFIL_ALUNO);
+		repeatPaginator = new RepeatPaginator(listaAlunos);
 	}
 	
 	public String criarGrupo() {
 		grupoEstudo.setDtCriacao(new Date());
 		grupoEstudo.setAlunos(new ArrayList<Usuario>());
-		for (String id : alunos) {
-			grupoEstudo.getAlunos().add(usuarioServiceBean.consultarUsuarioPorId(Long.valueOf(id)));
+		for (Usuario a : listaAlunos) {
+			if(a.getMarcado()) {
+				grupoEstudo.getAlunos().add(a);
+			}
 		}
 		grupoEstudo.setProfessor(UsuarioSessionBean.getInstance().getUsuarioSessao());
 		try {
@@ -60,6 +64,13 @@ public class CriarGrupoEstudoBean extends GenericBean {
 			return null;
 		}
 	}
+	
+	public void marcarAluno(Usuario usuario) {
+		usuario.setMarcado(Boolean.TRUE);
+	}
+	public void desmarcarAluno(Usuario usuario) {
+		usuario.setMarcado(Boolean.FALSE);
+	}
 
 	public GrupoEstudo getGrupoEstudo() {
 		return grupoEstudo;
@@ -69,20 +80,20 @@ public class CriarGrupoEstudoBean extends GenericBean {
 		this.grupoEstudo = grupoEstudo;
 	}
 
-	public List<String> getAlunos() {
-		return alunos;
-	}
-
-	public void setAlunos(List<String> alunos) {
-		this.alunos = alunos;
-	}
-
 	public List<Usuario> getListaAlunos() {
 		return listaAlunos;
 	}
 
 	public void setListaAlunos(List<Usuario> listaAlunos) {
 		this.listaAlunos = listaAlunos;
+	}
+
+	public RepeatPaginator getRepeatPaginator() {
+		return repeatPaginator;
+	}
+
+	public void setRepeatPaginator(RepeatPaginator repeatPaginator) {
+		this.repeatPaginator = repeatPaginator;
 	}
 	
 }

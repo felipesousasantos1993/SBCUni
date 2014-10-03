@@ -41,23 +41,53 @@
 									<h:outputText value="#{mensagens['display.nome.grupo']}"/>
 								</label>
 								<div class="col-sm-10">
-									<h:inputText id="titulo" value="#{criarGrupoEstudoBean.grupoEstudo.noGrupo}" autocomplete="off" styleClass="form-control x30" maxlength="50" required="true" requiredMessage="#{mensagens['display.campo.obrigatorio']}"/>
+									<h:inputText id="titulo" value="#{criarGrupoEstudoBean.grupoEstudo.noGrupo}" autocomplete="off" styleClass="form-control" maxlength="50" required="true" requiredMessage="#{mensagens['display.campo.obrigatorio']}"/>
 									<h:message for="titulo" errorClass="msg error"/>
 								</div>
 							</div>
-							<div class="form-group">
-								<label class="control-label col-sm-2">
-									<h:outputText value="#{mensagens['display.alunos']}"/>
-								</label>
-								<div class="col-sm-10">
-									<div class="select2-primary">
-										 <h:selectManyMenu id="alunos" value="#{criarGrupoEstudoBean.alunos}"   styleClass="form-control autocompleteAlunos select2-offscreen" tabindex="-1" required="true" requiredMessage="#{mensagens['display.campo.obrigatorio']}">
-											<f:selectItems value="#{criarGrupoEstudoBean.listaAlunos}"  var="aluno" itemValue="#{aluno.idUsuario}" itemLabel="#{aluno.matricula} - #{aluno.nome}"/>
-										</h:selectManyMenu> 
+							<h:panelGroup id="listaAlunos">
+								<div class="col-sm-offset-2 col-sm-10">
+									<div class="widget-followers">
+										<ui:repeat var="aluno" value="#{criarGrupoEstudoBean.repeatPaginator.model}">
+											<div class="follower">
+												<h:graphicImage library="img" value="/resources/img/avatares/#{aluno.avatar}" styleClass="follower-avatar"/>
+												<div class="body">
+													<h:commandLink action="#{criarGrupoEstudoBean.perfilUsuario(aluno)}" immediate="true" value="#{aluno.nome}" styleClass="follower-name"/>
+													<br/>
+													<h:outputText value="#{aluno.matricula}" styleClass="follower-username"/>
+													<div class="follower-controls tooltips" style="margin-top: -5px;">
+														<h:outputLabel value="#{mensagens['display.incluir']}" rendered="#{not aluno.marcado}" title="Clique aqui para incluir o aluno" styleClass="btn btn-outline btn-xs">
+															<i class="fa fa-plus"/>
+															<f:ajax event="click" render=":form:listaAlunos" listener="#{criarGrupoEstudoBean.marcarAluno(aluno)}"/>
+														</h:outputLabel>
+														<h:outputLabel value="#{mensagens['display.incluido']}" rendered="#{aluno.marcado}" title="Aluno incluido" styleClass="btn btn-success btn-xs">
+															<i class="fa fa-check"/>
+															<f:ajax event="click" render=":form:listaAlunos" listener="#{criarGrupoEstudoBean.desmarcarAluno(aluno)}"/>
+														</h:outputLabel>
+													</div>
+												</div>
+											</div>
+										</ui:repeat>
+										<div class="btn-group">
+											<h:outputLabel  value="#{mensagens['display.primeiro']}"  styleClass="btn btn-outline btn-xs">
+												<f:ajax event="click" render=":form:listaAlunos" listener="#{criarGrupoEstudoBean.repeatPaginator.primeiro()}"/>
+											</h:outputLabel>
+											<h:outputLabel value="#{mensagens['display.anterior']}"  styleClass="btn btn-outline btn-xs">
+												<f:ajax event="click" render=":form:listaAlunos" listener="#{criarGrupoEstudoBean.repeatPaginator.anterior()}"/>
+											</h:outputLabel>
+											
+											<h:outputText value="#{criarGrupoEstudoBean.repeatPaginator.paginaIndice} / #{criarGrupoEstudoBean.repeatPaginator.paginas}" />
+											
+											<h:outputLabel value="#{mensagens['display.proximo']}"  styleClass="btn btn-outline btn-xs">
+												<f:ajax event="click" render=":form:listaAlunos" listener="#{criarGrupoEstudoBean.repeatPaginator.proximo()}"/>
+											</h:outputLabel>
+											<h:outputLabel value="#{mensagens['display.ultimo']}"  styleClass="btn btn-outline btn-xs">
+												<f:ajax event="click" render=":form:listaAlunos" listener="#{criarGrupoEstudoBean.repeatPaginator.ultimo()}"/>
+											</h:outputLabel>
+										</div>
 									</div>
-									<h:message for="alunos" errorClass="msg error"/>
 								</div>
-								</div>
+							</h:panelGroup>
 							</div>
 							<div class="panel-footer">
 								<div class="form-group">

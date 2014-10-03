@@ -69,14 +69,22 @@
 						</div>
 						
 						<div class="panel-body"  >
-							<dl>
-								<dt>
-									<h:outputText value="#{mensagens['display.professor']}: "/>
-								</dt>
-								<dd>
-									<h:outputText id="professor" value="#{detalheGrupoEstudoBean.grupoEstudo.professor.nome}" />
-								</dd>
-							</dl>
+							<div class="widget-followers">
+								<div class="follower">
+									<h:graphicImage library="img" value="/resources/img/avatares/#{detalheGrupoEstudoBean.grupoEstudo.professor.avatar}" styleClass="follower-avatar"/>
+										<div class="body">
+											<div class="follower-controls tooltips">
+												<h:outputLabel title="#{mensagens['display.enviar.mensagem']}"  styleClass="btn btn-outline btn-primary btn-xs marginLeft_10">
+													<i class="fa fa-envelope"/>
+												</h:outputLabel>
+											</div>
+										<h:commandLink action="#{detalheGrupoEstudoBean.perfilUsuario(detalheGrupoEstudoBean.grupoEstudo.professor)}" immediate="true" value="#{detalheGrupoEstudoBean.grupoEstudo.professor.nome}" styleClass="follower-name"/>
+										<br/>
+										<h:outputText value="#{detalheGrupoEstudoBean.grupoEstudo.professor.matricula}" styleClass="follower-username"/>
+									</div>
+								</div>
+							</div>
+							<br/>
 							<div style="margin-bottom:20px;">
 								<h:commandLink value="#{mensagens['display.criar.topico']}" immediate="true" action="#{detalheGrupoEstudoBean.telaNovoTopico()}" styleClass="btn btn-primary btn-outline btn-xs">
 									<i class="fa fa-flag"/>
@@ -101,20 +109,20 @@
 										</li>
 									</ul>
 									<div class="tab-content">
-										<div id="tab_alunos" class="tab-pane fade widget-followers ">
-											<ui:repeat var="aluno" value="#{detalheGrupoEstudoBean.grupoEstudo.alunos}">
+										<div id="tab_alunos" class="tab-pane fade widget-followers">
+										<h:panelGroup id="alunos">
+											<ui:repeat var="aluno" value="#{detalheGrupoEstudoBean.repeatPaginatorAlunos.model}">
 												<div class="follower">
-													<h:graphicImage library="img" value="/resources/img/avatares/#{aluno.avatar}.jpg" styleClass="follower-avatar"/>
-													<div class="body">
-														<h:panelGroup id="aluno">
+													<h:graphicImage library="img" value="/resources/img/avatares/#{aluno.avatar}" styleClass="follower-avatar"/>
+														<div class="body">
 															<div class="follower-controls tooltips">
 																<h:outputFormat  id="msgExcluir" rendered="#{aluno.marcado}">
 																	<h:outputLabel styleClass="labelLink" value="#{mensagens['display.confirma.exclusao.aluno']}" />
 																	<h:outputLabel styleClass="labelLink marginLeft_5" value="#{mensagens['display.sim']}" >
-																		<f:ajax event="click" render="aluno" listener="#{detalheGrupoEstudoBean.excluirAlunoGrupo(aluno)}"/>
+																		<f:ajax event="click" render=":form:alunos" listener="#{detalheGrupoEstudoBean.excluirAlunoGrupo(aluno)}"/>
 																	</h:outputLabel>
 																	<h:outputLabel styleClass="labelLink marginLeft_5" value="#{mensagens['display.nao']}" >
-																		<f:ajax event="click" render="aluno" listener="#{detalheGrupoEstudoBean.desmarcarAluno(aluno)}"/>
+																		<f:ajax event="click" render=":form:alunos" listener="#{detalheGrupoEstudoBean.desmarcarAluno(aluno)}"/>
 																	</h:outputLabel>
 																</h:outputFormat>
 															
@@ -129,49 +137,79 @@
 																</h:outputLabel>
 																<h:outputLabel title="#{mensagens['display.excluir.aluno']}" styleClass="btn btn-danger btn-outline btn-xs marginLeft_5">
 																	<i class="fa fa-times"/>
-																	<f:ajax event="click" render="aluno" listener="#{detalheGrupoEstudoBean.marcarAluno(aluno)}"/>
+																	<f:ajax event="click" render=":form:alunos" listener="#{detalheGrupoEstudoBean.marcarAluno(aluno)}"/>
 																</h:outputLabel>
 															</div>
 															<h:commandLink action="#{detalheGrupoEstudoBean.perfilUsuario(aluno)}" immediate="true" value="#{aluno.nome}" styleClass="follower-name"/>
 															<br/>
-															<h:outputText value="#{aluno.email}" styleClass="follower-username"/>
-															</h:panelGroup>
+															<h:outputText value="#{aluno.matricula}" styleClass="follower-username"/>
 														</div>
 													</div>
 												<hr/>
 											</ui:repeat>
+											<div class="btn-group">
+												<h:outputLabel  value="#{mensagens['display.primeiro']}"  styleClass="btn btn-outline btn-xs">
+													<f:ajax event="click" render=":form:alunos" listener="#{detalheGrupoEstudoBean.repeatPaginatorAlunos.primeiro()}"/>
+												</h:outputLabel>
+												<h:outputLabel value="#{mensagens['display.anterior']}"  styleClass="btn btn-outline btn-xs">
+													<f:ajax event="click" render=":form:alunos" listener="#{detalheGrupoEstudoBean.repeatPaginatorAlunos.anterior()}"/>
+												</h:outputLabel>
+											</div>
+											<h:outputText value="#{detalheGrupoEstudoBean.repeatPaginatorAlunos.paginaIndice} / #{detalheGrupoEstudoBean.repeatPaginatorAlunos.paginas}" />
+											<div class="btn-group">
+												<h:outputLabel value="#{mensagens['display.proximo']}"  styleClass="btn btn-outline btn-xs">
+													<f:ajax event="click" render=":form:alunos" listener="#{detalheGrupoEstudoBean.repeatPaginatorAlunos.proximo()}"/>
+												</h:outputLabel>
+												<h:outputLabel value="#{mensagens['display.ultimo']}"  styleClass="btn btn-outline btn-xs">
+													<f:ajax event="click" render=":form:alunos" listener="#{detalheGrupoEstudoBean.repeatPaginatorAlunos.ultimo()}"/>
+												</h:outputLabel>
+											</div>
+										</h:panelGroup>
 										</div>
 										<div id="tab_topicos" class="tab-pane fade widget-followers ">
-											<ui:repeat var="topico" value="#{detalheGrupoEstudoBean.grupoEstudo.topicosGrupo}">
-											<div class="follower">
-												<h:graphicImage library="img" value="/resources/img/avatares/#{topico.usuario.avatar}.jpg" styleClass="follower-avatar"/>
-												<div class="body">
-													<div class="follower-controls tooltips">
-														<h:outputLabel styleClass="badge badge-primary"  title="Comentários do tópico">
-															<h:outputText value="#{topico.nuComentarios}" />
-														</h:outputLabel>
-														<h:commandLink immediate="true" action="#{detalheGrupoEstudoBean.telaVisualizarTopico(topico)}" title="#{mensagens['display.comentar']}"  styleClass="btn btn-primary btn-outline btn-xs marginLeft_5">
-															<i class="fa fa-comments-o"/>
-														</h:commandLink>
-														<h:commandLink title="#{mensagens['display.excluir.topico']}" styleClass="btn btn-danger btn-outline btn-xs marginLeft_5">
-															<i class="fa fa-minus-circle"/>
-														</h:commandLink>
+											<h:panelGroup id="topicos">
+												<ui:repeat var="topico" value="#{detalheGrupoEstudoBean.grupoEstudo.topicosGrupo}">
+												<div class="follower">
+													<h:graphicImage library="img" value="/resources/img/avatares/#{topico.usuario.avatar}" styleClass="follower-avatar"/>
+													<div class="body">
+														<div class="follower-controls tooltips">
+															<h:outputFormat  id="msgExcluir" rendered="#{topico.marcado}">
+																<h:outputLabel styleClass="labelLink" value="#{mensagens['display.confirma.exclusao.aluno']}" />
+																<h:outputLabel styleClass="labelLink marginLeft_5" value="#{mensagens['display.sim']}" >
+																	<f:ajax event="click" render=":form:topicos" listener="#{detalheGrupoEstudoBean.excluirTopico(topico)}"/>
+																</h:outputLabel>
+																<h:outputLabel styleClass="labelLink marginLeft_5" value="#{mensagens['display.nao']}" >
+																	<f:ajax event="click" render=":form:topicos" listener="#{detalheGrupoEstudoBean.desmarcarTopico(topico)}"/>
+																</h:outputLabel>
+															</h:outputFormat>
+														
+															<h:outputLabel styleClass="badge badge-primary marginLeft_10"  title="Comentários do tópico">
+																<h:outputText value="#{topico.nuComentarios}" />
+															</h:outputLabel>
+															<h:commandLink immediate="true" action="#{detalheGrupoEstudoBean.telaVisualizarTopico(topico)}" title="#{mensagens['display.comentar']}"  styleClass="btn btn-primary btn-outline btn-xs marginLeft_5">
+																<i class="fa fa-comments-o"/>
+															</h:commandLink>
+															<h:commandLink title="#{mensagens['display.excluir.topico']}" styleClass="btn btn-danger btn-outline btn-xs marginLeft_5">
+																<f:ajax event="click" render=":form:topicos" listener="#{detalheGrupoEstudoBean.marcarTopico(topico)}"/>
+																<i class="fa fa-minus-circle"/>
+															</h:commandLink>
+														</div>
+													
+														<h:commandLink action="#{detalheGrupoEstudoBean.detalharTopico(topico)}" value="#{topico.titulo}" styleClass="follower-name"/>
+														<br/>
+														<h:outputText value="#{topico.usuario.nome}" styleClass="follower-username"/>
 													</div>
-												
-													<h:commandLink action="#{detalheGrupoEstudoBean.detalharTopico(topico)}" value="#{topico.titulo}" styleClass="follower-name"/>
-													<br/>
-													<h:outputText value="#{topico.usuario.nome}" styleClass="follower-username"/>
 												</div>
-											</div>
-											<h:outputLabel styleClass="marginLeft_5">
-									 			<h:outputText value="#{topico.nuAvaliacaoPositivas}" />
-							 		 			<i class="glyphicon glyphicon-thumbs-up"/>
-									 			<h:outputText value="#{topico.nuAvaliacaoNegativas}" styleClass="marginLeft_10"/>
-								 		 		<i class="glyphicon glyphicon-thumbs-down" />
-											</h:outputLabel>
-											<h:outputText value="#{topico.tempoTopicoCriacao}" styleClass="marginLeft_10"/>
-											<hr/>
-										</ui:repeat>
+												<h:outputLabel styleClass="marginLeft_5">
+										 			<h:outputText value="#{topico.nuAvaliacaoPositivas}" />
+								 		 			<i class="glyphicon glyphicon-thumbs-up"/>
+										 			<h:outputText value="#{topico.nuAvaliacaoNegativas}" styleClass="marginLeft_10"/>
+									 		 		<i class="glyphicon glyphicon-thumbs-down" />
+												</h:outputLabel>
+												<h:outputText value="#{topico.tempoTopicoCriacao}" styleClass="marginLeft_10"/>
+												<hr/>
+											</ui:repeat>
+										</h:panelGroup>
 									</div>
 								</div>
 							</div>
