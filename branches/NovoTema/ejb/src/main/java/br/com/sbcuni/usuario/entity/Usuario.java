@@ -31,10 +31,13 @@ import br.com.sbcuni.topico.entity.Topico;
  * @version $Revision: 1.0 $
  */
 @Entity
-@NamedQueries({ @NamedQuery(name = "Usuario.buscarTodos", query = "SELECT u FROM Usuario u"), @NamedQuery(name = "Usuario.buscarPorPerfil", query = "SELECT u FROM Usuario u WHERE u.perfil =:perfil"),
-		@NamedQuery(name = "Usuario.consultarUsuarioLogin", query = "SELECT u FROM Usuario u WHERE u.matricula =:matricula AND u.senha =:senha"),
-		@NamedQuery(name = "Usuario.consultarAlunoNomeOuMatricula", query = "SELECT u FROM Usuario u WHERE lower(u.nome) like :nome OR u.matricula like :matricula AND u.perfil = 1"),
-		@NamedQuery(name = "Usuario.consultarAlunoNomeOuEmail", query = "SELECT u FROM Usuario u WHERE lower(u.nome) like :nome OR lower(u.email) like :matricula") })
+@NamedQueries({ 
+	@NamedQuery(name = "Usuario.buscarTodos", query = "SELECT u FROM Usuario u"), 
+	@NamedQuery(name = "Usuario.buscarPorPerfil", query = "SELECT u FROM Usuario u WHERE u.perfil =:perfil"),
+	@NamedQuery(name = "Usuario.consultarUsuarioLogin", query = "SELECT u FROM Usuario u WHERE u.matricula =:matricula AND u.senha =:senha"),
+	@NamedQuery(name = "Usuario.consultarAlunoNomeOuMatricula", query = "SELECT u FROM Usuario u WHERE (lower(u.nome) like :nome OR u.matricula like :matricula) AND u.perfil = 1"),
+	@NamedQuery(name = "Usuario.consultarAlunoNomeOuEmail", query = "SELECT u FROM Usuario u WHERE lower(u.nome) like :nome OR lower(u.email) like :matricula") 
+})
 public class Usuario implements Serializable {
 
 	private static final long serialVersionUID = 2367053252703641904L;
@@ -47,7 +50,7 @@ public class Usuario implements Serializable {
 	@Column(name = "nome", length = 58, nullable = false)
 	private String nome;
 
-	@Column(name = "cpf", length = 11, nullable = false)
+	@Column(name = "cpf", length = 11, nullable = true)
 	private String cpf;
 
 	@Column(name = "email", length = 50, nullable = false)
@@ -111,6 +114,9 @@ public class Usuario implements Serializable {
 
 	@Transient
 	private Long nuComentariosNoGrupo;
+	
+	@Transient
+	private Boolean pertenceGrupo;
 
 	public Long getIdUsuario() {
 		return idUsuario;
@@ -424,5 +430,13 @@ public class Usuario implements Serializable {
 		} else if (!telFixo.equals(other.telFixo))
 			return false;
 		return true;
+	}
+
+	public Boolean getPertenceGrupo() {
+		return pertenceGrupo;
+	}
+
+	public void setPertenceGrupo(Boolean pertenceGrupo) {
+		this.pertenceGrupo = pertenceGrupo;
 	}
 }
