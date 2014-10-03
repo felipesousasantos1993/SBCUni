@@ -1,6 +1,5 @@
 package br.com.sbcuni.grupoEstudo.bean;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -31,7 +30,7 @@ public class IncluirAlunosBean extends GenericBean {
 	private GrupoEstudo grupoEstudo;
 
 	private List<Usuario> alunos;
-	private List<String> alunosSelecionados = new ArrayList<String>();
+	private String consulta;
 	
 	@EJB
 	private UsuarioServiceBean usuarioServiceBean;
@@ -43,23 +42,31 @@ public class IncluirAlunosBean extends GenericBean {
 		grupoEstudo = (GrupoEstudo) WebResources.getFlash().get(WebResources.GRUPO_ESTUDO);
 		alunos = usuarioServiceBean.consultarPorPerfil(Constantes.PERFIL_ALUNO);
 		for (Usuario aluno : grupoEstudo.getAlunos()) {
-			alunos.get(0).equals(aluno);
+			alunos.remove(aluno);
+		}
+		for (Usuario a : alunos) {
+			a.setPertenceGrupo(Boolean.FALSE);
 		}
 	}
 	
-	public String incluirAlunos() {
-		grupoEstudo.setAlunos(new ArrayList<Usuario>());
-		for (String id : alunosSelecionados) {
-			grupoEstudo.getAlunos().add(usuarioServiceBean.consultarUsuarioPorId(Long.valueOf(id)));
-		}
+	public String incluirAluno(Usuario usuario) {
 		try {
+			grupoEstudo.getAlunos().add(usuario);
 			grupoEstudoSerivceBean.alterarGrupoEstudo(grupoEstudo);
 			exibirMsgSucesso(getMensagem("display.alunos.incluidos.sucesso", WebResources.MENSAGEM));
+			usuario.setPertenceGrupo(Boolean.TRUE);
 			WebResources.getFlash().put(WebResources.GRUPO_ESTUDO, grupoEstudo);
 			return Tela.DETALHE_GRUPO_ESTUDO_PATH;
 		} catch (SbcuniException e) {
 			exibirMsgAviso(e.getMessage());
 			return null;
+		}
+	}
+	
+	public void atualizarAlunos() {
+		alunos = usuarioServiceBean.consultarAlunoNomeOuMatricula(consulta, consulta);
+		for (Usuario aluno : grupoEstudo.getAlunos()) {
+			alunos.remove(aluno);
 		}
 	}
 	
@@ -76,20 +83,20 @@ public class IncluirAlunosBean extends GenericBean {
 		this.grupoEstudo = grupoEstudo;
 	}
 
-	public List<String> getAlunosSelecionados() {
-		return alunosSelecionados;
-	}
-
-	public void setAlunosSelecionados(List<String> alunosSelecionados) {
-		this.alunosSelecionados = alunosSelecionados;
-	}
-
 	public List<Usuario> getAlunos() {
 		return alunos;
 	}
 
 	public void setAlunos(List<Usuario> alunos) {
 		this.alunos = alunos;
+	}
+
+	public String getConsulta() {
+		return consulta;
+	}
+
+	public void setConsulta(String consulta) {
+		this.consulta = consulta;
 	}
 	
 	

@@ -6,6 +6,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
 import br.com.sbcuni.bean.GenericBean;
+import br.com.sbcuni.constantes.Constantes;
 import br.com.sbcuni.constantes.Tela;
 import br.com.sbcuni.exception.SbcuniException;
 import br.com.sbcuni.usuario.entity.Usuario;
@@ -36,6 +37,7 @@ public class CadastrarBean extends GenericBean {
 	public String cadastrarUsuario() {
 		try {
 			usuario.setCpf(Util.retiraMascara(usuario.getCpf()));
+			usuario.setAvatar(Constantes.FOTO_PADRAO);
 			usuarioServiceBean.cadastrarUsuario(usuario);
 			WebResources.getFlash().put(WebResources.USUARIO, usuario);
 			exibirMsgInfo(getMensagem("display.usuario.cadastrado.sucesso", WebResources.MENSAGEM));

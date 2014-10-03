@@ -15,6 +15,7 @@ import br.com.sbcuni.grupoEstudo.service.GrupoEstudoSerivceBean;
 import br.com.sbcuni.topico.entity.Topico;
 import br.com.sbcuni.topico.service.TopicoServiceBean;
 import br.com.sbcuni.usuario.entity.Usuario;
+import br.com.sbcuni.util.RepeatPaginator;
 import br.com.sbcuni.util.WebResources;
 
 @ManagedBean
@@ -47,10 +48,13 @@ public class DetalheGrupoEstudoBean extends GenericBean {
 			avaliacaoServiceBean.definirAvaliacaoTopico(t);
 			t.setComentarios(comentarioServiceBean.consultarComentariosTopico(t));
 		}
+		repeatPaginatorAlunos = new RepeatPaginator(grupoEstudo.getAlunos());
+		repeatPaginatorTopico = new RepeatPaginator(grupoEstudo.getTopicosGrupo());
 	}
 	
 	private GrupoEstudo grupoEstudo;
-	
+	private RepeatPaginator repeatPaginatorAlunos;
+	private RepeatPaginator repeatPaginatorTopico;
 	private Boolean incluirAluno = Boolean.FALSE;
  	
 	public String telaNovoTopico() {
@@ -83,6 +87,20 @@ public class DetalheGrupoEstudoBean extends GenericBean {
 		}
 	}
 	
+	public String excluirTopico(Topico topico) {
+		grupoEstudo.getTopicosGrupo().remove(topico);
+		try {
+			grupoEstudoSerivceBean.alterarGrupoEstudo(grupoEstudo);
+			WebResources.getFlash().put(WebResources.GRUPO_ESTUDO, grupoEstudo);
+			return Tela.DETALHE_GRUPO_ESTUDO_PATH;
+		} catch (SbcuniException e) {
+			exibirMsgErro(e.getMessage());
+			return null;
+		}
+	}
+	
+
+	
 	public void alteraNomeGrupo() {
 		try {
 			grupoEstudoSerivceBean.alterarGrupoEstudo(grupoEstudo);
@@ -96,6 +114,13 @@ public class DetalheGrupoEstudoBean extends GenericBean {
 	}
 	public void desmarcarAluno(Usuario usuario) {
 		usuario.setMarcado(Boolean.FALSE);
+	}
+	
+	public void marcarTopico(Topico topico) {
+		topico.setMarcado(Boolean.TRUE);
+	}
+	public void desmarcarTopico(Topico topico) {
+		topico.setMarcado(Boolean.FALSE);
 	}
 
 	public GrupoEstudo getGrupoEstudo() {
@@ -113,5 +138,20 @@ public class DetalheGrupoEstudoBean extends GenericBean {
 	public void setIncluirAluno(Boolean incluirAluno) {
 		this.incluirAluno = incluirAluno;
 	}
-	
+
+	public RepeatPaginator getRepeatPaginatorAlunos() {
+		return repeatPaginatorAlunos;
+	}
+
+	public void setRepeatPaginatorAlunos(RepeatPaginator repeatPaginatorAlunos) {
+		this.repeatPaginatorAlunos = repeatPaginatorAlunos;
+	}
+
+	public RepeatPaginator getRepeatPaginatorTopico() {
+		return repeatPaginatorTopico;
+	}
+
+	public void setRepeatPaginatorTopico(RepeatPaginator repeatPaginatorTopico) {
+		this.repeatPaginatorTopico = repeatPaginatorTopico;
+	}
 }

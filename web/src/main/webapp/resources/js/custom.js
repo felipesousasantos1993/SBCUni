@@ -88,11 +88,10 @@ function verificaTabEmail() {
 	}
 }
 /*
-$('.comentar').blur(function() {
-	$('.comentar').attr('rows', '1').autosize();
-	$('.comentar').css('height', 'auto').autosize();
-	$('#btnComentar').css('display', 'none');
-});*/
+ * $('.comentar').blur(function() { $('.comentar').attr('rows', '1').autosize();
+ * $('.comentar').css('height', 'auto').autosize();
+ * $('#btnComentar').css('display', 'none'); });
+ */
 
 
 
@@ -109,12 +108,14 @@ $(document).ready(function() {
 });
 
 function selecionarAvatar(avatar) {
-	for (i = 1; i < 6; i++) {
-		$('#avatar' + i).removeClass('fotoSelecionada').addClass('fotoNaoSelecionada');
-		$('#avatar' + i).attr("title", "Selecionar");
+	for (i = 0; i < 27; i++) {
+		document.getElementById('avatares:'+i+':avatar').className = '';
+		document.getElementById('avatares:'+i+':avatar').className = 'fotoNaoSelecionada';
+		document.getElementById('avatares:'+i+':avatar').setAttribute('title', 'Selecionar');
 	}
-	$('#' + avatar.id).removeClass('fotoNaoSelecionada').addClass('fotoSelecionada');
-	$('#' + avatar.id).attr("title", "Selecionado");
+	document.getElementById(avatar.id).className = '';
+	document.getElementById(avatar.id).className = 'fotoSelecionada';
+	document.getElementById(avatar.id).setAttribute('title', 'Selecionada');
 }
 
 $(document).ready(function() {

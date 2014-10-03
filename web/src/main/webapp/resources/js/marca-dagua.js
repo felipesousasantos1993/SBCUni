@@ -8,6 +8,7 @@ function marcaDagua() {
 	$("#senha").attr("placeholder", "Senha").blur();
 	$("#pesquisar").attr("placeholder", "Pesquisar...").blur();
 	$("#procurar").attr("placeholder", "Procurar").blur();
+	$("#consultaAluno").attr("placeholder", "Digite o nome ou matrícula para procurar os alunos").blur();
 	$(".comentar").attr("placeholder", "Escreva seu comentário");
 
 	$(".nome").attr("placeholder", "Nome");

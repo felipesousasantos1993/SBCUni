@@ -36,21 +36,11 @@
 							<div class="form-group">
 								<label for="avatar" class="col-sm-2 control-label"><h:outputText id="avatar" value="#{mensagens['display.selecione.seu.avatar']} " /> </label>
 								<div class="col-sm-6 avatar tooltips">
-									<h:graphicImage id="avatar1" title="Selecionar" value="/resources/img/avatares/avatar1.jpg" onclick="selecionarAvatar(this)">
-										<f:ajax event="click" listener="#{editarAvatarBean.definirAvatar('avatar1')}"/>
-									</h:graphicImage>
-									<h:graphicImage id="avatar2" title="Selecionar" value="/resources/img/avatares/avatar2.jpg" onclick="selecionarAvatar(this)">
-										<f:ajax event="click" listener="#{editarAvatarBean.definirAvatar('avatar2')}"/>
-									</h:graphicImage>
-									<h:graphicImage id="avatar3" title="Selecionar" value="/resources/img/avatares/avatar3.jpg" onclick="selecionarAvatar(this)">
-										<f:ajax event="click" listener="#{editarAvatarBean.definirAvatar('avatar3')}"/>
-									</h:graphicImage>
-									<h:graphicImage id="avatar4" title="Selecionar" value="/resources/img/avatares/avatar4.jpg" onclick="selecionarAvatar(this)">
-										<f:ajax event="click" listener="#{editarAvatarBean.definirAvatar('avatar4')}"/>
-									</h:graphicImage>
-									<h:graphicImage id="avatar5" title="Selecionar" value="/resources/img/avatares/avatar5.jpg" onclick="selecionarAvatar(this)">
-										<f:ajax event="click" listener="#{editarAvatarBean.definirAvatar('avatar5')}"/>
-									</h:graphicImage>
+									<ui:repeat id="avatares" varStatus="fotoStatus" var="foto" value="#{editarAvatarBean.avatares}">
+										<h:graphicImage id="avatar" title="Selecionar" value="/resources/img/avatares/#{foto.name}" onclick="selecionarAvatar(this)">
+											<f:ajax event="click" listener="#{editarAvatarBean.definirAvatar(foto.name)}"/>
+										</h:graphicImage>
+									</ui:repeat>
 								</div>
 							</div>
 						</div>
