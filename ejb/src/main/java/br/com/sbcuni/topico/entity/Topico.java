@@ -44,7 +44,7 @@ public class Topico implements Serializable {
 	@Column(name = "idTopico", length = 5, nullable = false)
 	private Long idTopico;
 	
-	@Column(name = "titulo", length = 50, nullable = false)
+	@Column(name = "titulo", length = 128, nullable = false)
 	private String titulo;
 	
 	@Column(name = "descricao", length = 90000, nullable = false)
@@ -83,9 +83,11 @@ public class Topico implements Serializable {
 	@Transient
 	private BigInteger nuAvaliacaoNegativas;
 	
-	
 	@Transient
 	private Avaliacao avaliacaoUsuario;
+
+	@Transient
+	private Boolean marcado;
 	
 	public Long getIdTopico() {
 		return idTopico;
@@ -212,5 +214,13 @@ public class Topico implements Serializable {
 	
 	public String getTempoTopicoCriacao() {
 		return Util.getDiferencaTempo(new DateTime(getDtCriacao()));
+	}
+
+	public Boolean getMarcado() {
+		return marcado;
+	}
+
+	public void setMarcado(Boolean marcado) {
+		this.marcado = marcado;
 	}
 }
