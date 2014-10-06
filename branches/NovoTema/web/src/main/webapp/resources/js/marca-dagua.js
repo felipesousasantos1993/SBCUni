@@ -8,6 +8,7 @@ function marcaDagua() {
 	$("#senha").attr("placeholder", "Senha").blur();
 	$("#pesquisar").attr("placeholder", "Pesquisar...").blur();
 	$("#procurar").attr("placeholder", "Procurar").blur();
+	$("#deResposta").attr("placeholder", "Clique aqui para responder a mensagem").blur();
 	$("#consultaAluno").attr("placeholder", "Digite o nome ou matrícula para procurar os alunos").blur();
 	$(".comentar").attr("placeholder", "Escreva seu comentário");
 
@@ -23,4 +24,5 @@ function marcaDagua() {
 	$(".novaSenha").attr("placeholder", "Nova senha");
 	$(".confirmeSenha").attr("placeholder", "Confirme a senha");
 	$(".senhaAntiga").attr("placeholder", "Senha antiga");
+	
 }

@@ -11,6 +11,11 @@ public class WebResources {
 	public static final String PERFIL = "perfil";
 	public static final String LISTA_USUARIOS = "listaUsuarios";
 	public static final String GRUPO_ESTUDO = "grupoEstudo";
+	public static final String LISTA_TOPICOS = "listaTopicos";
+	public static final String PESQUISA = "pesquisa";
+	public static final String NU_RESULTADOS_PESQUISA = "nuResultadosPesquisa";
+	public static final String LISTA_GRUPOS_ESTUDO = "listaGruposEstudo";
+	public static final String LISTA_MENSAGENS = "listaMensagens";
 	
 	public static final String ERRO_INESPERADO = "display.ocorreu.erro.inesperado.favor.consultar.administrador";
 	

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -8,7 +8,7 @@
 	xmlns:p="http://primefaces.org/ui"
 >
 	<ui:define name="conteudo">
-	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/> 
+ 	<meta charset="UTF-8"/>
 	<div class="page-header">
 		<ol class="breadcrumb breadcrumb-page">
 			<li>
@@ -28,7 +28,7 @@
 	<div id="content" class="content">
 		<div class="row">
 			<div class="col-md-12">
-				<h:form prependId="false" id="form" styleClass="form-horizontal">
+				<h:form prependId="false" id="form" acceptcharset="UTF-8" styleClass="form-horizontal">
 					<div class="panel">
 						<div class="panel-heading">
 							<span class="panel-title"><h:outputText value="#{mensagens['display.novo.topico']}" /></span>

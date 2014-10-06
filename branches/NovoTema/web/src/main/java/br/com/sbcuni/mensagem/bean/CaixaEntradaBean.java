@@ -18,6 +18,7 @@ import br.com.sbcuni.usuario.bean.UsuarioSessionBean;
 import br.com.sbcuni.usuario.entity.Usuario;
 import br.com.sbcuni.usuario.service.UsuarioServiceBean;
 import br.com.sbcuni.util.Util;
+import br.com.sbcuni.util.WebResources;
 
 @ManagedBean
 @ViewScoped
@@ -40,20 +41,19 @@ public class CaixaEntradaBean extends GenericBean {
 	private Boolean msgEnviadas = Boolean.FALSE;
 	private Boolean msgExcluidas = Boolean.FALSE;
 	private Boolean verMensagem = Boolean.FALSE;
+	private Boolean novaMensagem = Boolean.FALSE;
 	
 	private Mensagem mensagem = new Mensagem();
 	private Mensagem mensagemSelecionada = new Mensagem();
-	
-	private Integer nuMsgRecebidas;
-	private Integer nuMsgEnviadas;
-	private Integer nuMsgExcluidas;
+	private Mensagem msgResponder = new Mensagem();
 	
 	
 	@PostConstruct
 	public void init() {
 		atualizarCaixaEntrada();
 		msgRecebidas = Boolean.TRUE;
-		listaAlunos = usuarioServiceBean.consultarPorPerfil(Constantes.PERFIL_ALUNO);
+		listaAlunos = usuarioServiceBean.buscarTodos();
+		listaAlunos.remove(UsuarioSessionBean.getInstance().getUsuarioSessao());
 	}
 	
 	public void atualizarCaixaEntrada() {
@@ -62,8 +62,45 @@ public class CaixaEntradaBean extends GenericBean {
 		mensagensExcluidas = mensagemServiceBean.consultarRecebidasLixeira(UsuarioSessionBean.getInstance().getUsuarioSessao());
 	}
 	
+	public String responderMensagem() {
+		try {
+			Mensagem msgEnviada = new Mensagem();
+			msgResponder.setTitulo("RE: " + mensagemSelecionada.getTitulo());
+			msgResponder.setRemetente(UsuarioSessionBean.getInstance().getUsuarioSessao());
+			msgResponder.setDtEnvio(new Date());
+			msgEnviada = msgResponder;
+			msgEnviada.setTipo(Constantes.MSG_ENVIADA);
+			mensagemServiceBean.enviarMensagem(msgEnviada);
+			msgResponder.setDestinatario(mensagemSelecionada.getRemetente());
+			msgResponder.setTipo(Constantes.MSG_PRINCIPAL);
+			mensagemServiceBean.enviarMensagem(msgResponder);
+			exibirMsgSucesso(getMensagem("display.mensagem.enviada.sucesso", WebResources.MENSAGEM));
+			atualizarCaixaEntrada();
+			verMensagem = Boolean.FALSE;
+			msgRecebidas = Boolean.TRUE;
+			msgResponder = new Mensagem();
+			return Tela.CAIXA_ENTRADA;
+		} catch (Exception e) {
+			exibirMsgErro("Erro ao responder mensagem");
+			return null;
+		}
+	}
+	
 	public void selecionarMensagem(Mensagem mensagem) {
 		setMensagemSelecionada(mensagem);
+		msgEnviadas = Boolean.FALSE;
+		msgExcluidas = Boolean.FALSE;
+		msgRecebidas = Boolean.FALSE;
+		verMensagem = Boolean.TRUE;
+		novaMensagem = Boolean.FALSE;
+	}
+	
+	public void exibirNovaMensagem() {
+		msgEnviadas = Boolean.FALSE;
+		msgExcluidas = Boolean.FALSE;
+		msgRecebidas = Boolean.FALSE;
+		verMensagem = Boolean.FALSE;
+		novaMensagem = Boolean.TRUE;
 	}
 	
 	public String enviarMensagem() {
@@ -91,6 +128,8 @@ public class CaixaEntradaBean extends GenericBean {
 			mensagem = new Mensagem();
 			usuariosSelecionados = new ArrayList<Usuario>();
 			destinatariosSelecionadas = new ArrayList<String>();
+			novaMensagem = Boolean.FALSE;
+			msgRecebidas = Boolean.TRUE;
 			return Tela.CAIXA_ENTRADA;
 		} catch (Exception e) {
 			exibirMsgErro(e.getMessage());
@@ -181,18 +220,24 @@ public class CaixaEntradaBean extends GenericBean {
 		msgRecebidas = Boolean.TRUE;
 		msgEnviadas = Boolean.FALSE;
 		msgExcluidas = Boolean.FALSE;
+		verMensagem = Boolean.FALSE;
+		novaMensagem = Boolean.FALSE;
 	}
 	
 	public void exibirMsgsEnviadas() {
 		msgRecebidas = Boolean.FALSE;
 		msgEnviadas = Boolean.TRUE;
 		msgExcluidas = Boolean.FALSE;
+		verMensagem = Boolean.FALSE;
+		novaMensagem = Boolean.FALSE;
 	}
 	
 	public void exibirMsgsExcluidas() {
 		msgRecebidas = Boolean.FALSE;
 		msgEnviadas = Boolean.FALSE;
 		msgExcluidas = Boolean.TRUE;
+		verMensagem = Boolean.FALSE;
+		novaMensagem = Boolean.FALSE;
 	}
 
 
@@ -247,29 +292,13 @@ public class CaixaEntradaBean extends GenericBean {
 		return getMensagemsRecebidas().size();
 	}
 
-
-	public void setNuMsgRecebidas(Integer nuMsgRecebidas) {
-		this.nuMsgRecebidas = nuMsgRecebidas;
-	}
-
-
 	public Integer getNuMsgEnviadas() {
 		return getMensagemEnviadas().size();
 	}
 
 
-	public void setNuMsgEnviadas(Integer nuMsgEnviadas) {
-		this.nuMsgEnviadas = nuMsgEnviadas;
-	}
-
-
 	public Integer getNuMsgExcluidas() {
 		return getMensagensExcluidas().size();
-	}
-
-
-	public void setNuMsgExcluidas(Integer nuMsgExcluidas) {
-		this.nuMsgExcluidas = nuMsgExcluidas;
 	}
 
 	public List<Mensagem> getMensagensExcluidas() {
@@ -318,6 +347,22 @@ public class CaixaEntradaBean extends GenericBean {
 
 	public void setMensagemSelecionada(Mensagem mensagemSelecionada) {
 		this.mensagemSelecionada = mensagemSelecionada;
+	}
+
+	public Boolean getNovaMensagem() {
+		return novaMensagem;
+	}
+
+	public void setNovaMensagem(Boolean novaMensagem) {
+		this.novaMensagem = novaMensagem;
+	}
+
+	public Mensagem getMsgResponder() {
+		return msgResponder;
+	}
+
+	public void setMsgResponder(Mensagem msgResponder) {
+		this.msgResponder = msgResponder;
 	}
 	
 }

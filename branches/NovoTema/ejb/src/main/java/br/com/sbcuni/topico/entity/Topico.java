@@ -34,6 +34,7 @@ import br.com.sbcuni.util.Util;
 @NamedQueries({
 	@NamedQuery(name = "Topico.buscarTopicosPorUsuario" , query = "SELECT DISTINCT(t) FROM Topico t JOIN FETCH t.categorias c JOIN FETCH t.usuario u WHERE t.usuario.idUsuario = :idUsuario ORDER BY t.dtUltimaAtualizacao DESC, t.dtCriacao DESC"),
 	@NamedQuery(name = "Topico.buscarTodosTopicos" , query = "SELECT DISTINCT(t) FROM Topico t JOIN FETCH t.categorias c JOIN FETCH t.usuario u ORDER BY t.dtUltimaAtualizacao DESC, t.dtCriacao DESC"),
+	@NamedQuery(name = "Topico.buscarTopicosTituloDescricao" , query = "SELECT DISTINCT(t) FROM Topico t LEFT JOIN FETCH t.categorias c LEFT JOIN FETCH t.usuario u WHERE lower(t.titulo) like :titulo OR lower(t.descricao) like :descricao ORDER BY t.dtUltimaAtualizacao DESC, t.dtCriacao DESC")
 })
 public class Topico implements Serializable {
 

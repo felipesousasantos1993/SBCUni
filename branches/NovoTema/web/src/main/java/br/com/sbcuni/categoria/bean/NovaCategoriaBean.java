@@ -12,9 +12,6 @@ import br.com.sbcuni.categoria.service.CategoriaServiceBean;
 @ViewScoped
 public class NovaCategoriaBean extends GenericBean {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -7281289381851176917L;
 	
 	@EJB

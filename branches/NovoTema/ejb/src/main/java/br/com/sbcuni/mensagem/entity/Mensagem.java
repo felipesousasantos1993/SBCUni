@@ -1,7 +1,6 @@
 package br.com.sbcuni.mensagem.entity;
 
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -12,7 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
@@ -59,9 +57,6 @@ public class Mensagem {
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, targetEntity = Usuario.class)
 	private Usuario destinatario;
 	
-	@OneToMany(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY, targetEntity = Anexo.class, mappedBy = "mensagem")
-	private List<Anexo> anexos;
-	
 	@Transient
 	private Boolean selecionada;
 
@@ -89,14 +84,6 @@ public class Mensagem {
 		this.remetente = remetente;
 	}
 
-	public List<Anexo> getAnexos() {
-		return anexos;
-	}
-
-	public void setAnexos(List<Anexo> anexos) {
-		this.anexos = anexos;
-	}
-	
 	public Boolean getSelecionada() {
 		return selecionada;
 	}
