@@ -1,5 +1,7 @@
 package br.com.sbcuni.usuario.bean;
 
+import java.util.Date;
+
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -34,6 +36,8 @@ public class LoginBean extends GenericBean {
 				exibirMsgInfo(getMensagem("display.usuario.nao.encontrado", WebResources.MENSAGEM));
 				return null;
 			} else {
+				usuario.setDtUltimoAcesso(new Date());
+				usuarioServiceBean.alterarUsuario(usuario);
 				UsuarioSessionBean.getInstance().iniciarSessao(WebResources.USUARIO, usuario);
 				return Tela.ULTIMOS_TOPICOS_LOGIN;
 			}

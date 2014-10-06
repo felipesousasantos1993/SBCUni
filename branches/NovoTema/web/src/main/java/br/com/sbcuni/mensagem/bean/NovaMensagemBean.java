@@ -47,7 +47,6 @@ public class NovaMensagemBean extends GenericBean {
 		for (String idUsuario : destinatariosSelecionadas) {
 			usuariosSelecionados.add(usuarioServiceBean.consultarUsuarioPorId(Long.valueOf(idUsuario)));
 		}
-		mensagem.setDestinatarios(usuariosSelecionados);
 		mensagem.setDtEnvio(new Date());
 		mensagem.setRemetente(UsuarioSessionBean.getInstance().getUsuarioSessao());
 		mensagem.setTipo(Constantes.MSG_PRINCIPAL);
@@ -61,9 +60,6 @@ public class NovaMensagemBean extends GenericBean {
 		}
 	}
 	
-	public void adicionarUsuario(Usuario usuario) {
-		mensagem.getDestinatarios().add(usuario);
-	}
 	
 	public Mensagem getMensagem() {
 		return mensagem;

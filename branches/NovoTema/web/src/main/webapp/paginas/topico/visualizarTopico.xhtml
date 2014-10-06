@@ -140,9 +140,6 @@
 							<div class="comment">
 								<h:graphicImage value="/resources/img/avatares/#{usuarioSessionBean.usuarioSessao.avatar}" styleClass="comment-avatar"/>
 								<div class="comment-body">
-									<script type="text/javascript">
-										$(".comentar").attr("placeholder", "Escreva seu comentário");
-									</script>
 									<h:inputTextarea id="descricao" required="true" value="#{visualizarTopicoBean.comentario.descricao}" onfocus="expandir()"  styleClass="form-control comentar" rows="1" />
 									<div style="height: 25px;">
 										<h:outputLabel id="btnComentar" value="#{mensagens['display.comentar']}" styleClass="btn btn-primary btn-xs pull-left" style="display:none;margin-top:5px;" >

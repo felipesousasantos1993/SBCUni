@@ -32,9 +32,10 @@
 			<div class="left-col">
 				<div class="profile-block">
 					<div class="panel profile-photo">
-						<a href="#{facesContext.externalContext.requestContextPath}/paginas/usuario/editarAvatar.jsf">
+						<h:outputLink value="#{facesContext.externalContext.requestContextPath}/paginas/usuario/editarAvatar.jsf" rendered="#{usuarioSessionBean.usuarioSessao.idUsuario eq perfilBean.usuario.idUsuario}">
 							<h:graphicImage library="img" value="/resources/img/avatares/#{perfilBean.usuario.avatar}" />
-						</a>
+						</h:outputLink>
+						<h:graphicImage library="img" value="/resources/img/avatares/#{perfilBean.usuario.avatar}" rendered="#{usuarioSessionBean.usuarioSessao.idUsuario != perfilBean.usuario.idUsuario}"/>
 					</div>
 					<h:panelGroup rendered="#{perfilBean.usuario.idUsuario eq usuarioSessionBean.usuarioSessao.idUsuario}">
 						<h:outputLink  value="#{facesContext.externalContext.requestContextPath}/paginas/usuario/editarPerfil.jsf" styleClass="btn btn-primary" >

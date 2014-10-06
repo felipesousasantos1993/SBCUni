@@ -11,8 +11,9 @@
 			<div class="menu-content top animated fadeIn" id="menu-content-demo">
 				<div>
 					<div class="text-bg"><span class="text-slim">Olá,</span> <span class="text-semibold"><h:outputText value="#{usuarioSessionBean.usuarioSessao.nome}" /> </span></div>
-
-					<h:graphicImage library="img" value="/resources/img/avatares/#{usuarioSessionBean.usuarioSessao.avatar}" />
+					<h:outputLink value="#{facesContext.externalContext.requestContextPath}/paginas/usuario/editarAvatar.jsf">
+						<h:graphicImage library="img" value="/resources/img/avatares/#{usuarioSessionBean.usuarioSessao.avatar}" />
+					</h:outputLink>
 					<div class="btn-group">
 						<a href="#{facesContext.externalContext.requestContextPath}/paginas/mensagens/caixaEntrada.jsf" class="btn btn-xs btn-primary btn-outline dark" title="#{mensagens['display.hint.minhas.mensagens']}"><i class="fa fa-envelope"/></a>
 						<h:commandLink action="#{menuBean.telaPerfil(usuarioSessionBean.usuarioSessao)}" styleClass="btn btn-xs btn-primary btn-outline dark" title="#{mensagens['display.hint.meu.perfil']}">
@@ -175,7 +176,7 @@
 					</ul>
 				</li>
 				<li class="mm-dropdown mm-dropdown-root">
-					<a href="#{facesContext.externalContext.requestContextPath}/paginas/mensagens/caixaEntrada.jsf"><i class="menu-icon fa  fa-envelope-o"></i><span class="mm-text mmc-dropdown-delay animated fadeIn"><h:outputText value="#{mensagens['display.menu.mensagens']}" /></span></a>
+					<a href="#{facesContext.externalContext.requestContextPath}/paginas/mensagens/email.jsf"><i class="menu-icon fa  fa-envelope-o"></i><span class="mm-text mmc-dropdown-delay animated fadeIn"><h:outputText value="#{mensagens['display.menu.mensagens']}" /></span></a>
 				</li>
 			</ul> <!-- / .navigation -->
 			

@@ -39,6 +39,7 @@ public class CriarGrupoEstudoBean extends GenericBean {
 	private GrupoEstudo grupoEstudo = new GrupoEstudo();
 	private List<Usuario> listaAlunos = new ArrayList<Usuario>();
 	private RepeatPaginator repeatPaginator;
+	private String consulta;
 	
 	@PostConstruct
 	public void init() throws SbcuniException {
@@ -63,6 +64,11 @@ public class CriarGrupoEstudoBean extends GenericBean {
 			exibirMsgErro(e.getMessage());
 			return null;
 		}
+	}
+	
+	public void atualizarAlunos() {
+		listaAlunos = usuarioServiceBean.consultarAlunoNomeOuMatricula(consulta, consulta);
+		repeatPaginator = new RepeatPaginator(listaAlunos);
 	}
 	
 	public void marcarAluno(Usuario usuario) {
@@ -94,6 +100,14 @@ public class CriarGrupoEstudoBean extends GenericBean {
 
 	public void setRepeatPaginator(RepeatPaginator repeatPaginator) {
 		this.repeatPaginator = repeatPaginator;
+	}
+
+	public String getConsulta() {
+		return consulta;
+	}
+
+	public void setConsulta(String consulta) {
+		this.consulta = consulta;
 	}
 	
 }

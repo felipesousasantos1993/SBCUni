@@ -21,9 +21,8 @@ public class Constantes implements Serializable {
 	public static final int FILTRO_TODOS = 6;
 	
 	public static final int MSG_PRINCIPAL = 1;
-	public static final int MSG_FAVORITA = 2;
-	public static final int MSG_ENVIADA = 3;
-	public static final int MSG_LIXIERA = 4;
+	public static final int MSG_ENVIADA = 2;
+	public static final int MSG_LIXEIRA = 3;
 	
 	public static final Boolean AVALIACAO_POSITIVA = Boolean.TRUE;
 	public static final Boolean AVALIACAO_NEGATIVA = Boolean.FALSE;

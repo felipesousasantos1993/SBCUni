@@ -1,6 +1,7 @@
 package br.com.sbcuni.mensagem.bean;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -14,6 +15,8 @@ import br.com.sbcuni.constantes.Tela;
 import br.com.sbcuni.mensagem.entity.Mensagem;
 import br.com.sbcuni.mensagem.service.MensagemServiceBean;
 import br.com.sbcuni.usuario.bean.UsuarioSessionBean;
+import br.com.sbcuni.usuario.entity.Usuario;
+import br.com.sbcuni.usuario.service.UsuarioServiceBean;
 import br.com.sbcuni.util.Util;
 
 @ManagedBean
@@ -24,42 +27,74 @@ public class CaixaEntradaBean extends GenericBean {
 
 	private List<Mensagem> mensagemsRecebidas;
 	private List<Mensagem> mensagemEnviadas;
-	private List<Mensagem> mensagensExcluidas = new ArrayList<Mensagem>();
+	private List<Mensagem> mensagensExcluidas;
+	private List<Usuario> listaAlunos;
+	private List<String> destinatariosSelecionadas = new ArrayList<String>();
 	
+	@EJB
+	private UsuarioServiceBean usuarioServiceBean;
 	@EJB
 	private MensagemServiceBean mensagemServiceBean;
 
 	private Boolean msgRecebidas = Boolean.FALSE;
 	private Boolean msgEnviadas = Boolean.FALSE;
 	private Boolean msgExcluidas = Boolean.FALSE;
+	private Boolean verMensagem = Boolean.FALSE;
+	
+	private Mensagem mensagem = new Mensagem();
+	private Mensagem mensagemSelecionada = new Mensagem();
 	
 	private Integer nuMsgRecebidas;
 	private Integer nuMsgEnviadas;
 	private Integer nuMsgExcluidas;
 	
+	
 	@PostConstruct
 	public void init() {
-		msgRecebidas = Boolean.TRUE;
 		atualizarCaixaEntrada();
+		msgRecebidas = Boolean.TRUE;
+		listaAlunos = usuarioServiceBean.consultarPorPerfil(Constantes.PERFIL_ALUNO);
 	}
 	
 	public void atualizarCaixaEntrada() {
-		mensagemsRecebidas = mensagemServiceBean.consultarCaixaEntradaUsuario(UsuarioSessionBean.getInstance().getUsuarioSessao());
-		mensagemEnviadas = mensagemServiceBean.consultarMensagemEnviadasUsuario(UsuarioSessionBean.getInstance().getUsuarioSessao());
-		mensagensExcluidas = new ArrayList<Mensagem>();
-		List<Mensagem> msgAuxRecebida = new ArrayList<Mensagem>(mensagemsRecebidas);
-		for (Mensagem mensagem : msgAuxRecebida) {
-			if (mensagem.getTipo().equals(Constantes.MSG_LIXIERA)) {
-				mensagemsRecebidas.remove(mensagem);
-				mensagensExcluidas.add(mensagem);
-			}
+		mensagemsRecebidas = mensagemServiceBean.consultarRecebidas(UsuarioSessionBean.getInstance().getUsuarioSessao());
+		mensagemEnviadas = mensagemServiceBean.consultarEnviadas(UsuarioSessionBean.getInstance().getUsuarioSessao());
+		mensagensExcluidas = mensagemServiceBean.consultarRecebidasLixeira(UsuarioSessionBean.getInstance().getUsuarioSessao());
+	}
+	
+	public void selecionarMensagem(Mensagem mensagem) {
+		setMensagemSelecionada(mensagem);
+	}
+	
+	public String enviarMensagem() {
+		List<Usuario> usuariosSelecionados = new ArrayList<Usuario>();
+		for (String idUsuario : destinatariosSelecionadas) {
+			usuariosSelecionados.add(usuarioServiceBean.consultarUsuarioPorId(Long.valueOf(idUsuario)));
 		}
-		List<Mensagem> msgAuxEnviada = new ArrayList<Mensagem>(mensagemEnviadas);
-		for (Mensagem mensagem : msgAuxEnviada) {
-			if (mensagem.getTipo().equals(Constantes.MSG_LIXIERA)) {
-				mensagemEnviadas.remove(mensagem);
-				mensagensExcluidas.add(mensagem);
+		mensagem.setDtEnvio(new Date());
+		mensagem.setRemetente(UsuarioSessionBean.getInstance().getUsuarioSessao());
+		try {
+			mensagem.setTipo(Constantes.MSG_ENVIADA);
+			mensagemServiceBean.enviarMensagem(mensagem);
+			for (Usuario usuario : usuariosSelecionados) {
+				Mensagem m = new Mensagem();
+				m.setTipo(Constantes.MSG_PRINCIPAL);
+				m.setDestinatario(usuario);
+				m.setDtEnvio(mensagem.getDtEnvio());
+				m.setTitulo(mensagem.getTitulo());
+				m.setMensagem(mensagem.getMensagem());
+				m.setRemetente(mensagem.getRemetente());
+				mensagemServiceBean.enviarMensagem(m);
 			}
+			exibirMsgSucesso("Mensagem enviada com sucesso!");
+			atualizarCaixaEntrada();
+			mensagem = new Mensagem();
+			usuariosSelecionados = new ArrayList<Usuario>();
+			destinatariosSelecionadas = new ArrayList<String>();
+			return Tela.CAIXA_ENTRADA;
+		} catch (Exception e) {
+			exibirMsgErro(e.getMessage());
+			return null;
 		}
 	}
 	
@@ -88,7 +123,7 @@ public class CaixaEntradaBean extends GenericBean {
 		for (Mensagem mensagem : list) {
 			if(!Util.isNull(mensagem.getSelecionada())) {
 				if (mensagem.getSelecionada()) {
-					mensagem.setTipo(Constantes.MSG_LIXIERA);
+					mensagem.setTipo(Constantes.MSG_LIXEIRA);
 					mensagemServiceBean.enviarMensagem(mensagem);
 				}
 			}
@@ -128,9 +163,7 @@ public class CaixaEntradaBean extends GenericBean {
 		}
 	}
 	
-	
 	// SELECIONAR
-	
 	public void selecionarTodasMensagem(List<Mensagem> lista) {
 		for (Mensagem m : lista) {
 			m.setSelecionada(Boolean.TRUE);
@@ -141,6 +174,7 @@ public class CaixaEntradaBean extends GenericBean {
 			m.setSelecionada(Boolean.FALSE);
 		}
 	}
+	
 	
 	
 	public void exibirMsgsRecebidas() {
@@ -244,6 +278,46 @@ public class CaixaEntradaBean extends GenericBean {
 
 	public void setMensagensExcluidas(List<Mensagem> mensagensExcluidas) {
 		this.mensagensExcluidas = mensagensExcluidas;
+	}
+
+	public Mensagem getMensagem() {
+		return mensagem;
+	}
+
+	public void setMensagem(Mensagem mensagem) {
+		this.mensagem = mensagem;
+	}
+
+	public List<Usuario> getListaAlunos() {
+		return listaAlunos;
+	}
+
+	public void setListaAlunos(List<Usuario> listaAlunos) {
+		this.listaAlunos = listaAlunos;
+	}
+
+	public List<String> getDestinatariosSelecionadas() {
+		return destinatariosSelecionadas;
+	}
+
+	public void setDestinatariosSelecionadas(List<String> destinatariosSelecionadas) {
+		this.destinatariosSelecionadas = destinatariosSelecionadas;
+	}
+
+	public Boolean getVerMensagem() {
+		return verMensagem;
+	}
+
+	public void setVerMensagem(Boolean verMensagem) {
+		this.verMensagem = verMensagem;
+	}
+
+	public Mensagem getMensagemSelecionada() {
+		return mensagemSelecionada;
+	}
+
+	public void setMensagemSelecionada(Mensagem mensagemSelecionada) {
+		this.mensagemSelecionada = mensagemSelecionada;
 	}
 	
 }

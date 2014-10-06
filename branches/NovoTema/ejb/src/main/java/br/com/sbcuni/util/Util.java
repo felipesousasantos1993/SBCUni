@@ -215,13 +215,13 @@ public final class Util {
 			if (minutos == 1) {
 				return "há ".concat(String.valueOf(Minutes.minutesBetween(data, dataAtual).getMinutes())).concat(" minuto");
 			} else {
-				return "há ".concat(String.valueOf(Minutes.minutesBetween(data, dataAtual).getMinutes())).concat(" minuto(s)");
+				return "há ".concat(String.valueOf(Minutes.minutesBetween(data, dataAtual).getMinutes())).concat(" minutos");
 			}
 		} else if (horas < 24) {
 			if (horas == 1) {
 				return "há ".concat(String.valueOf(Hours.hoursBetween(data, dataAtual).getHours())).concat(" hora");
 			} else {
-				return "há ".concat(String.valueOf(Hours.hoursBetween(data, dataAtual).getHours())).concat(" hora(s)");
+				return "há ".concat(String.valueOf(Hours.hoursBetween(data, dataAtual).getHours())).concat(" horas");
 			}
 		} else {
 			return Util.formatDate(data.toDate());

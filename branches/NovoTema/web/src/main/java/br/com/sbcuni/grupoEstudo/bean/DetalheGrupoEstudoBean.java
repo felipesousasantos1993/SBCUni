@@ -1,5 +1,7 @@
 package br.com.sbcuni.grupoEstudo.bean;
 
+import java.util.ArrayList;
+
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -15,6 +17,7 @@ import br.com.sbcuni.grupoEstudo.service.GrupoEstudoSerivceBean;
 import br.com.sbcuni.topico.entity.Topico;
 import br.com.sbcuni.topico.service.TopicoServiceBean;
 import br.com.sbcuni.usuario.entity.Usuario;
+import br.com.sbcuni.usuario.service.UsuarioServiceBean;
 import br.com.sbcuni.util.RepeatPaginator;
 import br.com.sbcuni.util.WebResources;
 
@@ -36,6 +39,8 @@ public class DetalheGrupoEstudoBean extends GenericBean {
 	private TopicoServiceBean topicoServiceBean;
 	@EJB
 	private GrupoEstudoSerivceBean grupoEstudoSerivceBean;
+	@EJB
+	private UsuarioServiceBean usuarioServiceBean;
 	
 	@PostConstruct
 	public void init() {
@@ -56,6 +61,7 @@ public class DetalheGrupoEstudoBean extends GenericBean {
 	private RepeatPaginator repeatPaginatorAlunos;
 	private RepeatPaginator repeatPaginatorTopico;
 	private Boolean incluirAluno = Boolean.FALSE;
+	private String consulta;
  	
 	public String telaNovoTopico() {
 		WebResources.getFlash().put(WebResources.GRUPO_ESTUDO, grupoEstudo);
@@ -75,31 +81,29 @@ public class DetalheGrupoEstudoBean extends GenericBean {
 		setIncluirAluno(Boolean.TRUE);
 	}
 	
-	public String excluirAlunoGrupo(Usuario usuario) {
+	public void excluirAlunoGrupo(Usuario usuario) {
 		grupoEstudo.getAlunos().remove(usuario);
+		repeatPaginatorAlunos = new RepeatPaginator(grupoEstudo.getAlunos());
 		try {
 			grupoEstudoSerivceBean.alterarGrupoEstudo(grupoEstudo);
-			WebResources.getFlash().put(WebResources.GRUPO_ESTUDO, grupoEstudo);
-			return Tela.DETALHE_GRUPO_ESTUDO_PATH;
 		} catch (SbcuniException e) {
 			exibirMsgErro(e.getMessage());
-			return null;
 		}
 	}
 	
-	public String excluirTopico(Topico topico) {
+	public void excluirTopico(Topico topico) {
 		grupoEstudo.getTopicosGrupo().remove(topico);
+		repeatPaginatorTopico = new RepeatPaginator(grupoEstudo.getTopicosGrupo());
 		try {
 			grupoEstudoSerivceBean.alterarGrupoEstudo(grupoEstudo);
-			WebResources.getFlash().put(WebResources.GRUPO_ESTUDO, grupoEstudo);
-			return Tela.DETALHE_GRUPO_ESTUDO_PATH;
 		} catch (SbcuniException e) {
 			exibirMsgErro(e.getMessage());
-			return null;
 		}
 	}
 	
-
+	public void atualizarListaAlunos() {
+		grupoEstudo.setAlunos(new ArrayList<Usuario>(usuarioServiceBean.consultarAlunoNomeOuMatricula(consulta, consulta)));
+	}
 	
 	public void alteraNomeGrupo() {
 		try {
@@ -153,5 +157,13 @@ public class DetalheGrupoEstudoBean extends GenericBean {
 
 	public void setRepeatPaginatorTopico(RepeatPaginator repeatPaginatorTopico) {
 		this.repeatPaginatorTopico = repeatPaginatorTopico;
+	}
+
+	public String getConsulta() {
+		return consulta;
+	}
+
+	public void setConsulta(String consulta) {
+		this.consulta = consulta;
 	}
 }
