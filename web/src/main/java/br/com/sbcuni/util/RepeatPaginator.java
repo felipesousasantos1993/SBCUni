@@ -40,7 +40,7 @@ public class RepeatPaginator implements Serializable {
         updateModel();
     }
 
-    public final void updateModel() {
+    public void updateModel() {
         int fromIndex = getPrimeiro();
         int toIndex = getPrimeiro() + registros;
 
@@ -60,7 +60,7 @@ public class RepeatPaginator implements Serializable {
     }
     
     public void ultimo() {
-    	this.paginaIndice = registrosTotal;
+    	this.paginaIndice = paginas;
     	
     	updateModel();
     }

@@ -66,16 +66,40 @@ function tabEnviados() {
 	$('#tabEnviados').addClass('active');
 	$('#tabPrincipal').removeClass('active');
 	$('#tabLixeira').removeClass('active');
+	
+	$('#novaMsg').css('display', 'none');
+	$('#menuMsg').css('display', '');
+	$('#tituloCaixa').css('display', '');
 }
 function tabPrincipal() {
-	$('#tabEnviados').removeClass('active');
 	$('#tabPrincipal').addClass('active');
+	$('#tabEnviados').removeClass('active');
 	$('#tabLixeira').removeClass('active');
+	
+	$('#novaMsg').css('display', 'none');
+	$('#menuMsg').css('display', '');
+	$('#tituloCaixa').css('display', '');
 }
 function tabLixeira() {
 	$('#tabEnviados').removeClass('active');
 	$('#tabPrincipal').removeClass('active');
 	$('#tabLixeira').addClass('active');
+	
+	$('#novaMsg').css('display', 'none');
+	$('#menuMsg').css('display', '');
+	$('#tituloCaixa').css('display', '');
+}
+function novaMsg() {
+	$('#tabEnviados').removeClass('active');
+	$('#tabPrincipal').removeClass('active');
+	$('#tabLixeira').removeClass('active');
+	
+	$('#msgRecebidas').css('display', 'none');
+	$('#msgEnviadas').css('display', 'none');
+	$('#msgExcluidas').css('display', 'none');
+	$('#novaMsg').css('display', '');
+	$('#menuMsg').css('display', 'none');
+	$('#tituloCaixa').css('display', 'none');
 }
 
 function verificaTabEmail() {

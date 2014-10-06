@@ -70,6 +70,7 @@ public class NovoTopicoBean extends GenericBean {
 			topicoServiceBean.postarTopico(novoTopico);
 			exibirMsgSucesso(getMensagem("display.topico.criado.sucesso", Constantes.MENSAGEM));
 			if (!Util.isNull(grupoEstudo)) {
+				grupoEstudo.getTopicosGrupo().add(novoTopico);
 				WebResources.getFlash().put(WebResources.GRUPO_ESTUDO, grupoEstudo);
 				return Tela.DETALHE_GRUPO_ESTUDO_PATH;
 			} else {

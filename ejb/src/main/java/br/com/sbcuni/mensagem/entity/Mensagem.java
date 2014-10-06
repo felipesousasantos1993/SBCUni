@@ -9,7 +9,6 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -18,11 +17,15 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
+import org.joda.time.DateTime;
+
 import br.com.sbcuni.usuario.entity.Usuario;
+import br.com.sbcuni.util.Util;
 
 @Entity
 @NamedQueries({
-	@NamedQuery(name = "Mensagem.consultarMensagemEnviadasUsuario", query = "SELECT m FROM Mensagem m JOIN FETCH m.remetente WHERE m.remetente.idUsuario =:idUsuario"),
+	@NamedQuery(name = "Mensagem.consultarRecebidas", query = "SELECT m FROM Mensagem m JOIN FETCH m.remetente WHERE  m.destinatario.idUsuario =:idDestinatario AND m.tipo =:idTipo ORDER BY m.dtEnvio DESC"),
+	@NamedQuery(name = "Mensagem.consultarEnviadas", query = "SELECT m FROM Mensagem m JOIN FETCH m.remetente WHERE m.tipo = 2 AND m.remetente.idUsuario =:idUsuario ORDER BY m.dtEnvio DESC"),
 	@NamedQuery(name = "Mensagem.consultarMensagemPorId", query = "SELECT m FROM Mensagem m JOIN FETCH m.remetente WHERE m.id =:idMensagem")
 })
 public class Mensagem {
@@ -34,9 +37,15 @@ public class Mensagem {
 	@Column(name = "titulo", length = 50, nullable = true)
 	private String titulo;
 	
-	@Column(name = "texto", length = 1024, nullable = false)
-	private String texto;
+	@Column(name = "mensagem", length = 1024, nullable = false)
+	private String mensagem;
 
+	@Column(name = "lido", nullable = true)
+	private Boolean lido;
+	
+	@Column(name = "favorito", nullable = true)
+	private Boolean favorito;
+	
 	@Column(name = "tipo", nullable = false)
 	private Integer tipo;
 	
@@ -47,8 +56,8 @@ public class Mensagem {
 	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY, targetEntity = Usuario.class)
 	private Usuario remetente;
 	
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, targetEntity = Usuario.class)
-	private List<Usuario> destinatarios;
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, targetEntity = Usuario.class)
+	private Usuario destinatario;
 	
 	@OneToMany(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY, targetEntity = Anexo.class, mappedBy = "mensagem")
 	private List<Anexo> anexos;
@@ -72,28 +81,12 @@ public class Mensagem {
 		this.titulo = titulo;
 	}
 
-	public String getTexto() {
-		return texto;
-	}
-
-	public void setTexto(String texto) {
-		this.texto = texto;
-	}
-
 	public Usuario getRemetente() {
 		return remetente;
 	}
 
 	public void setRemetente(Usuario remetente) {
 		this.remetente = remetente;
-	}
-
-	public List<Usuario> getDestinatarios() {
-		return destinatarios;
-	}
-
-	public void setDestinatarios(List<Usuario> destinatarios) {
-		this.destinatarios = destinatarios;
 	}
 
 	public List<Anexo> getAnexos() {
@@ -127,6 +120,41 @@ public class Mensagem {
 
 	public void setDtEnvio(Date dtEnvio) {
 		this.dtEnvio = dtEnvio;
+	}
+	public String getTempo() {
+		return Util.getDiferencaTempo(new DateTime(getDtEnvio()));
+	}
+
+	public Usuario getDestinatario() {
+		return destinatario;
+	}
+
+	public void setDestinatario(Usuario destinatario) {
+		this.destinatario = destinatario;
+	}
+
+	public String getMensagem() {
+		return mensagem;
+	}
+
+	public void setMensagem(String mensagem) {
+		this.mensagem = mensagem;
+	}
+
+	public Boolean getLido() {
+		return lido;
+	}
+
+	public void setLido(Boolean lido) {
+		this.lido = lido;
+	}
+
+	public Boolean getFavorito() {
+		return favorito;
+	}
+
+	public void setFavorito(Boolean favorito) {
+		this.favorito = favorito;
 	}
 	
 }

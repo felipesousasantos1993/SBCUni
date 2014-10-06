@@ -1,8 +1,6 @@
 package br.com.sbcuni.mensagem.service;
 
 import java.io.Serializable;
-import java.math.BigInteger;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -19,10 +17,11 @@ public class MensagemServiceBean implements Serializable {
 
 	private static final long serialVersionUID = 8645403616457246100L;
 
+	private static final Integer MSG_PRINCIPAL = 1;
+	private static final Integer MSG_EXCLUIDA = 3;
+	
 	@PersistenceContext
 	private EntityManager entityManager;
-	
-	private StringBuffer queryMensagemCaixaEntrada = new StringBuffer("SELECT id FROM mensagem  WHERE remetente_idusuario <> ? AND id IN (select msgsrecebidas_id FROM mensagem_usuario WHERE destinatarios_idusuario = ?)");
 	
 	public void enviarMensagem(Mensagem mensagem) {
 		mensagem.setRemetente(entityManager.find(Usuario.class, mensagem.getRemetente().getIdUsuario()));
@@ -39,26 +38,31 @@ public class MensagemServiceBean implements Serializable {
 		}
 	}
 	
-	public List<Mensagem> consultarCaixaEntradaUsuario(Usuario usuario) {
-		Query query = entityManager.createNativeQuery(queryMensagemCaixaEntrada.toString());
-		query.setParameter(1, usuario.getIdUsuario());
-		query.setParameter(2, usuario.getIdUsuario());
+	public List<Mensagem> consultarRecebidas(Usuario usuario) {
+		Query query = entityManager.createNamedQuery("Mensagem.consultarRecebidas");
+		query.setParameter("idDestinatario", usuario.getIdUsuario());
+		query.setParameter("idTipo", MSG_PRINCIPAL);
 		try {
-			List<BigInteger> ids = query.getResultList();
-			List<Mensagem> mensagens = new ArrayList<Mensagem>();
-			for (BigInteger bigInteger : ids) {
-				mensagens.add(consultarMensagemPorId(bigInteger.longValue()));
-			}
-			return mensagens;
+			return  query.getResultList();
 		} catch (NoResultException e) {
 			return null;
 		}
 	}
 	
+	public List<Mensagem> consultarRecebidasLixeira(Usuario usuario) {
+		Query query = entityManager.createNamedQuery("Mensagem.consultarRecebidas");
+		query.setParameter("idDestinatario", usuario.getIdUsuario());
+		query.setParameter("idTipo", MSG_EXCLUIDA);
+		try {
+			return  query.getResultList();
+		} catch (NoResultException e) {
+			return null;
+		}
+	}
 	
 	@SuppressWarnings("unchecked")
-	public List<Mensagem> consultarMensagemEnviadasUsuario(Usuario usuario) {
-		Query query = entityManager.createNamedQuery("Mensagem.consultarMensagemEnviadasUsuario");
+	public List<Mensagem> consultarEnviadas(Usuario usuario) {
+		Query query = entityManager.createNamedQuery("Mensagem.consultarEnviadas");
 		query.setParameter("idUsuario", usuario.getIdUsuario());
 		try {
 			return query.getResultList();

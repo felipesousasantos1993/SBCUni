@@ -111,13 +111,13 @@
 									<div class="tab-content">
 										<div id="tab_alunos" class="tab-pane fade widget-followers">
 										<h:panelGroup id="alunos">
-											<ui:repeat var="aluno" value="#{detalheGrupoEstudoBean.repeatPaginatorAlunos.model}">
+											<ui:repeat var="aluno" value="#{detalheGrupoEstudoBean.grupoEstudo.alunos}">
 												<div class="follower">
 													<h:graphicImage library="img" value="/resources/img/avatares/#{aluno.avatar}" styleClass="follower-avatar"/>
 														<div class="body">
 															<div class="follower-controls tooltips">
 																<h:outputFormat  id="msgExcluir" rendered="#{aluno.marcado}">
-																	<h:outputLabel styleClass="labelLink" value="#{mensagens['display.confirma.exclusao.aluno']}" />
+																	<h:outputLabel value="#{mensagens['display.confirma.exclusao.aluno']}" />
 																	<h:outputLabel styleClass="labelLink marginLeft_5" value="#{mensagens['display.sim']}" >
 																		<f:ajax event="click" render=":form:alunos" listener="#{detalheGrupoEstudoBean.excluirAlunoGrupo(aluno)}"/>
 																	</h:outputLabel>
@@ -147,23 +147,6 @@
 													</div>
 												<hr/>
 											</ui:repeat>
-											<div class="btn-group">
-												<h:outputLabel  value="#{mensagens['display.primeiro']}"  styleClass="btn btn-outline btn-xs">
-													<f:ajax event="click" render=":form:alunos" listener="#{detalheGrupoEstudoBean.repeatPaginatorAlunos.primeiro()}"/>
-												</h:outputLabel>
-												<h:outputLabel value="#{mensagens['display.anterior']}"  styleClass="btn btn-outline btn-xs">
-													<f:ajax event="click" render=":form:alunos" listener="#{detalheGrupoEstudoBean.repeatPaginatorAlunos.anterior()}"/>
-												</h:outputLabel>
-											</div>
-											<h:outputText value="#{detalheGrupoEstudoBean.repeatPaginatorAlunos.paginaIndice} / #{detalheGrupoEstudoBean.repeatPaginatorAlunos.paginas}" />
-											<div class="btn-group">
-												<h:outputLabel value="#{mensagens['display.proximo']}"  styleClass="btn btn-outline btn-xs">
-													<f:ajax event="click" render=":form:alunos" listener="#{detalheGrupoEstudoBean.repeatPaginatorAlunos.proximo()}"/>
-												</h:outputLabel>
-												<h:outputLabel value="#{mensagens['display.ultimo']}"  styleClass="btn btn-outline btn-xs">
-													<f:ajax event="click" render=":form:alunos" listener="#{detalheGrupoEstudoBean.repeatPaginatorAlunos.ultimo()}"/>
-												</h:outputLabel>
-											</div>
 										</h:panelGroup>
 										</div>
 										<div id="tab_topicos" class="tab-pane fade widget-followers ">
