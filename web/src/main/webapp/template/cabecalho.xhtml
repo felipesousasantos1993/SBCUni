@@ -211,9 +211,13 @@
 					<!-- /3. $END_NAVBAR_ICON_BUTTONS -->
 
 							<li>
-								<form prependId="false" class="navbar-form pull-left">
-									<h:inputText id="pesquisar" value="" styleClass="form-control" />
-								</form>
+								<h:form prependId="false"  styleClass="navbar-form  pull-left">
+									<div class="form-group input-group-sm has-feedback no-margin">
+										<h:inputText id="pesquisar" value="#{pesquisaBean.consulta}" styleClass="form-control" />
+										<h:commandLink action="#{pesquisaBean.pesquisar()}" value="" styleClass="fa fa-search form-control-feedback labelLink">
+										</h:commandLink>
+								    </div>
+								</h:form>
 							</li>
 
 							<li class="dropdown">

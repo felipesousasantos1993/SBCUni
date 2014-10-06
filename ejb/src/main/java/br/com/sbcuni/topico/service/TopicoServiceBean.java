@@ -80,6 +80,17 @@ public class TopicoServiceBean implements Serializable {
 			return null;
 		}
 	}
+	public List<Topico> buscarTopicosTituloDescricao(String titulo, String descricao) {
+		Query query = entityManager.createNamedQuery("Topico.buscarTopicosTituloDescricao");
+		query.setParameter("titulo", "%" + titulo.toLowerCase() + "%");
+		query.setParameter("descricao", "%" + descricao.toLowerCase() + "%");
+		try {
+			return query.getResultList();
+		} catch (NoResultException e) {
+			return null;
+		}
+	}
+	
 	/**
 	 * @param topico
 	 */
