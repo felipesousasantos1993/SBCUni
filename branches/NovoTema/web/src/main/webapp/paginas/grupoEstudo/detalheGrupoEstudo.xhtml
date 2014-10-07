@@ -132,9 +132,9 @@
 																<h:outputLabel styleClass="badge badge-success marginLeft_5" title="Comentários do aluno">
 																	<h:outputText value="#{aluno.nuComentariosNoGrupo}" />
 																</h:outputLabel>
-																<h:outputLabel title="#{mensagens['display.enviar.mensagem']}"  styleClass="btn btn-outline btn-primary btn-xs marginLeft_10">
+																<h:commandLink action="#{detalheGrupoEstudoBean.enviarMensagemPrivada(aluno)}"  title="#{mensagens['display.enviar.mensagem']}"  styleClass="btn btn-outline btn-primary btn-xs marginLeft_10">
 																	<i class="fa fa-envelope"/>
-																</h:outputLabel>
+																</h:commandLink>
 																<h:outputLabel title="#{mensagens['display.excluir.aluno']}" styleClass="btn btn-danger btn-outline btn-xs marginLeft_5">
 																	<i class="fa fa-times"/>
 																	<f:ajax event="click" render=":form:alunos" listener="#{detalheGrupoEstudoBean.marcarAluno(aluno)}"/>

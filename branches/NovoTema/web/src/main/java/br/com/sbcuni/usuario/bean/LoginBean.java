@@ -36,9 +36,9 @@ public class LoginBean extends GenericBean {
 				exibirMsgInfo(getMensagem("display.usuario.nao.encontrado", WebResources.MENSAGEM));
 				return null;
 			} else {
+				UsuarioSessionBean.getInstance().iniciarSessao(WebResources.USUARIO, usuario);
 				usuario.setDtUltimoAcesso(new Date());
 				usuarioServiceBean.alterarUsuario(usuario);
-				UsuarioSessionBean.getInstance().iniciarSessao(WebResources.USUARIO, usuario);
 				return Tela.ULTIMOS_TOPICOS_LOGIN;
 			}
 		} catch (Exception e) {

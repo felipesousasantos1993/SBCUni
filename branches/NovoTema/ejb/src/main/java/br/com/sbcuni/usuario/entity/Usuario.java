@@ -36,7 +36,8 @@ import br.com.sbcuni.topico.entity.Topico;
 	@NamedQuery(name = "Usuario.buscarPorPerfil", query = "SELECT u FROM Usuario u WHERE u.perfil =:perfil"),
 	@NamedQuery(name = "Usuario.consultarUsuarioLogin", query = "SELECT u FROM Usuario u WHERE u.matricula =:matricula AND u.senha =:senha"),
 	@NamedQuery(name = "Usuario.consultarAlunoNomeOuMatricula", query = "SELECT u FROM Usuario u WHERE (lower(u.nome) like :nome OR u.matricula like :matricula) AND u.perfil = 1"),
-	@NamedQuery(name = "Usuario.consultarAlunoNomeOuEmail", query = "SELECT u FROM Usuario u WHERE lower(u.nome) like :nome OR lower(u.email) like :matricula") 
+	@NamedQuery(name = "Usuario.consultarAlunoNomeOuEmail", query = "SELECT u FROM Usuario u WHERE lower(u.nome) like :nome OR lower(u.email) like :matricula"),
+	@NamedQuery(name = "Usuario.pesquisa", query = "SELECT u FROM Usuario u WHERE lower(u.nome) like :nome OR lower(u.email) like :email OR lower(u.matricula) like :matricula"),
 })
 public class Usuario implements Serializable {
 
@@ -117,6 +118,9 @@ public class Usuario implements Serializable {
 	
 	@Transient
 	private Boolean pertenceGrupo;
+	
+	@Transient
+	private Integer indice;
 
 	public Long getIdUsuario() {
 		return idUsuario;
@@ -438,5 +442,13 @@ public class Usuario implements Serializable {
 
 	public void setPertenceGrupo(Boolean pertenceGrupo) {
 		this.pertenceGrupo = pertenceGrupo;
+	}
+
+	public Integer getIndice() {
+		return indice;
+	}
+
+	public void setIndice(Integer indice) {
+		this.indice = indice;
 	}
 }

@@ -23,8 +23,10 @@ import br.com.sbcuni.util.Util;
 @Entity
 @NamedQueries({
 	@NamedQuery(name = "Mensagem.consultarRecebidas", query = "SELECT m FROM Mensagem m JOIN FETCH m.remetente WHERE  m.destinatario.idUsuario =:idDestinatario AND m.tipo =:idTipo ORDER BY m.dtEnvio DESC"),
-	@NamedQuery(name = "Mensagem.consultarEnviadas", query = "SELECT m FROM Mensagem m JOIN FETCH m.remetente WHERE m.tipo = 2 AND m.remetente.idUsuario =:idUsuario ORDER BY m.dtEnvio DESC"),
-	@NamedQuery(name = "Mensagem.consultarMensagemPorId", query = "SELECT m FROM Mensagem m JOIN FETCH m.remetente WHERE m.id =:idMensagem")
+	@NamedQuery(name = "Mensagem.consultarEnviadas", query = "SELECT m FROM Mensagem m JOIN FETCH m.remetente WHERE m.tipo =:idTipo AND m.remetente.idUsuario =:idUsuario ORDER BY m.dtEnvio DESC"),
+	@NamedQuery(name = "Mensagem.consultarMensagemPorId", query = "SELECT m FROM Mensagem m JOIN FETCH m.remetente WHERE m.id =:idMensagem"),
+	@NamedQuery(name = "Mensagem.pesquisa", query = "SELECT m FROM Mensagem m JOIN FETCH m.remetente WHERE lower(m.titulo) like :consulta OR lower(m.mensagem) like :consulta AND m.destinatario.idUsuario =:idUsuario OR m.remetente.idUsuario =:idUsuario ORDER BY m.dtEnvio DESC"),
+	@NamedQuery(name = "Mensagem.consultarMensagemNotificacao", query = "SELECT m FROM Mensagem m JOIN FETCH m.remetente WHERE m.destinatario.idUsuario =:idUsuario AND m.dtEnvio between :dtUltimoAcesso and current_timestamp")
 })
 public class Mensagem {
 

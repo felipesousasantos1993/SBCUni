@@ -18,6 +18,7 @@ import br.com.sbcuni.constantes.Constantes;
 import br.com.sbcuni.constantes.Tela;
 import br.com.sbcuni.exception.SbcuniException;
 import br.com.sbcuni.grupoEstudo.GrupoEstudo;
+import br.com.sbcuni.mensagem.entity.Mensagem;
 import br.com.sbcuni.topico.entity.Topico;
 import br.com.sbcuni.topico.service.TopicoServiceBean;
 import br.com.sbcuni.usuario.bean.UsuarioSessionBean;
@@ -75,6 +76,18 @@ public class GenericBean implements Serializable {
 	public static String telaAtualizarTopico(Topico topico) {
 		WebResources.getFlash().put(WebResources.TOPICO, topico);
 		return Tela.ATUALIZAR_TOPICO_PATH;
+	}
+	
+	public String verMensagem(Mensagem msg) {
+		WebResources.getFlash().put(WebResources.MENSAGEM, msg);
+		WebResources.getFlash().put(WebResources.TELA, "verMensagem");
+		return Tela.CAIXA_ENTRADA;
+	}
+	
+	public String enviarMensagemPrivada(Usuario usuario) {
+		WebResources.getFlash().put(WebResources.USUARIO, usuario);
+		WebResources.getFlash().put(WebResources.TELA, "enviarMensagem");
+		return Tela.CAIXA_ENTRADA;
 	}
 
 	public void curtirTopico(Topico topico) {

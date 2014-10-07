@@ -1,6 +1,7 @@
 package br.com.sbcuni.mensagem.service;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -18,6 +19,7 @@ public class MensagemServiceBean implements Serializable {
 	private static final long serialVersionUID = 8645403616457246100L;
 
 	private static final Integer MSG_PRINCIPAL = 1;
+	private static final Integer MSG_ENVIADA = 2;
 	private static final Integer MSG_EXCLUIDA = 3;
 	
 	@PersistenceContext
@@ -59,11 +61,22 @@ public class MensagemServiceBean implements Serializable {
 			return null;
 		}
 	}
+	public List<Mensagem> consultarEnviadasLixeira(Usuario usuario) {
+		Query query = entityManager.createNamedQuery("Mensagem.consultarEnviadas");
+		query.setParameter("idUsuario", usuario.getIdUsuario());
+		query.setParameter("idTipo", MSG_EXCLUIDA);
+		try {
+			return  query.getResultList();
+		} catch (NoResultException e) {
+			return null;
+		}
+	}
 	
 	@SuppressWarnings("unchecked")
 	public List<Mensagem> consultarEnviadas(Usuario usuario) {
 		Query query = entityManager.createNamedQuery("Mensagem.consultarEnviadas");
 		query.setParameter("idUsuario", usuario.getIdUsuario());
+		query.setParameter("idTipo", MSG_ENVIADA);
 		try {
 			return query.getResultList();
 		} catch (NoResultException e) {
@@ -71,4 +84,24 @@ public class MensagemServiceBean implements Serializable {
 		}
 	}
 	
+	public List<Mensagem> pesquisa(String consulta, Usuario usuario) {
+		Query query = entityManager.createNamedQuery("Mensagem.pesquisa");
+		query.setParameter("consulta", "%" + consulta.toLowerCase() + "%");
+		query.setParameter("idUsuario", usuario.getIdUsuario());
+		try {
+			return query.getResultList();
+		} catch (NoResultException e) {
+			return null;
+		}
+	}
+	public List<Mensagem> consultarMensagemNotificacao(Date dtUltimoAcesso, Long idUsuario) {
+		Query query = entityManager.createNamedQuery("Mensagem.consultarMensagemNotificacao");
+		query.setParameter("dtUltimoAcesso", dtUltimoAcesso);
+		query.setParameter("idUsuario", idUsuario);
+		try {
+			return query.getResultList();
+		} catch (NoResultException e) {
+			return null;
+		}
+	}
 }

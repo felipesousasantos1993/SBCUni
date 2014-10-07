@@ -45,6 +45,7 @@ public class DetalheGrupoEstudoBean extends GenericBean {
 	@PostConstruct
 	public void init() {
 		grupoEstudo = (GrupoEstudo) WebResources.getFlash().get(WebResources.GRUPO_ESTUDO);
+		grupoEstudo.setAlunos(grupoEstudoSerivceBean.consultarAlunosGrupoEstudo(grupoEstudo));
 		for (Usuario aluno : grupoEstudo.getAlunos()) {
 			aluno.setTopicos(topicoServiceBean.buscarTopicoPorUsuario(aluno.getIdUsuario()));
 			aluno.setNuComentariosNoGrupo(comentarioServiceBean.consultarNuComentariosUsuarioGrupoEstudo(aluno, grupoEstudo));

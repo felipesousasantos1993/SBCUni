@@ -115,4 +115,14 @@ public class GrupoEstudoSerivceBean implements Serializable {
 		}
 	}
 	
+	public List<GrupoEstudo> pesquisa(String consulta) {
+		Query query = entityManager.createNamedQuery("GrupoEstudo.pesquisa");
+		query.setParameter("consulta", "%" + consulta.toLowerCase() + "%");
+		try {
+			return query.getResultList();
+		} catch (NoResultException e) {
+			return null;
+		}
+	}
+	
 }

@@ -14,8 +14,15 @@ public class WebResources {
 	public static final String LISTA_TOPICOS = "listaTopicos";
 	public static final String PESQUISA = "pesquisa";
 	public static final String NU_RESULTADOS_PESQUISA = "nuResultadosPesquisa";
+	public static final String NU_USUARIOS_PESQUISA = "nuUsuariosPesquisa";
+	public static final String NU_TOPICOS_PESQUISA = "nuTopicosPesquisa";
+	public static final String NU_MENSAGENS_PESQUISA = "nuMensagensPesquisa";
+	public static final String NU_GRUPOS_PESQUISA = "nuGruposPesquisa";
 	public static final String LISTA_GRUPOS_ESTUDO = "listaGruposEstudo";
 	public static final String LISTA_MENSAGENS = "listaMensagens";
+	public static final String TELA = "tela";
+	public static final String DATA_ULTIMO_ACESSO = "dtUltimoAcesso";
+	
 	
 	public static final String ERRO_INESPERADO = "display.ocorreu.erro.inesperado.favor.consultar.administrador";
 	

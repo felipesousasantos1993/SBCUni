@@ -10,6 +10,7 @@ import br.com.sbcuni.bean.GenericBean;
 import br.com.sbcuni.grupoEstudo.GrupoEstudo;
 import br.com.sbcuni.mensagem.entity.Mensagem;
 import br.com.sbcuni.topico.entity.Topico;
+import br.com.sbcuni.usuario.entity.Usuario;
 import br.com.sbcuni.util.WebResources;
 
 @ManagedBean
@@ -25,15 +26,36 @@ public class ResultadoPesquisaBean extends GenericBean {
 	private List<Topico> topicos;
 	private List<Mensagem> mensagens;
 	private List<GrupoEstudo> grupoEstudos;
+	private List<Usuario> usuarios;
 
 	private Integer nuResultados;
+	private Integer nuTopicos;
+	private Integer nuUsuarios;
+	private Integer nuMensagens;
+	private Integer nuGrupos;
 	private String consulta;
-	
+
+	@SuppressWarnings("unchecked")
 	@PostConstruct
 	public void init() {
 		topicos = (List<Topico>) WebResources.getFlash().get(WebResources.LISTA_TOPICOS);
+		usuarios = (List<Usuario>) WebResources.getFlash().get(WebResources.LISTA_USUARIOS);
+		grupoEstudos = (List<GrupoEstudo>) WebResources.getFlash().get(WebResources.LISTA_GRUPOS_ESTUDO);
+		mensagens = (List<Mensagem>) WebResources.getFlash().get(WebResources.LISTA_MENSAGENS);
+		grupoEstudos = (List<GrupoEstudo>) WebResources.getFlash().get(WebResources.LISTA_GRUPOS_ESTUDO);
+		mensagens = (List<Mensagem>) WebResources.getFlash().get(WebResources.LISTA_MENSAGENS);
 		nuResultados = (Integer) WebResources.getFlash().get(WebResources.NU_RESULTADOS_PESQUISA);
 		consulta = (String) WebResources.getFlash().get(WebResources.PESQUISA);
+		for (Usuario u : usuarios) {
+			u.setIndice(usuarios.indexOf(u) + 1);
+		}
+		try {
+			nuTopicos = topicos.size();
+			nuUsuarios = usuarios.size();
+			nuGrupos = grupoEstudos.size();
+			nuMensagens = mensagens.size();
+		} catch (Exception e) {
+		}
 	}
 
 	public List<Topico> getTopicos() {
@@ -74,6 +96,46 @@ public class ResultadoPesquisaBean extends GenericBean {
 
 	public void setConsulta(String consulta) {
 		this.consulta = consulta;
+	}
+
+	public List<Usuario> getUsuarios() {
+		return usuarios;
+	}
+
+	public void setUsuarios(List<Usuario> usuarios) {
+		this.usuarios = usuarios;
+	}
+
+	public Integer getNuGrupos() {
+		return nuGrupos;
+	}
+
+	public void setNuGrupos(Integer nuGrupos) {
+		this.nuGrupos = nuGrupos;
+	}
+
+	public Integer getNuTopicos() {
+		return nuTopicos;
+	}
+
+	public void setNuTopicos(Integer nuTopicos) {
+		this.nuTopicos = nuTopicos;
+	}
+
+	public Integer getNuUsuarios() {
+		return nuUsuarios;
+	}
+
+	public void setNuUsuarios(Integer nuUsuarios) {
+		this.nuUsuarios = nuUsuarios;
+	}
+
+	public Integer getNuMensagens() {
+		return nuMensagens;
+	}
+
+	public void setNuMensagens(Integer nuMensagens) {
+		this.nuMensagens = nuMensagens;
 	}
 
 }

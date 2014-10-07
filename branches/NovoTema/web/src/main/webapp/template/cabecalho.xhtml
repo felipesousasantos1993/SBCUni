@@ -96,119 +96,50 @@
 							</li>
 							<li class="nav-icon-btn nav-icon-btn-success dropdown">
 								<a href="#messages" class="dropdown-toggle" data-toggle="dropdown">
-									<span class="label">10</span>
+									<span class="label">
+										<h:outputText value="#{notificacaoBean.nuNotificacaoMensagens}" />
+									</span>
 									<i class="nav-icon fa fa-envelope"></i>
-									<span class="small-screen-text">Income messages</span>
+									<span class="small-screen-text">
+										<h:outputText value="#{mensagens['display.novas.mensagens']}" />
+									</span>
 								</a>
-
-								<!-- MESSAGES -->
 								
-								<!-- Javascript -->
-								<script>
-									init.push(function () {
-										$('#main-navbar-messages').slimScroll({ height: 250 });
-									});
-								</script>
-								<!-- / Javascript -->
-
+								<h:panelGroup rendered="#{not empty notificacaoBean.notificaoMensagens}">
+								<!-- MESSAGES -->
 								<div class="dropdown-menu widget-messages-alt no-padding" style="width: 300px;">
-									<div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 250px;"><div class="messages-list" id="main-navbar-messages" style="overflow: hidden; width: auto; height: 250px;">
-
-										<div class="message">
-											<h:graphicImage library="img" value="/resources/img/avatares/#{usuarioSessionBean.usuarioSessao.avatar}" styleClass="message-avatar"/>
-											<a href="#" class="message-subject">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</a>
-											<div class="message-description">
-												from <a href="#">Robert Jang</a>
-												2h ago
-											</div>
-										</div> <!-- / .message -->
-
-										<div class="message">
-											<h:graphicImage library="img" value="" styleClass="message-avatar"/>
-											<a href="#" class="message-subject">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</a>
-											<div class="message-description">
-												from <a href="#">Michelle Bortz</a>
-												2h ago
-											</div>
-										</div> <!-- / .message -->
-
-										<div class="message">
-											<h:graphicImage library="img" value="" styleClass="message-avatar"/>
-											<a href="#" class="message-subject">Lorem ipsum dolor sit amet.</a>
-											<div class="message-description">
-												from <a href="#">Timothy Owens</a>
-												2h ago
-											</div>
-										</div> <!-- / .message -->
-
-										<div class="message">
-											<h:graphicImage library="img" value="" styleClass="message-avatar"/>
-											<a href="#" class="message-subject">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</a>
-											<div class="message-description">
-												from <a href="#">Denise Steiner</a>
-												2h ago
-											</div>
-										</div> <!-- / .message -->
-
-										<div class="message">
-											<h:graphicImage library="img" value="" styleClass="message-avatar"/>
-											<a href="#" class="message-subject">Lorem ipsum dolor sit amet.</a>
-											<div class="message-description">
-												from <a href="#">Robert Jang</a>
-												2h ago
-											</div>
-										</div> <!-- / .message -->
-
-										<div class="message">
-											<h:graphicImage library="img" value="" styleClass="message-avatar"/>
-											<a href="#" class="message-subject">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</a>
-											<div class="message-description">
-												from <a href="#">Robert Jang</a>
-												2h ago
-											</div>
-										</div> <!-- / .message -->
-
-										<div class="message">
-											<h:graphicImage library="img" value="" styleClass="message-avatar"/>
-											<a href="#" class="message-subject">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</a>
-											<div class="message-description">
-												from <a href="#">Michelle Bortz</a>
-												2h ago
-											</div>
-										</div> <!-- / .message -->
-
-										<div class="message">
-											<h:graphicImage library="img" value="" styleClass="message-avatar"/>
-											<a href="#" class="message-subject">Lorem ipsum dolor sit amet.</a>
-											<div class="message-description">
-												from <a href="#">Timothy Owens</a>
-												2h ago
-											</div>
-										</div> <!-- / .message -->
-
-										<div class="message">
-											<h:graphicImage library="img" value="" styleClass="message-avatar"/>
-											<a href="#" class="message-subject">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</a>
-											<div class="message-description">
-												from <a href="#">Denise Steiner</a>
-												2h ago
-											</div>
-										</div> <!-- / .message -->
-
-										<div class="message">
-											<h:graphicImage library="img" value="" styleClass="message-avatar"/>
-											<a href="#" class="message-subject">Lorem ipsum dolor sit amet.</a>
-											<div class="message-description">
-												from <a href="#">Robert Jang</a>
-												2h ago
-											</div>
-										</div> <!-- / .message -->
-
-									</div><div class="slimScrollBar" style="width: 7px; position: absolute; top: 0px; opacity: 0.4; display: none; border-top-left-radius: 7px; border-top-right-radius: 7px; border-bottom-right-radius: 7px; border-bottom-left-radius: 7px; z-index: 99; right: 1px; background: rgb(0, 0, 0);"></div><div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-top-left-radius: 7px; border-top-right-radius: 7px; border-bottom-right-radius: 7px; border-bottom-left-radius: 7px; opacity: 0.2; z-index: 90; right: 1px; background: rgb(51, 51, 51);"></div></div> <!-- / .messages-list -->
-									<a href="#" class="messages-link"><h:outputText value="#{mensagens['display.mais.mensagens.cap']}" /> </a>
+									<h:form prependId="false">
+									<div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: auto;">
+									<div class="messages-list" id="main-navbar-messages" style="overflow: hidden; width: auto; height: auto;">
+										<ui:repeat var="mensagem" value="#{notificacaoBean.notificaoMensagens}">
+											<div class="message">
+												<h:graphicImage library="img" value="/resources/img/avatares/#{mensagem.remetente.avatar}" styleClass="message-avatar"/>
+												<h:commandLink action="#{notificacaoBean.verMensagem(mensagem)}" value="#{mensagem.titulo}" styleClass="message-subject"/>
+												<div class="message-description">
+													<h:outputText value="#{mensagens['display.de']}" />
+													<h:commandLink action="#{notificacaoBean.perfilUsuario(mensagem.remetente)}" value="#{mensagem.remetente.nome}" styleClass="marginLeft_5"/>
+													<h:outputText value="#{mensagem.tempo}" styleClass="marginLeft_5"/>
+												</div>
+											</div> <!-- / .message -->
+										</ui:repeat>
+									</div>
+									<div class="slimScrollBar" style="width: 7px; position: absolute; top: 0px; opacity: 0.4; display: none; border-top-left-radius: 7px; border-top-right-radius: 7px; border-bottom-right-radius: 7px; border-bottom-left-radius: 7px; z-index: 99; right: 1px; background: rgb(0, 0, 0);"></div><div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-top-left-radius: 7px; border-top-right-radius: 7px; border-bottom-right-radius: 7px; border-bottom-left-radius: 7px; opacity: 0.2; z-index: 90; right: 1px; background: rgb(51, 51, 51);"></div></div> <!-- / .messages-list -->
+									<a href="#{facesContext.externalContext.requestContextPath}/paginas/mensagens/email.jsf" class="messages-link"><h:outputText value="#{mensagens['display.mais.mensagens.cap']}" /> </a>
+									</h:form>
 								</div> <!-- / .dropdown-menu -->
+								</h:panelGroup>
+								<h:panelGroup rendered="#{empty notificacaoBean.notificaoMensagens}">
+									<div class="dropdown-menu widget-messages-alt no-padding" style="width: 300px;">
+									<div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: auto;">
+									<div class="messages-list" id="main-navbar-messages" style="overflow: hidden; width: auto; height: auto;">
+									</div>
+									<div class="slimScrollBar" style="width: 7px; position: absolute; top: 0px; opacity: 0.4; display: none; border-top-left-radius: 7px; border-top-right-radius: 7px; border-bottom-right-radius: 7px; border-bottom-left-radius: 7px; z-index: 99; right: 1px; background: rgb(0, 0, 0);"></div><div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-top-left-radius: 7px; border-top-right-radius: 7px; border-bottom-right-radius: 7px; border-bottom-left-radius: 7px; opacity: 0.2; z-index: 90; right: 1px; background: rgb(51, 51, 51);"></div></div> <!-- / .messages-list -->
+									<a href="#" class="messages-link"><h:outputText value="#{mensagens['display.nao.existem.novos.topicos']}" /> </a>
+								</div>
+								</h:panelGroup>
 							</li>
-					<!-- /3. $END_NAVBAR_ICON_BUTTONS -->
+							
+							<!-- /3. $END_NAVBAR_ICON_BUTTONS -->
 
 							<li>
 								<h:form prependId="false"  styleClass="navbar-form  pull-left">

@@ -14,6 +14,9 @@ import br.com.sbcuni.mensagem.entity.Mensagem;
 import br.com.sbcuni.mensagem.service.MensagemServiceBean;
 import br.com.sbcuni.topico.entity.Topico;
 import br.com.sbcuni.topico.service.TopicoServiceBean;
+import br.com.sbcuni.usuario.bean.UsuarioSessionBean;
+import br.com.sbcuni.usuario.entity.Usuario;
+import br.com.sbcuni.usuario.service.UsuarioServiceBean;
 import br.com.sbcuni.util.WebResources;
 
 @ManagedBean
@@ -32,20 +35,31 @@ public class PesquisaBean extends GenericBean {
 	private GrupoEstudoSerivceBean grupoEstudoSerivceBean;
 	@EJB
 	private MensagemServiceBean mensagemServiceBean;
+	@EJB
+	private UsuarioServiceBean usuarioServiceBean;
 	
 	private List<Topico> topicos;
 	private List<Mensagem> mensagens;
 	private List<GrupoEstudo> grupoEstudos;
+	private List<Usuario> usuarios;
 	
 	private String consulta;
 	private Integer nuResultados = 0;
 	
 	public String pesquisar() {
 		topicos = pesquisarTopicos();
-		
+		usuarios = pesquisarUsuarios();
+		mensagens = pesquisarMensagens();
+		grupoEstudos = pesquisarGrupos();
 		
 		nuResultados += topicos.size();
+		nuResultados += usuarios.size();
+		nuResultados += mensagens.size();
+		nuResultados += grupoEstudos.size();
 		WebResources.getFlash().put(WebResources.LISTA_TOPICOS, topicos);
+		WebResources.getFlash().put(WebResources.LISTA_USUARIOS, usuarios);
+		WebResources.getFlash().put(WebResources.LISTA_GRUPOS_ESTUDO, grupoEstudos);
+		WebResources.getFlash().put(WebResources.LISTA_MENSAGENS, mensagens);
 		WebResources.getFlash().put(WebResources.PESQUISA, consulta);
 		WebResources.getFlash().put(WebResources.NU_RESULTADOS_PESQUISA, nuResultados);
 		return Tela.RESULTADO_PESQUISA_PATH;
@@ -53,6 +67,16 @@ public class PesquisaBean extends GenericBean {
 	
 	public List<Topico> pesquisarTopicos() {
 		return topicoServiceBean.buscarTopicosTituloDescricao(consulta, consulta);
+	}
+	
+	public List<Usuario> pesquisarUsuarios() {
+		return usuarioServiceBean.pesquisa(consulta);
+	}
+	public List<GrupoEstudo> pesquisarGrupos() {
+		return grupoEstudoSerivceBean.pesquisa(consulta);
+	}
+	public List<Mensagem> pesquisarMensagens() {
+		return mensagemServiceBean.pesquisa(consulta, UsuarioSessionBean.getInstance().getUsuarioSessao());
 	}
 
 	public List<Topico> getTopicos() {

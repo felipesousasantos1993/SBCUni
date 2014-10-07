@@ -8,6 +8,11 @@ $(document).ready(function() {
 	switcher();
 });
 
+
+$(document).ready(function() {
+	$('.scroll').slimScroll({ height: 250 });
+});
+
 function mascaras() {
 	$(".data").mask("99/99/9999");
 	$(".telefone").mask("(99) 9999-9999?9");
@@ -143,6 +148,7 @@ function switcher() {
 function exibirMensagemResponta() {
 	$('#msgResposta').css('display', '');
 }
+
 
 function selecionarAvatar(avatar) {
 	for (i = 0; i < 27; i++) {
