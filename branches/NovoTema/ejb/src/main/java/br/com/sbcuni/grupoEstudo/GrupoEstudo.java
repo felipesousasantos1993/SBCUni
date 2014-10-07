@@ -1,6 +1,7 @@
 package br.com.sbcuni.grupoEstudo;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
 
@@ -17,6 +18,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import br.com.sbcuni.topico.entity.Topico;
 import br.com.sbcuni.usuario.entity.Usuario;
@@ -55,6 +57,15 @@ public class GrupoEstudo implements Serializable {
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, targetEntity = Topico.class, mappedBy = "grupoEstudo")
 	private List<Topico> topicosGrupo;
+	
+	@Transient
+	private Long nuComentariosGrupo;
+	
+	@Transient
+	private BigInteger nuAvaliacoesPositivas;
+	
+	@Transient
+	private BigInteger nuAvaliacoesNegativas;
 
 	public Long getIdGrupoEstudo() {
 		return idGrupoEstudo;
@@ -120,4 +131,27 @@ public class GrupoEstudo implements Serializable {
 		return topicosGrupo.size();
 	}
 
+	public Long getNuComentariosGrupo() {
+		return nuComentariosGrupo;
+	}
+
+	public void setNuComentariosGrupo(Long nuComentariosGrupo) {
+		this.nuComentariosGrupo = nuComentariosGrupo;
+	}
+
+	public BigInteger getNuAvaliacoesPositivas() {
+		return nuAvaliacoesPositivas;
+	}
+
+	public void setNuAvaliacoesPositivas(BigInteger nuAvaliacoesPositivas) {
+		this.nuAvaliacoesPositivas = nuAvaliacoesPositivas;
+	}
+
+	public BigInteger getNuAvaliacoesNegativas() {
+		return nuAvaliacoesNegativas;
+	}
+
+	public void setNuAvaliacoesNegativas(BigInteger nuAvaliacoesNegativas) {
+		this.nuAvaliacoesNegativas = nuAvaliacoesNegativas;
+	}
 }

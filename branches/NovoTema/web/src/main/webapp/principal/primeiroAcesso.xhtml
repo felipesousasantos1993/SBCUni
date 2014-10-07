@@ -62,6 +62,12 @@
 								<h:messages id="mensagens"  style="text-align: center;margin-top: 10px;margin-bottom: -30px;" globalOnly="true" fatalClass="alert alert-info alert-dark" errorClass="alert alert-info alert-dark" infoClass="alert alert-info alert-dark" warnClass="alert alert-info alert-dark"/>
 							</div>
 						</h:form>
+						<div class="signup-with">
+							<a href="#{facesContext.externalContext.requestContextPath}/principal/login.jsf" class="signup-with-btn" style="background:#4f6faa;background:rgba(79, 111, 170, .8);">
+								<h:outputText value="#{mensagens['display.ja.possui.senha']}" />
+								<span><h:outputText value="#{mensagens['display.clique.aqui.para.entrar']}" /></span>
+							</a>
+						</div>
 					</div>
 				</div>
 		</h:body>

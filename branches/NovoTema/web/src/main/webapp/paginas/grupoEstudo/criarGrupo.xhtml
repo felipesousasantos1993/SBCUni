@@ -77,25 +77,26 @@
 													</div>
 												</div>
 											</div>
+											<hr/>
 										</ui:repeat>
-										<div class="btn-group">
-											<h:outputLabel  value="#{mensagens['display.primeiro']}"  styleClass="btn btn-outline btn-xs">
-												<f:ajax event="click" render=":form:listaAlunos" listener="#{criarGrupoEstudoBean.repeatPaginator.primeiro()}"/>
-											</h:outputLabel>
-											<h:outputLabel value="#{mensagens['display.anterior']}"  styleClass="btn btn-outline btn-xs">
-												<f:ajax event="click" render=":form:listaAlunos" listener="#{criarGrupoEstudoBean.repeatPaginator.anterior()}"/>
-											</h:outputLabel>
-											
-											<h:outputText value="#{criarGrupoEstudoBean.repeatPaginator.paginaIndice} / #{criarGrupoEstudoBean.repeatPaginator.paginas}" />
-											
-											<h:outputLabel value="#{mensagens['display.proximo']}"  styleClass="btn btn-outline btn-xs">
-												<f:ajax event="click" render=":form:listaAlunos" listener="#{criarGrupoEstudoBean.repeatPaginator.proximo()}"/>
-											</h:outputLabel>
-											<h:outputLabel value="#{mensagens['display.ultimo']}"  styleClass="btn btn-outline btn-xs">
-												<f:ajax event="click" render=":form:listaAlunos" listener="#{criarGrupoEstudoBean.repeatPaginator.ultimo()}"/>
-											</h:outputLabel>
-										</div>
 									</div>
+									<h:panelGroup rendered="#{criarGrupoEstudoBean.repeatPaginator.paginas gt 1}">
+										<br/>
+										<div class="col-sm-12">
+											<ul class="pagination pagination-xs">
+												<h:outputLabel value="#{mensagens['display.icon.anterior']}"  styleClass="btn btn-outline btn-xs">
+													<f:ajax event="click" render=":form:listaAlunos" listener="#{criarGrupoEstudoBean.repeatPaginator.anterior()}"/>
+												</h:outputLabel>
+												
+												<h:outputText value="#{criarGrupoEstudoBean.repeatPaginator.paginaIndice} / " styleClass="marginLeft_5"/>
+												<h:outputText value="#{criarGrupoEstudoBean.repeatPaginator.paginas}" styleClass="marginLeft_5"/>
+												
+												<h:outputLabel value="#{mensagens['display.icon.proximo']}"  styleClass="btn btn-outline btn-xs marginLeft_5">
+													<f:ajax event="click" render=":form:listaAlunos" listener="#{criarGrupoEstudoBean.repeatPaginator.proximo()}"/>
+												</h:outputLabel>
+											</ul>
+										</div>
+									</h:panelGroup>
 								</div>
 							</h:panelGroup>
 							</div>

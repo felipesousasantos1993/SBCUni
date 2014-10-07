@@ -59,6 +59,12 @@ public class RepeatPaginator implements Serializable {
         updateModel();
     }
     
+    public void irParaPagina(Integer pagina) {
+    	paginaIndice = pagina;
+    	
+    	updateModel();
+    }
+    
     public void ultimo() {
     	this.paginaIndice = paginas;
     	

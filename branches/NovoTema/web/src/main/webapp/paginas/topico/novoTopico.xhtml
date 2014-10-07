@@ -20,7 +20,7 @@
 				<h:outputText value="#{mensagens['display.menu.topico']}" />
 			</li>
 			<li class="active">
-				<h:outputText value="#{mensagens['display.ultimos.topicos']}" />
+				<h:outputText value="#{mensagens['display.novo.topico']}" />
 			</li>
 		</ol>
 		<h:messages id="mensagens" globalOnly="true" fatalClass="alert alert-danger alert-dark" errorClass="alert alert-warning alert-dark" infoClass="alert alert-info alert-dark" warnClass="alert alert-dark"/>
@@ -40,7 +40,7 @@
 									<h:outputText value="#{mensagens['display.titulo']}"/>
 								</label>
 								<div class="col-sm-10">
-									<h:inputText id="titulo" value="#{novoTopicoBean.novoTopico.titulo}" maxlength="128" styleClass="form-control" required="true" requiredMessage="#{mensagens['display.campo.obrigatorio']}"/>
+									<h:inputText id="titulo" autocomplete="off" value="#{novoTopicoBean.novoTopico.titulo}" maxlength="128" styleClass="form-control" required="true" requiredMessage="#{mensagens['display.campo.obrigatorio']}"/>
 									<h:message for="titulo" errorClass="msg error"/>
 								</div>
 							</div>

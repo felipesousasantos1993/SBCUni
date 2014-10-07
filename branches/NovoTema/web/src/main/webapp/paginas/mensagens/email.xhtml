@@ -91,7 +91,10 @@
 				<div class="mail-controls clearfix">
 					<div class="btn-toolbar wide-btns pull-left tooltips" role="toolbar">
 						<div class="btn-group tooltips">
-							<button type="button" class="btn" title="Enviar para lixeira"><i class="fa fa-trash-o"></i></button>
+							<h:outputLabel title="Enviar para lixeira" styleClass="btn">
+								<i class="fa fa-trash-o"/>
+								<f:ajax event="click" render="@form" listener="#{caixaEntradaBean.excluirMensagem(caixaEntradaBean.mensagemSelecionada)}"/>
+							</h:outputLabel>
 						</div>
 					</div>
 		

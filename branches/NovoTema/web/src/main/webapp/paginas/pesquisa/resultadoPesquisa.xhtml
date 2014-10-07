@@ -36,14 +36,6 @@
 				<div class="search-tabs">
 					<ul class="nav nav-tabs">
 						<li class="active"> 
-							<a href="#todos" data-toggle="tab">
-								<h:outputText value="#{mensagens['display.todos']}" /> 
-								<span class="label label-primary" style="background: #1d89cf;">
-									<h:outputText value="#{resultadoPesquisaBean.nuResultados}" /> 
-								</span>
-							</a>
-						</li>
-						<li>
 							<a href="#topicos" data-toggle="tab">
 								<h:outputText value="#{mensagens['display.topicos']}" />
 								<span class="label label-success">
@@ -89,31 +81,13 @@
 						</div>
 						
 						<div class="panel-body tab-content">
-							<!-- TODOS -->
-							<ul id="todos" class="search-classic tab-pane fade in active">
-								<ui:repeat var="topico" value="#{resultadoPesquisaBean.topicos}">
-									<li>
-										<h:commandLink action="#{resultadoPesquisaBean.detalharTopico(topico)}" value="#{topico.titulo}" styleClass="search-title"/>
-										<div class="search-content">
-											<h:outputText value="#{topico.descricao}" escape="false"/>
-										</div>
-										<div class="search-tags">
-											<span class="search-tags-text"><h:outputText value="#{mensagens['display.categoria']}s" /> </span>
-											<ui:repeat var="categoria" value="#{topico.categorias}">
-												<h:outputText value="#{categoria.deCategoria}" styleClass="label label-success"/>
-											</ui:repeat>
-										</div>
-										
-									</li>
-								</ui:repeat>
-							</ul>
 							<!-- TOPICOS -->
-							<ul id="topicos" class="search-classic tab-pane fade in">
+							<ul id="topicos" class="search-classic tab-pane fade in active">
 								<ui:repeat var="topico" value="#{resultadoPesquisaBean.topicos}">
 									<li>
 										<h:commandLink action="#{resultadoPesquisaBean.detalharTopico(topico)}" value="#{topico.titulo}" styleClass="search-title"/>
 										<div class="search-content">
-											<h:outputText value="#{topico.descricao}" escape="false"/>
+											<h:outputText value="#{topico.usuario.nome}" escape="false"/>
 										</div>
 										<div class="search-tags">
 											<span class="search-tags-text"><h:outputText value="#{mensagens['display.categoria']}s" /> </span>
