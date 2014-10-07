@@ -24,7 +24,8 @@ import br.com.sbcuni.usuario.entity.Usuario;
 @Entity
 @NamedQueries({
 	@NamedQuery(name = "GrupoEstudo.consultarGruposProfessor", query = "SELECT DISTINCT(ge) FROM GrupoEstudo ge LEFT JOIN FETCH ge.topicosGrupo JOIN FETCH ge.professor WHERE ge.professor.idUsuario =:idProfessor"),
-	@NamedQuery(name = "GrupoEstudo.buscarGrupoEstudoId", query = "SELECT DISTINCT(ge) FROM GrupoEstudo ge LEFT JOIN FETCH ge.topicosGrupo JOIN FETCH ge.professor WHERE ge.idGrupoEstudo =:idGrupo ")
+	@NamedQuery(name = "GrupoEstudo.buscarGrupoEstudoId", query = "SELECT DISTINCT(ge) FROM GrupoEstudo ge LEFT JOIN FETCH ge.topicosGrupo JOIN FETCH ge.professor WHERE ge.idGrupoEstudo =:idGrupo "),
+	@NamedQuery(name = "GrupoEstudo.pesquisa", query = "SELECT DISTINCT(ge) FROM GrupoEstudo ge LEFT JOIN FETCH ge.topicosGrupo JOIN FETCH ge.professor WHERE lower(ge.noGrupo) like :consulta OR ge.professor.nome like :consulta")
 })
 public class GrupoEstudo implements Serializable {
 

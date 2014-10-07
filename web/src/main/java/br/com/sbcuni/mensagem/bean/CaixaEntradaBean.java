@@ -31,7 +31,7 @@ public class CaixaEntradaBean extends GenericBean {
 	private List<Mensagem> mensagensExcluidas;
 	private List<Usuario> listaAlunos;
 	private List<String> destinatariosSelecionadas = new ArrayList<String>();
-	
+
 	@EJB
 	private UsuarioServiceBean usuarioServiceBean;
 	@EJB
@@ -42,30 +42,44 @@ public class CaixaEntradaBean extends GenericBean {
 	private Boolean msgExcluidas = Boolean.FALSE;
 	private Boolean verMensagem = Boolean.FALSE;
 	private Boolean novaMensagem = Boolean.FALSE;
-	
+	private Boolean msgPrivada = Boolean.FALSE;
+
 	private Mensagem mensagem = new Mensagem();
 	private Mensagem mensagemSelecionada = new Mensagem();
 	private Mensagem msgResponder = new Mensagem();
-	
-	
+
 	@PostConstruct
 	public void init() {
-		atualizarCaixaEntrada();
-		msgRecebidas = Boolean.TRUE;
-		listaAlunos = usuarioServiceBean.buscarTodos();
-		listaAlunos.remove(UsuarioSessionBean.getInstance().getUsuarioSessao());
+		String tela = (String) WebResources.getFlash().get(WebResources.TELA);
+		if (Util.isBlankOrNull(tela)) {
+			atualizarCaixaEntrada();
+			msgRecebidas = Boolean.TRUE;
+			listaAlunos = usuarioServiceBean.buscarTodos();
+			listaAlunos.remove(UsuarioSessionBean.getInstance().getUsuarioSessao());
+		} else if (tela.equals("verMensagem")) {
+			verMensagem = Boolean.TRUE;
+			atualizarCaixaEntrada();
+			mensagemSelecionada = (Mensagem) WebResources.getFlash().get(WebResources.MENSAGEM);
+		} else if (tela.equals("enviarMensagem")) {
+			novaMensagem = Boolean.TRUE;
+			atualizarCaixaEntrada();
+			mensagem.setDestinatario((Usuario) WebResources.getFlash().get(WebResources.USUARIO));
+			msgPrivada = Boolean.TRUE;
+		}
 	}
-	
+
 	public void atualizarCaixaEntrada() {
 		mensagemsRecebidas = mensagemServiceBean.consultarRecebidas(UsuarioSessionBean.getInstance().getUsuarioSessao());
 		mensagemEnviadas = mensagemServiceBean.consultarEnviadas(UsuarioSessionBean.getInstance().getUsuarioSessao());
 		mensagensExcluidas = mensagemServiceBean.consultarRecebidasLixeira(UsuarioSessionBean.getInstance().getUsuarioSessao());
+		mensagensExcluidas.addAll(mensagemServiceBean.consultarEnviadasLixeira(UsuarioSessionBean.getInstance().getUsuarioSessao()));
 	}
-	
+
 	public String responderMensagem() {
 		try {
 			Mensagem msgEnviada = new Mensagem();
 			msgResponder.setTitulo("RE: " + mensagemSelecionada.getTitulo());
+			msgResponder.setMensagem("<b>Mensagem Original</b><br/><b>Data:</b> " + Util.formatDateHora(mensagemSelecionada.getDtEnvio()) + "<br/><b>Remetente:</b> " + mensagemSelecionada.getRemetente().getNome() + "<br/><br/>" + "Mensagem</br>" + mensagemSelecionada.getMensagem() + "</br></br><hr>" + msgResponder.getMensagem());
 			msgResponder.setRemetente(UsuarioSessionBean.getInstance().getUsuarioSessao());
 			msgResponder.setDtEnvio(new Date());
 			msgEnviada = msgResponder;
@@ -85,7 +99,7 @@ public class CaixaEntradaBean extends GenericBean {
 			return null;
 		}
 	}
-	
+
 	public void selecionarMensagem(Mensagem mensagem) {
 		setMensagemSelecionada(mensagem);
 		msgEnviadas = Boolean.FALSE;
@@ -94,7 +108,7 @@ public class CaixaEntradaBean extends GenericBean {
 		verMensagem = Boolean.TRUE;
 		novaMensagem = Boolean.FALSE;
 	}
-	
+
 	public void exibirNovaMensagem() {
 		msgEnviadas = Boolean.FALSE;
 		msgExcluidas = Boolean.FALSE;
@@ -102,7 +116,7 @@ public class CaixaEntradaBean extends GenericBean {
 		verMensagem = Boolean.FALSE;
 		novaMensagem = Boolean.TRUE;
 	}
-	
+
 	public String enviarMensagem() {
 		List<Usuario> usuariosSelecionados = new ArrayList<Usuario>();
 		for (String idUsuario : destinatariosSelecionadas) {
@@ -136,12 +150,12 @@ public class CaixaEntradaBean extends GenericBean {
 			return null;
 		}
 	}
-	
+
 	public String atualizarMsg() {
 		atualizarCaixaEntrada();
 		return Tela.CAIXA_ENTRADA;
 	}
-	
+
 	public String excluirMsg() {
 		if (msgRecebidas) {
 			excluirMsgSelecionadas(mensagemsRecebidas);
@@ -151,38 +165,47 @@ public class CaixaEntradaBean extends GenericBean {
 		atualizarCaixaEntrada();
 		return Tela.CAIXA_ENTRADA;
 	}
-	
+
 	public String removerLixeiraMsgs() {
 		removerLixeira(mensagensExcluidas);
 		atualizarCaixaEntrada();
 		return Tela.CAIXA_ENTRADA;
 	}
-	
+
 	public void excluirMsgSelecionadas(List<Mensagem> list) {
+		Integer nuMarcados = 0;
 		for (Mensagem mensagem : list) {
-			if(!Util.isNull(mensagem.getSelecionada())) {
+			if (!Util.isNull(mensagem.getSelecionada())) {
 				if (mensagem.getSelecionada()) {
 					mensagem.setTipo(Constantes.MSG_LIXEIRA);
 					mensagemServiceBean.enviarMensagem(mensagem);
+					nuMarcados++;
 				}
 			}
 		}
+		if (nuMarcados == 0) {
+			exibirMsgAviso(getMensagem("display.selecione.alguma.mensagem", WebResources.MENSAGEM));
+		}
 	}
+
 	public void removerLixeira(List<Mensagem> list) {
 		for (Mensagem mensagem : list) {
-			if(!Util.isNull(mensagem.getSelecionada())) {
-				if (mensagem.getSelecionada()) {
+			if (!Util.isNull(mensagem.getSelecionada())) {
+				if (mensagem.getSelecionada() && mensagem.getRemetente().getIdUsuario().equals(UsuarioSessionBean.getInstance().getUsuarioSessao().getIdUsuario())) {
+					mensagem.setTipo(Constantes.MSG_ENVIADA);
+					mensagemServiceBean.enviarMensagem(mensagem);
+				} else {
 					mensagem.setTipo(Constantes.MSG_PRINCIPAL);
 					mensagemServiceBean.enviarMensagem(mensagem);
 				}
 			}
 		}
 	}
-	
+
 	public void selecionarMsg(Mensagem mensagem) {
 		mensagem.setSelecionada(Boolean.TRUE);
 	}
-	
+
 	public void selecionarTodasMsgs() {
 		if (msgRecebidas) {
 			selecionarTodasMensagem(mensagemsRecebidas);
@@ -192,6 +215,7 @@ public class CaixaEntradaBean extends GenericBean {
 			selecionarTodasMensagem(mensagensExcluidas);
 		}
 	}
+
 	public void deselecionarTodasMsgs() {
 		if (msgRecebidas) {
 			deselecionarTodasMensagem(mensagemsRecebidas);
@@ -201,21 +225,20 @@ public class CaixaEntradaBean extends GenericBean {
 			deselecionarTodasMensagem(mensagensExcluidas);
 		}
 	}
-	
+
 	// SELECIONAR
 	public void selecionarTodasMensagem(List<Mensagem> lista) {
 		for (Mensagem m : lista) {
 			m.setSelecionada(Boolean.TRUE);
 		}
 	}
+
 	public void deselecionarTodasMensagem(List<Mensagem> lista) {
 		for (Mensagem m : lista) {
 			m.setSelecionada(Boolean.FALSE);
 		}
 	}
-	
-	
-	
+
 	public void exibirMsgsRecebidas() {
 		msgRecebidas = Boolean.TRUE;
 		msgEnviadas = Boolean.FALSE;
@@ -223,7 +246,7 @@ public class CaixaEntradaBean extends GenericBean {
 		verMensagem = Boolean.FALSE;
 		novaMensagem = Boolean.FALSE;
 	}
-	
+
 	public void exibirMsgsEnviadas() {
 		msgRecebidas = Boolean.FALSE;
 		msgEnviadas = Boolean.TRUE;
@@ -231,7 +254,7 @@ public class CaixaEntradaBean extends GenericBean {
 		verMensagem = Boolean.FALSE;
 		novaMensagem = Boolean.FALSE;
 	}
-	
+
 	public void exibirMsgsExcluidas() {
 		msgRecebidas = Boolean.FALSE;
 		msgEnviadas = Boolean.FALSE;
@@ -239,7 +262,6 @@ public class CaixaEntradaBean extends GenericBean {
 		verMensagem = Boolean.FALSE;
 		novaMensagem = Boolean.FALSE;
 	}
-
 
 	public List<Mensagem> getMensagemsRecebidas() {
 		return mensagemsRecebidas;
@@ -257,36 +279,29 @@ public class CaixaEntradaBean extends GenericBean {
 		this.mensagemEnviadas = mensagemEnviadas;
 	}
 
-
 	public Boolean getMsgRecebidas() {
 		return msgRecebidas;
 	}
-
 
 	public void setMsgRecebidas(Boolean msgRecebidas) {
 		this.msgRecebidas = msgRecebidas;
 	}
 
-
 	public Boolean getMsgEnviadas() {
 		return msgEnviadas;
 	}
-
 
 	public void setMsgEnviadas(Boolean msgEnviadas) {
 		this.msgEnviadas = msgEnviadas;
 	}
 
-
 	public Boolean getMsgExcluidas() {
 		return msgExcluidas;
 	}
 
-
 	public void setMsgExcluidas(Boolean msgExcluidas) {
 		this.msgExcluidas = msgExcluidas;
 	}
-
 
 	public Integer getNuMsgRecebidas() {
 		return getMensagemsRecebidas().size();
@@ -295,7 +310,6 @@ public class CaixaEntradaBean extends GenericBean {
 	public Integer getNuMsgEnviadas() {
 		return getMensagemEnviadas().size();
 	}
-
 
 	public Integer getNuMsgExcluidas() {
 		return getMensagensExcluidas().size();
@@ -364,5 +378,13 @@ public class CaixaEntradaBean extends GenericBean {
 	public void setMsgResponder(Mensagem msgResponder) {
 		this.msgResponder = msgResponder;
 	}
-	
+
+	public Boolean getMsgPrivada() {
+		return msgPrivada;
+	}
+
+	public void setMsgPrivada(Boolean msgPrivada) {
+		this.msgPrivada = msgPrivada;
+	}
+
 }

@@ -1,6 +1,7 @@
 package br.com.sbcuni.usuario.bean;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -20,8 +21,10 @@ public class UsuarioSessionBean extends Sessao implements Serializable {
 	}
 
 	private String argumento;
+	private static Date dataAcesso;
 
 	public void iniciarSessao(String arg, Usuario usuario) {
+		dataAcesso = usuario.getDtUltimoAcesso();
 		this.argumento = arg.toLowerCase();
 		if (!sessaoExiste(argumento)) {
 			setSessao(argumento, usuario);
@@ -36,7 +39,7 @@ public class UsuarioSessionBean extends Sessao implements Serializable {
 		destruir();
 		return Tela.LOGIN;
 	}
-	
+
 	public void removerSessao() {
 		destruir();
 	}
@@ -44,18 +47,22 @@ public class UsuarioSessionBean extends Sessao implements Serializable {
 	public Usuario getUsuarioSessao() {
 		this.argumento = Usuario.class.getSimpleName().toLowerCase();
 		if (sessaoExiste(argumento)) {
-			Usuario funcionario = (Usuario) getSession().getAttribute(argumento);
-			return funcionario;
+			Usuario usuario = (Usuario) getSession().getAttribute(argumento);
+			return usuario;
 		} else {
 			return null;
 		}
 	}
-
+	
 	public static UsuarioSessionBean getInstance() {
 		return new UsuarioSessionBean();
 	}
 
 	public void logarUsuario(Usuario usuario) {
+	}
+
+	public static Date getDataAcesso() {
+		return dataAcesso;
 	}
 
 }

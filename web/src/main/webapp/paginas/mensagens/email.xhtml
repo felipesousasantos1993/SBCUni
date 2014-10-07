@@ -136,11 +136,16 @@
 						<div class="row form-group">
 							<label class="col-sm-2 control-label" for="s2id_autogen1"><h:outputText value="#{mensagens['display.para']}" /> </label>
 							<div class="col-sm-10">
-								<div class="select2-primary">
-									<h:selectManyMenu id="destinatarios" value="#{caixaEntradaBean.destinatariosSelecionadas}"   styleClass="form-control autocompleteUsuario select2-offscreen" tabindex="-1">
-										<f:selectItems value="#{caixaEntradaBean.listaAlunos}" var="aluno" itemValue="#{aluno.idUsuario}" itemLabel="#{aluno.nome} - #{aluno.matricula}"/>
-									</h:selectManyMenu>
-								</div>
+								<h:panelGroup rendered="#{not caixaEntradaBean.msgPrivada}">
+									<div class="select2-primary">
+										<h:selectManyMenu id="destinatarios" value="#{caixaEntradaBean.destinatariosSelecionadas}"   styleClass="form-control autocompleteUsuario select2-offscreen" tabindex="-1">
+											<f:selectItems value="#{caixaEntradaBean.listaAlunos}" var="aluno" itemValue="#{aluno.idUsuario}" itemLabel="#{aluno.nome} - #{aluno.matricula}"/>
+										</h:selectManyMenu>
+									</div>
+								</h:panelGroup>
+								<h:panelGroup rendered="#{caixaEntradaBean.msgPrivada}">
+									<h:outputText style="line-height: 32px;" value="#{caixaEntradaBean.mensagem.destinatario.matriculaNomeAluno}" />
+								</h:panelGroup>
 							</div>
 						</div>
 						<div class="row form-group">
@@ -205,17 +210,17 @@
 								</li>
 							</ul>
 						</div>
-						<h:commandLink title="#{mensagens['display.atualizar']}" styleClass="btn">
+						<h:commandLink title="#{mensagens['display.atualizar']}" styleClass="btn marginLeft_10">
 							<i class="fa fa fa-repeat"/>
 							<f:ajax event="click" render="@form" listener="#{caixaEntradaBean.atualizarMsg()}"/>
 						</h:commandLink>
-						<h:commandLink title="#{mensagens['display.excluir']}" styleClass="btn">
+						<h:commandLink title="#{mensagens['display.excluir']}" styleClass="btn marginLeft_10">
 							<i class="fa fa fa-trash-o"/>
 							<f:ajax event="click" render="@form" listener="#{caixaEntradaBean.excluirMsg()}"/>
 						</h:commandLink>
-						<h:commandLink action="#{caixaEntradaBean.removerLixeiraMsgs()}" title="Remover da lixeira" styleClass="btn" disabled="#{caixaEntradaBean.msgRecebidas or caixaEntradaBean.msgEnviadas}">
+						<h:commandLink action="#{caixaEntradaBean.removerLixeiraMsgs()}" title="Remover da lixeira" styleClass="btn marginLeft_10" rendered="#{caixaEntradaBean.msgExcluidas}">
 							<i class="fa fa fa-trash-o"/>
-							<f:ajax event="click" render="@form" />
+							<f:ajax event="click" render="@form" listener="#{caixaEntradaBean.removerLixeiraMsgs()}"/>
 						</h:commandLink>
 					</div>
 					</h:panelGroup>
@@ -227,28 +232,30 @@
 				<h:panelGroup id="msgRecebidas" rendered="#{caixaEntradaBean.msgRecebidas and not caixaEntradaBean.verMensagem}">
 					<ul class="mail-list">
 						<ui:repeat var="mensagem" value="#{caixaEntradaBean.mensagemsRecebidas}">
-							<h:outputLabel onclick="verMsg()" style="width:100%;" styleClass="labelLink">
-								<li class="mail-item unread">
-									<div class="m-chck"><label class="px-single">
-										<h:selectBooleanCheckbox value="#{mensagem.selecionada}" styleClass="px" >
-											<f:ajax event="click" listener="#{caixaEntradaBean.selecionarMsg(mensagem)}"/>
-										</h:selectBooleanCheckbox>
+							<li class="mail-item unread">
+								<div class="m-chck"><label class="px-single">
+									<h:selectBooleanCheckbox value="#{mensagem.selecionada}" styleClass="px" >
+										<f:ajax event="click" listener="#{caixaEntradaBean.selecionarMsg(mensagem)}"/>
+									</h:selectBooleanCheckbox>
 									<span class="lbl"></span></label></div>
 									<div class="m-star"></div>
-									<div class="m-from"><a href=""><h:outputText value="#{mensagem.remetente.nome}" /> </a></div>
-									<div class="m-subject"> <a href="">
-										<span class="label label-pa-purple">
-											<h:outputText value="#{mensagens['display.recebida']}"  rendered="#{not (mensagem.remetente.idUsuario eq usuarioSessionBean.usuarioSessao.idUsuario)}"/>
-											<h:outputText value="#{mensagens['display.enviada']}"  rendered="#{mensagem.remetente.idUsuario eq usuarioSessionBean.usuarioSessao.idUsuario}"/>
-										</span>
-										<h:outputText value="#{mensagem.titulo}" styleClass="marginLeft_10"/>
-									</a></div>
-									<div class="m-date">
-										<h:outputText value="#{mensagem.tempo}"/> 
-									</div>
+									<h:outputLabel onclick="verMsg()" style="width:100%;" styleClass="labelLink">
+										<div class="m-from"><a href=""><h:outputText value="#{mensagem.remetente.nome}" /> </a></div>
+										<div class="m-subject"> 
+											<a href="">
+												<span class="label label-pa-purple">
+													<h:outputText value="#{mensagens['display.recebida']}"  rendered="#{not (mensagem.remetente.idUsuario eq usuarioSessionBean.usuarioSessao.idUsuario)}"/>
+													<h:outputText value="#{mensagens['display.enviada']}"  rendered="#{mensagem.remetente.idUsuario eq usuarioSessionBean.usuarioSessao.idUsuario}"/>
+												</span>
+												<h:outputText value="#{mensagem.titulo}" styleClass="marginLeft_10"/>
+											</a>
+										</div>
+										<div class="m-date">
+											<h:outputText value="#{mensagem.tempo}"/> 
+										</div>
+									<f:ajax event="click"  render="@form" listener="#{caixaEntradaBean.selecionarMensagem(mensagem)}"/>
+									</h:outputLabel>
 								</li>
-								<f:ajax event="click"  render="@form" listener="#{caixaEntradaBean.selecionarMensagem(mensagem)}"/>
-							</h:outputLabel>
 						</ui:repeat>
 					</ul>
 				</h:panelGroup>
@@ -257,28 +264,30 @@
 				<h:panelGroup id="msgEnviadas" rendered="#{caixaEntradaBean.msgEnviadas and not caixaEntradaBean.verMensagem}">
 					<ul class="mail-list">
 						<ui:repeat var="mensagem" value="#{caixaEntradaBean.mensagemEnviadas}"  >
-							<h:outputLabel onclick="verMsg()" style="width:100%;" styleClass="labelLink">
-								<li class="mail-item unread">
-									<div class="m-chck"><label class="px-single">
-										<h:selectBooleanCheckbox value="#{mensagem.selecionada}" styleClass="px" >
-											<f:ajax event="click" listener="#{caixaEntradaBean.selecionarMsg(mensagem)}"/>
-										</h:selectBooleanCheckbox>
+							<li class="mail-item unread">
+								<div class="m-chck"><label class="px-single">
+									<h:selectBooleanCheckbox value="#{mensagem.selecionada}" styleClass="px" >
+										<f:ajax event="click" listener="#{caixaEntradaBean.selecionarMsg(mensagem)}"/>
+									</h:selectBooleanCheckbox>
 									<span class="lbl"></span></label></div>
 									<div class="m-star"></div>
-									<div class="m-from"><a href=""><h:outputText value="#{mensagem.remetente.nome}" /> </a></div>
-									<div class="m-subject"> <a href="">
-										<span class="label label-pa-purple">
-											<h:outputText value="#{mensagens['display.recebida']}"  rendered="#{not (mensagem.remetente.idUsuario eq usuarioSessionBean.usuarioSessao.idUsuario)}"/>
-											<h:outputText value="#{mensagens['display.enviada']}"  rendered="#{mensagem.remetente.idUsuario eq usuarioSessionBean.usuarioSessao.idUsuario}"/>
-										</span>
-										<h:outputText value="#{mensagem.titulo}" styleClass="marginLeft_10"/>
-									</a></div>
-									<div class="m-date">
-										<h:outputText value="#{mensagem.tempo}"/> 
-									</div>
-								</li>
-								<f:ajax event="click"  render="@form" listener="#{caixaEntradaBean.selecionarMensagem(mensagem)}"/>
-							</h:outputLabel>
+									<h:outputLabel onclick="verMsg()" style="width:100%;" styleClass="labelLink">
+										<div class="m-from"><a href=""><h:outputText value="#{mensagem.remetente.nome}" /> </a></div>
+										<div class="m-subject"> 
+											<a href="">
+												<span class="label label-pa-purple">
+													<h:outputText value="#{mensagens['display.recebida']}"  rendered="#{not (mensagem.remetente.idUsuario eq usuarioSessionBean.usuarioSessao.idUsuario)}"/>
+													<h:outputText value="#{mensagens['display.enviada']}"  rendered="#{mensagem.remetente.idUsuario eq usuarioSessionBean.usuarioSessao.idUsuario}"/>
+												</span>
+												<h:outputText value="#{mensagem.titulo}" styleClass="marginLeft_10"/>
+											</a>
+										</div>
+										<div class="m-date">
+											<h:outputText value="#{mensagem.tempo}"/> 
+										</div>
+									<f:ajax event="click"  render="@form" listener="#{caixaEntradaBean.selecionarMensagem(mensagem)}"/>
+								</h:outputLabel>
+							</li>
 						</ui:repeat>
 					</ul>
 				</h:panelGroup>
@@ -287,28 +296,30 @@
 				<h:panelGroup id="msgExcluidas" rendered="#{caixaEntradaBean.msgExcluidas and not caixaEntradaBean.verMensagem}">
 					<ul class="mail-list">
 						<ui:repeat var="mensagem" value="#{caixaEntradaBean.mensagensExcluidas}"  >
-							<h:outputLabel onclick="verMsg()" style="width:100%;" styleClass="labelLink">
-								<li class="mail-item unread">
-									<div class="m-chck"><label class="px-single">
-										<h:selectBooleanCheckbox value="#{mensagem.selecionada}" styleClass="px" >
-											<f:ajax event="click" listener="#{caixaEntradaBean.selecionarMsg(mensagem)}"/>
-										</h:selectBooleanCheckbox>
+							<li class="mail-item unread">
+								<div class="m-chck"><label class="px-single">
+									<h:selectBooleanCheckbox value="#{mensagem.selecionada}" styleClass="px" >
+										<f:ajax event="click" listener="#{caixaEntradaBean.selecionarMsg(mensagem)}"/>
+									</h:selectBooleanCheckbox>
 									<span class="lbl"></span></label></div>
 									<div class="m-star"></div>
-									<div class="m-from"><a href=""><h:outputText value="#{mensagem.remetente.nome}" /> </a></div>
-									<div class="m-subject"> <a href="">
-										<span class="label label-pa-purple">
-											<h:outputText value="#{mensagens['display.recebida']}"  rendered="#{not (mensagem.remetente.idUsuario eq usuarioSessionBean.usuarioSessao.idUsuario)}"/>
-											<h:outputText value="#{mensagens['display.enviada']}"  rendered="#{mensagem.remetente.idUsuario eq usuarioSessionBean.usuarioSessao.idUsuario}"/>
-										</span>
-										<h:outputText value="#{mensagem.titulo}" styleClass="marginLeft_10"/>
-									</a></div>
-									<div class="m-date">
-										<h:outputText value="#{mensagem.tempo}"/> 
-									</div>
-								</li>
-								<f:ajax event="click"  render="@form" listener="#{caixaEntradaBean.selecionarMensagem(mensagem)}"/>
-							</h:outputLabel>
+									<h:outputLabel onclick="verMsg()" style="width:100%;" styleClass="labelLink">
+										<div class="m-from"><a href=""><h:outputText value="#{mensagem.remetente.nome}" /> </a></div>
+										<div class="m-subject"> 
+											<a href="">
+												<span class="label label-pa-purple">
+													<h:outputText value="#{mensagens['display.recebida']}"  rendered="#{not (mensagem.remetente.idUsuario eq usuarioSessionBean.usuarioSessao.idUsuario)}"/>
+													<h:outputText value="#{mensagens['display.enviada']}"  rendered="#{mensagem.remetente.idUsuario eq usuarioSessionBean.usuarioSessao.idUsuario}"/>
+												</span>
+												<h:outputText value="#{mensagem.titulo}" styleClass="marginLeft_10"/>
+											</a>
+										</div>
+										<div class="m-date">
+											<h:outputText value="#{mensagem.tempo}"/> 
+										</div>
+									<f:ajax event="click"  render="@form" listener="#{caixaEntradaBean.selecionarMensagem(mensagem)}"/>
+								</h:outputLabel>
+							</li>
 						</ui:repeat>
 					</ul>
 				</h:panelGroup>

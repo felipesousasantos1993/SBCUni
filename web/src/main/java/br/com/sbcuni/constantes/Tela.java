@@ -49,7 +49,7 @@ public class Tela implements Serializable {
 	public static final String INCLUIR_ALUNO_PATH = "/paginas/grupoEstudo/incluirAlunos.jsf";
 
 	//EMAIL
-	public static final String CAIXA_ENTRADA = "/paginas/mensagens/caixaEntrada.jsf";
+	public static final String CAIXA_ENTRADA = "/paginas/mensagens/email.jsf";
 	
 	//PESQUISA
 	public static final String RESULTADO_PESQUISA_PATH = "/paginas/pesquisa/resultadoPesquisa.jsf";

@@ -199,4 +199,16 @@ public class UsuarioServiceBean implements Serializable {
 			return null;
 		}
 	}
+	
+	public List<Usuario> pesquisa(String consulta) {
+		Query query = entityManager.createNamedQuery("Usuario.pesquisa");
+		query.setParameter("nome", "%" + consulta.toLowerCase() + "%");
+		query.setParameter("email", "%" + consulta.toLowerCase() + "%");
+		query.setParameter("matricula", "%" + consulta.toLowerCase() + "%");
+		try {
+			return query.getResultList();
+		} catch (NoResultException e) {
+			return null;
+		}
+	}
 }

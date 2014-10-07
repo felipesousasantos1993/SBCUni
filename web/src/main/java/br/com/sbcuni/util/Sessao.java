@@ -17,7 +17,7 @@ public abstract class Sessao {
 		session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
 		session.setAttribute(argumento, usuario);
 	}
-
+	
 	protected void destruir() {
 		session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
 		session.invalidate();

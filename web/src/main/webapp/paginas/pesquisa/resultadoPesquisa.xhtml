@@ -7,7 +7,7 @@
 	template="/template/template.xhtml"
 	xmlns:p="http://primefaces.org/ui"
 >
-	<ui:define name="conteudo">
+<ui:define name="conteudo">
 	<div class="page-header">
 		<ol class="breadcrumb breadcrumb-page">
 			<li>
@@ -24,8 +24,9 @@
 		</ol>
 		<h:messages id="mensagens"  errorClass="alert alert-danger alert-dark" infoClass="alert alert-info alert-dark" warnClass="alert alert-dark"/>
 	</div>
+	<h:form prependId="false" id="form">
+	<div class="page-search">
 		<div id="content" class="content">
-			<h:form prependId="false" id="form">
 				<div class="search-text">
 					<strong><h:outputText value="#{resultadoPesquisaBean.nuResultados}" /> </strong>
 					<h:outputText value="#{mensagens['display.resultados.encontrados.para.low']}" />
@@ -35,43 +36,161 @@
 				<div class="search-tabs">
 					<ul class="nav nav-tabs">
 						<li class="active"> 
-							<a href="#topicos" data-toggle="tab">
+							<a href="#todos" data-toggle="tab">
 								<h:outputText value="#{mensagens['display.todos']}" /> 
-								<span class="label label-primary">
+								<span class="label label-primary" style="background: #1d89cf;">
 									<h:outputText value="#{resultadoPesquisaBean.nuResultados}" /> 
+								</span>
+							</a>
+						</li>
+						<li>
+							<a href="#topicos" data-toggle="tab">
+								<h:outputText value="#{mensagens['display.topicos']}" />
+								<span class="label label-success">
+									<h:outputText value="#{resultadoPesquisaBean.nuTopicos}" /> 
+								</span>
+							</a>
+						</li>
+						<li>
+							<a href="#usuarios" data-toggle="tab">
+								<h:outputText value="#{mensagens['display.usuarios']}" />
+								<span class="label label-success">
+									<h:outputText value="#{resultadoPesquisaBean.nuUsuarios}" /> 
+								</span>
+							</a>
+						</li>
+						<li>
+							<a href="#msgs" data-toggle="tab">
+								<h:outputText value="#{mensagens['display.mensagens']}" />
+								<span class="label label-success">
+									<h:outputText value="#{resultadoPesquisaBean.nuMensagens}" /> 
+								</span>
+							</a>
+						</li>
+						<li>
+							<a href="#grupos" data-toggle="tab">
+								<h:outputText value="#{mensagens['display.grupos.estudo']}" />
+								<span class="label label-success">
+									<h:outputText value="#{resultadoPesquisaBean.nuGrupos}" /> 
 								</span>
 							</a>
 						</li>
 					</ul>
 					
 					<div class="panel search-panel">
-						<h:panelGroup styleClass="search-form bg-primary">
+						<div class="search-form bg-primary" style="margin-top: -3px;">
 							<div class="input-group input-group-lg">
 								<span class="input-group-addon no-background"><i class="fa fa-search"></i></span>
-								<input type="text" name="s" class="form-control" placeholder="Type your search here..."/>
+								<h:inputText id="inputPesquisa" value="#{pesquisaBean.consulta}" styleClass="form-control"/>
 								<span class="input-group-btn">
-									<button class="btn" type="submit">Search</button>
+									<h:commandButton action="#{pesquisaBean.pesquisar()}" value="#{mensagens['display.pesquisar']}" styleClass="btn"/>
 								</span>
 							</div>
-						</h:panelGroup>
+						</div>
 						
 						<div class="panel-body tab-content">
-							<ul id="topicos" class="search-classic tab-pane fade in active">
+							<!-- TODOS -->
+							<ul id="todos" class="search-classic tab-pane fade in active">
 								<ui:repeat var="topico" value="#{resultadoPesquisaBean.topicos}">
 									<li>
-										#{topico.descricao}
+										<h:commandLink action="#{resultadoPesquisaBean.detalharTopico(topico)}" value="#{topico.titulo}" styleClass="search-title"/>
+										<div class="search-content">
+											<h:outputText value="#{topico.descricao}" escape="false"/>
+										</div>
+										<div class="search-tags">
+											<span class="search-tags-text"><h:outputText value="#{mensagens['display.categoria']}s" /> </span>
+											<ui:repeat var="categoria" value="#{topico.categorias}">
+												<h:outputText value="#{categoria.deCategoria}" styleClass="label label-success"/>
+											</ui:repeat>
+										</div>
+										
 									</li>
 								</ui:repeat>
 							</ul>
-						
-						
+							<!-- TOPICOS -->
+							<ul id="topicos" class="search-classic tab-pane fade in">
+								<ui:repeat var="topico" value="#{resultadoPesquisaBean.topicos}">
+									<li>
+										<h:commandLink action="#{resultadoPesquisaBean.detalharTopico(topico)}" value="#{topico.titulo}" styleClass="search-title"/>
+										<div class="search-content">
+											<h:outputText value="#{topico.descricao}" escape="false"/>
+										</div>
+										<div class="search-tags">
+											<span class="search-tags-text"><h:outputText value="#{mensagens['display.categoria']}s" /> </span>
+											<ui:repeat var="categoria" value="#{topico.categorias}">
+												<h:outputText value="#{categoria.deCategoria}" styleClass="label label-success"/>
+											</ui:repeat>
+										</div>
+										
+									</li>
+								</ui:repeat>
+							</ul>
+							<!-- USUARIOS -->
+							<div id="usuarios" class="search-users tab-pane fade in">
+								<h:dataTable
+									value="#{resultadoPesquisaBean.usuarios}"
+									var="usuario"
+									styleClass="table table-hover"
+									
+								>
+									<h:column  rowHeader="td" headerClass="text-center">
+										<f:facet name="header">
+											<h:outputText value="#" />
+										</f:facet>
+										<div class="text-center">
+											<h:outputText value="#{usuario.indice}" styleClass="text-center"/>
+										</div>
+									</h:column>
+									<h:column >
+										<f:facet name="header">
+											<h:outputText value="#{mensagens['display.usuario']}" />
+										</f:facet>
+										<h:graphicImage value="/resources/img/avatares/#{usuario.avatar}" styleClass="avatar"/>
+										<h:commandLink action="#{resultadoPesquisaBean.perfilUsuario(usuario)}" value="#{usuario.nome}" styleClass="marginLeft_10"/>
+									</h:column>
+									<h:column >
+										<f:facet name="header">
+											<h:outputText value="#{mensagens['display.matricula']}" />
+										</f:facet>
+										<h:outputText value="#{usuario.matricula}" />
+									</h:column>
+									<h:column >
+										<f:facet name="header">
+											<h:outputText value="#{mensagens['display.email']}" />
+										</f:facet>
+										<h:outputText value="#{usuario.email}" />
+									</h:column>
+								</h:dataTable>
+							</div>
+							<div id="msgs" class="search-messages tab-pane fade widget-messages in">
+								<ui:repeat var="mensagem" value="#{resultadoPesquisaBean.mensagens}">
+									<div class="message unread">
+										<h:commandLink action="#{resultadoPesquisaBean.verMensagem(mensagem)}" value="#{mensagem.remetente.nome}" styleClass="from"/>
+										<h:commandLink action="#{resultadoPesquisaBean.verMensagem(mensagem)}" value="#{mensagem.titulo}" styleClass="title"/>
+										<div class="date">
+											<h:outputText value="#{mensagem.tempo}" />
+										</div>
+									</div>
+								</ui:repeat>
+							</div>
+							<div id="grupos" class="search-classic widget-followers tab-pane fade in">
+								<ui:repeat var="grupoEstudo" value="#{resultadoPesquisaBean.grupoEstudos}">
+									<li> 
+										<h:commandLink action="#{resultadoPesquisaBean.detalharGrupoEstudo(grupoEstudo)}" value="#{grupoEstudo.noGrupo}" styleClass="search-title"/>
+										<div class="search-content follower">
+											<h:graphicImage value="/resources/img/avatares/#{grupoEstudo.professor.avatar}" styleClass="follower-avatar"/>
+											<h:outputText value="#{grupoEstudo.professor.nome}" escape="false" styleClass="marginLeft_10"/>
+										</div>
+										<div class="search-tags">
+										</div>
+									</li>
+								</ui:repeat>
+							</div>
 						</div>
-						
 					</div>
-					
 				</div>
-						
-			</h:form>
-		</div>
+			</div>
+			</div>
+		</h:form>
 	</ui:define>
 </ui:composition>
