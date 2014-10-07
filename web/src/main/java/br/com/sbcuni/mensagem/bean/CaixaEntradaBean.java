@@ -171,6 +171,12 @@ public class CaixaEntradaBean extends GenericBean {
 		atualizarCaixaEntrada();
 		return Tela.CAIXA_ENTRADA;
 	}
+	
+	public void excluirMensagem(Mensagem mensagem) {
+		mensagem.setTipo(Constantes.MSG_LIXEIRA);
+		mensagemServiceBean.enviarMensagem(mensagem);
+		atualizarCaixaEntrada();
+	}
 
 	public void excluirMsgSelecionadas(List<Mensagem> list) {
 		Integer nuMarcados = 0;

@@ -11,6 +11,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import br.com.sbcuni.categoria.entity.Categoria;
+import br.com.sbcuni.grupoEstudo.GrupoEstudo;
 import br.com.sbcuni.topico.entity.Topico;
 import br.com.sbcuni.usuario.entity.Usuario;
 
@@ -105,5 +106,13 @@ public class TopicoServiceBean implements Serializable {
 		entityManager.remove(topico);
 	}
 
-
+	public List<Topico> buscarTopicosGrupo(GrupoEstudo grupoEstudo) {
+		Query query = entityManager.createNamedQuery("Topico.buscarTopicosGrupo");
+		query.setParameter("idGrupoEstudo", grupoEstudo.getIdGrupoEstudo());
+		try {
+			return query.getResultList();
+		} catch (NoResultException e) {
+			return null;
+		}
+	}
 }

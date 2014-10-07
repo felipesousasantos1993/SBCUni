@@ -36,9 +36,56 @@
 									<h:outputText value="#{visualizarTopicoBean.topico.titulo}" />
 								</h3>
 								<h:outputText value="#{visualizarTopicoBean.topico.descricao}" escape="false" />
+								<div class="pull-left">
+									<h:panelGroup rendered="#{not empty visualizarTopicoBean.topico.grupoEstudo}">
+										<i class="fa fa-group"/>
+										<h:commandLink immediate="true" action="#{visualizarTopicoBean.detalharGrupoEstudo(visualizarTopicoBean.topico.grupoEstudo)}"  value="#{visualizarTopicoBean.topico.grupoEstudo.noGrupo}" styleClass="marginLeft_10"/>
+									</h:panelGroup>
+									<br/>
+									<h:panelGroup id="avaliacao" styleClass="avaliacaoVisualizar">
+							 		 	<div class="box-tools pull-left" align="left">
+								 			<h:panelGroup rendered="#{visualizarTopicoBean.topico.avaliacaoUsuario.avaliacao == false}"> 
+								 		 		<h:commandLink >
+								 		 			<h:outputText value="#{visualizarTopicoBean.topico.nuAvaliacaoPositivas}" />
+								 		 			<i class="glyphicon glyphicon-thumbs-up" />
+								 		 			<f:ajax event="click" render="avaliacao" listener="#{visualizarTopicoBean.curtirTopico(visualizarTopicoBean.topico)}" immediate="true" execute="@form"/>
+								 		 		</h:commandLink>
+								 		 		<h:commandLink styleClass="disabled-editado marginLeft_10">
+								 		 			<i class="glyphicon glyphicon-thumbs-down" />
+								 		 			<f:ajax event="click" render="avaliacao" listener="#{visualizarTopicoBean.removerAvaliacaoTopico(visualizarTopicoBean.topico)}" immediate="true" execute="@form"/>
+								 		 		</h:commandLink>
+									 			<h:outputText value="#{visualizarTopicoBean.topico.nuAvaliacaoNegativas}" styleClass="marginLeft_10"/>
+								 		 	</h:panelGroup>
+								 		 	<h:panelGroup rendered="#{visualizarTopicoBean.topico.avaliacaoUsuario.avaliacao == true}">
+								 		 		<h:commandLink styleClass="disabled-editado">
+										 			<h:outputText value="#{visualizarTopicoBean.topico.nuAvaliacaoPositivas}" />
+									 		 		<i class="glyphicon glyphicon-thumbs-up" />
+									 		 		<f:ajax event="click" render="avaliacao" listener="#{visualizarTopicoBean.removerAvaliacaoTopico(visualizarTopicoBean.topico)}" immediate="true" execute="@form"/>
+								 		 		</h:commandLink>
+									 		 	<h:commandLink styleClass="marginLeft_10">
+									 		 		<i class="glyphicon glyphicon-thumbs-down" />
+									 		 		<f:ajax event="click" execute="avaliacao" render="avaliacao" listener="#{visualizarTopicoBean.descurtirTopico(visualizarTopicoBean.topico)}"/>
+								 		 		</h:commandLink>
+									 			<h:outputText value="#{visualizarTopicoBean.topico.nuAvaliacaoNegativas}" styleClass="marginLeft_10"/>
+								 		 	</h:panelGroup>
+								 		 	<h:panelGroup rendered="#{empty visualizarTopicoBean.topico.avaliacaoUsuario}">
+								 		 		<h:commandLink  >
+										 			<h:outputText value="#{visualizarTopicoBean.topico.nuAvaliacaoPositivas}" />
+								 		 			<i class="glyphicon glyphicon-thumbs-up" />
+								 		 			<f:ajax event="click" render="avaliacao" listener="#{visualizarTopicoBean.curtirTopico(visualizarTopicoBean.topico)}" immediate="true" execute="@form"/>
+								 		 		</h:commandLink>
+								 		 		<h:commandLink styleClass="marginLeft_10">
+									 		 		<i class="glyphicon glyphicon-thumbs-down" />
+									 		 		<f:ajax event="click" execute="avaliacao" render="avaliacao" listener="#{visualizarTopicoBean.descurtirTopico(visualizarTopicoBean.topico)}"/>
+								 		 		</h:commandLink>
+									 			<h:outputText value="#{visualizarTopicoBean.topico.nuAvaliacaoNegativas}" styleClass="marginLeft_10"/>
+								 		 	</h:panelGroup>
+								 		 </div>
+						 		 	</h:panelGroup>
+								</div>
 								<div class="pull-right">
 									<ui:repeat var="categoria" value="#{visualizarTopicoBean.topico.categorias}">
-										<h:outputText value="#{categoria.deCategoria}" styleClass="label label"/>
+										<h:outputText value="#{categoria.deCategoria}" styleClass="label label marginLeft_5"/>
 									</ui:repeat>
 								</div>
 							</div>
@@ -50,7 +97,7 @@
 								<div class="comment-body">
 									<div class="comment-text">
 										<div class="comment-heading">
-											<h:commandLink action="#" value="#{comentario.usuario.nome}" />
+											<h:commandLink action="#{visualizarTopicoBean.perfilUsuario(comentario.usuario)}" immediate="true" value="#{comentario.usuario.nome}" />
 											<span>
 												<h:outputText value="#{comentario.tempoComentarioCriacao}"/>
 												<h:outputText value="#{comentario.tempoComentario}" rendered="#{not empty comentario.dtUltimaAtualizacao}" styleClass="marginLeft_5"/> 

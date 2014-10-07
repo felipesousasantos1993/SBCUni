@@ -1392,7 +1392,7 @@ html body.page-signup {
 
 .page-404 .header .demo-logo,.page-500 .header .demo-logo {
 	display: inline-block;
-	height: 24px;
+	height: auto;
 	line-height: 24px;
 	background: #555 !important
 }

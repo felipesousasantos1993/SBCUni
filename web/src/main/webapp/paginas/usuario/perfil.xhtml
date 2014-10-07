@@ -38,7 +38,7 @@
 						<h:graphicImage library="img" value="/resources/img/avatares/#{perfilBean.usuario.avatar}" rendered="#{usuarioSessionBean.usuarioSessao.idUsuario != perfilBean.usuario.idUsuario}"/>
 					</div>
 					<h:panelGroup rendered="#{perfilBean.usuario.idUsuario eq usuarioSessionBean.usuarioSessao.idUsuario}">
-						<h:outputLink  value="#{facesContext.externalContext.requestContextPath}/paginas/usuario/editarPerfil.jsf" styleClass="btn btn-primary" >
+						<h:outputLink  value="#{facesContext.externalContext.requestContextPath}/paginas/usuario/editarPerfil.jsf" styleClass="btn btn-primary btn-xs" >
 							<i class="fa fa-user" style="margin-right: 5px;"/>
 							<h:outputText value="#{mensagens['display.editar.perfil']}" />
 						</h:outputLink>
@@ -50,7 +50,7 @@
 					<div class="panel panel-transparent">
 						<div class="panel-heading">
 							<span class="panel-title">
-								<h:outputText value="#{mensagens['display.perfil']}" />
+								<h:outputText value="#{mensagens['display.sobre.mim']}" />
 							</span>						
 						</div>
 						<div class="panel-body">

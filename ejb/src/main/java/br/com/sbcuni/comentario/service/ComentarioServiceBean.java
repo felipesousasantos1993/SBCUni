@@ -63,5 +63,16 @@ public class ComentarioServiceBean implements Serializable {
 			return null;
 		}
 	}
+	public Long consultarNuComentariosGrupoEstudo(GrupoEstudo grupoEstudo) {
+		Query query = entityManager.createNamedQuery("Comentario.consultarNuComentariosGrupoEstudo");
+		query.setParameter("idGrupoEstudo", grupoEstudo.getIdGrupoEstudo());
+		try {
+			return (Long) query.getSingleResult();
+		} catch (NoResultException e) {
+			return null;
+		}
+	}
+	
+	
 	
 }

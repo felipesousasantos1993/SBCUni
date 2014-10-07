@@ -134,7 +134,7 @@
 									<div class="messages-list" id="main-navbar-messages" style="overflow: hidden; width: auto; height: auto;">
 									</div>
 									<div class="slimScrollBar" style="width: 7px; position: absolute; top: 0px; opacity: 0.4; display: none; border-top-left-radius: 7px; border-top-right-radius: 7px; border-bottom-right-radius: 7px; border-bottom-left-radius: 7px; z-index: 99; right: 1px; background: rgb(0, 0, 0);"></div><div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-top-left-radius: 7px; border-top-right-radius: 7px; border-bottom-right-radius: 7px; border-bottom-left-radius: 7px; opacity: 0.2; z-index: 90; right: 1px; background: rgb(51, 51, 51);"></div></div> <!-- / .messages-list -->
-									<a href="#" class="messages-link"><h:outputText value="#{mensagens['display.nao.existem.novos.topicos']}" /> </a>
+									<a href="#" class="messages-link"><h:outputText value="#{mensagens['display.nao.existem.novas.mensagens']}" /> </a>
 								</div>
 								</h:panelGroup>
 							</li>
@@ -144,7 +144,7 @@
 							<li>
 								<h:form prependId="false"  styleClass="navbar-form  pull-left">
 									<div class="form-group input-group-sm has-feedback no-margin">
-										<h:inputText id="pesquisar" value="#{pesquisaBean.consulta}" styleClass="form-control" />
+										<h:inputText id="pesquisar" autocomplete="off" value="#{pesquisaBean.consulta}" styleClass="form-control" />
 										<h:commandLink action="#{pesquisaBean.pesquisar()}" value="" styleClass="fa fa-search form-control-feedback labelLink">
 										</h:commandLink>
 								    </div>
@@ -160,7 +160,9 @@
 										</span>
 									</a>
 									<ul class="dropdown-menu">
-										<li><a href="#{facesContext.externalContext.requestContextPath}/paginas/usuario/perfil.jsf"><h:outputText value="#{mensagens['display.perfil']}" /> </a></li>
+										<li>
+											<h:commandLink action="#{notificacaoBean.perfilUsuario(usuarioSessionBean.usuarioSessao)}" value="#{mensagens['display.perfil']}"/>
+										</li>
 										<li class="divider"></li>
 										<li>
 											<h:commandLink value="#{mensagens['display.sair']}" action="#{loginBean.deslogar}" >

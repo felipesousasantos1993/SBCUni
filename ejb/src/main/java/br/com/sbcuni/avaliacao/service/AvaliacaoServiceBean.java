@@ -12,6 +12,7 @@ import javax.persistence.Query;
 import br.com.sbcuni.avaliacao.entity.Avaliacao;
 import br.com.sbcuni.comentario.entity.Comentario;
 import br.com.sbcuni.exception.SbcuniException;
+import br.com.sbcuni.grupoEstudo.GrupoEstudo;
 import br.com.sbcuni.topico.entity.Topico;
 import br.com.sbcuni.usuario.entity.Usuario;
 
@@ -28,6 +29,9 @@ public class AvaliacaoServiceBean implements Serializable {
 	
 	private StringBuffer queryNuAvaliacoesPositivasTopico = new StringBuffer("SELECT COUNT(*) FROM avaliacao WHERE avaliacao = true and idavaliacao IN (SELECT  avaliacaos_idavaliacao from avaliacao_topico  WHERE topicos_idtopico  = ?)");
 	private StringBuffer queryNuAvaliacoesNegativasTopico = new StringBuffer("SELECT COUNT(*) FROM avaliacao WHERE avaliacao = false and idavaliacao IN (SELECT  avaliacaos_idavaliacao from avaliacao_topico  WHERE topicos_idtopico  = ?)");
+	
+	private StringBuffer queryNuAvaliacoesNegativasGrupo = new StringBuffer("SELECT COUNT(*) FROM avaliacao WHERE avaliacao = false and idavaliacao IN (SELECT  avaliacaos_idavaliacao from avaliacao_topico  WHERE topicos_idtopico IN (SELECT idtopico FROM topico WHERE grupoestudo_idgrupoestudo = ?))");
+	private StringBuffer queryNuAvaliacoesPositivasGrupo = new StringBuffer("SELECT COUNT(*) FROM avaliacao WHERE avaliacao = true and idavaliacao IN (SELECT  avaliacaos_idavaliacao from avaliacao_topico  WHERE topicos_idtopico IN (SELECT idtopico FROM topico WHERE grupoestudo_idgrupoestudo = ?))");
 	
 	private StringBuffer queryVerificaVotoUsuarioTopico = new StringBuffer("SELECT a.idavaliacao FROM avaliacao a INNER JOIN avaliacao_topico ap ON ap.avaliacaos_idavaliacao = a.idavaliacao WHERE a.usuario = ? AND ? IN (ap.topicos_idtopico)");
 	private StringBuffer queryVerificaVotoUsuarioComentario = new StringBuffer("SELECT a.idavaliacao FROM avaliacao a INNER JOIN avaliacao_comentario ac ON ac.avaliacoes_idavaliacao = a.idavaliacao WHERE a.usuario = ? AND ? IN (ac.comentarios_idcomentario)");
@@ -92,6 +96,26 @@ public class AvaliacaoServiceBean implements Serializable {
 			query.setParameter(2, comentario.getIdComentario());
 			BigInteger idAvaliacao = (BigInteger) query.getSingleResult();
 			return entityManager.find(Avaliacao.class, idAvaliacao.longValue());
+		} catch (NoResultException e) {
+			return null;
+		}
+	}
+	
+	public BigInteger nuAvaliacoesPositivasGrupoEstudo(GrupoEstudo ge) {
+		Query query = entityManager.createNativeQuery(queryNuAvaliacoesPositivasGrupo.toString());
+		query.setParameter(1, ge.getIdGrupoEstudo());
+		try {
+			return (BigInteger) query.getSingleResult();
+		} catch (NoResultException e) {
+			return null;
+		}
+	}
+	
+	public BigInteger nuAvaliacoesNegativasGrupoEstudo(GrupoEstudo ge) {
+		Query query = entityManager.createNativeQuery(queryNuAvaliacoesNegativasGrupo.toString());
+		query.setParameter(1, ge.getIdGrupoEstudo());
+		try {
+			return (BigInteger) query.getSingleResult();
 		} catch (NoResultException e) {
 			return null;
 		}

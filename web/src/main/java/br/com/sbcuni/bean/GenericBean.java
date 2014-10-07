@@ -38,7 +38,6 @@ public class GenericBean implements Serializable {
 	private AvaliacaoServiceBean avaliacaoServiceBean;
 	@EJB
 	private TopicoServiceBean topicoServiceBean;
-
 	public static String getMensagem(String key, Object... args) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ResourceBundle mensagens = ctx.getApplication().getResourceBundle(ctx, "mensagens");
@@ -68,8 +67,9 @@ public class GenericBean implements Serializable {
 		topicoServiceBean.alterarTopico(topico);
 		return Tela.VISUALIZAR_TOPICO_PATH;
 	}
-	public static String detalharGrupoEstudo(GrupoEstudo grupoEstudo) {
+	public String detalharGrupoEstudo(GrupoEstudo grupoEstudo) {
 		WebResources.getFlash().put(WebResources.GRUPO_ESTUDO, grupoEstudo);
+		grupoEstudo.setTopicosGrupo(topicoServiceBean.buscarTopicosGrupo(grupoEstudo));
 		return Tela.DETALHE_GRUPO_ESTUDO_PATH;
 	}
 

@@ -10017,7 +10017,8 @@ label,optgroup {
 
 .panel-transparent {
 	background: none !important;
-	border: none !important
+	border: none !important;
+	font-size: 11px;
 }
 
 .panel-transparent .panel-body,.panel-transparent .panel-heading {

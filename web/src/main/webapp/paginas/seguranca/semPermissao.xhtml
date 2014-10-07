@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	<html class="gt-ie8 gt-ie9 not-ie pxajs">
+		<h:head>
+			<title>SEM PERMISSÃO</title>
+			<h:outputStylesheet library="css" name="bootstrap.min.css" />
+			<h:outputStylesheet library="css" name="codemirror.min.css" />
+			<h:outputStylesheet library="css" name="pages.min.css" />
+			<h:outputStylesheet library="css" name="pixel-admin.min.css" />
+			<h:outputStylesheet library="css" name="rtl.min.css" />
+			<h:outputStylesheet library="css" name="themes.min.css" />
+			<h:outputStylesheet library="css" name="widgets.min.css" />
+			<h:outputStylesheet library="css" name="custom.css" />
+		</h:head>	
+		<h:body styleClass="page-500">
+			<div class="header">
+				<a href="#{facesContext.externalContext.requestContextPath}/principal/login.jsf">
+					<div class="demo-logo">
+						<h:graphicImage value="/resources/img/logo.png"  library="img"/>
+					</div>
+				</a>
+			</div>
+			<div class="error-code">
+				<h:outputText value="#{mensagens['display.sem.permisao']}" />
+			</div>
+			<div class="error-text">
+				<div class="oops">
+					OPS!
+				</div>
+				<br/>
+				<span class="hr"/>
+				<br/>
+				<h:outputText value="#{mensagens['display.voce.nao.tem.permissao.esta.funcionalidade']}" />
+				<br/>
+				<span class="solve">
+					<h:outputText value="#{mensagens['display.voce.deve.acessar.sistema.com.outro.usuario']}" />
+				</span>
+			</div>
+		</h:body>
+		
+	</html>	
+</ui:composition>

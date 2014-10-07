@@ -27,7 +27,7 @@
 	<div id="content" class="content">
 		<div class="pull-right">
 			<div class="text-semibold text-light-gray text-sm">Centralizar</div>
-			<div class="switcher switcher-primary">
+			<div class="switcher switcher-primary" style="z-index: 1000;">
 				<input type="checkbox" data-class="switcher-success"  id="timeline-centered"/>
 			</div>
 		</div>
@@ -35,7 +35,7 @@
 		<h:inputHidden id="validator"/>
 			<div class="row">
 				<div class="col-md-12">
-					<div class="timeline">
+					<div class="timeline" style="margin-top: -50px;">
 						<div class="tl-header now bg-primary">Agora</div>
 							<ui:repeat id="topico" var="topico" varStatus="topicoStatus" value="#{meusTopicosBean.meusTopicos}">
 								<div class="tl-entry topico#{topicoStatus.index mod 2}">
@@ -49,6 +49,11 @@
 									</div>
 									<div class="panel tl-body">
 										<div class="pull-right text-semibold text-light-gray text-sm">
+											<h:panelGroup rendered="#{not empty topico.grupoEstudo}">
+											 	<h:commandLink action="#{meusTopicosBean.detalharGrupoEstudo(topico.grupoEstudo)}" value="#{topico.grupoEstudo.noGrupo}" title="Grupo estudo"/>
+								 		 		<i class="fa fa-group" style="margin-right:50px;"/>
+							 		 		</h:panelGroup>
+							 		 		
 								 		 	<h:outputText value="#{topico.nuVisualizacoes}" title="Visualizações"/>
 							 		 		<i class="fa fa-eye" />
 								 		 </div>
