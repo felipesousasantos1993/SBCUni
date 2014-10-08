@@ -125,4 +125,14 @@ public class GrupoEstudoSerivceBean implements Serializable {
 		}
 	}
 	
+	public GrupoEstudo consultarGrupoTopico(Topico topico) {
+		Query query = entityManager.createNamedQuery("GrupoEstudo.consultarGrupoTopico");
+		query.setParameter("idTopico", topico.getIdTopico());
+		try {
+			return (GrupoEstudo) query.getSingleResult();
+		} catch (NoResultException e) {
+			return null;
+		}
+	}
+	
 }

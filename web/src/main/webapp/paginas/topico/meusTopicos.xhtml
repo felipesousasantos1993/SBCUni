@@ -63,17 +63,19 @@
 										<h5 class="text-success" style="padding-bottom: 5px;font-weight:700;">
 											<h:outputText value="#{topico.usuario.nome}" />
 										</h5>
-					                 	<h:commandLink action="#{meusTopicosBean.telaAtualizarTopico(topico)}" rendered="#{topico.usuario.idUsuario eq usuarioSessionBean.usuarioSessao.idUsuario}"  styleClass="btn btn-default btn-outline btn-xs" >
-					                 		<span class="fa fa-edit"/>
-					                 	</h:commandLink>
-				                  		<h:commandLink title="Excluir"  rendered="#{topico.usuario.idUsuario eq usuarioSessionBean.usuarioSessao.idUsuario}" styleClass="btn btn-danger btn-outline btn-xs marginLeft_10">
-				                  			<i class="glyphicon glyphicon-trash"/>
-											<f:ajax event="click" execute="@this" onevent="showModalDelete('modalExcluir')"  listener="#{meusTopicosBean.topicoExcluir(topico)}" />	
-										</h:commandLink>
-										<div class="box-tools pull-right" align="right">
-											<ui:repeat var="categoria" value="#{topico.categorias}">
-												<h:outputText styleClass="label label marginLeft_5" value="#{categoria.deCategoria}" />
-											</ui:repeat>
+										<div style="margin-bottom: -15px;">
+						                 	<h:commandLink action="#{meusTopicosBean.telaAtualizarTopico(topico)}" rendered="#{topico.usuario.idUsuario eq usuarioSessionBean.usuarioSessao.idUsuario}"  styleClass="btn btn-default btn-outline btn-xs" >
+						                 		<span class="fa fa-edit"/>
+						                 	</h:commandLink>
+					                  		<h:commandLink title="Excluir"  rendered="#{topico.usuario.idUsuario eq usuarioSessionBean.usuarioSessao.idUsuario}" styleClass="btn btn-danger btn-outline btn-xs marginLeft_10">
+					                  			<i class="glyphicon glyphicon-trash"/>
+												<f:ajax event="click" execute="@this" onevent="showModalDelete('modalExcluir')"  listener="#{meusTopicosBean.topicoExcluir(topico)}" />	
+											</h:commandLink>
+											<div class="box-tools pull-right" align="right">
+												<ui:repeat var="categoria" value="#{topico.categorias}">
+													<h:outputText styleClass="label label marginLeft_5" value="#{categoria.deCategoria}" />
+												</ui:repeat>
+											</div>
 										</div>
 						 		 	</div>
 						 		 		<h:panelGroup id="avaliacao" styleClass="avaliacao">

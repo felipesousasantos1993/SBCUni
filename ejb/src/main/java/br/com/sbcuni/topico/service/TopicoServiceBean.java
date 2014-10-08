@@ -115,4 +115,12 @@ public class TopicoServiceBean implements Serializable {
 			return null;
 		}
 	}
+	public List<Topico> buscarTopicosPainel() {
+		Query query = entityManager.createNamedQuery("Topico.buscarTopicosPainel");
+		try {
+			return query.getResultList();
+		} catch (NoResultException e) {
+			return null;
+		}
+	}
 }

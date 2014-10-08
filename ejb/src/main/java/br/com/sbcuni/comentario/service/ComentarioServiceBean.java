@@ -20,10 +20,9 @@ public class ComentarioServiceBean implements Serializable {
 
 	private static final long serialVersionUID = -6181845367570577639L;
 
-	
 	@PersistenceContext
 	private EntityManager entityManager;
-	
+
 	public void comentar(Comentario comentario) throws SbcuniException {
 		try {
 			comentario.setTopico(entityManager.find(Topico.class, comentario.getTopico().getIdTopico()));
@@ -33,7 +32,7 @@ public class ComentarioServiceBean implements Serializable {
 			throw new SbcuniException("Erro ao incluir comentário", e);
 		}
 	}
-	
+
 	public void excluirComentario(Comentario comentario) throws SbcuniException {
 		try {
 			comentario = entityManager.find(Comentario.class, comentario.getIdComentario());
@@ -42,7 +41,7 @@ public class ComentarioServiceBean implements Serializable {
 			throw new SbcuniException("Erro ao incluir comentário", e);
 		}
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public List<Comentario> consultarComentariosTopico(Topico topico) {
 		Query query = entityManager.createNamedQuery("Comentario.consultarComentariosTopico");
@@ -50,9 +49,10 @@ public class ComentarioServiceBean implements Serializable {
 		try {
 			return query.getResultList();
 		} catch (NoResultException e) {
-			return null; 
+			return null;
 		}
 	}
+
 	public Long consultarNuComentariosUsuarioGrupoEstudo(Usuario usuario, GrupoEstudo grupoEstudo) {
 		Query query = entityManager.createNamedQuery("Comentario.consultarNuComentariosUsuarioGrupoEstudo");
 		query.setParameter("idUsuario", usuario.getIdUsuario());
@@ -63,6 +63,7 @@ public class ComentarioServiceBean implements Serializable {
 			return null;
 		}
 	}
+
 	public Long consultarNuComentariosGrupoEstudo(GrupoEstudo grupoEstudo) {
 		Query query = entityManager.createNamedQuery("Comentario.consultarNuComentariosGrupoEstudo");
 		query.setParameter("idGrupoEstudo", grupoEstudo.getIdGrupoEstudo());
@@ -72,7 +73,24 @@ public class ComentarioServiceBean implements Serializable {
 			return null;
 		}
 	}
+
+	public List<Comentario> consultarComentariosPainelGrupos(GrupoEstudo grupoEstudo) {
+		Query query = entityManager.createNamedQuery("Comentario.consultarComentariosPainelGrupos");
+		query.setParameter("idGrupoEstudo", grupoEstudo.getIdGrupoEstudo());
+		try {
+			return query.getResultList();
+		} catch (NoResultException e) {
+			return null;
+		}
+	}
 	
-	
-	
+	public List<Comentario> consultarComentariosPainel() {
+		Query query = entityManager.createNamedQuery("Comentario.consultarComentariosPainel");
+		try {
+			return query.getResultList();
+		} catch (NoResultException e) {
+			return null;
+		}
+	}
+
 }
