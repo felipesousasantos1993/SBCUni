@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/template/template.xhtml"
+>
+	<ui:define name="conteudo">
+	<div class="page-header">
+		<ol class="breadcrumb breadcrumb-page">
+			<li>
+				<h:outputLink>
+					<h:outputText value="#{mensagens['display.voce.esta.em']}" />
+				</h:outputLink>
+			</li>
+			<li>
+				<h:outputText value="#{mensagens['display.inicio']}" />
+			</li>
+			<li class="active">
+				<h:outputText value="#{mensagens['display.painel.principal']}" />
+			</li>
+		</ol>
+		<h:messages id="mensagens"  errorClass="alert alert-danger alert-dark" infoClass="alert alert-info alert-dark" warnClass="alert alert-dark"/>
+	</div>
+	<div id="content" class="content">
+		<h:form prependId="false" id="form">
+			<div class="row">
+				<div class="col-md-8">
+					<div class="panel panel-warning" id="dashboard-recent">
+					<div class="panel-heading">
+						<span class="panel-title"><i class="panel-title-icon fa fa-fire text-danger"/><h:outputText value="#{mensagens['display.atividades.recentes']}" /> </span>
+						<ul class="nav nav-tabs nav-tabs-xs">
+							<li class="">
+								<a href="#dashboard-recent-comments" data-toggle="tab"><h:outputText value="#{mensagens['display.comentarios']}" /> </a>
+							</li>
+							<li class="active">
+								<a href="#dashboard-recent-threads" data-toggle="tab"><h:outputText value="#{mensagens['display.topicos']}" /> </a>
+							</li>
+						</ul>
+					</div> <!-- / .panel-heading -->
+					<div class="tab-content">
+						<div class="widget-comments panel-body tab-pane no-padding fade" id="dashboard-recent-comments">
+							<!-- Panel padding, without vertical padding -->
+							<div class="panel-padding no-padding-vr scroll" style="max-height:400px;">
+								<ui:repeat var="comentario" value="#{painelPrincipalBean.comentarios}">
+									<div class="comment">
+										<h:graphicImage value="/resources/img/avatares/#{comentario.usuario.avatar}" library="img" styleClass="comment-avatar"/>
+										<div class="comment-body">
+											<div class="comment-by">
+												<h:commandLink action="#{painelPrincipalBean.perfilUsuario(comentario.usuario)}" value="#{comentario.usuario.nome}" />
+												<h:outputText value="#{mensagens['display.comentou.topico.low']}" styleClass="marginLeft_5"/>
+												<h:commandLink action="#{painelPrincipalBean.detalharTopico(comentario.topico)}" value="#{comentario.topico.titulo}" styleClass="marginLeft_5"/>
+											</div>
+											<div class="comment-text">
+												<h:outputText value="#{comentario.descricao}" escape="false"/>
+											</div>
+											<div class="comment-actions">
+												<span class="pull-right">
+													<h:outputText value="#{comentario.tempoComentarioCriacao}" />
+												</span>
+											</div>
+										</div> 
+									</div>
+								</ui:repeat> 
+							<div class="slimScrollBar"/>
+						</div>
+						</div>
+
+						<div class="widget-threads panel-body tab-pane no-padding fade active in" id="dashboard-recent-threads">
+							<div class="panel-padding no-padding-vr scroll" style="max-height:400px;">
+								<ui:repeat var="topico" value="#{painelPrincipalBean.topicos}">
+									<div class="thread">
+										<h:graphicImage value="/resources/img/avatares/#{topico.usuario.avatar}" library="img" styleClass="thread-avatar"/>
+										<div class="thread-body">
+											<span class="thread-time">
+												<h:outputText value="#{topico.tempoTopicoCriacao}" rendered="#{empty topico.dtUltimaAtualizacao}"/>
+												<h:outputText value="#{mensagens['display.atualizado.em']}" rendered="#{not empty topico.dtUltimaAtualizacao}"/>
+												<h:outputText value="#{topico.tempoTopico}" rendered="#{not empty topico.dtUltimaAtualizacao}"/>
+											</span>
+											<h:commandLink action="#{painelPrincipalBean.detalharTopico(topico)}" value="#{topico.titulo}" />
+											<div class="thread-info">
+												<h:outputText value="#{mensagens['display.criado.por.low']}" />
+												<h:commandLink action="#{painelPrincipalBean.perfilUsuario(topico.usuario)}" styleClass="marginLeft_5" value="#{topico.usuario.nome}" />
+											</div>
+										</div>
+									</div>
+								</ui:repeat>
+							<div class="slimScrollBar"/>
+						</div>
+						</div>
+					</div> 
+				</div>
+				</div>
+				<div class="col-md-4">
+				<div class="panel widget-messages">
+					<div class="panel-heading">
+						<span class="panel-title">
+							<i class="panel-title-icon fa fa-envelope-o"/>
+							<h:outputText value="#{mensagens['display.mensagens']}" /> 
+						</span>
+					</div> 
+					<div class="panel-body scroll" style="max-height:400px;">
+						<ui:repeat var="mensagem" value="#{painelPrincipalBean.mensagens}">
+							<div class="message">
+								<h:commandLink action="#{painelPrincipalBean.perfilUsuario(mensagem.remetente)}" styleClass="from" value="#{mensagem.remetente.nome}" />
+								<h:commandLink action="#{painelPrincipalBean.verMensagem(mensagem)}" styleClass="title" value="#{mensagem.titulo}" />
+								<div class="date">
+									<h:outputText value="#{mensagem.tempo}" />
+								</div>
+							</div>
+						</ui:repeat>
+						</div> 
+					</div>
+				</div>
+			</div>
+		</h:form>
+	</div>
+	</ui:define>
+</ui:composition>

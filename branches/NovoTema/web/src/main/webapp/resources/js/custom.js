@@ -8,6 +8,21 @@ $(document).ready(function() {
 	switcher();
 });
 
+$(document).ready(function() {
+	$('.scroll').slimScroll({
+		height : '',
+		alwaysVisible : true,
+		color : '#888',
+		allowPageScroll : true
+	});
+});
+$(document).ready(function() {
+	$('.scrollNotificacao').slimScroll({
+		height : 250,
+	});
+});
+
+
 
 $(document).ready(function() {
 	$('.scroll').slimScroll({ height: 250 });

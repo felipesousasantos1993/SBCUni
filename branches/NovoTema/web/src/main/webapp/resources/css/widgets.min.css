@@ -117,7 +117,8 @@
 
 .widget-comments .comment-actions,.widget-comments .comment-actions a {
 	color: #aaa;
-	font-size: 12px
+	font-size: 12px;
+	padding-bottom: 15px;
 }
 
 .widget-comments .comment-actions a {

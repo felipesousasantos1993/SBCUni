@@ -44,7 +44,7 @@ public class SegurancaFilter implements Filter {
 						resp.sendRedirect(req.getContextPath().concat(Tela.SEM_PERMISSAO));
 					} else {
 						if (isPaginasLoginPrimeiroLogado(req)) {
-							resp.sendRedirect(req.getContextPath().concat(Tela.ULTIMOS_TOPICOS_LOGIN));
+							resp.sendRedirect(req.getContextPath().concat(Tela.PAINEL_PRINCIPAL));
 						} else {
 							chain.doFilter(request, response);
 						}
@@ -54,7 +54,7 @@ public class SegurancaFilter implements Filter {
 						resp.sendRedirect(req.getContextPath().concat(Tela.SEM_PERMISSAO));
 					} else {
 						if (isPaginasLoginPrimeiroLogado(req)) {
-							resp.sendRedirect(req.getContextPath().concat(Tela.ULTIMOS_TOPICOS_LOGIN));
+							resp.sendRedirect(req.getContextPath().concat(Tela.PAINEL_PRINCIPAL));
 						} else {
 							chain.doFilter(request, response);
 						}
@@ -64,7 +64,7 @@ public class SegurancaFilter implements Filter {
 						resp.sendRedirect(req.getContextPath().concat(Tela.SEM_PERMISSAO));
 					} else {
 						if (isPaginasLoginPrimeiroLogado(req)) {
-							resp.sendRedirect(req.getContextPath().concat(Tela.ULTIMOS_TOPICOS_LOGIN));
+							resp.sendRedirect(req.getContextPath().concat(Tela.PAINEL_PRINCIPAL));
 						} else {
 							chain.doFilter(request, response);
 						}

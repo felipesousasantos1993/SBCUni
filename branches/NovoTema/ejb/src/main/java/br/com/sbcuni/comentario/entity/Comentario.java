@@ -31,7 +31,10 @@ import br.com.sbcuni.util.Util;
 @NamedQueries({
 	@NamedQuery(name = "Comentario.consultarComentariosTopico", query = "SELECT c FROM Comentario c JOIN FETCH c.usuario WHERE c.topico.idTopico =:idTopico ORDER BY c.dtCriacao ASC"),
 	@NamedQuery(name = "Comentario.consultarNuComentariosUsuarioGrupoEstudo", query = "SELECT count(c) FROM Comentario c WHERE c.usuario.idUsuario =:idUsuario AND c.topico.grupoEstudo.idGrupoEstudo =:idGrupoEstudo"),
-	@NamedQuery(name = "Comentario.consultarNuComentariosGrupoEstudo", query = "SELECT count(c) FROM Comentario c WHERE c.topico.grupoEstudo.idGrupoEstudo =:idGrupoEstudo")
+	@NamedQuery(name = "Comentario.consultarNuComentariosGrupoEstudo", query = "SELECT count(c) FROM Comentario c WHERE c.topico.grupoEstudo.idGrupoEstudo =:idGrupoEstudo"),
+	@NamedQuery(name = "Comentario.consultarComentariosPainelGrupos", query = "SELECT c FROM Comentario c JOIN FETCH c.usuario u JOIN FETCH c.topico t WHERE c.topico.grupoEstudo.idGrupoEstudo =:idGrupoEstudo ORDER BY c.dtCriacao DESC"),
+	@NamedQuery(name = "Comentario.consultarComentariosPainel", query = "SELECT c FROM Comentario c JOIN FETCH c.usuario u JOIN FETCH c.topico t WHERE c.topico.grupoEstudo is empty ORDER BY c.dtCriacao DESC"),
+	
 })
 public class Comentario implements Serializable {
 

@@ -104,4 +104,13 @@ public class MensagemServiceBean implements Serializable {
 			return null;
 		}
 	}
+	public List<Mensagem> consultarMensagemPainel(Usuario usuario) {
+		Query query = entityManager.createNamedQuery("Mensagem.consultarMensagemPainel");
+		query.setParameter("idUsuario", usuario.getIdUsuario());
+		try {
+			return query.getResultList();
+		} catch (NoResultException e) {
+			return null;
+		}
+	}
 }

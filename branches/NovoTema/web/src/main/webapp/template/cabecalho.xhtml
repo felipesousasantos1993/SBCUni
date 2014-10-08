@@ -27,7 +27,7 @@
 				<div>
 					<ul class="nav navbar-nav">
 						<li>
-							<h:outputLink value="#{facesContext.externalContext.requestContextPath}/principal/index.jsf">
+							<h:outputLink value="#{facesContext.externalContext.requestContextPath}/paginas/inicio/painelPrincipal.jsf">
 								<h:outputText value="#{mensagens['display.inicio.caps']}" />
 							</h:outputLink>
 						</li>
@@ -44,17 +44,8 @@
 
 								<!-- NOTIFICATIONS -->
 								
-								<!-- Javascript -->
-								<script>
-									init.push(function () {
-										$('#main-navbar-notifications').slimScroll({ height: 250 });
-									});
-								</script>
-								<!-- / Javascript -->
-
 								<div class="dropdown-menu widget-notifications no-padding" style="width: 300px">
-									<div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 250px;"><div class="notifications-list" id="main-navbar-notifications" style="overflow: hidden; width: auto; height: 250px;">
-
+									<div class="notifications-list scrollNotificacao" >
 										<div class="notification">
 											<div class="notification-title text-danger">SYSTEM</div>
 											<div class="notification-description"><strong>Error 500</strong>: Syntax error in index.php at line <strong>461</strong>.</div>
@@ -90,7 +81,8 @@
 											<div class="notification-icon fa fa-hdd-o bg-warning"></div>
 										</div> <!-- / .notification -->
 
-									</div><div class="slimScrollBar" style="width: 7px; position: absolute; top: 0px; opacity: 0.4; display: none; border-top-left-radius: 7px; border-top-right-radius: 7px; border-bottom-right-radius: 7px; border-bottom-left-radius: 7px; z-index: 99; right: 1px; background: rgb(0, 0, 0);"></div><div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-top-left-radius: 7px; border-top-right-radius: 7px; border-bottom-right-radius: 7px; border-bottom-left-radius: 7px; opacity: 0.2; z-index: 90; right: 1px; background: rgb(51, 51, 51);"></div></div> <!-- / .notifications-list -->
+									</div
+									><div class="slimScrollBar"/> <!-- / .notifications-list -->
 									<a href="#" class="notifications-link">MORE NOTIFICATIONS</a>
 								</div> <!-- / .dropdown-menu -->
 							</li>
@@ -109,8 +101,7 @@
 								<!-- MESSAGES -->
 								<div class="dropdown-menu widget-messages-alt no-padding" style="width: 300px;">
 									<h:form prependId="false">
-									<div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: auto;">
-									<div class="messages-list" id="main-navbar-messages" style="overflow: hidden; width: auto; height: auto;">
+									<div class="messages-list scrollNotificacao" >
 										<ui:repeat var="mensagem" value="#{notificacaoBean.notificaoMensagens}">
 											<div class="message">
 												<h:graphicImage library="img" value="/resources/img/avatares/#{mensagem.remetente.avatar}" styleClass="message-avatar"/>
@@ -123,7 +114,7 @@
 											</div> <!-- / .message -->
 										</ui:repeat>
 									</div>
-									<div class="slimScrollBar" style="width: 7px; position: absolute; top: 0px; opacity: 0.4; display: none; border-top-left-radius: 7px; border-top-right-radius: 7px; border-bottom-right-radius: 7px; border-bottom-left-radius: 7px; z-index: 99; right: 1px; background: rgb(0, 0, 0);"></div><div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-top-left-radius: 7px; border-top-right-radius: 7px; border-bottom-right-radius: 7px; border-bottom-left-radius: 7px; opacity: 0.2; z-index: 90; right: 1px; background: rgb(51, 51, 51);"></div></div> <!-- / .messages-list -->
+									<div class="slimScrollBar" style="width: 7px; position: absolute; top: 0px; opacity: 0.4; display: none; border-top-left-radius: 7px; border-top-right-radius: 7px; border-bottom-right-radius: 7px; border-bottom-left-radius: 7px; z-index: 99; right: 1px; background: rgb(0, 0, 0);"></div><div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-top-left-radius: 7px; border-top-right-radius: 7px; border-bottom-right-radius: 7px; border-bottom-left-radius: 7px; opacity: 0.2; z-index: 90; right: 1px; background: rgb(51, 51, 51);"></div> <!-- / .messages-list -->
 									<a href="#{facesContext.externalContext.requestContextPath}/paginas/mensagens/email.jsf" class="messages-link"><h:outputText value="#{mensagens['display.mais.mensagens.cap']}" /> </a>
 									</h:form>
 								</div> <!-- / .dropdown-menu -->

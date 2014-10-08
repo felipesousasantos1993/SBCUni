@@ -9,9 +9,11 @@ import javax.faces.bean.ViewScoped;
 
 import br.com.sbcuni.avaliacao.service.AvaliacaoServiceBean;
 import br.com.sbcuni.bean.GenericBean;
+import br.com.sbcuni.categoria.service.CategoriaServiceBean;
 import br.com.sbcuni.comentario.entity.Comentario;
 import br.com.sbcuni.comentario.service.ComentarioServiceBean;
 import br.com.sbcuni.exception.SbcuniException;
+import br.com.sbcuni.grupoEstudo.service.GrupoEstudoSerivceBean;
 import br.com.sbcuni.topico.entity.Topico;
 import br.com.sbcuni.usuario.bean.UsuarioSessionBean;
 import br.com.sbcuni.util.Util;
@@ -29,15 +31,24 @@ public class VisualizarTopicoBean extends GenericBean {
 	private ComentarioServiceBean comentarioServiceBean;
 	@EJB
 	private AvaliacaoServiceBean avaliacaoServiceBean;
+	@EJB
+	private GrupoEstudoSerivceBean grupoEstudoSerivceBean;
+	@EJB
+	private CategoriaServiceBean categoriaServiceBean;
 	
 	@PostConstruct
 	public void init() {
 		topico = (Topico) WebResources.getFlash().get(WebResources.TOPICO);
 		topico.setComentarios(comentarioServiceBean.consultarComentariosTopico(topico));
+		topico.setGrupoEstudo(grupoEstudoSerivceBean.consultarGrupoTopico(topico));
+		topico.setCategorias(categoriaServiceBean.buscarCategoriaTopico(topico));
+		avaliacaoServiceBean.definirAvaliacaoTopico(topico);
+		topico.setAvaliacaoUsuario(avaliacaoServiceBean.verificarAvaliacaoUsuarioTopico(UsuarioSessionBean.getInstance().getUsuarioSessao(), topico));
 		for (Comentario comentario : topico.getComentarios()) {
 			avaliacaoServiceBean.definirAvaliacaoComentario(comentario);
 			comentario.setAvaliacaoUsuario(avaliacaoServiceBean.verificarAvaliacaoUsuarioComentario(UsuarioSessionBean.getInstance().getUsuarioSessao(), comentario));
 		}
+
 	}
 
 	private Boolean textAreaComentario = Boolean.FALSE;

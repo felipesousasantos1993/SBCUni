@@ -54,6 +54,11 @@ public class Tela implements Serializable {
 	//PESQUISA
 	public static final String RESULTADO_PESQUISA_PATH = "/paginas/pesquisa/resultadoPesquisa.jsf";
 
+	//SEGURANÇA
 	public static final String SEM_PERMISSAO = "/paginas/seguranca/semPermissao.jsf";
+	
+	//PAINEL
+	public static final String PAINEL_PRINCIPAL = "/paginas/inicio/painelPrincipal.jsf";
+	
 	
 }
