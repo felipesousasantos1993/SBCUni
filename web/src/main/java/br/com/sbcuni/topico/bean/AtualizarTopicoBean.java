@@ -8,7 +8,6 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.model.SelectItem;
 
 import br.com.sbcuni.bean.GenericBean;
 import br.com.sbcuni.categoria.entity.Categoria;
@@ -27,18 +26,16 @@ public class AtualizarTopicoBean extends GenericBean {
 	@PostConstruct
 	public void init() {
 		topico = (Topico) WebResources.getFlash().get(WebResources.TOPICO);
-		for (Categoria cat : topicoServiceBean.listarTodasCategorias()) {
-			categoriasTopico.add(new SelectItem(cat.getIdCategoria(), cat.getDeCategoria()));
-		}
-		for (Categoria c : topico.getCategorias()) {
-			categoriasSelecionadas.add(new SelectItem(c.getIdCategoria(), c.getDeCategoria()));
+		categorias = topicoServiceBean.listarTodasCategorias();
+		for (Categoria tc : topico.getCategorias()) {
+			categoriasSelecionadas.add(tc.getIdCategoria().toString());
 		}
 	}
 
 	private Topico topico;
 	
-	private List<SelectItem> categoriasSelecionadas = new ArrayList<SelectItem>();
-	private List<SelectItem> categoriasTopico = new ArrayList<SelectItem>();
+	private List<String> categoriasSelecionadas = new ArrayList<String>();
+	private List<Categoria> categorias = new ArrayList<Categoria>();
 	
 	@EJB
 	private TopicoServiceBean topicoServiceBean;
@@ -48,9 +45,9 @@ public class AtualizarTopicoBean extends GenericBean {
 	public String alterarTopico() {
 		try {
 			List<Categoria> categorias = new ArrayList<Categoria>();
-		/*	for (String idCategoria : categoriasSelecionadas) {
+			for (String idCategoria : categoriasSelecionadas) {
 				categorias.add(categoriaServiceBean.buscarCategoriaPorId(Long.valueOf(idCategoria)));
-			}*/
+			}
 			topico.setCategorias(categorias);
 			topico.setDtUltimaAtualizacao(new Date());
 			topicoServiceBean.alterarTopico(topico);
@@ -74,20 +71,20 @@ public class AtualizarTopicoBean extends GenericBean {
 		this.topico = topico;
 	}
 
-	public List<SelectItem> getCategoriasSelecionadas() {
+	public List<Categoria> getCategorias() {
+		return categorias;
+	}
+
+	public void setCategorias(List<Categoria> categorias) {
+		this.categorias = categorias;
+	}
+
+	public List<String> getCategoriasSelecionadas() {
 		return categoriasSelecionadas;
 	}
 
-	public void setCategoriasSelecionadas(List<SelectItem> categoriasSelecionadas) {
+	public void setCategoriasSelecionadas(List<String> categoriasSelecionadas) {
 		this.categoriasSelecionadas = categoriasSelecionadas;
-	}
-
-	public List<SelectItem> getCategoriasTopico() {
-		return categoriasTopico;
-	}
-
-	public void setCategoriasTopico(List<SelectItem> categoriasTopico) {
-		this.categoriasTopico = categoriasTopico;
 	}
 
 

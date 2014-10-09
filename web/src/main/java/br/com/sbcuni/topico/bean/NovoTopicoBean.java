@@ -49,6 +49,7 @@ public class NovoTopicoBean extends GenericBean {
 	 */
 	public void populaTopico() {
 		novoTopico.setDtCriacao(new Date());
+		novoTopico.setDtUltimaAtualizacao(new Date());
 		novoTopico.setUsuario(UsuarioSessionBean.getInstance().getUsuarioSessao());
 		novoTopico.setNuVisualizacoes(0);
 		List<Categoria> categorias = new ArrayList<Categoria>();

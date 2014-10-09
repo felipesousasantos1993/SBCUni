@@ -142,7 +142,7 @@
 								<h:panelGroup rendered="#{not caixaEntradaBean.msgPrivada}">
 									<div class="select2-primary">
 										<h:selectManyMenu id="destinatarios" value="#{caixaEntradaBean.destinatariosSelecionadas}"   styleClass="form-control autocompleteUsuario select2-offscreen" tabindex="-1">
-											<f:selectItems value="#{caixaEntradaBean.listaAlunos}" var="aluno" itemValue="#{aluno.idUsuario}" itemLabel="#{aluno.nome} - #{aluno.matricula}"/>
+											<f:selectItems value="#{caixaEntradaBean.listaAlunos}" var="aluno" itemValue="#{aluno.idUsuario}"  itemLabel="#{aluno.nome} - #{aluno.matricula}"/>
 										</h:selectManyMenu>
 									</div>
 								</h:panelGroup>

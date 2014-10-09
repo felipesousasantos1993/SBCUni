@@ -7,6 +7,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
 import br.com.sbcuni.bean.GenericBean;
+import br.com.sbcuni.categoria.entity.Categoria;
 import br.com.sbcuni.grupoEstudo.GrupoEstudo;
 import br.com.sbcuni.mensagem.entity.Mensagem;
 import br.com.sbcuni.topico.entity.Topico;
@@ -27,12 +28,14 @@ public class ResultadoPesquisaBean extends GenericBean {
 	private List<Mensagem> mensagens;
 	private List<GrupoEstudo> grupoEstudos;
 	private List<Usuario> usuarios;
+	private List<Categoria> categorias;
 
 	private Integer nuResultados;
 	private Integer nuTopicos;
 	private Integer nuUsuarios;
 	private Integer nuMensagens;
 	private Integer nuGrupos;
+	private Integer nuCategorias;
 	private String consulta;
 
 	@SuppressWarnings("unchecked")
@@ -44,6 +47,7 @@ public class ResultadoPesquisaBean extends GenericBean {
 		mensagens = (List<Mensagem>) WebResources.getFlash().get(WebResources.LISTA_MENSAGENS);
 		grupoEstudos = (List<GrupoEstudo>) WebResources.getFlash().get(WebResources.LISTA_GRUPOS_ESTUDO);
 		mensagens = (List<Mensagem>) WebResources.getFlash().get(WebResources.LISTA_MENSAGENS);
+		categorias = (List<Categoria>) WebResources.getFlash().get(WebResources.LISTA_CATEGORIAS);
 		nuResultados = (Integer) WebResources.getFlash().get(WebResources.NU_RESULTADOS_PESQUISA);
 		consulta = (String) WebResources.getFlash().get(WebResources.PESQUISA);
 		for (Usuario u : usuarios) {
@@ -54,6 +58,7 @@ public class ResultadoPesquisaBean extends GenericBean {
 			nuUsuarios = usuarios.size();
 			nuGrupos = grupoEstudos.size();
 			nuMensagens = mensagens.size();
+			nuCategorias = categorias.size();
 		} catch (Exception e) {
 		}
 	}
@@ -136,6 +141,22 @@ public class ResultadoPesquisaBean extends GenericBean {
 
 	public void setNuMensagens(Integer nuMensagens) {
 		this.nuMensagens = nuMensagens;
+	}
+
+	public List<Categoria> getCategorias() {
+		return categorias;
+	}
+
+	public void setCategorias(List<Categoria> categorias) {
+		this.categorias = categorias;
+	}
+
+	public Integer getNuCategorias() {
+		return nuCategorias;
+	}
+
+	public void setNuCategorias(Integer nuCategorias) {
+		this.nuCategorias = nuCategorias;
 	}
 
 }

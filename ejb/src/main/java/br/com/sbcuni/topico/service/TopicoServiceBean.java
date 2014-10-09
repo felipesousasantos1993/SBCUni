@@ -1,9 +1,11 @@
 package br.com.sbcuni.topico.service;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -11,6 +13,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import br.com.sbcuni.categoria.entity.Categoria;
+import br.com.sbcuni.categoria.service.CategoriaServiceBean;
 import br.com.sbcuni.grupoEstudo.GrupoEstudo;
 import br.com.sbcuni.topico.entity.Topico;
 import br.com.sbcuni.usuario.entity.Usuario;
@@ -22,6 +25,8 @@ public class TopicoServiceBean implements Serializable {
 
 	@PersistenceContext
 	private EntityManager entityManager;
+	
+	private StringBuffer queryTopicosCategorias = new StringBuffer("SELECT idtopico from topico WHERe idtopico IN (SELECT topicos_idtopico FRom topico_categoria  WHERE categorias_idcategoria  = ?)");
 	
 	/**
 	 * Método : postartopico Descrição: Inclui o topico.
@@ -39,6 +44,30 @@ public class TopicoServiceBean implements Serializable {
 		entityManager.persist(topico);
 	}
 
+	public List<Topico> buscarTopicoPorCategoria(Categoria categoria) {
+		Query query = entityManager.createNativeQuery(queryTopicosCategorias.toString());
+		query.setParameter(1, categoria.getIdCategoria());
+		try {
+			List<BigInteger> ids = query.getResultList();
+			List<Topico> topicos = new ArrayList<Topico>();
+			for (BigInteger bigInteger : ids) {
+				topicos.add(buscarTopicoPorId(bigInteger.longValue()));
+			}
+			return topicos;
+		} catch (NoResultException e) {
+			return null;
+		}
+	}
+	
+	public Topico buscarTopicoPorId(Long idTopico) {
+		Query query = entityManager.createNamedQuery("Topico.buscarTopicosPorId");
+		query.setParameter("idTopico", idTopico);
+		try {
+			return (Topico) query.getSingleResult();
+		} catch (NoResultException e) {
+			return null;
+		}
+	}
 	/***
 	 * Método   : buscarPostagensPorUsuario
 	 * Descrição: 
@@ -105,7 +134,7 @@ public class TopicoServiceBean implements Serializable {
 		topico = entityManager.find(Topico.class, topico.getIdTopico());
 		entityManager.remove(topico);
 	}
-
+	
 	public List<Topico> buscarTopicosGrupo(GrupoEstudo grupoEstudo) {
 		Query query = entityManager.createNamedQuery("Topico.buscarTopicosGrupo");
 		query.setParameter("idGrupoEstudo", grupoEstudo.getIdGrupoEstudo());
@@ -115,8 +144,10 @@ public class TopicoServiceBean implements Serializable {
 			return null;
 		}
 	}
-	public List<Topico> buscarTopicosPainel() {
+
+	public List<Topico> buscarTopicosPainel(List<Long> listaGrupos) {
 		Query query = entityManager.createNamedQuery("Topico.buscarTopicosPainel");
+		query.setParameter("listaGrupos", listaGrupos);
 		try {
 			return query.getResultList();
 		} catch (NoResultException e) {

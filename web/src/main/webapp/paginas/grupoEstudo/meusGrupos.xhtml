@@ -26,97 +26,50 @@
 	</div>
 	<div id="content" class="content">
 		<h:form prependId="false" id="form">
-			<ui:repeat var="grupoEstudo" value="#{meusGruposBean.grupoEstudos}">
-				<div class="row">
-					<div class="col-sm-12">
-						<div class="stat-panel">
-							<div class="stat-row">
-								<div class="stat-cell bg-primary darker">
-									<i class="fa fa-group bg-icon" style="font-size:60px;line-height:80px;height:80px;"></i>
-									<span class="text-bg">
-										<h:outputText value="#{grupoEstudo.noGrupo}" />
-									</span><br/>
-									<span class="text-sm">
-										<h:outputText value="#{grupoEstudo.professor.nome}" />
-									</span>
-								</div>
-							</div> 
-							<div class="stat-row">
-								<div class="stat-counters bg-primary no-border-b no-padding text-center">
-									<div class="stat-cell col-xs-6 padding-sm no-padding-hr">
-										<span class="text-bg">
-											<strong>
-												<h:outputText value="#{grupoEstudo.nuAlunos()}" /> 
-											</strong>
-										</span>
-										<br/>
-										<span class="text-xs"><h:outputText value="#{mensagens['display.alunos']}" /> </span>
-									</div>
-									<div class="stat-cell col-xs-6 padding-sm no-padding-hr">
-										<span class="text-bg">
-											<strong>
-												<h:outputText value="#{grupoEstudo.nuTopicos}" /> 
-											</strong>
-										</span>
-										<br/>
-										<span class="text-xs"><h:outputText value="#{mensagens['display.topicos']}" /> </span>
-									</div>
-									<div class="stat-cell col-xs-6 padding-sm no-padding-hr">
-										<span class="text-bg">
-											<strong>
-												<h:outputText value="#{grupoEstudo.nuComentariosGrupo}" />
-											</strong>
-										</span>
-										<br/>
-										<span class="text-xs"><h:outputText value="#{mensagens['display.comentarios']}" /> </span>
-									</div>
-								</div> 
-							</div> 
-							<div class="stat-row">
-								<div class="stat-counters bg-primary no-border-b no-padding text-center">
-									<div class="stat-cell col-xs-6 padding-sm no-padding-hr">
-										<span class="text-bg">
-											<strong>
-												<h:outputText value="#{grupoEstudo.dtCriacao}" >
-													<f:convertDateTime timeZone="America/Sao_Paulo" locale="pt_BR" pattern="dd"/>
-												</h:outputText> 
-												<h:outputText value=" de "/>
-												<h:outputText value="#{grupoEstudo.dtCriacao}" >
-													<f:convertDateTime timeZone="America/Sao_Paulo" locale="pt_BR" pattern="MMMMMMMMMMM"/>
-												</h:outputText> 
-												<h:outputText value=" de "/>
-												<h:outputText value="#{grupoEstudo.dtCriacao}" >
-													<f:convertDateTime timeZone="America/Sao_Paulo" locale="pt_BR" pattern="yyyy"/>
-												</h:outputText> 
-											</strong>
-										</span>
-										<br/>
-										<span class="text-xs"><h:outputText value="#{mensagens['display.data.criacao']}" /> </span>
-									</div>
-									<div class="stat-cell col-xs-6 padding-sm no-padding-hr">
-										<span class="text-bg">
-											<strong>
-												<h:outputLabel styleClass="marginLeft_5">
-										 			<h:outputText value="#{grupoEstudo.nuAvaliacoesPositivas}" />
-								 		 			<i class="glyphicon glyphicon-thumbs-up"/>
-										 			<h:outputText value="#{grupoEstudo.nuAvaliacoesNegativas}" styleClass="marginLeft_10"/>
-									 		 		<i class="glyphicon glyphicon-thumbs-down" />
-												</h:outputLabel>
-											</strong>
-										</span>
-										<br/>
-										<span class="text-xs"><h:outputText value="#{mensagens['display.avaliacoes']}" /> </span>
-									</div>
-									<h:commandLink action="#{meusGruposBean.detalharGrupoEstudo(grupoEstudo)}" styleClass="stat-cell col-xs-6 bg-primary padding-sm no-padding-hr valign-middle">
-										<span class="text-xs"><h:outputText value="#{mensagens['display.detalhar']}" /> <i class="fa fa-caret-right"/></span>
-									</h:commandLink>
-								</div> 
-							</div> 
+			<div class="row">
+				<ui:repeat var="grupoEstudo" value="#{meusGruposBean.grupoEstudos}">
+					<div class="col-md-6">
+						<div class="panel panel-success panel-dark widget-profile">
+						<div class="panel-heading">
+							<div class="widget-profile-bg-icon"><i class="fa fa-group"/></div>
+							<h:graphicImage value="/resources/img/avatares/#{grupoEstudo.professor.avatar}" styleClass="widget-profile-avatar"/>
+							<div class="widget-profile-header">
+								<span>
+									<h:outputText value="#{grupoEstudo.noGrupo}" />
+								</span>
+								<br/>
+								<h:outputText value="#{mensagens['display.professor']}" />
+								<h:outputText value="#{grupoEstudo.professor.nome}" styleClass="marginLeft_5"/>
+							</div>
+						</div> <!-- / .panel-heading -->
+						<div class="list-group">
+							<div class="list-group-item">
+								<i class="fa fa-bullhorn list-group-icon"/>
+								<h:outputText value="#{mensagens['display.topicos']}" />
+								 <span class="badge badge-info">
+								 	<h:outputText value="#{grupoEstudo.nuTopicos}" />
+								 </span>
+							</div>
+							<div class="list-group-item">
+								<i class="fa fa-comments-o list-group-icon"/>
+								<h:outputText value="#{mensagens['display.comentarios']}" />
+								 <span class="badge badge-success">
+								 	<h:outputText value="#{grupoEstudo.nuComentariosGrupo}" />
+								 </span>
+							</div>
+							<div class="list-group-item">
+								<i class="fa fa-user list-group-icon"/>
+								<h:outputText value="#{mensagens['display.alunos']}" />
+								 <span class="badge badge-info">
+								 	<h:outputText value="#{grupoEstudo.nuAlunos()}" />
+								 </span>
+							</div>
+							<h:commandLink action="#{meusGruposBean.detalharGrupoEstudo(grupoEstudo)}" styleClass="list-group-item" value="#{mensagens['display.detalhar.grupo.estudo']}" />
 						</div>
 					</div>
-				</div>
+					</div>
 				</ui:repeat>
-						
+				</div>
 			</h:form>
 		</div>
 	</ui:define>

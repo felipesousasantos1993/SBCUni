@@ -77,9 +77,9 @@
 									<h:graphicImage library="img" value="/resources/img/avatares/#{detalheGrupoEstudoBean.grupoEstudo.professor.avatar}" styleClass="follower-avatar"/>
 										<div class="body">
 											<div class="follower-controls tooltips">
-												<h:outputLabel title="#{mensagens['display.enviar.mensagem']}"  styleClass="btn btn-outline btn-primary btn-xs marginLeft_10">
+												<h:commandLink title="#{mensagens['display.enviar.mensagem']}" action="#{detalheGrupoEstudoBean.enviarMensagemPrivada(detalheGrupoEstudoBean.grupoEstudo.professor)}"  styleClass="btn btn-outline btn-primary btn-xs marginLeft_10">
 													<i class="fa fa-envelope"/>
-												</h:outputLabel>
+												</h:commandLink>
 											</div>
 										<h:commandLink action="#{detalheGrupoEstudoBean.perfilUsuario(detalheGrupoEstudoBean.grupoEstudo.professor)}" immediate="true" value="#{detalheGrupoEstudoBean.grupoEstudo.professor.nome}" styleClass="follower-name"/>
 										<br/>
@@ -192,7 +192,7 @@
 										 			<h:outputText value="#{topico.nuAvaliacaoNegativas}" styleClass="marginLeft_10"/>
 									 		 		<i class="glyphicon glyphicon-thumbs-down" />
 												</h:outputLabel>
-												<h:outputText value="#{topico.tempoTopicoCriacao}" styleClass="marginLeft_10"/>
+												<h:outputText value="#{topico.tempoTopico}" styleClass="marginLeft_10"/>
 												<hr/>
 											</ui:repeat>
 										</h:panelGroup>

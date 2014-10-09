@@ -75,7 +75,7 @@
 										</h:commandLink>
 										<div class="box-tools pull-right" align="right">
 											<ui:repeat var="categoria" value="#{topico.categorias}">
-												<h:outputText styleClass="label label marginLeft_5" value="#{categoria.deCategoria}" />
+												<h:commandLink action="#{ultimosTopicosBean.buscarTopicosCategoria(categoria)}" styleClass="label label marginLeft_5" value="#{categoria.deCategoria}" />
 											</ui:repeat>
 										</div>
 									</div>

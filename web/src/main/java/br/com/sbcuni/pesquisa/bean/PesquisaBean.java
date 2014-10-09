@@ -7,6 +7,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
 import br.com.sbcuni.bean.GenericBean;
+import br.com.sbcuni.categoria.entity.Categoria;
+import br.com.sbcuni.categoria.service.CategoriaServiceBean;
 import br.com.sbcuni.constantes.Tela;
 import br.com.sbcuni.grupoEstudo.GrupoEstudo;
 import br.com.sbcuni.grupoEstudo.service.GrupoEstudoSerivceBean;
@@ -37,11 +39,14 @@ public class PesquisaBean extends GenericBean {
 	private MensagemServiceBean mensagemServiceBean;
 	@EJB
 	private UsuarioServiceBean usuarioServiceBean;
+	@EJB
+	private CategoriaServiceBean categoriaServiceBean;
 	
 	private List<Topico> topicos;
 	private List<Mensagem> mensagens;
 	private List<GrupoEstudo> grupoEstudos;
 	private List<Usuario> usuarios;
+	private List<Categoria> categorias;
 	
 	private String consulta;
 	private Integer nuResultados = 0;
@@ -51,15 +56,18 @@ public class PesquisaBean extends GenericBean {
 		usuarios = pesquisarUsuarios();
 		mensagens = pesquisarMensagens();
 		grupoEstudos = pesquisarGrupos();
+		categorias = pesquisarCategorias();
 		
 		nuResultados += topicos.size();
 		nuResultados += usuarios.size();
 		nuResultados += mensagens.size();
 		nuResultados += grupoEstudos.size();
+		nuResultados += categorias.size();
 		WebResources.getFlash().put(WebResources.LISTA_TOPICOS, topicos);
 		WebResources.getFlash().put(WebResources.LISTA_USUARIOS, usuarios);
 		WebResources.getFlash().put(WebResources.LISTA_GRUPOS_ESTUDO, grupoEstudos);
 		WebResources.getFlash().put(WebResources.LISTA_MENSAGENS, mensagens);
+		WebResources.getFlash().put(WebResources.LISTA_CATEGORIAS, categorias);
 		WebResources.getFlash().put(WebResources.PESQUISA, consulta);
 		WebResources.getFlash().put(WebResources.NU_RESULTADOS_PESQUISA, nuResultados);
 		return Tela.RESULTADO_PESQUISA_PATH;
@@ -77,6 +85,10 @@ public class PesquisaBean extends GenericBean {
 	}
 	public List<Mensagem> pesquisarMensagens() {
 		return mensagemServiceBean.pesquisa(consulta, UsuarioSessionBean.getInstance().getUsuarioSessao());
+	}
+	
+	public List<Categoria> pesquisarCategorias() {
+		return categoriaServiceBean.pesquisa(consulta);
 	}
 
 	public List<Topico> getTopicos() {
@@ -109,6 +121,14 @@ public class PesquisaBean extends GenericBean {
 
 	public void setConsulta(String consulta) {
 		this.consulta = consulta;
+	}
+
+	public List<Categoria> getCategorias() {
+		return categorias;
+	}
+
+	public void setCategorias(List<Categoria> categorias) {
+		this.categorias = categorias;
 	}
 	
 }

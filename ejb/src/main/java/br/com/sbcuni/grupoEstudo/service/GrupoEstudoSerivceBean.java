@@ -89,6 +89,7 @@ public class GrupoEstudoSerivceBean implements Serializable {
 		}
 	}
 	
+	
 	public GrupoEstudo buscarGrupoEstudoId(Long id) {
 		Query query = entityManager.createNamedQuery("GrupoEstudo.buscarGrupoEstudoId");
 		query.setParameter("idGrupo", id);

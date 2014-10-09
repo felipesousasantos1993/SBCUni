@@ -50,6 +50,16 @@ public class CategoriaServiceBean implements Serializable {
 		}
 	}
 	
+	public List<Categoria> pesquisa(String consulta) {
+		Query query = entityManager.createNamedQuery("Categoria.pesquisa");
+		query.setParameter("consulta", "%" + consulta.toLowerCase() + "%");
+		try {
+			return query.getResultList();
+		} catch (NoResultException e) {
+			return null;
+		}
+	}
+	
 	public void criarCategoria(Categoria categoria) throws SbcuniException {
 		try {
 			entityManager.persist(categoria);
