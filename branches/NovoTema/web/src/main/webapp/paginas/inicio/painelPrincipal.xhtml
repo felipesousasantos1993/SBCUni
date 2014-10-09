@@ -58,7 +58,7 @@
 											</div>
 											<div class="comment-actions">
 												<span class="pull-right">
-													<h:outputText value="#{comentario.tempoComentarioCriacao}" />
+													<h:outputText value="#{comentario.tempoComentario}" />
 												</span>
 											</div>
 										</div> 
@@ -75,8 +75,6 @@
 										<h:graphicImage value="/resources/img/avatares/#{topico.usuario.avatar}" library="img" styleClass="thread-avatar"/>
 										<div class="thread-body">
 											<span class="thread-time">
-												<h:outputText value="#{topico.tempoTopicoCriacao}" rendered="#{empty topico.dtUltimaAtualizacao}"/>
-												<h:outputText value="#{mensagens['display.atualizado.em']}" rendered="#{not empty topico.dtUltimaAtualizacao}"/>
 												<h:outputText value="#{topico.tempoTopico}" rendered="#{not empty topico.dtUltimaAtualizacao}"/>
 											</span>
 											<h:commandLink action="#{painelPrincipalBean.detalharTopico(topico)}" value="#{topico.titulo}" />

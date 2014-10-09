@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/template/template.xhtml"
+>
+	<ui:define name="conteudo">
+	<div class="page-header">
+		<ol class="breadcrumb breadcrumb-page">
+			<li>
+				<h:outputLink>
+					<h:outputText value="#{mensagens['display.voce.esta.em']}" />
+				</h:outputLink>
+			</li>
+			<li>
+				<h:outputText value="#{mensagens['display.categoria']}" />
+			</li>
+			<li class="active">
+				<h:outputText value="#{mensagens['display.topicos.categoria']}" />
+			</li>
+		</ol>
+		<h:messages id="mensagens"  errorClass="alert alert-danger alert-dark" infoClass="alert alert-info alert-dark" warnClass="alert alert-dark"/>
+	</div>
+		<div id="content" class="content">
+			<h:form prependId="false" id="form">
+	 			<div class="row">
+					<div class="col-md-12">
+						<div class="panel">
+							<div class="panel-body tab-content widget-followers">
+								<h:panelGroup id="topicos">
+									<ui:repeat var="topico" value="#{topicosCategoriaBean.topicos}">
+										<div class="follower">
+											<h:graphicImage library="img" value="/resources/img/avatares/#{topico.usuario.avatar}" styleClass="follower-avatar"/>
+											<div class="body">
+												<div class="follower-controls tooltips">
+													<h:outputLabel styleClass="badge badge-primary marginLeft_10"  title="Comentários do tópico">
+														<h:outputText value="#{topico.nuComentarios}" />
+													</h:outputLabel>
+													<h:commandLink immediate="true" action="#{topicosCategoriaBean.detalharTopico(topico)}" title="#{mensagens['display.comentar']}"  styleClass="btn btn-primary btn-outline btn-xs marginLeft_5">
+														<i class="fa fa-comments-o"/>
+													</h:commandLink>
+												</div>
+											
+												<h:commandLink action="#{topicosCategoriaBean.detalharTopico(topico)}" value="#{topico.titulo}" styleClass="follower-name"/>
+												<br/>
+												<h:outputText value="#{topico.usuario.nome}" styleClass="follower-username"/>
+											</div>
+										</div>
+										<h:outputLabel styleClass="marginLeft_5">
+								 			<h:outputText value="#{topico.nuAvaliacaoPositivas}" />
+						 		 			<i class="glyphicon glyphicon-thumbs-up"/>
+								 			<h:outputText value="#{topico.nuAvaliacaoNegativas}" styleClass="marginLeft_10"/>
+							 		 		<i class="glyphicon glyphicon-thumbs-down" />
+										</h:outputLabel>
+										<h:outputText value="#{topico.tempoTopico}" styleClass="marginLeft_10"/>
+										<hr/>
+									</ui:repeat>
+								</h:panelGroup>
+							</div>
+						</div>
+					</div>
+				</div>
+			</h:form>
+		</div>
+	</ui:define>
+</ui:composition>

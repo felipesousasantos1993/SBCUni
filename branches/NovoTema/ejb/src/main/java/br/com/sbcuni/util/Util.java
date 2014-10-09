@@ -7,9 +7,12 @@ import java.util.Date;
 import java.util.InputMismatchException;
 
 import org.joda.time.DateTime;
+import org.joda.time.Days;
 import org.joda.time.Hours;
 import org.joda.time.Minutes;
+import org.joda.time.Months;
 import org.joda.time.Seconds;
+import org.joda.time.Years;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,6 +33,7 @@ public final class Util {
 	public static final String FORMATO_DDMMAAAA = "dd.MM.yyyy";
 	public static final String FORMATO_DDMMAAAA_HHMM = "dd/MM/yyyy - HH:mm:ss";
 	public static final String FORMATO_DDMMAAAA_COM_BARRA = "dd/MM/yyyy";
+	public static final String FORMATO_DDMMAAAA_COM_TRACO = "dd-MM-yyyy";
 
 
 	public static String gerarMatricula(Integer perfil) {
@@ -117,6 +121,15 @@ public final class Util {
 		}
 
 		SimpleDateFormat sdf = new SimpleDateFormat(FORMATO_DDMMAAAA_COM_BARRA);
+		return sdf.format(data);
+	}
+	
+	public static String formatDateTraco(Date data) {
+		if (isNull(data)) {
+			return "";
+		}
+
+		SimpleDateFormat sdf = new SimpleDateFormat(FORMATO_DDMMAAAA_COM_TRACO);
 		return sdf.format(data);
 	}
 	
@@ -208,24 +221,32 @@ public final class Util {
 		Integer segundos = Seconds.secondsBetween(data, dataAtual).getSeconds();
 		Integer minutos = Minutes.minutesBetween(data, dataAtual).getMinutes();
 		Integer horas = Hours.hoursBetween(data, dataAtual).getHours();
+		Integer dias = Days.daysBetween(data, dataAtual).getDays();
+		/*Integer mes = Months.monthsBetween(data, dataAtual).getMonths();
+		Integer ano = Years.yearsBetween(data, dataAtual).getYears();*/
 
 		if (segundos < 60) {
-			return "há ".concat(String.valueOf(Seconds.secondsBetween(data, dataAtual).getSeconds())).concat(" segundos");
+			return "há ".concat(String.valueOf(segundos).concat(" segundos"));
 		} else if (minutos < 60) {
 			if (minutos == 1) {
-				return "há ".concat(String.valueOf(Minutes.minutesBetween(data, dataAtual).getMinutes())).concat(" minuto");
+				return "há ".concat(String.valueOf(minutos)).concat(" minuto");
 			} else {
-				return "há ".concat(String.valueOf(Minutes.minutesBetween(data, dataAtual).getMinutes())).concat(" minutos");
+				return "há ".concat(String.valueOf(minutos)).concat(" minutos");
 			}
 		} else if (horas < 24) {
 			if (horas == 1) {
-				return "há ".concat(String.valueOf(Hours.hoursBetween(data, dataAtual).getHours())).concat(" hora");
+				return "há ".concat(String.valueOf(horas)).concat(" hora");
 			} else {
-				return "há ".concat(String.valueOf(Hours.hoursBetween(data, dataAtual).getHours())).concat(" horas");
+				return "há ".concat(String.valueOf(horas)).concat(" horas");
+			}
+		} else if (dias < 30) {
+			if (dias == 1) {
+				return "há ".concat(String.valueOf(dias)).concat(" dia");
+			} else {
+				return "há ".concat(String.valueOf(dias)).concat(" dias");
 			}
 		} else {
-			return Util.formatDate(data.toDate());
+			return Util.formatDateTraco(data.toDate());
 		}
 	}
-	
 }

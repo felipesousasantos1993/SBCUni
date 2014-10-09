@@ -62,6 +62,7 @@ public class VisualizarTopicoBean extends GenericBean {
 	public void comentar() {
 		if (Util.isNull(comentario.getIdComentario())) {
 			comentario.setDtCriacao(new Date());
+			comentario.setDtUltimaAtualizacao(new Date());
 		} else {
 			comentario.setDtUltimaAtualizacao(new Date());
 		}

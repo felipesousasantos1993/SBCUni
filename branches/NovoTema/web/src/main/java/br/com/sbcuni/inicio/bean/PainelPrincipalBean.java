@@ -1,6 +1,8 @@
 package br.com.sbcuni.inicio.bean;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -20,6 +22,7 @@ import br.com.sbcuni.topico.entity.Topico;
 import br.com.sbcuni.topico.service.TopicoServiceBean;
 import br.com.sbcuni.usuario.bean.UsuarioSessionBean;
 import br.com.sbcuni.usuario.entity.Usuario;
+import br.com.sbcuni.util.Util;
 
 @ViewScoped
 @ManagedBean
@@ -30,7 +33,7 @@ public class PainelPrincipalBean extends GenericBean {
 	public PainelPrincipalBean() {
 		super();
 	}
-	
+
 	@EJB
 	private GrupoEstudoSerivceBean grupoEstudoSerivceBean;
 	@EJB
@@ -39,30 +42,31 @@ public class PainelPrincipalBean extends GenericBean {
 	private TopicoServiceBean topicoServiceBean;
 	@EJB
 	private MensagemServiceBean mensagemServiceBean;
-	
+
 	private List<Comentario> comentarios = new ArrayList<Comentario>();;
 	private List<Topico> topicos = new ArrayList<Topico>();
 	private List<Mensagem> mensagens = new ArrayList<Mensagem>();
+	private List<GrupoEstudo> gruposEstudo = new ArrayList<GrupoEstudo>();
 	
+	private List<Long> listaIdGrupo = new ArrayList<Long>();
+
 	private Usuario usuarioSessao;
-	
+
 	@PostConstruct
 	public void init() {
 		usuarioSessao = UsuarioSessionBean.getInstance().getUsuarioSessao();
-		comentarios.addAll(comentarioServiceBean.consultarComentariosPainel());
-		topicos.addAll(topicoServiceBean.buscarTopicosPainel());
-		mensagens.addAll(mensagemServiceBean.consultarMensagemPainel(usuarioSessao));
 		if (Constantes.PERFIL_ALUNO.equals(usuarioSessao.getPerfil())) {
-			for (GrupoEstudo ge : grupoEstudoSerivceBean.consultarGruposUsuario(usuarioSessao)) {
-				comentarios.addAll(comentarioServiceBean.consultarComentariosPainelGrupos(ge));
-				topicos.addAll(topicoServiceBean.buscarTopicosGrupo(ge));
-			}
+			gruposEstudo = grupoEstudoSerivceBean.consultarGruposUsuario(usuarioSessao);
 		} else {
-			for (GrupoEstudo ge : grupoEstudoSerivceBean.consultarGruposProfessor(usuarioSessao)) {
-				comentarios.addAll(comentarioServiceBean.consultarComentariosPainelGrupos(ge));
-				topicos.addAll(topicoServiceBean.buscarTopicosGrupo(ge));
-			}
+			gruposEstudo = grupoEstudoSerivceBean.consultarGruposProfessor(usuarioSessao);
 		}
+		mensagens.addAll(mensagemServiceBean.consultarMensagemPainel(usuarioSessao));
+		for (GrupoEstudo ge : gruposEstudo) {
+			listaIdGrupo.add(ge.getIdGrupoEstudo());
+		}
+		comentarios.addAll(comentarioServiceBean.consultarComentariosPainel(listaIdGrupo));
+		topicos.addAll(topicoServiceBean.buscarTopicosPainel(listaIdGrupo));
+		
 	}
 
 	public List<Comentario> getComentarios() {
@@ -88,6 +92,13 @@ public class PainelPrincipalBean extends GenericBean {
 	public void setMensagens(List<Mensagem> mensagens) {
 		this.mensagens = mensagens;
 	}
-	
-	
+
+	public List<GrupoEstudo> getGruposEstudo() {
+		return gruposEstudo;
+	}
+
+	public void setGruposEstudo(List<GrupoEstudo> gruposEstudo) {
+		this.gruposEstudo = gruposEstudo;
+	}
+
 }

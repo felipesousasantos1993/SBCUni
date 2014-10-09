@@ -85,7 +85,7 @@
 								</div>
 								<div class="pull-right">
 									<ui:repeat var="categoria" value="#{visualizarTopicoBean.topico.categorias}">
-										<h:outputText value="#{categoria.deCategoria}" styleClass="label label marginLeft_5"/>
+										<h:commandLink immediate="true" action="#{visualizarTopicoBean.buscarTopicosCategoria(categoria)}" styleClass="label label marginLeft_5" value="#{categoria.deCategoria}" />
 									</ui:repeat>
 								</div>
 							</div>

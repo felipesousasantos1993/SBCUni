@@ -13,6 +13,8 @@ import javax.faces.model.SelectItem;
 
 import br.com.sbcuni.avaliacao.entity.Avaliacao;
 import br.com.sbcuni.avaliacao.service.AvaliacaoServiceBean;
+import br.com.sbcuni.categoria.entity.Categoria;
+import br.com.sbcuni.categoria.service.CategoriaServiceBean;
 import br.com.sbcuni.comentario.entity.Comentario;
 import br.com.sbcuni.constantes.Constantes;
 import br.com.sbcuni.constantes.Tela;
@@ -38,6 +40,7 @@ public class GenericBean implements Serializable {
 	private AvaliacaoServiceBean avaliacaoServiceBean;
 	@EJB
 	private TopicoServiceBean topicoServiceBean;
+	
 	public static String getMensagem(String key, Object... args) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ResourceBundle mensagens = ctx.getApplication().getResourceBundle(ctx, "mensagens");
@@ -88,6 +91,12 @@ public class GenericBean implements Serializable {
 		WebResources.getFlash().put(WebResources.USUARIO, usuario);
 		WebResources.getFlash().put(WebResources.TELA, "enviarMensagem");
 		return Tela.CAIXA_ENTRADA;
+	}
+	
+	public String buscarTopicosCategoria(Categoria categoria) {
+		WebResources.getFlash().put(WebResources.CATEGORIA, categoria);
+		WebResources.getFlash().put(WebResources.LISTA_TOPICOS, topicoServiceBean.buscarTopicoPorCategoria(categoria));
+		return Tela.TOPICOS_CATEGORIAS;
 	}
 
 	public void curtirTopico(Topico topico) {

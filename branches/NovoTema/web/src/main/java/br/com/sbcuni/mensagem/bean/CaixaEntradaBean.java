@@ -54,8 +54,6 @@ public class CaixaEntradaBean extends GenericBean {
 		if (Util.isBlankOrNull(tela)) {
 			atualizarCaixaEntrada();
 			msgRecebidas = Boolean.TRUE;
-			listaAlunos = usuarioServiceBean.buscarTodos();
-			listaAlunos.remove(UsuarioSessionBean.getInstance().getUsuarioSessao());
 		} else if (tela.equals("verMensagem")) {
 			verMensagem = Boolean.TRUE;
 			atualizarCaixaEntrada();
@@ -66,6 +64,8 @@ public class CaixaEntradaBean extends GenericBean {
 			mensagem.setDestinatario((Usuario) WebResources.getFlash().get(WebResources.USUARIO));
 			msgPrivada = Boolean.TRUE;
 		}
+		listaAlunos = usuarioServiceBean.buscarTodos();
+		listaAlunos.remove(UsuarioSessionBean.getInstance().getUsuarioSessao());
 	}
 
 	public void atualizarCaixaEntrada() {
@@ -115,6 +115,7 @@ public class CaixaEntradaBean extends GenericBean {
 		msgRecebidas = Boolean.FALSE;
 		verMensagem = Boolean.FALSE;
 		novaMensagem = Boolean.TRUE;
+		msgPrivada = Boolean.FALSE;
 	}
 
 	public String enviarMensagem() {
@@ -251,6 +252,7 @@ public class CaixaEntradaBean extends GenericBean {
 		msgExcluidas = Boolean.FALSE;
 		verMensagem = Boolean.FALSE;
 		novaMensagem = Boolean.FALSE;
+		msgPrivada = Boolean.FALSE;
 	}
 
 	public void exibirMsgsEnviadas() {
@@ -259,6 +261,7 @@ public class CaixaEntradaBean extends GenericBean {
 		msgExcluidas = Boolean.FALSE;
 		verMensagem = Boolean.FALSE;
 		novaMensagem = Boolean.FALSE;
+		msgPrivada = Boolean.FALSE;
 	}
 
 	public void exibirMsgsExcluidas() {
@@ -267,6 +270,7 @@ public class CaixaEntradaBean extends GenericBean {
 		msgExcluidas = Boolean.TRUE;
 		verMensagem = Boolean.FALSE;
 		novaMensagem = Boolean.FALSE;
+		msgPrivada = Boolean.FALSE;
 	}
 
 	public List<Mensagem> getMensagemsRecebidas() {

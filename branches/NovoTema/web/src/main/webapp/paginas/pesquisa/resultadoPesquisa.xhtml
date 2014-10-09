@@ -67,6 +67,14 @@
 								</span>
 							</a>
 						</li>
+						<li>
+							<a href="#categorias" data-toggle="tab">
+								<h:outputText value="#{mensagens['display.categoria']}" />
+								<span class="label label-success">
+									<h:outputText value="#{resultadoPesquisaBean.nuCategorias}" /> 
+								</span>
+							</a>
+						</li>
 					</ul>
 					
 					<div class="panel search-panel">
@@ -156,6 +164,15 @@
 											<h:outputText value="#{grupoEstudo.professor.nome}" escape="false" styleClass="marginLeft_10"/>
 										</div>
 										<div class="search-tags">
+										</div>
+									</li>
+								</ui:repeat>
+							</div>
+							<div id="categorias" class="search-classic widget-followers tab-pane fade in">
+								<ui:repeat var="categoria" value="#{resultadoPesquisaBean.categorias}">
+									<li> 
+										<div class="label bg-success">
+											<h:outputText value="#{categoria.deCategoria}" />
 										</div>
 									</li>
 								</ui:repeat>
