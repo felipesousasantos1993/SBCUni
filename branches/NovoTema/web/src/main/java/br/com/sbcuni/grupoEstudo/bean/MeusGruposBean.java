@@ -28,7 +28,7 @@ public class MeusGruposBean extends GenericBean {
 	@PostConstruct
 	public void init() {
 		if (UsuarioSessionBean.getInstance().getUsuarioSessao().getPerfil().equals(Constantes.PERFIL_ALUNO)) {
-			
+			grupoEstudos = grupoEstudoSerivceBean.consultarGruposUsuario(UsuarioSessionBean.getInstance().getUsuarioSessao());
 		} else {
 			grupoEstudos = grupoEstudoSerivceBean.consultarGruposProfessor(UsuarioSessionBean.getInstance().getUsuarioSessao());
 		}

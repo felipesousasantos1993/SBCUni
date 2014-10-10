@@ -2179,8 +2179,8 @@ html body.page-signup {
 
 .page-profile .profile-photo img {
 	display: block;
-	max-width: 100%;
-	border-radius: 999999px
+	border-radius: 999999px;
+	width: 150px;;
 }
 
 .page-profile .left-col>.panel .panel-heading {

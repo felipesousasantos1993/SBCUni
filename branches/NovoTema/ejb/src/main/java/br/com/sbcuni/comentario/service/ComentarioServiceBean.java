@@ -83,5 +83,27 @@ public class ComentarioServiceBean implements Serializable {
 			return null;
 		}
 	}
-
+	
+	public Long consultarNuComentarioUsuario(Usuario usuario) {
+		Query query = entityManager.createNamedQuery("Comentario.consultarNuComentarioUsuario");
+		query.setParameter("idUsuario", usuario.getIdUsuario());
+		try {
+			return (Long) query.getSingleResult();
+		} catch (NoResultException e) {
+			return null;
+		}
+	}
+	public List<Comentario> consultarComentarioUsuario(Usuario usuario, Integer limite) {
+		Query query = entityManager.createNamedQuery("Comentario.consultarComentarioUsuario");
+		query.setParameter("idUsuario", usuario.getIdUsuario());
+		try {
+			if (limite > 0) {
+				query.setMaxResults(limite);
+			}
+			return query.getResultList();
+		} catch (NoResultException e) {
+			return null;
+		}
+	}
+	
 }

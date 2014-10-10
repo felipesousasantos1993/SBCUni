@@ -47,16 +47,18 @@
 						</h:commandLink>
 					</h:panelGroup>
 				</div>
-					<div class="panel panel-transparent">
-						<div class="panel-heading">
-							<span class="panel-title">
-								<h:outputText value="#{mensagens['display.sobre.mim']}" />
-							</span>						
+					<h:panelGroup rendered="#{not empty perfilBean.usuario.sobreMim}">
+						<div class="panel panel-transparent">
+							<div class="panel-heading">
+								<span class="panel-title">
+									<h:outputText value="#{mensagens['display.sobre.mim']}" />
+								</span>						
+							</div>
+							<div class="panel-body">
+								<h:outputText value="#{perfilBean.usuario.sobreMim}" escape="false" />
+							</div>
 						</div>
-						<div class="panel-body">
-							<h:outputText value="#{perfilBean.usuario.sobreMim}" escape="false" />
-						</div>
-					</div>
+					</h:panelGroup>
 					<div class="panel panel-transparent">
 						<div class="panel-heading">
 							<span class="panel-title">
@@ -86,22 +88,30 @@
 									<f:convertDateTime timeZone="America/Sao_Paulo" locale="pt_BR" pattern="EEEE yyyy"/>
 								</h:outputText> 
 							</div>
-							<div class="list-group-item">
-								<strong><h:outputText value="#{mensagens['display.telefone']}" rendered="#{not empty perfilBean.usuario.telFixo}"/> </strong>
-								<h:outputText value="#{perfilBean.usuario.telFixo}" rendered="#{not empty perfilBean.usuario.telFixo}"/>
-							</div>
-							<div class="list-group-item">
-								<strong><h:outputText value="#{mensagens['display.celular']}" rendered="#{not empty perfilBean.usuario.telCelular}"/> </strong>
-								<h:outputText value="#{perfilBean.usuario.telCelular}" rendered="#{not empty perfilBean.usuario.telCelular}"/>
-							</div>
-							<div class="list-group-item">
-								<strong><h:outputText value="#{mensagens['display.cidade']}" rendered="#{not empty perfilBean.usuario.cidade}"/> </strong>
-								<h:outputText value="#{perfilBean.usuario.cidade}" rendered="#{not empty perfilBean.usuario.cidade}"/>
-							</div>
-							<div class="list-group-item">
-								<strong><h:outputText value="#{mensagens['display.estado']}" rendered="#{not empty perfilBean.usuario.estado}"/> </strong>
-								<h:outputText value="#{perfilBean.usuario.estado}" rendered="#{not empty perfilBean.usuario.estado}"/>
-							</div>
+							<h:panelGroup rendered="#{not empty perfilBean.usuario.telFixo}">
+								<div class="list-group-item">
+									<strong><h:outputText value="#{mensagens['display.telefone']}" /> </strong>
+									<h:outputText value="#{perfilBean.usuario.telFixo}" />
+								</div>
+							</h:panelGroup>
+							<h:panelGroup rendered="#{not empty perfilBean.usuario.telCelular}">
+								<div class="list-group-item">
+									<strong><h:outputText value="#{mensagens['display.celular']}"/> </strong>
+									<h:outputText value="#{perfilBean.usuario.telCelular}"/>
+								</div>
+							</h:panelGroup>
+							<h:panelGroup rendered="#{not empty perfilBean.usuario.cidade}">
+								<div class="list-group-item">
+									<strong><h:outputText value="#{mensagens['display.cidade']}"/> </strong>
+									<h:outputText value="#{perfilBean.usuario.cidade}"/>
+								</div>
+							</h:panelGroup>
+							<h:panelGroup rendered="#{not empty perfilBean.usuario.estado}">
+								<div class="list-group-item">
+									<strong><h:outputText value="#{mensagens['display.estado']}" /> </strong>
+									<h:outputText value="#{perfilBean.usuario.estado}"/>
+								</div>
+							</h:panelGroup>
 						</div>
 					</div>
 					<div class="panel panel-transparent">
@@ -114,32 +124,127 @@
 							<div class="list-group-item">
 								<i class="fa fa-bullhorn"/>
 								<strong><h:outputText value="#{mensagens['display.topicos']}" /> </strong>
-								<h:outputText value="1" />
+								<h:outputText value="#{perfilBean.nuTopicos}" />
 							</div>
 							<div class="list-group-item">
 								<i class="fa fa-comment-o"/>
 								<strong><h:outputText value="#{mensagens['display.comentarios']}" /> </strong>
-								<h:outputText value="2" />
+								<h:outputText value="#{perfilBean.nuComentarios}" />
 							</div>
 						</div>
 					</div>
-					<div class="panel panel-transparent">
-						<div class="panel-heading">
-							<span class="panel-title">
-								<h:outputText value="#{mensagens['display.grupos.estudo']}" />
-							</span>						
+					<h:panelGroup rendered="#{not empty perfilBean.grupoEstudos}">
+						<div class="panel panel-transparent">
+							<div class="panel-heading">
+								<span class="panel-title">
+									<h:outputText value="#{mensagens['display.grupos.estudo']}" />
+								</span>						
+							</div>
+							<div class="list-group">
+								<ui:repeat var="grupoEstudo" value="#{perfilBean.grupoEstudos}">
+									<div class="list-group-item">
+										<h:commandLink action="#{perfilBean.detalharGrupoEstudo(grupoEstudo)}"  value="#{grupoEstudo.noGrupo}" styleClass="label label-primary"/>
+									</div>
+								</ui:repeat>
+							</div>
 						</div>
-						<div class="list-group">
-							<ui:repeat var="grupoEstudo" value="#{perfilBean.grupoEstudos}">
-								<div class="list-group-item">
-									<h:commandLink action="#{perfilBean.detalharGrupoEstudo(grupoEstudo)}"  value="#{grupoEstudo.noGrupo}" styleClass="label label-primary"/>
+					</h:panelGroup>
+				</div>
+				<div class="right-col">
+
+				<hr class="profile-content-hr no-grid-gutter-h"/>
+				
+				<div class="profile-content">
+
+					<ul id="profile-tabs" class="nav nav-tabs"><li class="dropdown pull-right tabdrop hide"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa fa-bars"></i> <b class="caret"></b></a><ul class="dropdown-menu"></ul></li>
+						<li class="active">
+							<a href="#topicos" data-toggle="tab"><h:outputText value="#{mensagens['display.topicos']}" /> </a>
+						</li>
+						<li >
+							<a href="#comentarios" data-toggle="tab"><h:outputText value="#{mensagens['display.comentarios']}" /> < </a>
+						</li>
+						<li>
+							<a href="#grupos" data-toggle="tab"><h:outputText value="#{mensagens['display.grupos.estudo']}" /> </a>
+						</li>
+						<li>
+							<a href="#mensagens" data-toggle="tab"><h:outputText value="#{mensagens['display.mensagens']}" /> </a>
+						</li>
+					</ul>
+
+					<div class="tab-content tab-content-bordered panel-padding">
+						<div class="widget-article-comments tab-pane panel no-padding no-border fade active in" id="comentarios">
+							<ui:repeat var="comentario" value="#{perfilBean.comentarios}">
+								<div class="comment">
+									<h:graphicImage value="/resources/img/avatares/#{comentario.usuario.avatar}" styleClass="comment-avatar"/>
+									<div class="comment-body">
+										<div class="comment-text">
+											<div class="comment-heading">
+												<h:commandLink value="#{comentario.usuario.nome}" action="#{perfilBean.perfilUsuario(comentario.usuario)}" />
+												<span><h:outputText value="#{comentario.tempoComentario}" /> </span>
+											</div>
+											<h:outputText value="#{comentario.descricao}" />
+										</div>
+										<div class="comment-footer">
+											<a href="#"><i class="fa fa-thumbs-o-up"></i></a>&nbsp;&nbsp;
+											<a href="#"><i class="fa fa-thumbs-o-down"></i></a>
+										</div>
+									</div> 
 								</div>
+								<hr class="no-panel-padding-h panel-wide"/>
 							</ui:repeat>
-						</div>
-					</div>
+
+						</div> 
+						<div class="tab-pane fade" id="topicos">
+							<div class="timeline">
+								<!-- Timeline header -->
+								<div class="tl-header now">Now</div>
+
+								<div class="tl-entry left">
+									<div class="tl-time">
+										2h ago
+									</div>
+									<div class="tl-icon bg-success"><i class="fa fa-picture-o"></i></div>
+									<div class="panel tl-body">
+										<a href="#">Denise Steiner</a> shared an image on <a href="#">The Gallery</a>
+										<div class="tl-wide text-center" style="padding: 10px;margin-top:15px;margin-bottom: 15px;background: #f1f1f1">
+											<img src="assets/demo/signin-bg-5.jpg" alt="" style="max-height: 150px;max-width: 100%;"/>
+										</div>
+										<i class="text-muted text-sm">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</i>
+									</div> <!-- / .tl-body -->
+								</div> <!-- / .tl-entry -->
+
+							</div> <!-- / .timeline -->
+						</div> <!-- / .tab-pane -->
+						<div class="tab-pane fade widget-followers" id="grupos">
+							<div class="follower">
+								<img src="assets/demo/avatars/1.jpg" alt="" class="follower-avatar"/>
+								<div class="body">
+									<div class="follower-controls">
+										<a href="#" class="btn btn-sm btn-success"><i class="fa fa-check"></i><span>Following</span></a>
+									</div>
+									<a href="#" class="follower-name">John Doe</a><br/>
+									<a href="#" class="follower-username">@jdoe</a>
+								</div>
+							</div>
+
+							</div>
+						</div> <!-- / .tab-pane -->
+						<div class="tab-pane fade widget-followers" id="mensagens">
+							<div class="follower">
+								<img src="assets/demo/avatars/1.jpg" alt="" class="follower-avatar"/>
+								<div class="body">
+									<div class="follower-controls">
+										<a href="#" class="btn btn-sm btn-success"><i class="fa fa-check"></i><span>Following</span></a>
+									</div>
+									<a href="#" class="follower-name">John Doe</a><br/>
+									<a href="#" class="follower-username">@jdoe</a>
+								</div>
+							</div>
+							</div>
+						</div> 
+					</div> 
 				</div>
 			</div>
-		</div>
-	</h:form>
+		</h:form>
 	</ui:define>
 </ui:composition>

@@ -69,7 +69,7 @@ public class CaixaEntradaBean extends GenericBean {
 	}
 
 	public void atualizarCaixaEntrada() {
-		mensagemsRecebidas = mensagemServiceBean.consultarRecebidas(UsuarioSessionBean.getInstance().getUsuarioSessao());
+		mensagemsRecebidas = mensagemServiceBean.consultarRecebidas(UsuarioSessionBean.getInstance().getUsuarioSessao(), 0);
 		mensagemEnviadas = mensagemServiceBean.consultarEnviadas(UsuarioSessionBean.getInstance().getUsuarioSessao());
 		mensagensExcluidas = mensagemServiceBean.consultarRecebidasLixeira(UsuarioSessionBean.getInstance().getUsuarioSessao());
 		mensagensExcluidas.addAll(mensagemServiceBean.consultarEnviadasLixeira(UsuarioSessionBean.getInstance().getUsuarioSessao()));

@@ -27,6 +27,72 @@
 	<div id="content" class="content">
 		<h:form prependId="false" id="form">
 			<div class="row">
+				<div class="col-md-4">
+					<div class="stat-panel">
+						<div class="stat-row" >
+							<div class="stat-cell col-sm-4 padding-sm-hr bordered no-border-r valign-top">
+								<h4 class="padding-sm no-padding-t padding-xs-hr"><i class="fa fa-eye text-primary"/>
+									<h:outputText value="#{mensagens['display.topicos.mais.visualizados']}" styleClass="marginLeft_5"/>
+								</h4>
+								<ul class="list-group no-margin" >
+									<ui:repeat var="topico" value="#{painelPrincipalBean.topicosMaisVisualizados}">
+									<li class="list-group-item no-border-hr padding-xs-hr no-bg no-border-radius">
+										<h:commandLink action="#{painelPrincipalBean.detalharTopico(topico)}" value="#{topico.titulo}" />
+										<span class="label label-pa-purple pull-right">
+											<h:outputText value="#{topico.nuVisualizacoes}" />
+										</span>
+									</li> 
+									</ui:repeat>
+								</ul>
+							</div> 
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="stat-panel">
+						<div class="stat-row" >
+							<div class="stat-cell col-sm-4 padding-sm-hr bordered no-border-r valign-top">
+								<h4 class="padding-sm no-padding-t padding-xs-hr"><i class="glyphicon glyphicon-thumbs-up text-success"/>
+									<h:outputText value="#{mensagens['display.topicos.mais.populares']}" styleClass="marginLeft_5"/>
+								</h4>
+								<ul class="list-group no-margin" >
+									<ui:repeat var="topico" value="#{painelPrincipalBean.topicosMaisAvaliadosPostivo}">
+									<li class="list-group-item no-border-hr padding-xs-hr no-bg no-border-radius">
+										<h:commandLink action="#{painelPrincipalBean.detalharTopico(topico)}" value="#{topico.titulo}" />
+										<span class="label label-success pull-right">
+											<h:outputText value="#{topico.nuAvaliacaoPositivas}" />
+										</span>
+									</li> 
+									</ui:repeat>
+								</ul>
+							</div> 
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="stat-panel">
+						<div class="stat-row" >
+							<div class="stat-cell col-sm-4 padding-sm-hr bordered no-border-r valign-top">
+								<h4 class="padding-sm no-padding-t padding-xs-hr"><i class="glyphicon glyphicon-thumbs-down text-danger"/>
+									<h:outputText value="#{mensagens['display.topicos.menos.populares']}" styleClass="marginLeft_5"/>
+								</h4>
+								<ul class="list-group no-margin" >
+									<ui:repeat var="topico" value="#{painelPrincipalBean.topicosMaisAvaliadosNegativo}">
+									<li class="list-group-item no-border-hr padding-xs-hr no-bg no-border-radius">
+										<h:commandLink action="#{painelPrincipalBean.detalharTopico(topico)}" value="#{topico.titulo}" />
+										<span class="label label-danger pull-right">
+											<h:outputText value="#{topico.nuAvaliacaoNegativas}" />
+										</span>
+									</li> 
+									</ui:repeat>
+								</ul>
+							</div> 
+						</div>
+					</div>
+				</div>
+			</div>
+		
+			<div class="row">
 				<div class="col-md-8">
 					<div class="panel panel-warning" id="dashboard-recent">
 					<div class="panel-heading">
