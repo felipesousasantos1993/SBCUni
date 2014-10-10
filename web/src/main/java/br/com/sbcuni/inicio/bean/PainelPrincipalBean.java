@@ -1,8 +1,6 @@
 package br.com.sbcuni.inicio.bean;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -22,7 +20,6 @@ import br.com.sbcuni.topico.entity.Topico;
 import br.com.sbcuni.topico.service.TopicoServiceBean;
 import br.com.sbcuni.usuario.bean.UsuarioSessionBean;
 import br.com.sbcuni.usuario.entity.Usuario;
-import br.com.sbcuni.util.Util;
 
 @ViewScoped
 @ManagedBean
@@ -45,6 +42,9 @@ public class PainelPrincipalBean extends GenericBean {
 
 	private List<Comentario> comentarios = new ArrayList<Comentario>();;
 	private List<Topico> topicos = new ArrayList<Topico>();
+	private List<Topico> topicosMaisVisualizados = new ArrayList<Topico>();
+	private List<Topico> topicosMaisAvaliadosPostivo = new ArrayList<Topico>();
+	private List<Topico> topicosMaisAvaliadosNegativo = new ArrayList<Topico>();
 	private List<Mensagem> mensagens = new ArrayList<Mensagem>();
 	private List<GrupoEstudo> gruposEstudo = new ArrayList<GrupoEstudo>();
 	
@@ -66,7 +66,9 @@ public class PainelPrincipalBean extends GenericBean {
 		}
 		comentarios.addAll(comentarioServiceBean.consultarComentariosPainel(listaIdGrupo));
 		topicos.addAll(topicoServiceBean.buscarTopicosPainel(listaIdGrupo));
-		
+		topicosMaisVisualizados.addAll(topicoServiceBean.buscarTopicosMaisVisualizados(listaIdGrupo));
+		topicosMaisAvaliadosPostivo.addAll(topicoServiceBean.buscarTopicosMaisBemAvaliados());
+		topicosMaisAvaliadosNegativo.addAll(topicoServiceBean.buscarTopicosMaisMalAvaliados());
 	}
 
 	public List<Comentario> getComentarios() {
@@ -99,6 +101,30 @@ public class PainelPrincipalBean extends GenericBean {
 
 	public void setGruposEstudo(List<GrupoEstudo> gruposEstudo) {
 		this.gruposEstudo = gruposEstudo;
+	}
+
+	public List<Topico> getTopicosMaisVisualizados() {
+		return topicosMaisVisualizados;
+	}
+
+	public void setTopicosMaisVisualizados(List<Topico> topicosMaisVisualizados) {
+		this.topicosMaisVisualizados = topicosMaisVisualizados;
+	}
+
+	public List<Topico> getTopicosMaisAvaliadosPostivo() {
+		return topicosMaisAvaliadosPostivo;
+	}
+
+	public void setTopicosMaisAvaliadosPostivo(List<Topico> topicosMaisAvaliadosPostivo) {
+		this.topicosMaisAvaliadosPostivo = topicosMaisAvaliadosPostivo;
+	}
+
+	public List<Topico> getTopicosMaisAvaliadosNegativo() {
+		return topicosMaisAvaliadosNegativo;
+	}
+
+	public void setTopicosMaisAvaliadosNegativo(List<Topico> topicosMaisAvaliadosNegativo) {
+		this.topicosMaisAvaliadosNegativo = topicosMaisAvaliadosNegativo;
 	}
 
 }

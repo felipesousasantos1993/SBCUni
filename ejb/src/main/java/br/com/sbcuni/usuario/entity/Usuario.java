@@ -37,7 +37,7 @@ import br.com.sbcuni.topico.entity.Topico;
 	@NamedQuery(name = "Usuario.consultarUsuarioLogin", query = "SELECT u FROM Usuario u WHERE u.matricula =:matricula AND u.senha =:senha"),
 	@NamedQuery(name = "Usuario.consultarAlunoNomeOuMatricula", query = "SELECT u FROM Usuario u WHERE (lower(u.nome) like :nome OR u.matricula like :matricula) AND u.perfil = 1"),
 	@NamedQuery(name = "Usuario.consultarAlunoNomeOuEmail", query = "SELECT u FROM Usuario u WHERE lower(u.nome) like :nome OR lower(u.email) like :matricula"),
-	@NamedQuery(name = "Usuario.pesquisa", query = "SELECT u FROM Usuario u WHERE lower(u.nome) like :nome OR lower(u.email) like :email OR lower(u.matricula) like :matricula"),
+	@NamedQuery(name = "Usuario.pesquisa", query = "SELECT u FROM Usuario u WHERE lower(u.nome) like :nome OR lower(u.email) like :email OR lower(u.matricula) like :matricula")
 })
 public class Usuario implements Serializable {
 
@@ -187,16 +187,16 @@ public class Usuario implements Serializable {
 	}
 
 	public String getDePerfil() {
-		if (perfil.equals(1)) {
+		switch (perfil) {
+		case 1:
 			return "Aluno";
-		}
-		if (perfil.equals(2)) {
+		case 2:
 			return "Professor";
-		}
-		if (perfil.equals(3)) {
+		case 3:
 			return "Coordenador";
+		default:
+			return "Administrador";
 		}
-		return null;
 	}
 
 	public Date getDtCadastro() {

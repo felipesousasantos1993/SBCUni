@@ -40,10 +40,13 @@ public class MensagemServiceBean implements Serializable {
 		}
 	}
 	
-	public List<Mensagem> consultarRecebidas(Usuario usuario) {
+	public List<Mensagem> consultarRecebidas(Usuario usuario, Integer limite) {
 		Query query = entityManager.createNamedQuery("Mensagem.consultarRecebidas");
 		query.setParameter("idDestinatario", usuario.getIdUsuario());
 		query.setParameter("idTipo", MSG_PRINCIPAL);
+		if (limite > 0) {
+			query.setMaxResults(limite);
+		}
 		try {
 			return  query.getResultList();
 		} catch (NoResultException e) {

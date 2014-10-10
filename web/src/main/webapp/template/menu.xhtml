@@ -10,7 +10,7 @@
 		<div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 100%;"><div id="main-menu-inner" style="overflow: hidden; width: auto; height: 100%;">
 			<div class="menu-content top animated fadeIn" id="menu-content-demo">
 				<div>
-					<div class="text-bg"><span class="text-slim">Olá,</span> <span class="text-semibold"><h:outputText value="#{usuarioSessionBean.usuarioSessao.nome}" /> </span></div>
+					<div class="text-bg"><span class="text-slim">Olá,</span> <span class="text-semibold" ><h:commandLink action="#{menuBean.perfilUsuario(usuarioSessionBean.usuarioSessao)}" value="#{usuarioSessionBean.usuarioSessao.nome}" style="color:#FFF;"/> </span></div>
 					<h:outputLink value="#{facesContext.externalContext.requestContextPath}/paginas/usuario/editarAvatar.jsf">
 						<h:graphicImage library="img" value="/resources/img/avatares/#{usuarioSessionBean.usuarioSessao.avatar}" />
 					</h:outputLink>

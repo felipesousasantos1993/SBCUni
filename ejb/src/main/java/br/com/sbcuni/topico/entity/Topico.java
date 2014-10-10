@@ -37,7 +37,9 @@ import br.com.sbcuni.util.Util;
 	@NamedQuery(name = "Topico.buscarTopicosTituloDescricao" , query = "SELECT DISTINCT(t) FROM Topico t LEFT JOIN FETCH t.grupoEstudo ge LEFT JOIN FETCH t.categorias c LEFT JOIN FETCH t.usuario u WHERE lower(t.titulo) like :titulo OR lower(t.descricao) like :descricao ORDER BY t.dtUltimaAtualizacao DESC, t.dtCriacao DESC"),
 	@NamedQuery(name = "Topico.buscarTopicosGrupo", query = "SELECT DISTINCT(t) FROM Topico t LEFT JOIN FETCH t.grupoEstudo ge LEFT JOIN FETCH t.categorias JOIN FETCH t.usuario u WHERE t.grupoEstudo.idGrupoEstudo =:idGrupoEstudo"),
 	@NamedQuery(name = "Topico.buscarTopicosPainel", query = "SELECT DISTINCT(t) FROM Topico t LEFT JOIN FETCH t.grupoEstudo ge LEFT JOIN FETCH t.categorias JOIN FETCH t.usuario u WHERE t.grupoEstudo is empty OR t.grupoEstudo.idGrupoEstudo IN (:listaGrupos) ORDER BY t.dtUltimaAtualizacao DESC, t.dtCriacao DESC"),
-	@NamedQuery(name = "Topico.buscarTopicosPorId", query = "SELECT DISTINCT(t) FROM Topico t LEFT JOIN FETCH t.grupoEstudo ge LEFT JOIN FETCH t.categorias JOIN FETCH t.usuario u WHERE t.idTopico =:idTopico ORDER BY t.dtUltimaAtualizacao DESC, t.dtCriacao DESC")
+	@NamedQuery(name = "Topico.buscarTopicosPorId", query = "SELECT DISTINCT(t) FROM Topico t LEFT JOIN FETCH t.grupoEstudo ge LEFT JOIN FETCH t.categorias JOIN FETCH t.usuario u WHERE t.idTopico =:idTopico ORDER BY t.dtUltimaAtualizacao DESC, t.dtCriacao DESC"),
+	@NamedQuery(name = "Topico.buscarTopicosMaisVisualizados", query = "SELECT DISTINCT (t) FROM Topico t LEFT JOIN FETCH t.grupoEstudo ge LEFT JOIN FETCH t.categorias JOIN FETCH t.usuario u WHERE t.grupoEstudo is empty OR t.grupoEstudo.idGrupoEstudo IN (:listaGrupos) ORDER BY t.nuVisualizacoes DESC"),
+	@NamedQuery(name = "Topico.buscarNuTopicosUsuario", query = "SELECT COUNT(t) FROM Topico t WHERE t.usuario.idUsuario =:idUsuario")
 })
 public class Topico implements Serializable {
 

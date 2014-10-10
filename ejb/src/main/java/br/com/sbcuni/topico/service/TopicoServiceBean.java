@@ -5,7 +5,6 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -13,7 +12,6 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import br.com.sbcuni.categoria.entity.Categoria;
-import br.com.sbcuni.categoria.service.CategoriaServiceBean;
 import br.com.sbcuni.grupoEstudo.GrupoEstudo;
 import br.com.sbcuni.topico.entity.Topico;
 import br.com.sbcuni.usuario.entity.Usuario;
@@ -27,6 +25,8 @@ public class TopicoServiceBean implements Serializable {
 	private EntityManager entityManager;
 	
 	private StringBuffer queryTopicosCategorias = new StringBuffer("SELECT idtopico from topico WHERe idtopico IN (SELECT topicos_idtopico FRom topico_categoria  WHERE categorias_idcategoria  = ?)");
+	private StringBuffer queryTopicosBemAvaliados = new StringBuffer("SELECT 	t.idtopico, count(a) FROM topico  t, avaliacao a, avaliacao_topico atopico WHERE t.idtopico = atopico.topicos_idtopico AND a.idavaliacao = atopico.avaliacaos_idavaliacao AND a.avaliacao = true GROUP BY t.idtopico ORDER BY count(a) DESC");
+	private StringBuffer queryTopicosMalAvaliados = new StringBuffer("SELECT 	t.idtopico, count(a) FROM topico  t, avaliacao a, avaliacao_topico atopico WHERE t.idtopico = atopico.topicos_idtopico AND a.idavaliacao = atopico.avaliacaos_idavaliacao AND a.avaliacao = false GROUP BY t.idtopico ORDER BY count(a) DESC");
 	
 	/**
 	 * Método : postartopico Descrição: Inclui o topico.
@@ -44,6 +44,7 @@ public class TopicoServiceBean implements Serializable {
 		entityManager.persist(topico);
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<Topico> buscarTopicoPorCategoria(Categoria categoria) {
 		Query query = entityManager.createNativeQuery(queryTopicosCategorias.toString());
 		query.setParameter(1, categoria.getIdCategoria());
@@ -154,4 +155,63 @@ public class TopicoServiceBean implements Serializable {
 			return null;
 		}
 	}
+	public List<Topico> buscarTopicosMaisVisualizados(List<Long> listaGrupos) {
+		Query query = entityManager.createNamedQuery("Topico.buscarTopicosMaisVisualizados");
+		query.setParameter("listaGrupos", listaGrupos);
+		try {
+			query.setMaxResults(5);
+			return query.getResultList();
+		} catch (NoResultException e) {
+			return null;
+		}
+	}
+	public List<Topico> buscarTopicosMaisBemAvaliados() {
+		Query query = entityManager.createNativeQuery(queryTopicosBemAvaliados.toString());
+		try {
+			query.setMaxResults(5);
+			return converterRetornoPositivo(query.getResultList());
+		} catch (NoResultException e) {
+			return null;
+		}
+	}
+	
+	public List<Topico> buscarTopicosMaisMalAvaliados() {
+		Query query = entityManager.createNativeQuery(queryTopicosMalAvaliados.toString());
+		try {
+			query.setMaxResults(5);
+			return converterRetornoNegativas(query.getResultList());
+		} catch (NoResultException e) {
+			return null;
+		}
+	}
+	
+	public List<Topico> converterRetornoPositivo(List<Object[]> lista) {
+		List<Topico> topicos = new ArrayList<Topico>();
+		for (Object[] objects : lista) {
+			Topico topico = buscarTopicoPorId(Long.valueOf(objects[0].toString()));
+			topico.setNuAvaliacaoPositivas(BigInteger.valueOf(Long.valueOf(objects[1].toString())));
+			topicos.add(topico);
+		}
+		return topicos;
+	}
+	
+	public List<Topico> converterRetornoNegativas(List<Object[]> lista) {
+		List<Topico> topicos = new ArrayList<Topico>();
+		for (Object[] objects : lista) {
+			Topico topico = buscarTopicoPorId(Long.valueOf(objects[0].toString()));
+			topico.setNuAvaliacaoNegativas(BigInteger.valueOf(Long.valueOf(objects[1].toString())));
+			topicos.add(topico);
+		}
+		return topicos;
+	}
+	public Long buscarNuTopicosUsuario(Usuario usuario) {
+		Query query = entityManager.createNamedQuery("Topico.buscarNuTopicosUsuario");
+		query.setParameter("idUsuario", usuario.getIdUsuario());
+		try {
+			return (Long) query.getSingleResult();
+		} catch (NoResultException e) {
+			return null;
+		}
+	}
+	
 }
