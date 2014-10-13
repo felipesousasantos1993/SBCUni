@@ -147,8 +147,13 @@ public class TopicoServiceBean implements Serializable {
 	}
 
 	public List<Topico> buscarTopicosPainel(List<Long> listaGrupos) {
-		Query query = entityManager.createNamedQuery("Topico.buscarTopicosPainel");
-		query.setParameter("listaGrupos", listaGrupos);
+		Query query;
+		if (listaGrupos.isEmpty()) {
+			query = entityManager.createNamedQuery("Topico.buscarTopicosPainel");
+		} else {
+			query = entityManager.createNamedQuery("Topico.buscarTopicosPainelGrupo");
+			query.setParameter("listaGrupos", listaGrupos);
+		}
 		try {
 			return query.getResultList();
 		} catch (NoResultException e) {
@@ -156,8 +161,13 @@ public class TopicoServiceBean implements Serializable {
 		}
 	}
 	public List<Topico> buscarTopicosMaisVisualizados(List<Long> listaGrupos) {
-		Query query = entityManager.createNamedQuery("Topico.buscarTopicosMaisVisualizados");
-		query.setParameter("listaGrupos", listaGrupos);
+		Query query;
+		if (listaGrupos.isEmpty()) {
+			query = entityManager.createNamedQuery("Topico.buscarTopicosMaisVisualizados");
+		} else {
+			query = entityManager.createNamedQuery("Topico.buscarTopicosMaisVisualizadosGrupo");
+			query.setParameter("listaGrupos", listaGrupos);
+		}
 		try {
 			query.setMaxResults(5);
 			return query.getResultList();

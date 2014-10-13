@@ -14,7 +14,6 @@ import javax.faces.model.SelectItem;
 import br.com.sbcuni.avaliacao.entity.Avaliacao;
 import br.com.sbcuni.avaliacao.service.AvaliacaoServiceBean;
 import br.com.sbcuni.categoria.entity.Categoria;
-import br.com.sbcuni.categoria.service.CategoriaServiceBean;
 import br.com.sbcuni.comentario.entity.Comentario;
 import br.com.sbcuni.constantes.Constantes;
 import br.com.sbcuni.constantes.Tela;

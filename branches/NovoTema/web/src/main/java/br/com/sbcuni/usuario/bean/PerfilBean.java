@@ -8,6 +8,7 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
+import br.com.sbcuni.avaliacao.service.AvaliacaoServiceBean;
 import br.com.sbcuni.bean.GenericBean;
 import br.com.sbcuni.comentario.entity.Comentario;
 import br.com.sbcuni.comentario.service.ComentarioServiceBean;
@@ -39,6 +40,8 @@ public class PerfilBean extends GenericBean {
 	private TopicoServiceBean topicoServiceBean;
 	@EJB
 	private MensagemServiceBean mensagemServiceBean;
+	@EJB
+	private AvaliacaoServiceBean avaliacaoServiceBean;
 	
 	private Long nuTopicos;
 	private Long nuComentarios;
@@ -49,6 +52,7 @@ public class PerfilBean extends GenericBean {
 	private List<GrupoEstudo> grupoEstudos;
 
 	private Usuario usuario;
+	private Topico topicoExcluir;
 	
 	@PostConstruct
 	public void init() {
@@ -63,11 +67,32 @@ public class PerfilBean extends GenericBean {
 		nuComentarios = comentarioServiceBean.consultarNuComentarioUsuario(usuario);
 		mensagens = mensagemServiceBean.consultarRecebidas(usuario, 20);
 		nuTopicos = topicoServiceBean.buscarNuTopicosUsuario(usuario);
+		
+		for (Topico topico : topicos) {
+			topico.setComentarios(comentarioServiceBean.consultarComentariosTopico(topico));
+			avaliacaoServiceBean.definirAvaliacaoTopico(topico);
+			topico.setAvaliacaoUsuario(avaliacaoServiceBean.verificarAvaliacaoUsuarioTopico(UsuarioSessionBean.getInstance().getUsuarioSessao(), topico));
+		}
+		for (Comentario comentario : comentarios) {
+			avaliacaoServiceBean.definirAvaliacaoComentario(comentario);
+			comentario.setAvaliacaoUsuario(avaliacaoServiceBean.verificarAvaliacaoUsuarioComentario(UsuarioSessionBean.getInstance().getUsuarioSessao(), comentario));
+		}
 	}
 	
 	public String telaMudarSenha() {
 		WebResources.getFlash().put(WebResources.USUARIO, usuario);
 		return Tela.MUDAR_SENHA_PATH;
+	}
+	
+	public String excluir() {
+		try {
+			topicoServiceBean.excluirTopico(topicoExcluir);
+			exibirMsgAviso(getMensagem("display.topico.excluido.sucesso", WebResources.MENSAGEM));
+			return Tela.PEFIL_PATH;
+		} catch (Exception e) {
+			exibirMsgErro(getMensagem("display.erro.ao.excluir.topico", WebResources.MENSAGEM));
+			return null;
+		}
 	}
 	
 
@@ -125,6 +150,14 @@ public class PerfilBean extends GenericBean {
 
 	public void setMensagens(List<Mensagem> mensagens) {
 		this.mensagens = mensagens;
+	}
+
+	public Topico getTopicoExcluir() {
+		return topicoExcluir;
+	}
+
+	public void setTopicoExcluir(Topico topicoExcluir) {
+		this.topicoExcluir = topicoExcluir;
 	}
 	
 }
