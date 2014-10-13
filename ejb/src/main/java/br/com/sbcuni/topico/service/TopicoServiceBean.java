@@ -223,5 +223,15 @@ public class TopicoServiceBean implements Serializable {
 			return null;
 		}
 	}
+
+	public List<Topico> buscarTopicoNotificao() {
+		Query query = entityManager.createNamedQuery("Topico.buscarTopicoNotificao");
+		try {
+			query.setMaxResults(10);
+			return query.getResultList();
+		} catch (NoResultException e) {
+			return null;
+		}
+	}
 	
 }

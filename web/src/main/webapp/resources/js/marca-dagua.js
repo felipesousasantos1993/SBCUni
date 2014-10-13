@@ -19,6 +19,7 @@ function marcaDagua() {
 	$(".telfixo").attr("placeholder", "Telefone");
 	$(".telcelular").attr("placeholder", "Celular");
 	$(".cidade").attr("placeholder", "Cidade");
+	$(".matricula").attr("placeholder", "Matrícula");
 	$(".estado").attr("placeholder", "Selecione seu estado");
 	$(".sobre").attr("placeholder", "Escreva sobre você");
 	

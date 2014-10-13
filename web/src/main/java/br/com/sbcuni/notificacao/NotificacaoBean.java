@@ -1,3 +1,4 @@
+package br.com.sbcuni.notificacao;
 import java.util.Date;
 import java.util.List;
 
@@ -45,6 +46,11 @@ public class NotificacaoBean extends GenericBean {
 
 	public void carregarNotificacoes() {
 		carregarNotificacaoMensagens();
+		carregarNotificaoTopicos();
+	}
+	
+	public void carregarNotificaoTopicos() {
+		notificaoTopicos = topicoServiceBean.buscarTopicoNotificao();
 	}
 
 	public void carregarNotificacaoMensagens() {

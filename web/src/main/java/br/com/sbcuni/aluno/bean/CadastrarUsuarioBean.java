@@ -59,6 +59,10 @@ public class CadastrarUsuarioBean extends GenericBean {
 		}
 	}
 
+	public void gerarMatricula() {
+		usuario.setMatricula(Util.gerarMatricula(usuario.getPerfil()));
+	}
+	
 
 	public Usuario getUsuario() {
 		return usuario;

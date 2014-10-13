@@ -26,130 +26,90 @@
 				</div>
 			</div>
 			<ul class="navigation">
-				<li>
-					<a href="#{facesContext.externalContext.requestContextPath}/paginas/inicio/painelPrincipal.jsf"><i class="menu-icon fa fa-dashboard"></i><span class="mm-text mmc-dropdown-delay animated fadeIn"><h:outputText value="#{mensagens['display.painel.principal']}" /> </span></a>
-				</li>
-				<li class="mm-dropdown mm-dropdown-root">
-					<a href="#"><i class="menu-icon fa fa-th"></i><span class="mm-text mmc-dropdown-delay animated fadeIn"><h:outputText value="#{mensagens['display.gerencia.sistema']}" /></span> </a>
-					<ul class="mmc-dropdown-delay animated fadeInLeft">
-						<li class="mm-dropdown">
-							<a tabindex="-1" href="#"><i class="menu-icon fa user"></i><span class="mm-text mmc-dropdown-delay animated fadeIn"><h:outputText value="#{mensagens['display.usuario']}" /></span> </a>
-							<ul class="mmc-dropdown-delay animated fadeInLeft">
-								<li>
-									<a tabindex="-1" href="#{facesContext.externalContext.requestContextPath}/paginas/gerencia/cadastrar.jsf"><span class="mm-text"><h:outputText value="#{mensagens['display.cadastrar']}" /> </span></a>
-								</li>
-								<li>
-									<a tabindex="-1" href="#{facesContext.externalContext.requestContextPath}/paginas/gerencia/consultar.jsf"><span class="mm-text"><h:outputText value="#{mensagens['display.alterar']}" /> </span></a>
-								</li>
-								<li>
-									<a tabindex="-1" href="#{facesContext.externalContext.requestContextPath}/paginas/gerencia/consultar.jsf"><span class="mm-text"><h:outputText value="#{mensagens['display.consultar']}" /> </span></a>
-								</li>
-								<li>
-									<a tabindex="-1" href="#{facesContext.externalContext.requestContextPath}/paginas/gerencia/consultar.jsf"><span class="mm-text"><h:outputText value="#{mensagens['display.excluir']}" /> </span></a>
-								</li>
-							</ul>
-						</li>
-					</ul>
-				</li>
-				<li class="mm-dropdown mm-dropdown-root">
-					<a href="#"><i class="menu-icon fa  fa-book"></i><span class="mm-text mmc-dropdown-delay animated fadeIn"><h:outputText value="#{mensagens['display.alunos']}" /> </span></a>
-					<ul class="mmc-dropdown-delay animated fadeInLeft">
-						<li>
-							<h:commandLink tabindex="-1" action="#{menuBean.telaCadastrarUsuario(1)}" >
-								<span class="mm-text">
-									<h:outputText value="#{mensagens['display.cadastrar']}" />
-								</span>
-							</h:commandLink>
-						</li>
-						<li>
-							<h:commandLink tabindex="-1" action="#{menuBean.telaConsultarUsuario(1)}" >
-								<span class="mm-text">
-									<h:outputText value="#{mensagens['display.alterar']}" />
-								</span>
-							</h:commandLink>
-						</li>
-						<li>
-							<h:commandLink tabindex="-1" action="#{menuBean.telaConsultarUsuario(1)}" >
-								<span class="mm-text">
-									<h:outputText value="#{mensagens['display.consultar']}" />
-								</span>
-							</h:commandLink>
-						</li>
-						<li>
-							<h:commandLink tabindex="-1" action="#{menuBean.telaConsultarUsuario(1)}" >
-								<span class="mm-text">
-									<h:outputText value="#{mensagens['display.excluir']}" />
-								</span>
-							</h:commandLink>
-						</li>
-					</ul>
-				</li>
-				<li class="mm-dropdown mm-dropdown-root">
-					<a href="#"><i class="menu-icon fa fa-desktop"></i><span class="mm-text mmc-dropdown-delay animated fadeIn"><h:outputText value="#{mensagens['display.professor']}" /> </span></a>
-					<ul class="mmc-dropdown-delay animated fadeInLeft">
-						<li>
-							<h:commandLink tabindex="-1" action="#{menuBean.telaCadastrarUsuario(2)}" >
-								<span class="mm-text">
-									<h:outputText value="#{mensagens['display.cadastrar']}" />
-								</span>
-							</h:commandLink>
-						</li>
-						<li>
-							<h:commandLink tabindex="-1" action="#{menuBean.telaConsultarUsuario(2)}" >
-								<span class="mm-text">
-									<h:outputText value="#{mensagens['display.alterar']}" />
-								</span>
-							</h:commandLink>
-						</li>
-						<li>
-							<h:commandLink tabindex="-1" action="#{menuBean.telaConsultarUsuario(2)}" >
-								<span class="mm-text">
-									<h:outputText value="#{mensagens['display.consultar']}" />
-								</span>
-							</h:commandLink>
-						</li>
-						<li>
-							<h:commandLink tabindex="-1" action="#{menuBean.telaConsultarUsuario(2)}" >
-								<span class="mm-text">
-									<h:outputText value="#{mensagens['display.excluir']}" />
-								</span>
-							</h:commandLink>
-						</li>
-					</ul>
-				</li>
-				<li class="mm-dropdown mm-dropdown-root">
-					<a href="#"><i class="menu-icon fa fa-desktop"></i><span class="mm-text mmc-dropdown-delay animated fadeIn"><h:outputText value="#{mensagens['display.coordenador']}" /> </span></a>
-					<ul class="mmc-dropdown-delay animated fadeInLeft">
-						<li>
-							<h:commandLink tabindex="-1" action="#{menuBean.telaCadastrarUsuario(3)}" >
-								<span class="mm-text">
-									<h:outputText value="#{mensagens['display.cadastrar']}" />
-								</span>
-							</h:commandLink>
-						</li>
-						<li>
-							<h:commandLink tabindex="-1" action="#{menuBean.telaConsultarUsuario(3)}" >
-								<span class="mm-text">
-									<h:outputText value="#{mensagens['display.alterar']}" />
-								</span>
-							</h:commandLink>
-						</li>
-						<li>
-							<h:commandLink tabindex="-1" action="#{menuBean.telaConsultarUsuario(3)}" >
-								<span class="mm-text">
-									<h:outputText value="#{mensagens['display.consultar']}" />
-								</span>
-							</h:commandLink>
-						</li>
-						<li>
-							<h:commandLink tabindex="-1" action="#{menuBean.telaConsultarUsuario(3)}" >
-								<span class="mm-text">
-									<h:outputText value="#{mensagens['display.excluir']}" />
-								</span>
-							</h:commandLink>
-						</li>
-					</ul>
-				</li>
+					<li>
+						<a href="#{facesContext.externalContext.requestContextPath}/paginas/inicio/painelPrincipal.jsf"><i class="menu-icon fa fa-dashboard"></i><span class="mm-text mmc-dropdown-delay animated fadeIn"><h:outputText value="#{mensagens['display.painel.principal']}" /> </span></a>
+					</li>
+				<h:panelGroup rendered="#{usuarioSessionBean.usuarioSessao.perfil eq 4}">
+					<li class="mm-dropdown mm-dropdown-root">
+						<a href="#"><i class="menu-icon fa fa-th"></i><span class="mm-text mmc-dropdown-delay animated fadeIn"><h:outputText value="#{mensagens['display.gerencia.sistema']}" /></span> </a>
+						<ul class="mmc-dropdown-delay animated fadeInLeft">
+							<li class="mm-dropdown">
+								<a tabindex="-1" href="#"><i class="menu-icon fa user"></i><span class="mm-text mmc-dropdown-delay animated fadeIn"><h:outputText value="#{mensagens['display.usuario']}" /></span> </a>
+								<ul class="mmc-dropdown-delay animated fadeInLeft">
+									<li>
+										<a tabindex="-1" href="#{facesContext.externalContext.requestContextPath}/paginas/gerencia/cadastrar.jsf"><span class="mm-text"><h:outputText value="#{mensagens['display.cadastrar']}" /> </span></a>
+									</li>
+									<li>
+										<a tabindex="-1" href="#{facesContext.externalContext.requestContextPath}/paginas/gerencia/consultar.jsf"><span class="mm-text"><h:outputText value="#{mensagens['display.consultar']}" /> </span></a>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</li>
+				</h:panelGroup>
+				<h:panelGroup rendered="#{usuarioSessionBean.usuarioSessao.perfil eq 2 or usuarioSessionBean.usuarioSessao.perfil eq 3}">
+					<li class="mm-dropdown mm-dropdown-root">
+						<a href="#"><i class="menu-icon fa  fa-user"></i><span class="mm-text mmc-dropdown-delay animated fadeIn"><h:outputText value="#{mensagens['display.alunos']}" /> </span></a>
+						<ul class="mmc-dropdown-delay animated fadeInLeft">
+							<li>
+								<h:commandLink tabindex="-1" action="#{menuBean.telaCadastrarUsuario(1)}" >
+									<span class="mm-text">
+										<h:outputText value="#{mensagens['display.cadastrar']}" />
+									</span>
+								</h:commandLink>
+							</li>
+							<li>
+								<h:commandLink tabindex="-1" action="#{menuBean.telaConsultarUsuario(1)}" >
+									<span class="mm-text">
+										<h:outputText value="#{mensagens['display.consultar']}" />
+									</span>
+								</h:commandLink>
+							</li>
+						</ul>
+					</li>
+				</h:panelGroup>
+				<h:panelGroup rendered="#{usuarioSessionBean.usuarioSessao.perfil eq 3}">
+					<li class="mm-dropdown mm-dropdown-root">
+						<a href="#"><i class="menu-icon fa fa-book"></i><span class="mm-text mmc-dropdown-delay animated fadeIn"><h:outputText value="#{mensagens['display.professor']}" /> </span></a>
+						<ul class="mmc-dropdown-delay animated fadeInLeft">
+							<li>
+								<h:commandLink tabindex="-1" action="#{menuBean.telaCadastrarUsuario(2)}" >
+									<span class="mm-text">
+										<h:outputText value="#{mensagens['display.cadastrar']}" />
+									</span>
+								</h:commandLink>
+							</li>
+							<li>
+								<h:commandLink tabindex="-1" action="#{menuBean.telaConsultarUsuario(2)}" >
+									<span class="mm-text">
+										<h:outputText value="#{mensagens['display.consultar']}" />
+									</span>
+								</h:commandLink>
+							</li>
+						</ul>
+					</li>
+				</h:panelGroup>
+				<h:panelGroup rendered="#{usuarioSessionBean.usuarioSessao.perfil eq 3}">
+					<li class="mm-dropdown mm-dropdown-root">
+						<a href="#"><i class="menu-icon fa fa-desktop"></i><span class="mm-text mmc-dropdown-delay animated fadeIn"><h:outputText value="#{mensagens['display.coordenador']}" /> </span></a>
+						<ul class="mmc-dropdown-delay animated fadeInLeft">
+							<li>
+								<h:commandLink tabindex="-1" action="#{menuBean.telaCadastrarUsuario(3)}" >
+									<span class="mm-text">
+										<h:outputText value="#{mensagens['display.cadastrar']}" />
+									</span>
+								</h:commandLink>
+							</li>
+							<li>
+								<h:commandLink tabindex="-1" action="#{menuBean.telaConsultarUsuario(3)}" >
+									<span class="mm-text">
+										<h:outputText value="#{mensagens['display.consultar']}" />
+									</span>
+								</h:commandLink>
+							</li>
+						</ul>
+					</li>
+				</h:panelGroup>
 				<li class="mm-dropdown mm-dropdown-root">
 					<a href="#"><i class="menu-icon fa  fa-bullhorn"></i><span class="mm-text mmc-dropdown-delay animated fadeIn"><h:outputText value="#{mensagens['display.topicos']}" /></span> </a>
 					<ul class="mmc-dropdown-delay animated fadeInLeft">
@@ -167,9 +127,11 @@
 				<li class="mm-dropdown mm-dropdown-root">
 					<a href="#"><i class="menu-icon fa  fa-group"></i><span class="mm-text mmc-dropdown-delay animated fadeIn"><h:outputText value="#{mensagens['display.menu.grupos.estudo']}" /></span></a>
 					<ul class="mmc-dropdown-delay animated fadeInLeft">
-						<li>
-							<a tabindex="-1" href="#{facesContext.externalContext.requestContextPath}/paginas/grupoEstudo/criarGrupo.jsf"><span class="mm-text"><h:outputText value="#{mensagens['display.criar.grupo.estudo']}" /> </span></a>
-						</li>
+						<h:panelGroup rendered="#{usuarioSessionBean.usuarioSessao.perfil eq 2 or usuarioSessionBean.usuarioSessao.perfil eq 3}">
+							<li>
+								<a tabindex="-1" href="#{facesContext.externalContext.requestContextPath}/paginas/grupoEstudo/criarGrupo.jsf"><span class="mm-text"><h:outputText value="#{mensagens['display.criar.grupo.estudo']}" /> </span></a>
+							</li>
+						</h:panelGroup>
 						<li>
 							<a tabindex="-1" href="#{facesContext.externalContext.requestContextPath}/paginas/grupoEstudo/meusGrupos.jsf"><span class="mm-text"><h:outputText value="#{mensagens['display.meus.grupos']}" /> </span></a>
 						</li>
@@ -180,12 +142,6 @@
 				</li>
 			</ul> <!-- / .navigation -->
 			
-			<!-- 
-			<div class="menu-content animated fadeIn">
-				<a href="pages-invoice.html" class="btn btn-primary btn-block btn-outline dark">Create Invoice</a>
-			</div>
-			 -->
-			 
 		</div><div class="slimScrollBar" style="width: 7px; position: absolute; top: 0px; opacity: 0.4; display: none; border-top-left-radius: 7px; border-top-right-radius: 7px; border-bottom-right-radius: 7px; border-bottom-left-radius: 7px; z-index: 99; right: 1px; height: 741px; background: rgb(0, 0, 0);"></div><div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-top-left-radius: 7px; border-top-right-radius: 7px; border-bottom-right-radius: 7px; border-bottom-left-radius: 7px; opacity: 0.2; z-index: 90; right: 1px; background: rgb(51, 51, 51);"></div></div> <!-- / #main-menu-inner -->
 	</div>
 	</h:form>

@@ -184,40 +184,40 @@
 										<div class="comment-footer">
 											<div class="pull-right">
 												<i class="fa fa-bullhorn"/>
-												<h:outputText value="#{comentario.topico.titulo}"  escape="false" styleClass="marginLeft_5"/>
+												<h:commandLink action="#{perfilBean.detalharTopico(comentario.topico)}" value="#{comentario.topico.titulo}"  escape="false" styleClass="marginLeft_5"/>
 											</div>
 											<h:panelGroup id="avaliacao">
 												<h:panelGroup rendered="#{comentario.avaliacaoUsuario.avaliacao == false}"> 
-									 		 		<h:outputLabel styleClass="labelLink">
+									 		 		<h:outputLabel styleClass="avaliar">
 									 		 			<h:outputText value="#{comentario.nuAvaliacaoPositivas}" />
 									 		 			<i class="glyphicon glyphicon-thumbs-up" />
 									 		 			<f:ajax event="click" render="avaliacao" listener="#{perfilBean.curtirComentario(comentario)}" immediate="true" />
 									 		 		</h:outputLabel>
-									 		 		<h:outputLabel styleClass="disabled-editado labelLink marginLeft_10">
+									 		 		<h:outputLabel styleClass="avaliado marginLeft_10">
 									 		 			<i class="glyphicon glyphicon-thumbs-down" />
 									 		 			<f:ajax event="click" render="avaliacao" listener="#{perfilBean.removerAvaliacaoComentario(comentario)}" immediate="true" />
 									 		 		</h:outputLabel>
 										 			<h:outputText value="#{comentario.nuAvaliacaoNegativas}" styleClass="marginLeft_10"/> 
 									 		 	</h:panelGroup>
 									 		 	<h:panelGroup rendered="#{comentario.avaliacaoUsuario.avaliacao == true}">
-									 		 		<h:outputLabel styleClass="labelLink">
+									 		 		<h:outputLabel styleClass="avaliado">
 											 			<h:outputText value="#{comentario.nuAvaliacaoPositivas}" />
 										 		 		<i class="glyphicon glyphicon-thumbs-up" />
 										 		 		<f:ajax event="click" render="avaliacao" listener="#{perfilBean.removerAvaliacaoComentario(comentario)}" immediate="true" />
 									 		 		</h:outputLabel>
-										 		 	<h:outputLabel styleClass="marginLeft_10 labelLink">
+										 		 	<h:outputLabel styleClass="marginLeft_10 avaliar">
 										 		 		<i class="glyphicon glyphicon-thumbs-down" />
 										 		 		<f:ajax event="click"  render="avaliacao" listener="#{perfilBean.descurtirComentario(comentario)}" immediate="true"/>
 									 		 		</h:outputLabel>
 										 			<h:outputText value="#{comentario.nuAvaliacaoNegativas}" styleClass="marginLeft_10"/>
 									 		 	</h:panelGroup>
 									 		 	<h:panelGroup rendered="#{empty comentario.avaliacaoUsuario}">
-									 		 		<h:outputLabel styleClass="labelLink">
+									 		 		<h:outputLabel styleClass="avaliar">
 											 			<h:outputText value="#{comentario.nuAvaliacaoPositivas}" />
 									 		 			<i class="glyphicon glyphicon-thumbs-up" />
 									 		 			<f:ajax event="click" render="avaliacao" listener="#{perfilBean.curtirComentario(comentario)}" immediate="true"/>
 									 		 		</h:outputLabel>
-									 	 		<h:outputLabel styleClass="marginLeft_10 labelLink">
+									 	 		<h:outputLabel styleClass="marginLeft_10 avaliar">
 										 		 		<i class="glyphicon glyphicon-thumbs-down" />
 										 		 		<f:ajax event="click" render="avaliacao" listener="#{perfilBean.descurtirComentario(comentario)}" immediate="true"/>
 									 		 		</h:outputLabel>
@@ -242,9 +242,21 @@
 							 		  		<h:outputText value="#{topico.tempoTopicoCriacao}"/>
 							 		  	</small>
 									</div>
-									<div class="tl-icon bg-warning">
-										<i class="fa fa-envelope"/>
-									</div>
+									<h:panelGroup rendered="#{topico.usuario.perfil eq 1}">
+										<div class="tl-icon bg-success">
+											<i class="fa fa-book"/>
+										</div>
+									</h:panelGroup>
+									<h:panelGroup rendered="#{topico.usuario.perfil != 1 and empty topico.grupoEstudo}">
+										<div class="tl-icon bg-warning">
+											<i class="fa fa-user"/>
+										</div>
+									</h:panelGroup>
+									<h:panelGroup rendered="#{not empty topico.grupoEstudo}">
+										<div class="tl-icon bg-primary">
+											<i class="fa fa-group"/>
+										</div>
+									</h:panelGroup>
 									<div class="panel tl-body">
 										<div class="pull-right text-semibold text-light-gray text-sm">
 											<h:panelGroup rendered="#{not empty topico.grupoEstudo}">
@@ -279,36 +291,36 @@
 						 		 		<h:panelGroup id="avaliacao" styleClass="avaliacao">
 								 		 	<div class="box-tools pull-left" align="left">
 									 			<h:panelGroup rendered="#{topico.avaliacaoUsuario.avaliacao == false}"> 
-									 		 		<h:commandLink >
+									 		 		<h:commandLink styleClass="avaliar">
 									 		 			<h:outputText value="#{topico.nuAvaliacaoPositivas}" />
 									 		 			<i class="glyphicon glyphicon-thumbs-up" />
 									 		 			<f:ajax event="click" render="avaliacao" listener="#{perfilBean.curtirTopico(topico)}" immediate="true" execute="@form"/>
 									 		 		</h:commandLink>
-									 		 		<h:commandLink styleClass="disabled-editado marginLeft_10">
+									 		 		<h:commandLink styleClass="marginLeft_10 avaliado">
 									 		 			<i class="glyphicon glyphicon-thumbs-down" />
 									 		 			<f:ajax event="click" render="avaliacao" listener="#{perfilBean.removerAvaliacaoTopico(topico)}" immediate="true" execute="@form"/>
 									 		 		</h:commandLink>
 										 			<h:outputText value="#{topico.nuAvaliacaoNegativas}" styleClass="marginLeft_10"/>
 									 		 	</h:panelGroup>
 									 		 	<h:panelGroup rendered="#{topico.avaliacaoUsuario.avaliacao == true}">
-									 		 		<h:commandLink styleClass="disabled-editado">
+									 		 		<h:commandLink styleClass="avaliado">
 											 			<h:outputText value="#{topico.nuAvaliacaoPositivas}" />
 										 		 		<i class="glyphicon glyphicon-thumbs-up" />
 										 		 		<f:ajax event="click" render="avaliacao" listener="#{perfilBean.removerAvaliacaoTopico(topico)}" immediate="true" execute="@form"/>
 									 		 		</h:commandLink>
-										 		 	<h:commandLink styleClass="marginLeft_10">
+										 		 	<h:commandLink styleClass="marginLeft_10 avaliar">
 										 		 		<i class="glyphicon glyphicon-thumbs-down" />
 										 		 		<f:ajax event="click" execute="avaliacao" render="avaliacao" listener="#{perfilBean.descurtirTopico(topico)}"/>
 									 		 		</h:commandLink>
 										 			<h:outputText value="#{topico.nuAvaliacaoNegativas}" styleClass="marginLeft_10"/>
 									 		 	</h:panelGroup>
 									 		 	<h:panelGroup rendered="#{empty topico.avaliacaoUsuario}">
-									 		 		<h:commandLink  >
+									 		 		<h:commandLink styleClass="avaliar">
 											 			<h:outputText value="#{topico.nuAvaliacaoPositivas}" />
 									 		 			<i class="glyphicon glyphicon-thumbs-up" />
 									 		 			<f:ajax event="click" render="avaliacao" listener="#{perfilBean.curtirTopico(topico)}" immediate="true" execute="@form"/>
 									 		 		</h:commandLink>
-									 		 		<h:commandLink styleClass="marginLeft_10">
+									 		 		<h:commandLink styleClass="marginLeft_10 avaliar">
 										 		 		<i class="glyphicon glyphicon-thumbs-down" />
 										 		 		<f:ajax event="click" execute="avaliacao" render="avaliacao" listener="#{perfilBean.descurtirTopico(topico)}"/>
 									 		 		</h:commandLink>

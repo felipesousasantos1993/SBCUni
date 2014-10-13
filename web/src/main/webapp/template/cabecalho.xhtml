@@ -14,7 +14,7 @@
 			<div class="navbar-header">
 
 				<!-- Logo -->
-				<a href="#" class="navbar-brand">
+				<a href="#{facesContext.externalContext.requestContextPath}/paginas/inicio/painelPrincipal.jsf" class="navbar-brand">
 					<h:graphicImage value="/resources/img/logo_principal.png"  library="img"/>
 				</a>
 
@@ -37,54 +37,29 @@
 						<ul class="nav navbar-nav pull-right right-navbar-nav">
 							<li class="nav-icon-btn nav-icon-btn-danger dropdown">
 								<a href="#notifications" class="dropdown-toggle" data-toggle="dropdown">
-									<span class="label">5</span>
+									<span class="label"><h:outputText value="#{notificacaoBean.nuNotificacaoTopicos}" /> </span>
 									<i class="nav-icon fa fa-bullhorn"></i>
-									<span class="small-screen-text">Notificações</span>
+									<span class="small-screen-text"><h:outputText value="Notificações" /> </span>
 								</a>
 
 								<!-- NOTIFICATIONS -->
-								
 								<div class="dropdown-menu widget-notifications no-padding" style="width: 300px">
-									<div class="notifications-list scrollNotificacao" >
-										<div class="notification">
-											<div class="notification-title text-danger">SYSTEM</div>
-											<div class="notification-description"><strong>Error 500</strong>: Syntax error in index.php at line <strong>461</strong>.</div>
-											<div class="notification-ago">12h ago</div>
-											<div class="notification-icon fa fa-hdd-o bg-danger"></div>
-										</div> <!-- / .notification -->
-
-										<div class="notification">
-											<div class="notification-title text-info">STORE</div>
-											<div class="notification-description">You have <strong>9</strong> new orders.</div>
-											<div class="notification-ago">12h ago</div>
-											<div class="notification-icon fa fa-truck bg-info"></div>
-										</div> <!-- / .notification -->
-
-										<div class="notification">
-											<div class="notification-title text-default">CRON DAEMON</div>
-											<div class="notification-description">Job <strong>"Clean DB"</strong> has been completed.</div>
-											<div class="notification-ago">12h ago</div>
-											<div class="notification-icon fa fa-clock-o bg-default"></div>
-										</div> <!-- / .notification -->
-
-										<div class="notification">
-											<div class="notification-title text-success">SYSTEM</div>
-											<div class="notification-description">Server <strong>up</strong>.</div>
-											<div class="notification-ago">12h ago</div>
-											<div class="notification-icon fa fa-hdd-o bg-success"></div>
-										</div> <!-- / .notification -->
-
-										<div class="notification">
-											<div class="notification-title text-warning">SYSTEM</div>
-											<div class="notification-description"><strong>Warning</strong>: Processor load <strong>92%</strong>.</div>
-											<div class="notification-ago">12h ago</div>
-											<div class="notification-icon fa fa-hdd-o bg-warning"></div>
-										</div> <!-- / .notification -->
-
-									</div
-									><div class="slimScrollBar"/> <!-- / .notifications-list -->
-									<a href="#" class="notifications-link">MORE NOTIFICATIONS</a>
-								</div> <!-- / .dropdown-menu -->
+									<h:form prependId="false">
+									<div class="notifications-list scrollNotificacao" style="max-height:250px">
+										<ui:repeat var="topico" value="#{notificacaoBean.notificaoTopicos}">
+											<div class="notification">
+												<div class="notification-title text-success"><h:commandLink action="#{notificacaoBean.perfilUsuario(topico.usuario)}" value="#{topico.usuario.nome}" /> </div>
+												<div class="notification-description"><strong><h:commandLink action="#{notificacaoBean.detalharTopico(topico)}" value="#{topico.titulo}" /></strong></div>
+												<div class="notification-ago"><h:outputText value="#{topico.tempoTopico}" /> </div>
+												<div class="notification-icon fa fa-bullhorn bg-info"></div>
+											</div>
+										</ui:repeat>
+									</div> 
+									<h:outputLink  value="#{facesContext.externalContext.requestContextPath}/paginas/topico/ultimosTopicos.jsf"  styleClass="notifications-link">
+										<h:outputText value="#{mensagens['display.mais.topicos']}" />
+									</h:outputLink>
+									</h:form>
+								</div> 
 							</li>
 							<li class="nav-icon-btn nav-icon-btn-success dropdown">
 								<a href="#messages" class="dropdown-toggle" data-toggle="dropdown">
@@ -121,12 +96,12 @@
 								</h:panelGroup>
 								<h:panelGroup rendered="#{empty notificacaoBean.notificaoMensagens}">
 									<div class="dropdown-menu widget-messages-alt no-padding" style="width: 300px;">
-									<div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: auto;">
-									<div class="messages-list" id="main-navbar-messages" style="overflow: hidden; width: auto; height: auto;">
+										<div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: auto;">
+										<div class="messages-list" id="main-navbar-messages" style="overflow: hidden; width: auto; height: auto;">
+										</div>
+										<div class="slimScrollBar" style="width: 7px; position: absolute; top: 0px; opacity: 0.4; display: none; border-top-left-radius: 7px; border-top-right-radius: 7px; border-bottom-right-radius: 7px; border-bottom-left-radius: 7px; z-index: 99; right: 1px; background: rgb(0, 0, 0);"></div><div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-top-left-radius: 7px; border-top-right-radius: 7px; border-bottom-right-radius: 7px; border-bottom-left-radius: 7px; opacity: 0.2; z-index: 90; right: 1px; background: rgb(51, 51, 51);"></div></div> <!-- / .messages-list -->
+										<a href="#" class="messages-link"><h:outputText value="#{mensagens['display.nao.existem.novas.mensagens']}" /> </a>
 									</div>
-									<div class="slimScrollBar" style="width: 7px; position: absolute; top: 0px; opacity: 0.4; display: none; border-top-left-radius: 7px; border-top-right-radius: 7px; border-bottom-right-radius: 7px; border-bottom-left-radius: 7px; z-index: 99; right: 1px; background: rgb(0, 0, 0);"></div><div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-top-left-radius: 7px; border-top-right-radius: 7px; border-bottom-right-radius: 7px; border-bottom-left-radius: 7px; opacity: 0.2; z-index: 90; right: 1px; background: rgb(51, 51, 51);"></div></div> <!-- / .messages-list -->
-									<a href="#" class="messages-link"><h:outputText value="#{mensagens['display.nao.existem.novas.mensagens']}" /> </a>
-								</div>
 								</h:panelGroup>
 							</li>
 							
