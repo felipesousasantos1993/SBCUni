@@ -47,6 +47,7 @@ public class ConsultarUsuarioBean extends GenericBean {
 	}
 	
 	public String consultarUsuario(){
+		Usuario usuarioConsulta = new Usuario();
 		try {
 			WebResources.getFlash().put(WebResources.PERFIL, usuario.getPerfil());
 			switch (tpFiltro) {
@@ -64,30 +65,30 @@ public class ConsultarUsuarioBean extends GenericBean {
 				}
 				
 			case Constantes.FILTRO_EMAIL:
-				usuario = usuarioServiceBean.consultarPorEmail(usuario.getEmail(), usuario.getPerfil());
-				if (Util.isNull(usuario)) {
+				usuarioConsulta = usuarioServiceBean.consultarPorEmail(usuario.getEmail(), usuario.getPerfil());
+				if (Util.isNull(usuarioConsulta)) {
 					exibirMsgAviso(getMensagem("display.nenhum.usuario.encontrado", WebResources.MENSAGEM));
 					return null;
 				}
-				WebResources.getFlash().put(WebResources.USUARIO, usuario);
+				WebResources.getFlash().put(WebResources.USUARIO, usuarioConsulta);
 				return Tela.DETALHAR_USUARIO;
 				
 			case Constantes.FILTRO_MATRICULA:
-				usuario = usuarioServiceBean.consultarPorMatricula(usuario.getMatricula(), usuario.getPerfil());
-				if (Util.isNull(usuario)) {
+				usuarioConsulta = usuarioServiceBean.consultarPorMatricula(usuario.getMatricula(), usuario.getPerfil());
+				if (Util.isNull(usuarioConsulta)) {
 					exibirMsgAviso(getMensagem("display.nenhum.usuario.encontrado", WebResources.MENSAGEM));
 					return null;
 				}
-				WebResources.getFlash().put(WebResources.USUARIO, usuario);
+				WebResources.getFlash().put(WebResources.USUARIO, usuarioConsulta);
 				return Tela.DETALHAR_USUARIO;
 				
 			case Constantes.FILTRO_CPF:
-				usuario = usuarioServiceBean.consultarPorCpf(Util.retiraMascara(usuario.getCpf()), usuario.getPerfil());
-				if (Util.isNull(usuario)) {
+				usuarioConsulta = usuarioServiceBean.consultarPorCpf(Util.retiraMascara(usuario.getCpf()), usuario.getPerfil());
+				if (Util.isNull(usuarioConsulta)) {
 					exibirMsgAviso(getMensagem("display.nenhum.usuario.encontrado", WebResources.MENSAGEM));
 					return null;
 				}
-				WebResources.getFlash().put(WebResources.USUARIO, usuario);
+				WebResources.getFlash().put(WebResources.USUARIO, usuarioConsulta);
 				return Tela.DETALHAR_USUARIO;
 				
 			case Constantes.FILTRO_TODOS:

@@ -42,6 +42,11 @@ public class ExcluirBean extends GenericBean {
 			return null;
 		}
 	}
+	
+	public String telaDetalharUsuario() {
+		WebResources.getFlash().put(WebResources.USUARIO, usuario);
+		return Tela.DETALHAR_USUARIO;
+	}
 
 	public Usuario getUsuario() {
 		return usuario;

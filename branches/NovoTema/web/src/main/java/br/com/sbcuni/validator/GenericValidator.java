@@ -48,7 +48,8 @@ public abstract class GenericValidator implements Validator {
 	}
 
 	protected void exibirMsgErroValidacao(String msg, String tela) {
-		throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_WARN, GenericBean.getMensagem(msg, Constantes.MENSAGEM), tela));
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, GenericBean.getMensagem(msg, Constantes.MENSAGEM), tela));
+		throw new ValidatorException(new FacesMessage());
 	}
 
 }

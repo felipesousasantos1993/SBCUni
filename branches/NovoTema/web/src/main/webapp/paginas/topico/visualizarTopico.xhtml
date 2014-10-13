@@ -32,10 +32,10 @@
 					<div class="widget-article-comments tab-pane panel no-padding no-border fade active in">
 						<div class="panel">
 							<div class="panel-body">
-								<h3>
+								<h3 style="margin-bottom: 25px;">
 									<h:outputText value="#{visualizarTopicoBean.topico.titulo}" />
 								</h3>
-								<h:outputText value="#{visualizarTopicoBean.topico.descricao}" escape="false" />
+								<h:outputText value="#{visualizarTopicoBean.topico.descricao}" escape="false" style="margin-bottom: 50px;"/>
 								<div class="pull-left">
 									<h:panelGroup rendered="#{not empty visualizarTopicoBean.topico.grupoEstudo}">
 										<i class="fa fa-group"/>
@@ -45,36 +45,36 @@
 									<h:panelGroup id="avaliacao" styleClass="avaliacaoVisualizar">
 							 		 	<div class="box-tools pull-left" align="left">
 								 			<h:panelGroup rendered="#{visualizarTopicoBean.topico.avaliacaoUsuario.avaliacao == false}"> 
-								 		 		<h:commandLink >
+								 		 		<h:commandLink styleClass="avaliar">
 								 		 			<h:outputText value="#{visualizarTopicoBean.topico.nuAvaliacaoPositivas}" />
 								 		 			<i class="glyphicon glyphicon-thumbs-up" />
 								 		 			<f:ajax event="click" render="avaliacao" listener="#{visualizarTopicoBean.curtirTopico(visualizarTopicoBean.topico)}" immediate="true" execute="@form"/>
 								 		 		</h:commandLink>
-								 		 		<h:commandLink styleClass="disabled-editado marginLeft_10">
+								 		 		<h:commandLink styleClass="avaliado marginLeft_10">
 								 		 			<i class="glyphicon glyphicon-thumbs-down" />
 								 		 			<f:ajax event="click" render="avaliacao" listener="#{visualizarTopicoBean.removerAvaliacaoTopico(visualizarTopicoBean.topico)}" immediate="true" execute="@form"/>
 								 		 		</h:commandLink>
 									 			<h:outputText value="#{visualizarTopicoBean.topico.nuAvaliacaoNegativas}" styleClass="marginLeft_10"/>
 								 		 	</h:panelGroup>
 								 		 	<h:panelGroup rendered="#{visualizarTopicoBean.topico.avaliacaoUsuario.avaliacao == true}">
-								 		 		<h:commandLink styleClass="disabled-editado">
+								 		 		<h:commandLink styleClass="avaliado">
 										 			<h:outputText value="#{visualizarTopicoBean.topico.nuAvaliacaoPositivas}" />
 									 		 		<i class="glyphicon glyphicon-thumbs-up" />
 									 		 		<f:ajax event="click" render="avaliacao" listener="#{visualizarTopicoBean.removerAvaliacaoTopico(visualizarTopicoBean.topico)}" immediate="true" execute="@form"/>
 								 		 		</h:commandLink>
-									 		 	<h:commandLink styleClass="marginLeft_10">
+									 		 	<h:commandLink styleClass="marginLeft_10 avaliar">
 									 		 		<i class="glyphicon glyphicon-thumbs-down" />
 									 		 		<f:ajax event="click" execute="avaliacao" render="avaliacao" listener="#{visualizarTopicoBean.descurtirTopico(visualizarTopicoBean.topico)}"/>
 								 		 		</h:commandLink>
 									 			<h:outputText value="#{visualizarTopicoBean.topico.nuAvaliacaoNegativas}" styleClass="marginLeft_10"/>
 								 		 	</h:panelGroup>
 								 		 	<h:panelGroup rendered="#{empty visualizarTopicoBean.topico.avaliacaoUsuario}">
-								 		 		<h:commandLink  >
+								 		 		<h:commandLink  styleClass="avaliar">
 										 			<h:outputText value="#{visualizarTopicoBean.topico.nuAvaliacaoPositivas}" />
 								 		 			<i class="glyphicon glyphicon-thumbs-up" />
 								 		 			<f:ajax event="click" render="avaliacao" listener="#{visualizarTopicoBean.curtirTopico(visualizarTopicoBean.topico)}" immediate="true" execute="@form"/>
 								 		 		</h:commandLink>
-								 		 		<h:commandLink styleClass="marginLeft_10">
+								 		 		<h:commandLink styleClass="marginLeft_10 avaliar">
 									 		 		<i class="glyphicon glyphicon-thumbs-down" />
 									 		 		<f:ajax event="click" execute="avaliacao" render="avaliacao" listener="#{visualizarTopicoBean.descurtirTopico(visualizarTopicoBean.topico)}"/>
 								 		 		</h:commandLink>
@@ -145,36 +145,36 @@
 										<div class="comment-footer">
 											<h:panelGroup id="avaliacao">
 												<h:panelGroup rendered="#{comentario.avaliacaoUsuario.avaliacao == false}"> 
-									 		 		<h:outputLabel styleClass="labelLink">
+									 		 		<h:outputLabel styleClass="avaliar">
 									 		 			<h:outputText value="#{comentario.nuAvaliacaoPositivas}" />
 									 		 			<i class="glyphicon glyphicon-thumbs-up" />
 									 		 			<f:ajax event="click" render="avaliacao" listener="#{visualizarTopicoBean.curtirComentario(comentario)}" immediate="true" />
 									 		 		</h:outputLabel>
-									 		 		<h:outputLabel styleClass="disabled-editado labelLink marginLeft_10">
+									 		 		<h:outputLabel styleClass="avaliado marginLeft_10">
 									 		 			<i class="glyphicon glyphicon-thumbs-down" />
 									 		 			<f:ajax event="click" render="avaliacao" listener="#{visualizarTopicoBean.removerAvaliacaoComentario(comentario)}" immediate="true" />
 									 		 		</h:outputLabel>
 										 			<h:outputText value="#{comentario.nuAvaliacaoNegativas}" styleClass="marginLeft_10"/> 
 									 		 	</h:panelGroup>
 									 		 	<h:panelGroup rendered="#{comentario.avaliacaoUsuario.avaliacao == true}">
-									 		 		<h:outputLabel styleClass="labelLink">
+									 		 		<h:outputLabel styleClass="avaliado">
 											 			<h:outputText value="#{comentario.nuAvaliacaoPositivas}" />
 										 		 		<i class="glyphicon glyphicon-thumbs-up" />
 										 		 		<f:ajax event="click" render="avaliacao" listener="#{visualizarTopicoBean.removerAvaliacaoComentario(comentario)}" immediate="true" />
 									 		 		</h:outputLabel>
-										 		 	<h:outputLabel styleClass="marginLeft_10 labelLink">
+										 		 	<h:outputLabel styleClass="marginLeft_10 avaliar">
 									 		 		<i class="glyphicon glyphicon-thumbs-down" />
 									 		 		<f:ajax event="click"  render="avaliacao" listener="#{visualizarTopicoBean.descurtirComentario(comentario)}" immediate="true"/>
 								 		 		</h:outputLabel>
 									 			<h:outputText value="#{comentario.nuAvaliacaoNegativas}" styleClass="marginLeft_10"/>
 								 		 	</h:panelGroup>
 								 		 	<h:panelGroup rendered="#{empty comentario.avaliacaoUsuario}">
-								 		 		<h:outputLabel styleClass="labelLink">
+								 		 		<h:outputLabel styleClass="avaliar">
 										 			<h:outputText value="#{comentario.nuAvaliacaoPositivas}" />
 								 		 			<i class="glyphicon glyphicon-thumbs-up" />
 								 		 			<f:ajax event="click" render="avaliacao" listener="#{visualizarTopicoBean.curtirComentario(comentario)}" immediate="true"/>
 								 		 		</h:outputLabel>
-								 	 		<h:outputLabel styleClass="marginLeft_10 labelLink">
+								 	 		<h:outputLabel styleClass="marginLeft_10 avaliar">
 									 		 		<i class="glyphicon glyphicon-thumbs-down" />
 									 		 		<f:ajax event="click" render="avaliacao" listener="#{visualizarTopicoBean.descurtirComentario(comentario)}" immediate="true"/>
 								 		 		</h:outputLabel>

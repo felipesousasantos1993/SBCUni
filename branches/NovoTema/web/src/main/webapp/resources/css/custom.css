@@ -62,7 +62,6 @@
 .marginLeft_5 {
 	margin-left: 5px;
 }
-
 .marginLeft_10 {
 	margin-left: 10px;
 }
@@ -156,4 +155,19 @@
 }
 .fotoNaoSelecionada{
 	opacity:0.70;
+}
+.avaliar {
+	color: #aaa !important;
+	cursor: pointer;
+}
+.avaliar:hover {
+	color: #4083a9 !important;
+	cursor: pointer:
+}
+.avaliado {
+	color: #4083a9 !important;
+	cursor: pointer:
+}
+td label {
+	margin-left:5px;
 }

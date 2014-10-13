@@ -37,7 +37,8 @@ import br.com.sbcuni.topico.entity.Topico;
 	@NamedQuery(name = "Usuario.consultarUsuarioLogin", query = "SELECT u FROM Usuario u WHERE u.matricula =:matricula AND u.senha =:senha"),
 	@NamedQuery(name = "Usuario.consultarAlunoNomeOuMatricula", query = "SELECT u FROM Usuario u WHERE (lower(u.nome) like :nome OR u.matricula like :matricula) AND u.perfil = 1"),
 	@NamedQuery(name = "Usuario.consultarAlunoNomeOuEmail", query = "SELECT u FROM Usuario u WHERE lower(u.nome) like :nome OR lower(u.email) like :matricula"),
-	@NamedQuery(name = "Usuario.pesquisa", query = "SELECT u FROM Usuario u WHERE lower(u.nome) like :nome OR lower(u.email) like :email OR lower(u.matricula) like :matricula")
+	@NamedQuery(name = "Usuario.pesquisa", query = "SELECT u FROM Usuario u WHERE lower(u.nome) like :nome OR lower(u.email) like :email OR lower(u.matricula) like :matricula"),
+	@NamedQuery(name = "Usuario.consultarPorMatriculaCpf", query = "SELECT u FROM Usuario u WHERE u.cpf =:cpf AND u.matricula =:matricula")
 })
 public class Usuario implements Serializable {
 
@@ -69,7 +70,7 @@ public class Usuario implements Serializable {
 	@Column(name = "dtCadastro", nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dtCadastro;
-
+	
 	@Column(name = "telFixo", nullable = true)
 	private String telFixo;
 
