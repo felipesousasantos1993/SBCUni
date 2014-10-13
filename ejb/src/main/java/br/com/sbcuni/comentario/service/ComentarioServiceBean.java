@@ -75,8 +75,13 @@ public class ComentarioServiceBean implements Serializable {
 	}
 
 	public List<Comentario> consultarComentariosPainel(List<Long> listaGrupos) {
-		Query query = entityManager.createNamedQuery("Comentario.consultarComentariosPainel");
-		query.setParameter("listaGrupos", listaGrupos);
+		Query query;
+		if (listaGrupos.isEmpty()) {
+			query = entityManager.createNamedQuery("Comentario.consultarComentariosPainel");
+		} else {
+			query = entityManager.createNamedQuery("Comentario.consultarComentariosPainelGrupo");
+			query.setParameter("listaGrupos", listaGrupos);
+		}
 		try {
 			return query.getResultList();
 		} catch (NoResultException e) {

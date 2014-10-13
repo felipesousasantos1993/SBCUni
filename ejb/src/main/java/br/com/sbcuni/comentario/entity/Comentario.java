@@ -32,9 +32,10 @@ import br.com.sbcuni.util.Util;
 	@NamedQuery(name = "Comentario.consultarComentariosTopico", query = "SELECT c FROM Comentario c JOIN FETCH c.usuario WHERE c.topico.idTopico =:idTopico ORDER BY c.dtCriacao ASC"),
 	@NamedQuery(name = "Comentario.consultarNuComentariosUsuarioGrupoEstudo", query = "SELECT count(c) FROM Comentario c WHERE c.usuario.idUsuario =:idUsuario AND c.topico.grupoEstudo.idGrupoEstudo =:idGrupoEstudo"),
 	@NamedQuery(name = "Comentario.consultarNuComentariosGrupoEstudo", query = "SELECT count(c) FROM Comentario c WHERE c.topico.grupoEstudo.idGrupoEstudo =:idGrupoEstudo"),
-	@NamedQuery(name = "Comentario.consultarComentariosPainel", query = "SELECT c FROM Comentario c JOIN FETCH c.usuario u JOIN FETCH c.topico t WHERE c.topico.grupoEstudo is empty OR c.topico.grupoEstudo.idGrupoEstudo IN (:listaGrupos) ORDER BY c.dtUltimaAtualizacao DESC"),
+	@NamedQuery(name = "Comentario.consultarComentariosPainel", query = "SELECT c FROM Comentario c JOIN FETCH c.usuario u JOIN FETCH c.topico t WHERE c.topico.grupoEstudo IS EMPTY ORDER BY c.dtUltimaAtualizacao"),
+	@NamedQuery(name = "Comentario.consultarComentariosPainelGrupo", query = "SELECT c FROM Comentario c JOIN FETCH c.usuario u JOIN FETCH c.topico t WHERE c.topico.grupoEstudo IS EMPTY OR c.topico.grupoEstudo.idGrupoEstudo IN (:listaGrupos)  ORDER BY c.dtUltimaAtualizacao"),
 	@NamedQuery(name = "Comentario.consultarNuComentarioUsuario", query = "SELECT count(c) FROM Comentario c WHERE c.usuario.idUsuario =:idUsuario"),
-	@NamedQuery(name = "Comentario.consultarComentarioUsuario", query = "SELECT c FROM Comentario c WHERE c.usuario.idUsuario =:idUsuario"),
+	@NamedQuery(name = "Comentario.consultarComentarioUsuario", query = "SELECT c FROM Comentario c JOIN FETCH c.usuario u JOIN FETCH c.topico t WHERE c.usuario.idUsuario =:idUsuario")
 })
 public class Comentario implements Serializable {
 
@@ -158,7 +159,7 @@ public class Comentario implements Serializable {
 	}
 
 	public String getTempoComentario() {
-		return "Atualizado " + Util.getDiferencaTempo(new DateTime(getDtUltimaAtualizacao()));
+		return Util.getDiferencaTempo(new DateTime(getDtUltimaAtualizacao()));
 	}
 	
 	public String getTempoComentarioCriacao() {

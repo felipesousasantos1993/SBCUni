@@ -100,7 +100,7 @@
 							
 								<div class="nav-tabs-custom">
 									<ul class="nav nav-tabs nav-justified">
-										<li>
+										<li class="active">
 											<a href="#tab_alunos" data-toggle="tab">
 												<h:outputText value="#{mensagens['display.alunos']}" />
 											</a>
@@ -112,7 +112,7 @@
 										</li>
 									</ul>
 									<div class="tab-content">
-										<div id="tab_alunos" class="tab-pane fade widget-followers">
+										<div id="tab_alunos" class="tab-pane fade widget-followers active in">
 										<h:panelGroup id="alunos">
 											<ui:repeat var="aluno" value="#{detalheGrupoEstudoBean.grupoEstudo.alunos}">
 												<div class="follower">

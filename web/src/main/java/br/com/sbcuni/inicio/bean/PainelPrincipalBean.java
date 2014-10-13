@@ -64,11 +64,11 @@ public class PainelPrincipalBean extends GenericBean {
 		for (GrupoEstudo ge : gruposEstudo) {
 			listaIdGrupo.add(ge.getIdGrupoEstudo());
 		}
-		comentarios.addAll(comentarioServiceBean.consultarComentariosPainel(listaIdGrupo));
-		topicos.addAll(topicoServiceBean.buscarTopicosPainel(listaIdGrupo));
-		topicosMaisVisualizados.addAll(topicoServiceBean.buscarTopicosMaisVisualizados(listaIdGrupo));
-		topicosMaisAvaliadosPostivo.addAll(topicoServiceBean.buscarTopicosMaisBemAvaliados());
-		topicosMaisAvaliadosNegativo.addAll(topicoServiceBean.buscarTopicosMaisMalAvaliados());
+		comentarios = comentarioServiceBean.consultarComentariosPainel(listaIdGrupo);
+		topicos = topicoServiceBean.buscarTopicosPainel(listaIdGrupo);
+		topicosMaisVisualizados = topicoServiceBean.buscarTopicosMaisVisualizados(listaIdGrupo);
+		topicosMaisAvaliadosPostivo = topicoServiceBean.buscarTopicosMaisBemAvaliados();
+		topicosMaisAvaliadosNegativo = topicoServiceBean.buscarTopicosMaisMalAvaliados();
 	}
 
 	public List<Comentario> getComentarios() {

@@ -161,18 +161,15 @@
 							<a href="#topicos" data-toggle="tab"><h:outputText value="#{mensagens['display.topicos']}" /> </a>
 						</li>
 						<li >
-							<a href="#comentarios" data-toggle="tab"><h:outputText value="#{mensagens['display.comentarios']}" /> < </a>
+							<a href="#comentarios" data-toggle="tab"><h:outputText value="#{mensagens['display.comentarios']}" /> </a>
 						</li>
 						<li>
 							<a href="#grupos" data-toggle="tab"><h:outputText value="#{mensagens['display.grupos.estudo']}" /> </a>
 						</li>
-						<li>
-							<a href="#mensagens" data-toggle="tab"><h:outputText value="#{mensagens['display.mensagens']}" /> </a>
-						</li>
 					</ul>
 
 					<div class="tab-content tab-content-bordered panel-padding">
-						<div class="widget-article-comments tab-pane panel no-padding no-border fade active in" id="comentarios">
+						<div class="widget-article-comments tab-pane panel no-padding no-border fade in" id="comentarios">
 							<ui:repeat var="comentario" value="#{perfilBean.comentarios}">
 								<div class="comment">
 									<h:graphicImage value="/resources/img/avatares/#{comentario.usuario.avatar}" styleClass="comment-avatar"/>
@@ -182,11 +179,51 @@
 												<h:commandLink value="#{comentario.usuario.nome}" action="#{perfilBean.perfilUsuario(comentario.usuario)}" />
 												<span><h:outputText value="#{comentario.tempoComentario}" /> </span>
 											</div>
-											<h:outputText value="#{comentario.descricao}" />
+											<h:outputText value="#{comentario.descricao}"  escape="false"/>
 										</div>
 										<div class="comment-footer">
-											<a href="#"><i class="fa fa-thumbs-o-up"></i></a>&nbsp;&nbsp;
-											<a href="#"><i class="fa fa-thumbs-o-down"></i></a>
+											<div class="pull-right">
+												<i class="fa fa-bullhorn"/>
+												<h:outputText value="#{comentario.topico.titulo}"  escape="false" styleClass="marginLeft_5"/>
+											</div>
+											<h:panelGroup id="avaliacao">
+												<h:panelGroup rendered="#{comentario.avaliacaoUsuario.avaliacao == false}"> 
+									 		 		<h:outputLabel styleClass="labelLink">
+									 		 			<h:outputText value="#{comentario.nuAvaliacaoPositivas}" />
+									 		 			<i class="glyphicon glyphicon-thumbs-up" />
+									 		 			<f:ajax event="click" render="avaliacao" listener="#{perfilBean.curtirComentario(comentario)}" immediate="true" />
+									 		 		</h:outputLabel>
+									 		 		<h:outputLabel styleClass="disabled-editado labelLink marginLeft_10">
+									 		 			<i class="glyphicon glyphicon-thumbs-down" />
+									 		 			<f:ajax event="click" render="avaliacao" listener="#{perfilBean.removerAvaliacaoComentario(comentario)}" immediate="true" />
+									 		 		</h:outputLabel>
+										 			<h:outputText value="#{comentario.nuAvaliacaoNegativas}" styleClass="marginLeft_10"/> 
+									 		 	</h:panelGroup>
+									 		 	<h:panelGroup rendered="#{comentario.avaliacaoUsuario.avaliacao == true}">
+									 		 		<h:outputLabel styleClass="labelLink">
+											 			<h:outputText value="#{comentario.nuAvaliacaoPositivas}" />
+										 		 		<i class="glyphicon glyphicon-thumbs-up" />
+										 		 		<f:ajax event="click" render="avaliacao" listener="#{perfilBean.removerAvaliacaoComentario(comentario)}" immediate="true" />
+									 		 		</h:outputLabel>
+										 		 	<h:outputLabel styleClass="marginLeft_10 labelLink">
+										 		 		<i class="glyphicon glyphicon-thumbs-down" />
+										 		 		<f:ajax event="click"  render="avaliacao" listener="#{perfilBean.descurtirComentario(comentario)}" immediate="true"/>
+									 		 		</h:outputLabel>
+										 			<h:outputText value="#{comentario.nuAvaliacaoNegativas}" styleClass="marginLeft_10"/>
+									 		 	</h:panelGroup>
+									 		 	<h:panelGroup rendered="#{empty comentario.avaliacaoUsuario}">
+									 		 		<h:outputLabel styleClass="labelLink">
+											 			<h:outputText value="#{comentario.nuAvaliacaoPositivas}" />
+									 		 			<i class="glyphicon glyphicon-thumbs-up" />
+									 		 			<f:ajax event="click" render="avaliacao" listener="#{perfilBean.curtirComentario(comentario)}" immediate="true"/>
+									 		 		</h:outputLabel>
+									 	 		<h:outputLabel styleClass="marginLeft_10 labelLink">
+										 		 		<i class="glyphicon glyphicon-thumbs-down" />
+										 		 		<f:ajax event="click" render="avaliacao" listener="#{perfilBean.descurtirComentario(comentario)}" immediate="true"/>
+									 		 		</h:outputLabel>
+										 			<h:outputText value="#{comentario.nuAvaliacaoNegativas}" styleClass="marginLeft_10"/>
+									 		 	</h:panelGroup>
+										</h:panelGroup>
 										</div>
 									</div> 
 								</div>
@@ -194,57 +231,126 @@
 							</ui:repeat>
 
 						</div> 
-						<div class="tab-pane fade" id="topicos">
+						<div class="tab-pane fade active in" id="topicos">
 							<div class="timeline">
 								<!-- Timeline header -->
-								<div class="tl-header now">Now</div>
-
-								<div class="tl-entry left">
+								<div class="tl-header now">Agora</div>
+								<ui:repeat var="topico" value="#{perfilBean.topicos}">
+									<div class="tl-entry topico#{topicoStatus.index mod 2}">
 									<div class="tl-time">
-										2h ago
+										<small class="text-muted"><i class="glyphicon glyphicon-time" style="margin-right: 2px;"/> 
+							 		  		<h:outputText value="#{topico.tempoTopicoCriacao}"/>
+							 		  	</small>
 									</div>
-									<div class="tl-icon bg-success"><i class="fa fa-picture-o"></i></div>
+									<div class="tl-icon bg-warning">
+										<i class="fa fa-envelope"/>
+									</div>
 									<div class="panel tl-body">
-										<a href="#">Denise Steiner</a> shared an image on <a href="#">The Gallery</a>
-										<div class="tl-wide text-center" style="padding: 10px;margin-top:15px;margin-bottom: 15px;background: #f1f1f1">
-											<img src="assets/demo/signin-bg-5.jpg" alt="" style="max-height: 150px;max-width: 100%;"/>
+										<div class="pull-right text-semibold text-light-gray text-sm">
+											<h:panelGroup rendered="#{not empty topico.grupoEstudo}">
+											 	<h:commandLink action="#{perfilBean.detalharGrupoEstudo(topico.grupoEstudo)}" value="#{topico.grupoEstudo.noGrupo}" title="Grupo estudo"/>
+								 		 		<i class="fa fa-group" style="margin-right:50px;"/>
+							 		 		</h:panelGroup>
+							 		 		
+								 		 	<h:outputText value="#{topico.nuVisualizacoes}" title="Visualizações"/>
+							 		 		<i class="fa fa-eye" />
+								 		 </div>
+										<h4 class="text-primary">
+											<h:commandLink immediate="true" action="#{perfilBean.detalharTopico(topico)}" value="#{topico.titulo}"/>
+										</h4>
+										<h5 class="text-success" style="padding-bottom: 5px;font-weight:700;">
+											<h:outputText value="#{topico.usuario.nome}" />
+										</h5>
+										<div style="margin-bottom: -15px;">
+						                 	<h:commandLink action="#{perfilBean.telaAtualizarTopico(topico)}" rendered="#{topico.usuario.idUsuario eq usuarioSessionBean.usuarioSessao.idUsuario}"  styleClass="btn btn-default btn-outline btn-xs" >
+						                 		<span class="fa fa-edit"/>
+						                 	</h:commandLink>
+					                  		<h:commandLink title="Excluir"  rendered="#{topico.usuario.idUsuario eq usuarioSessionBean.usuarioSessao.idUsuario}" styleClass="btn btn-danger btn-outline btn-xs marginLeft_10">
+					                  			<i class="glyphicon glyphicon-trash"/>
+												<f:ajax event="click" execute="@this" onevent="showModalDelete('modalExcluir')"  listener="#{perfilBean.topicoExcluir(topico)}" />	
+											</h:commandLink>
+											<div class="box-tools pull-right" align="right">
+												<ui:repeat var="categoria" value="#{topico.categorias}">
+													<h:commandLink action="#{perfilBean.buscarTopicosCategoria(categoria)}" styleClass="label label marginLeft_5" value="#{categoria.deCategoria}" />
+												</ui:repeat>
+											</div>
 										</div>
-										<i class="text-muted text-sm">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</i>
-									</div> <!-- / .tl-body -->
-								</div> <!-- / .tl-entry -->
-
+						 		 	</div>
+						 		 		<h:panelGroup id="avaliacao" styleClass="avaliacao">
+								 		 	<div class="box-tools pull-left" align="left">
+									 			<h:panelGroup rendered="#{topico.avaliacaoUsuario.avaliacao == false}"> 
+									 		 		<h:commandLink >
+									 		 			<h:outputText value="#{topico.nuAvaliacaoPositivas}" />
+									 		 			<i class="glyphicon glyphicon-thumbs-up" />
+									 		 			<f:ajax event="click" render="avaliacao" listener="#{perfilBean.curtirTopico(topico)}" immediate="true" execute="@form"/>
+									 		 		</h:commandLink>
+									 		 		<h:commandLink styleClass="disabled-editado marginLeft_10">
+									 		 			<i class="glyphicon glyphicon-thumbs-down" />
+									 		 			<f:ajax event="click" render="avaliacao" listener="#{perfilBean.removerAvaliacaoTopico(topico)}" immediate="true" execute="@form"/>
+									 		 		</h:commandLink>
+										 			<h:outputText value="#{topico.nuAvaliacaoNegativas}" styleClass="marginLeft_10"/>
+									 		 	</h:panelGroup>
+									 		 	<h:panelGroup rendered="#{topico.avaliacaoUsuario.avaliacao == true}">
+									 		 		<h:commandLink styleClass="disabled-editado">
+											 			<h:outputText value="#{topico.nuAvaliacaoPositivas}" />
+										 		 		<i class="glyphicon glyphicon-thumbs-up" />
+										 		 		<f:ajax event="click" render="avaliacao" listener="#{perfilBean.removerAvaliacaoTopico(topico)}" immediate="true" execute="@form"/>
+									 		 		</h:commandLink>
+										 		 	<h:commandLink styleClass="marginLeft_10">
+										 		 		<i class="glyphicon glyphicon-thumbs-down" />
+										 		 		<f:ajax event="click" execute="avaliacao" render="avaliacao" listener="#{perfilBean.descurtirTopico(topico)}"/>
+									 		 		</h:commandLink>
+										 			<h:outputText value="#{topico.nuAvaliacaoNegativas}" styleClass="marginLeft_10"/>
+									 		 	</h:panelGroup>
+									 		 	<h:panelGroup rendered="#{empty topico.avaliacaoUsuario}">
+									 		 		<h:commandLink  >
+											 			<h:outputText value="#{topico.nuAvaliacaoPositivas}" />
+									 		 			<i class="glyphicon glyphicon-thumbs-up" />
+									 		 			<f:ajax event="click" render="avaliacao" listener="#{perfilBean.curtirTopico(topico)}" immediate="true" execute="@form"/>
+									 		 		</h:commandLink>
+									 		 		<h:commandLink styleClass="marginLeft_10">
+										 		 		<i class="glyphicon glyphicon-thumbs-down" />
+										 		 		<f:ajax event="click" execute="avaliacao" render="avaliacao" listener="#{perfilBean.descurtirTopico(topico)}"/>
+									 		 		</h:commandLink>
+										 			<h:outputText value="#{topico.nuAvaliacaoNegativas}" styleClass="marginLeft_10"/>
+									 		 	</h:panelGroup>
+									 		 </div>
+							 		 	</h:panelGroup>
+							 		 	<div class="box-tools pull-right nuComentariosTopico" align="right">
+								 		 	<i class="fa fa-comments-o"/>
+								 		 	<h:outputText value="#{topico.nuComentarios}" styleClass="nuComentariosTopico marginLeft_10"/>
+								 		 </div>
+									</div>
+								</ui:repeat>
 							</div> <!-- / .timeline -->
 						</div> <!-- / .tab-pane -->
 						<div class="tab-pane fade widget-followers" id="grupos">
-							<div class="follower">
-								<img src="assets/demo/avatars/1.jpg" alt="" class="follower-avatar"/>
-								<div class="body">
-									<div class="follower-controls">
-										<a href="#" class="btn btn-sm btn-success"><i class="fa fa-check"></i><span>Following</span></a>
+							<ui:repeat varStatus="grupoEstudoStatus" var="grupoEstudo" value="#{perfilBean.grupoEstudos}">
+								<div class="follower">
+									<h:graphicImage value="/resources/img/avatares/#{grupoEstudo.professor.avatar}" styleClass="follower-avatar" />
+									<div class="body">
+										<i class="fa fa-group"/>
+										<h:commandLink value="#{grupoEstudo.noGrupo}" action="#{perfilBean.detalharGrupoEstudo(grupoEstudo)}" styleClass="follower-name labelLink marginLeft_5"/>
+										<br/>
+										<h:commandLink value="#{grupoEstudo.professor.nome}" action="#{perfilBean.perfilUsuario(grupoEstudo.professor)}" styleClass="follower-username " />
 									</div>
-									<a href="#" class="follower-name">John Doe</a><br/>
-									<a href="#" class="follower-username">@jdoe</a>
 								</div>
-							</div>
-
+								<h:panelGroup rendered="#{grupoEstudoStatus.last}">
+								<br/>
+								</h:panelGroup>
+							</ui:repeat>
 							</div>
 						</div> <!-- / .tab-pane -->
-						<div class="tab-pane fade widget-followers" id="mensagens">
-							<div class="follower">
-								<img src="assets/demo/avatars/1.jpg" alt="" class="follower-avatar"/>
-								<div class="body">
-									<div class="follower-controls">
-										<a href="#" class="btn btn-sm btn-success"><i class="fa fa-check"></i><span>Following</span></a>
-									</div>
-									<a href="#" class="follower-name">John Doe</a><br/>
-									<a href="#" class="follower-username">@jdoe</a>
-								</div>
-							</div>
-							</div>
-						</div> 
 					</div> 
 				</div>
 			</div>
+			</div>
 		</h:form>
+		<ui:include src="/paginas/util/modalGenerico.xhtml" >
+		    <ui:param name="bean" value="#{perfilBean}" />
+		    <ui:param name="nomeModal" value="modalExcluir" />
+		    <ui:param name="titulo" value="#{mensagens['display.confirma.exclusao.topico']}" />
+		    <ui:param name="mensagem" value="" />
+		</ui:include>
 	</ui:define>
 </ui:composition>
