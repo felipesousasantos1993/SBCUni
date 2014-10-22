@@ -38,7 +38,8 @@ import br.com.sbcuni.topico.entity.Topico;
 	@NamedQuery(name = "Usuario.consultarAlunoNomeOuMatricula", query = "SELECT u FROM Usuario u WHERE (lower(u.nome) like :nome OR u.matricula like :matricula) AND u.perfil = 1"),
 	@NamedQuery(name = "Usuario.consultarAlunoNomeOuEmail", query = "SELECT u FROM Usuario u WHERE lower(u.nome) like :nome OR lower(u.email) like :matricula"),
 	@NamedQuery(name = "Usuario.pesquisa", query = "SELECT u FROM Usuario u WHERE lower(u.nome) like :nome OR lower(u.email) like :email OR lower(u.matricula) like :matricula"),
-	@NamedQuery(name = "Usuario.consultarPorMatriculaCpf", query = "SELECT u FROM Usuario u WHERE u.cpf =:cpf AND u.matricula =:matricula")
+	@NamedQuery(name = "Usuario.consultarPorMatriculaCpf", query = "SELECT u FROM Usuario u WHERE u.cpf =:cpf AND u.matricula =:matricula"),
+	@NamedQuery(name = "Usuario.consultarPorMatriculaCpfEmail", query = "SELECT u FROM Usuario u WHERE u.cpf =:cpf OR u.matricula =:matricula OR u.email =:email")
 })
 public class Usuario implements Serializable {
 

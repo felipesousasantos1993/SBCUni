@@ -221,4 +221,15 @@ public class UsuarioServiceBean implements Serializable {
 			return null;
 		}
 	}
+	public Usuario consultarPorMatriculaCpfEmail(String cpf, String matricula, String email) {
+		Query query = entityManager.createNamedQuery("Usuario.consultarPorMatriculaCpfEmail");
+		query.setParameter("cpf", cpf);
+		query.setParameter("matricula", matricula);
+		query.setParameter("email", email);
+		try {
+			return (Usuario) query.getSingleResult();
+		} catch (NoResultException e) {
+			return null;
+		}
+	}
 }

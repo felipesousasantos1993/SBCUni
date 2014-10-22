@@ -24,49 +24,27 @@ public class EsqueceuSenhaBean extends GenericBean {
 	@EJB
 	private UsuarioServiceBean usuarioServiceBean;
 
-	private String matricula;
-	private String cpf;
+	private String consulta;
 	private String senha;
 	
 	private Usuario usuario;
 	private Boolean novaSenha;
 
 	public void consultarUsuario() {
-		usuario = usuarioServiceBean.consultarPorMatriculaCpf(cpf, matricula);
+		usuario = usuarioServiceBean.consultarPorMatriculaCpfEmail(consulta, consulta, consulta);
 		if (!Util.isNull(usuario)) {
 			novaSenha = Boolean.TRUE;
+			try {
+				Util.enviarEmail(usuario);
+				exibirMsgSucesso("Senha enviada para seu e-mail");
+			} catch (SbcuniException e) {
+				exibirMsgErro("Erro ao enviar senha por e-mail");
+			}
 		} else {
 			exibirMsgAviso("Dados incorretos");
 		}
 	}
 	
-	public String criarNovasenha() {
-		usuario.setSenha(senha);
-		try {
-			usuarioServiceBean.alterarUsuario(usuario);
-			exibirMsgSucesso("Senha criada com sucesso");
-			return Tela.LOGIN;
-		} catch (SbcuniException e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
-	
-	public String getMatricula() {
-		return matricula;
-	}
-
-	public void setMatricula(String matricula) {
-		this.matricula = matricula;
-	}
-
-	public String getCpf() {
-		return cpf;
-	}
-
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
-	}
 
 	public String getSenha() {
 		return senha;
@@ -90,6 +68,16 @@ public class EsqueceuSenhaBean extends GenericBean {
 
 	public void setNovaSenha(Boolean novaSenha) {
 		this.novaSenha = novaSenha;
+	}
+
+
+	public String getConsulta() {
+		return consulta;
+	}
+
+
+	public void setConsulta(String consulta) {
+		this.consulta = consulta;
 	}
 
 }
