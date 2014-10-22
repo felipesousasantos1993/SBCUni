@@ -28,8 +28,7 @@
 				<div class="signin-container">
 					<div class="signin-info">
 						<a href="#" class="logo">
-							<!-- <img src="assets/demo/logo-big.png" alt="" style="margin-top: -5px;"> -->
-								<h:graphicImage value="/resources/img/logo.png"  library="img"/>
+							<h:graphicImage value="/resources/img/logo.png"  library="img"/>
 						</a>
 						<div class="slogan">
 							<h:outputText value="#{mensagens['display.slogan']}" />
@@ -70,9 +69,10 @@
 							<h:message for="senha" errorClass="msg error"/>
 							<div class="form-actions">
 								<h:commandButton action="#{loginBean.logar}" value="#{mensagens['display.entrar.cap']}" styleClass="signin-btn bg-primary"/>
-								<h:outputLink value="#{facesContext.externalContext.requestContextPath}/principal/esqueceuSenha.jsf" styleClass="forgot-password" >
+								<a href="#{facesContext.externalContext.requestContextPath}/principal/recuperarSenha.jsf" class="forgot-password" >
 									<h:outputText value="#{mensagens['display.esqueceu.sua.senha']}" />
-								</h:outputLink>
+								</a>
+								
 								<h:messages id="mensagens" style="text-align: center;margin-top: 15px;margin-bottom: -15px;" globalOnly="true" fatalClass="alert alert-info alert-dark" errorClass="alert alert-info alert-dark" infoClass="alert alert-info alert-dark" warnClass="alert alert-info alert-dark"/>
 							</div>
 						</h:form>

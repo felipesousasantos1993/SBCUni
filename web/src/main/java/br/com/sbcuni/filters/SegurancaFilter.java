@@ -103,6 +103,7 @@ public class SegurancaFilter implements Filter {
 		return (req.getRequestURI().endsWith("login.jsf") 
 				|| req.getRequestURI().contains("javax.faces.resource") 
 				|| req.getRequestURI().contains("primeiroAcesso.jsf")
+				|| req.getRequestURI().contains("recuperarSenha.jsf")
 				|| req.getRequestURI().contains("template")
 				|| req.getRequestURI().contains("resources"));
 	}

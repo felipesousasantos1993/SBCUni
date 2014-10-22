@@ -37,28 +37,21 @@
 					<div class="signup-form">
 						<h:form id="signup-form_id" prependId="false">
 							<div class="signup-text">
-								<span><h:outputText value="#{mensagens['display.esqueceu.sua.senha']}" /> </span>
+								<span><h:outputText value="#{mensagens['display.recuperar.senha']}" /> </span>
 							</div>
 							<div class="form-group w-icon">
-								<h:inputText id="matricula"  value="#{esqueceuSenhaBean.matricula}" required="true" requiredMessage="#{mensagens['display.insira.sua.matricula']}" autocomplete="off" maxlength="13" styleClass="form-control input-lg" >
-									<f:ajax event="blur" render="senha msgMatricula msgSenha mensagens" listener="#{esqueceuSenhaBean.consultarUsuario()}"/>
-								</h:inputText>
+								<h:inputText id="consultaRecuperarSenha"  value="#{esqueceuSenhaBean.consulta}" required="true" requiredMessage="#{mensagens['display.campo.obrigatorio']}" autocomplete="off" maxlength="13" styleClass="form-control input-lg"/>
 								<span class="fa fa-user signup-form-icon"/>
 							</div>
-							<h:message id="msgMatricula" for="matricula" errorClass="msg error"/>
+							<h:message id="msgMatricula" for="consultaRecuperarSenha" errorClass="msg error"/>
 							
-							<div class="form-group w-icon">
-								<h:inputText id="senha"  value="#{esqueceuSenhaBean.senha}" required="true" requiredMessage="#{mensagens['display.campo.obrigatorio']}" autocomplete="off" maxlength="13" styleClass="form-control input-lg" >
-									<f:ajax event="blur" render="senha msgMatricula msgSenha mensagens" listener="#{esqueceuSenhaBean.consultarUsuario()}"/>
-								</h:inputText>
-								<span class="fa fa-user signup-form-icon"/>
+							<div class="textoEnviarSenha">
+								<h:outputText value="#{mensagens['display.sua.senha.sera.envia.email']}" />
 							</div>
-							<h:message id="msgSenha" for="senha" errorClass="msg error"/>
-							
 							<br/>
 							
 							<div class="form-actions">
-								<h:commandButton id="btnCriarSenha" action="#{esqueceuSenhaBean.criarNovasenha()}" disabled="#{not esqueceuSenhaBean.novaSenha}" value="#{mensagens['display.criar.senha']}" styleClass="signup-btn bg-primary"/>
+								<h:commandButton id="btnCriarSenha" action="#{esqueceuSenhaBean.consultarUsuario()}"  value="#{mensagens['display.enviar']}" styleClass="signup-btn bg-primary"/>
 								<h:messages id="mensagens"  style="text-align: center;margin-top: 10px;margin-bottom: -30px;" globalOnly="true" fatalClass="alert alert-info alert-dark" errorClass="alert alert-info alert-dark" infoClass="alert alert-info alert-dark" warnClass="alert alert-info alert-dark"/>
 							</div>
 						</h:form>

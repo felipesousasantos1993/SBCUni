@@ -6,6 +6,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.InputMismatchException;
 
+import org.apache.commons.mail.SimpleEmail;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.joda.time.Hours;
@@ -13,6 +14,9 @@ import org.joda.time.Minutes;
 import org.joda.time.Seconds;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import br.com.sbcuni.exception.SbcuniException;
+import br.com.sbcuni.usuario.entity.Usuario;
 
 public final class Util {
 	
@@ -247,4 +251,20 @@ public final class Util {
 			return Util.formatDateTraco(data.toDate());
 		}
 	}
+	
+	public static void enviarEmail(Usuario usuario) throws SbcuniException {
+		try {
+			SimpleEmail email = new SimpleEmail(); 
+			email.setHostName("smtp.gmail.com"); 
+			email.addTo(usuario.getEmail(), usuario.getNome()); 
+			email.setFrom("sac.faloo@gmail.com", "SAC Faloo");
+			email.setSubject("Recuperação de Senha"); 
+			email.setMsg("Seguem seus dados de acesso: \n\n Matrícula: " + usuario.getMatricula() + "\nSenha: " + usuario.getSenha()); 
+			email.send(); 
+		} catch (Exception e) {
+			throw new SbcuniException("Erro ao enviar mensagem!", e);
+		} 
+
+	}
+	
 }
