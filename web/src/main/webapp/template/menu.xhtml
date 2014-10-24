@@ -26,9 +26,14 @@
 				</div>
 			</div>
 			<ul class="navigation">
+				<li>
+					<a href="#{facesContext.externalContext.requestContextPath}/paginas/inicio/painelPrincipal.jsf"><i class="menu-icon fa fa-dashboard"></i><span class="mm-text mmc-dropdown-delay animated fadeIn"><h:outputText value="#{mensagens['display.painel.principal']}" /> </span></a>
+				</li>
+				<h:panelGroup rendered="#{usuarioSessionBean.usuarioSessao.perfil gt 2}">
 					<li>
-						<a href="#{facesContext.externalContext.requestContextPath}/paginas/inicio/painelPrincipal.jsf"><i class="menu-icon fa fa-dashboard"></i><span class="mm-text mmc-dropdown-delay animated fadeIn"><h:outputText value="#{mensagens['display.painel.principal']}" /> </span></a>
+						<a href="#{facesContext.externalContext.requestContextPath}/paginas/categorias/manterCategorias.jsf"><i class="menu-icon fa fa-dashboard"></i><span class="mm-text mmc-dropdown-delay animated fadeIn"><h:outputText value="#{mensagens['display.categorias']}" /> </span></a>
 					</li>
+				</h:panelGroup>
 				<h:panelGroup rendered="#{usuarioSessionBean.usuarioSessao.perfil eq 4}">
 					<li class="mm-dropdown mm-dropdown-root">
 						<a href="#"><i class="menu-icon fa fa-th"></i><span class="mm-text mmc-dropdown-delay animated fadeIn"><h:outputText value="#{mensagens['display.gerencia.sistema']}" /></span> </a>

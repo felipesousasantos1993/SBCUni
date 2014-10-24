@@ -116,6 +116,7 @@ public class GrupoEstudoSerivceBean implements Serializable {
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<GrupoEstudo> pesquisa(String consulta) {
 		Query query = entityManager.createNamedQuery("GrupoEstudo.pesquisa");
 		query.setParameter("consulta", "%" + consulta.toLowerCase() + "%");

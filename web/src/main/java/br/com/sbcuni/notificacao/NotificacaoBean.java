@@ -14,7 +14,6 @@ import br.com.sbcuni.topico.entity.Topico;
 import br.com.sbcuni.topico.service.TopicoServiceBean;
 import br.com.sbcuni.usuario.bean.UsuarioSessionBean;
 import br.com.sbcuni.usuario.entity.Usuario;
-import br.com.sbcuni.usuario.service.UsuarioServiceBean;
 import br.com.sbcuni.util.Util;
 
 @SessionScoped
@@ -27,8 +26,6 @@ public class NotificacaoBean extends GenericBean {
 		super();
 	}
 
-	@EJB
-	private UsuarioServiceBean usuarioServiceBean;
 	@EJB
 	private MensagemServiceBean mensagemServiceBean;
 	@EJB

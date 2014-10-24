@@ -25,6 +25,22 @@ public class CategoriaServiceBean implements Serializable {
 	
 	private StringBuffer queryBuscarCategoriaTopico = new StringBuffer("SELECT c.idCategoria FROM Categoria c WHERE c.idCategoria IN (SELECT categorias_idcategoria FROM topico_categoria WHERE topicos_idtopico =?) ORDER BY c.deCategoria ASC");
 	
+	public void incluirCategoria(Categoria categoria) throws SbcuniException {
+		try {
+			entityManager.persist(categoria);
+		} catch (Exception e) {
+			throw new SbcuniException("Erro ao incluir categoria", e);
+		}
+	}
+	
+	public void alterarCategoria(Categoria categoria) throws SbcuniException {
+		try {
+			entityManager.merge(categoria);
+		} catch (Exception e) {
+			throw new SbcuniException("Erro ao alterar categoria", e);
+		}
+	}
+	
 	@SuppressWarnings("unchecked")
 	public List<Categoria> buscarCategoriaTopico(Topico topico) {
 		Query query = entityManager.createNativeQuery(queryBuscarCategoriaTopico.toString());
@@ -50,6 +66,7 @@ public class CategoriaServiceBean implements Serializable {
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<Categoria> pesquisa(String consulta) {
 		Query query = entityManager.createNamedQuery("Categoria.pesquisa");
 		query.setParameter("consulta", "%" + consulta.toLowerCase() + "%");
@@ -74,6 +91,16 @@ public class CategoriaServiceBean implements Serializable {
 			entityManager.remove(categoria);
 		} catch (Exception e) {
 			throw new SbcuniException("Erro ao excluir usuário", e);
+		}
+	}
+
+	public Categoria buscarCategoriaPorDescricao(String descricao) {
+		Query query = entityManager.createNamedQuery("Categoria.buscarCategoriaPorDescricao");
+		query.setParameter("deCategoria", descricao.toUpperCase());
+		try {
+			return (Categoria) query.getSingleResult();
+		} catch (NoResultException e) {
+			return null;
 		}
 	}
 	

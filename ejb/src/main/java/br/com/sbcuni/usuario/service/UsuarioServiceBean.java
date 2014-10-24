@@ -200,6 +200,7 @@ public class UsuarioServiceBean implements Serializable {
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<Usuario> pesquisa(String consulta) {
 		Query query = entityManager.createNamedQuery("Usuario.pesquisa");
 		query.setParameter("nome", "%" + consulta.toLowerCase() + "%");

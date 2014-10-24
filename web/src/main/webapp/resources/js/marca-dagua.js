@@ -12,9 +12,9 @@ function marcaDagua() {
 	$("#consultaAluno").attr("placeholder", "Digite o nome ou matrícula para procurar os alunos").blur();
 	$("#inputPesquisa").attr("placeholder", "Digite sua pesquisa aqui").blur();
 	$("#consultaRecuperarSenha").attr("placeholder", "Digite sua Matrícula, CPF ou E-mail");
-	$(".comentar").attr("placeholder", "Escreva seu comentário");
-	
+	$("#deCategoria").attr("placeholder", "Digite a descrição da matrícula").blur();
 
+	$(".comentar").attr("placeholder", "Escreva seu comentário");
 	$(".nome").attr("placeholder", "Nome");
 	$(".cpf").attr("placeholder", "CPF");
 	$(".email").attr("placeholder", "E-mail");
@@ -24,7 +24,6 @@ function marcaDagua() {
 	$(".matricula").attr("placeholder", "Matrícula");
 	$(".estado").attr("placeholder", "Selecione seu estado");
 	$(".sobre").attr("placeholder", "Escreva sobre você");
-	
 	$(".novaSenha").attr("placeholder", "Nova senha");
 	$(".confirmeSenha").attr("placeholder", "Confirme a senha");
 	$(".senhaAntiga").attr("placeholder", "Senha antiga");

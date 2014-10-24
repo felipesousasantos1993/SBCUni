@@ -19,7 +19,8 @@ import br.com.sbcuni.topico.entity.Topico;
 @NamedQueries({
 	@NamedQuery(name = "Categoria.listarTodasCategorias", query = "SELECT c FROM Categoria c"),
 	@NamedQuery(name = "Categoria.pesquisa", query = "SELECT c FROM Categoria c WHERE lower(c.deCategoria) like :consulta"),
-	@NamedQuery(name = "Categoria.buscarCategoriaPorId", query = "SELECT c FROM Categoria c WHERE c.idCategoria =:idCategoria")
+	@NamedQuery(name = "Categoria.buscarCategoriaPorId", query = "SELECT c FROM Categoria c WHERE c.idCategoria =:idCategoria"),
+	@NamedQuery(name = "Categoria.buscarCategoriaPorDescricao", query = "SELECT c FROM Categoria c WHERE upper(c.deCategoria) =:deCategoria"),
 })
 public class Categoria implements Serializable {
 

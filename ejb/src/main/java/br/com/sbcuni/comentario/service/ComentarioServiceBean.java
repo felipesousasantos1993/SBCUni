@@ -74,6 +74,7 @@ public class ComentarioServiceBean implements Serializable {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<Comentario> consultarComentariosPainel(List<Long> listaGrupos) {
 		Query query;
 		if (listaGrupos.isEmpty()) {
@@ -98,6 +99,7 @@ public class ComentarioServiceBean implements Serializable {
 			return null;
 		}
 	}
+	@SuppressWarnings("unchecked")
 	public List<Comentario> consultarComentarioUsuario(Usuario usuario, Integer limite) {
 		Query query = entityManager.createNamedQuery("Comentario.consultarComentarioUsuario");
 		query.setParameter("idUsuario", usuario.getIdUsuario());
