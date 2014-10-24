@@ -25,8 +25,6 @@ public class SegurancaFilter implements Filter {
 
 	@Override
 	public void destroy() {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
@@ -114,12 +112,12 @@ public class SegurancaFilter implements Filter {
 
 	private Boolean isUrlRestritaAoProfessor(HttpServletRequest request) {
 		return (request.getRequestURI().contains("/gerencia/") 
-				|| request.getRequestURI().contains("/categorias/"));
+				|| request.getRequestURI().endsWith("/manterCategoria.jsf"));
 	}
 
 	private Boolean isUrlRestritaAoAluno(HttpServletRequest request) {
 		return (request.getRequestURI().contains("/gerencia/") 
-				|| request.getRequestURI().contains("/categorias/") 
+				|| request.getRequestURI().endsWith("/manterCategoria.jsf") 
 				|| request.getRequestURI().endsWith("/usuario/altearUsuario.jsf") 
 				|| request.getRequestURI().endsWith("/usuario/cadastrarUsuario.jsf")
 				|| request.getRequestURI().endsWith("/usuario/excluirUsuario.jsf") 

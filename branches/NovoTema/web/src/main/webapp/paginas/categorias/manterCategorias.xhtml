@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/template/template.xhtml"
+>
+	<ui:define name="conteudo">
+	<div class="page-header">
+		<ol class="breadcrumb breadcrumb-page">
+			<li>
+				<h:outputLink>
+					<h:outputText value="#{mensagens['display.voce.esta.em']}" />
+				</h:outputLink>
+			</li>
+			<li>
+				<h:outputText value="#{mensagens['display.categorias']}" />
+			</li>
+			<li class="active">
+				<h:outputText value="#{mensagens['display.topicos.categoria']}" />
+			</li>
+		</ol>
+		<h:messages id="mensagens" globalOnly="true" errorClass="alert alert-danger alert-dark" infoClass="alert alert-info alert-dark" warnClass="alert alert-dark"/>
+	</div>
+		<div id="content" class="content">
+			<h:form prependId="false" id="form">
+	 			<div class="row">
+					<div class="col-md-12">
+						<div class="panel">
+							<div class="panel-body">
+								<h:outputLabel styleClass="btn btn-primary btn-outline btn-xs">
+									<h:outputText value="#{mensagens['display.incluir']}" />
+									<f:ajax event="click" execute="@this" onevent="showModalDelete('modalCategoria')"/> 
+								</h:outputLabel>
+								
+							</div>
+							
+							<h:dataTable
+								var="categoria" 
+								value="#{manterCategoriasBean.categorias}"
+								styleClass="table table-striped table-bordered dataTable no-footer"
+							>
+								<h:column>
+									<f:facet name="header">
+										<h:outputText value="#{mensagens['display.descricao']}" />
+									</f:facet>
+									<h:outputText value="#{categoria.deCategoria}"  styleClass="label label-primary"/>
+								</h:column>
+								<h:column headerClass="colunaAcoes">
+									<f:facet name="header">
+										<h:outputText value="#{mensagens['display.acoes']}" />
+									</f:facet> 
+									<h:outputLabel styleClass="btn btn-danger btn-outline btn-xs marginLeft_10">
+										<h:outputText value="#{mensagens['display.excluir']}" />
+										<f:ajax event="click" execute="@this" onevent="showModalDelete('modalExcluir')"  listener="#{manterCategoriasBean.categoriaExcluir(categoria)}" />
+									</h:outputLabel>
+								</h:column>
+							
+							</h:dataTable>
+						</div>
+					</div>
+				</div>
+			</h:form>
+		</div>
+		<ui:include src="/paginas/util/modalCategoria.xhtml" >
+		    <ui:param name="bean" value="#{manterCategoriasBean}" />
+		    <ui:param name="nomeModal" value="modalCategoria" />
+		    <ui:param name="titulo" value="#{mensagens['display.incluindo.categoria']}" />
+		    <ui:param name="mensagem" value="" />
+		</ui:include>
+		<ui:include src="/paginas/util/modalGenerico.xhtml" >
+		    <ui:param name="bean" value="#{manterCategoriasBean}" />
+		    <ui:param name="nomeModal" value="modalExcluir" />
+		    <ui:param name="titulo" value="#{mensagens['display.confirma.exclusao.categoria']}" />
+		    <ui:param name="mensagem" value="#{mensagens['display.aviso.excluir.categoria']}" />
+		</ui:include>
+	</ui:define>
+</ui:composition>

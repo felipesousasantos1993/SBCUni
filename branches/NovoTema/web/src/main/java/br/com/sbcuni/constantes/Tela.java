@@ -61,4 +61,5 @@ public class Tela implements Serializable {
 	public static final String PAINEL_PRINCIPAL = "/paginas/inicio/painelPrincipal.jsf";
 	
 	public static final String TOPICOS_CATEGORIAS = "/paginas/categorias/topicosCategoria.jsf";
+	public static final String MANTER_CATEGORIA = "/paginas/categorias/manterCategorias.jsf";
 }

@@ -1,6 +1,9 @@
 ]@CHARSET "ISO-8859-1";
 .x5 {
-	width: 5%;
+	width: 5% !important;
+}
+.colunaAcoes {
+	width: 62px !important;
 }
 .x10 {
 	width: 10%;
@@ -172,8 +175,10 @@ td label {
 	margin-left:5px;
 }
 .textoEnviarSenha {
-	margin-top: 7px;
+	margin-top: 10px;
+	margin-bottom: -15px;
 	font-size: 12px;
 	text-align: center;
-	color: #888;
+	color: #757;
+	font-weight: bold;
 }

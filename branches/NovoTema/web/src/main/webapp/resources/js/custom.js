@@ -38,6 +38,9 @@ function mascaras() {
 function showModalDelete(idModal) {
 	$("#" + idModal).modal("show");
 };
+function hideModal(idModal) {
+	$("#" + idModal).modal("hide");
+};
 
 function descer() {
 	window.scrollTo(100, 10000);

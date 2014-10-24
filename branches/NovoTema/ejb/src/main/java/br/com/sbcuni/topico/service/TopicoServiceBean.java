@@ -111,6 +111,7 @@ public class TopicoServiceBean implements Serializable {
 			return null;
 		}
 	}
+	@SuppressWarnings("unchecked")
 	public List<Topico> buscarTopicosTituloDescricao(String titulo, String descricao) {
 		Query query = entityManager.createNamedQuery("Topico.buscarTopicosTituloDescricao");
 		query.setParameter("titulo", "%" + titulo.toLowerCase() + "%");
@@ -136,6 +137,7 @@ public class TopicoServiceBean implements Serializable {
 		entityManager.remove(topico);
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<Topico> buscarTopicosGrupo(GrupoEstudo grupoEstudo) {
 		Query query = entityManager.createNamedQuery("Topico.buscarTopicosGrupo");
 		query.setParameter("idGrupoEstudo", grupoEstudo.getIdGrupoEstudo());
@@ -146,6 +148,7 @@ public class TopicoServiceBean implements Serializable {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<Topico> buscarTopicosPainel(List<Long> listaGrupos) {
 		Query query;
 		if (listaGrupos.isEmpty()) {
@@ -160,6 +163,7 @@ public class TopicoServiceBean implements Serializable {
 			return null;
 		}
 	}
+	@SuppressWarnings("unchecked")
 	public List<Topico> buscarTopicosMaisVisualizados(List<Long> listaGrupos) {
 		Query query;
 		if (listaGrupos.isEmpty()) {
@@ -175,6 +179,7 @@ public class TopicoServiceBean implements Serializable {
 			return null;
 		}
 	}
+	@SuppressWarnings("unchecked")
 	public List<Topico> buscarTopicosMaisBemAvaliados() {
 		Query query = entityManager.createNativeQuery(queryTopicosBemAvaliados.toString());
 		try {
@@ -185,6 +190,7 @@ public class TopicoServiceBean implements Serializable {
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<Topico> buscarTopicosMaisMalAvaliados() {
 		Query query = entityManager.createNativeQuery(queryTopicosMalAvaliados.toString());
 		try {
@@ -224,6 +230,7 @@ public class TopicoServiceBean implements Serializable {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<Topico> buscarTopicoNotificao() {
 		Query query = entityManager.createNamedQuery("Topico.buscarTopicoNotificao");
 		try {

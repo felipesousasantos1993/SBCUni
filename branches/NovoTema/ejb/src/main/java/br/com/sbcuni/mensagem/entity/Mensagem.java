@@ -21,55 +21,39 @@ import br.com.sbcuni.usuario.entity.Usuario;
 import br.com.sbcuni.util.Util;
 
 @Entity
-@NamedQueries({
-	@NamedQuery(name = "Mensagem.consultarRecebidas", query = "SELECT m FROM Mensagem m JOIN FETCH m.remetente WHERE  m.destinatario.idUsuario =:idDestinatario AND m.tipo =:idTipo ORDER BY m.dtEnvio DESC"),
-	@NamedQuery(name = "Mensagem.consultarEnviadas", query = "SELECT m FROM Mensagem m JOIN FETCH m.remetente WHERE m.tipo =:idTipo AND m.remetente.idUsuario =:idUsuario ORDER BY m.dtEnvio DESC"),
-	@NamedQuery(name = "Mensagem.consultarMensagemPorId", query = "SELECT m FROM Mensagem m JOIN FETCH m.remetente WHERE m.id =:idMensagem"),
-	@NamedQuery(name = "Mensagem.pesquisa", query = "SELECT m FROM Mensagem m JOIN FETCH m.remetente WHERE lower(m.titulo) like :consulta OR lower(m.mensagem) like :consulta AND (m.destinatario.idUsuario =:idUsuario OR m.remetente.idUsuario =:idUsuario) ORDER BY m.dtEnvio DESC"),
-	@NamedQuery(name = "Mensagem.consultarMensagemNotificacao", query = "SELECT m FROM Mensagem m JOIN FETCH m.remetente WHERE m.destinatario.idUsuario =:idUsuario AND (m.dtEnvio between :dtUltimoAcesso and current_timestamp OR m.lido is empty OR m.lido = false)"),
-	@NamedQuery(name = "Mensagem.consultarMensagemPainel", query = "SELECT m FROM Mensagem m JOIN FETCH m.remetente WHERE m.destinatario.idUsuario =:idUsuario")
-})
+@NamedQueries({ @NamedQuery(name = "Mensagem.consultarRecebidas", query = "SELECT m FROM Mensagem m JOIN FETCH m.remetente WHERE  m.destinatario.idUsuario =:idDestinatario AND m.tipo =:idTipo ORDER BY m.dtEnvio DESC"),
+		@NamedQuery(name = "Mensagem.consultarEnviadas", query = "SELECT m FROM Mensagem m JOIN FETCH m.remetente WHERE m.tipo =:idTipo AND m.remetente.idUsuario =:idUsuario ORDER BY m.dtEnvio DESC"),
+		@NamedQuery(name = "Mensagem.consultarMensagemPorId", query = "SELECT m FROM Mensagem m JOIN FETCH m.remetente WHERE m.id =:idMensagem"),
+		@NamedQuery(name = "Mensagem.pesquisa", query = "SELECT m FROM Mensagem m JOIN FETCH m.remetente WHERE lower(m.titulo) like :consulta OR lower(m.mensagem) like :consulta AND (m.destinatario.idUsuario =:idUsuario OR m.remetente.idUsuario =:idUsuario) ORDER BY m.dtEnvio DESC"),
+		@NamedQuery(name = "Mensagem.consultarMensagemNotificacao", query = "SELECT m FROM Mensagem m JOIN FETCH m.remetente WHERE m.destinatario.idUsuario =:idUsuario AND (m.dtEnvio between :dtUltimoAcesso and current_timestamp OR m.lido is empty OR m.lido = false)"),
+		@NamedQuery(name = "Mensagem.consultarMensagemPainel", query = "SELECT m FROM Mensagem m JOIN FETCH m.remetente WHERE m.destinatario.idUsuario =:idUsuario") })
 public class Mensagem {
 
 	@Id
 	@GeneratedValue
-	private Long id;
-	
+	private Long idMensagem;
+
 	@Column(name = "titulo", length = 50, nullable = true)
 	private String titulo;
-	
+
 	@Column(name = "mensagem", length = 1024, nullable = false)
 	private String mensagem;
 
-	@Column(name = "lido", nullable = true)
-	private Boolean lido;
-	
-	@Column(name = "favorito", nullable = true)
-	private Boolean favorito;
-	
 	@Column(name = "tipo", nullable = false)
 	private Integer tipo;
-	
+
 	@Column(name = "dtEnvio")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dtEnvio;
-	
+
 	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY, targetEntity = Usuario.class)
 	private Usuario remetente;
-	
+
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, targetEntity = Usuario.class)
 	private Usuario destinatario;
-	
+
 	@Transient
 	private Boolean selecionada;
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public String getTitulo() {
 		return titulo;
@@ -90,11 +74,10 @@ public class Mensagem {
 	public Boolean getSelecionada() {
 		return selecionada;
 	}
-	
+
 	public void setSelecionada(Boolean selecionada) {
 		this.selecionada = selecionada;
 	}
-
 
 	public Integer getTipo() {
 		return tipo;
@@ -111,6 +94,7 @@ public class Mensagem {
 	public void setDtEnvio(Date dtEnvio) {
 		this.dtEnvio = dtEnvio;
 	}
+
 	public String getTempo() {
 		return Util.getDiferencaTempo(new DateTime(getDtEnvio()));
 	}
@@ -131,20 +115,12 @@ public class Mensagem {
 		this.mensagem = mensagem;
 	}
 
-	public Boolean getLido() {
-		return lido;
+	public Long getIdMensagem() {
+		return idMensagem;
 	}
 
-	public void setLido(Boolean lido) {
-		this.lido = lido;
+	public void setIdMensagem(Long idMensagem) {
+		this.idMensagem = idMensagem;
 	}
 
-	public Boolean getFavorito() {
-		return favorito;
-	}
-
-	public void setFavorito(Boolean favorito) {
-		this.favorito = favorito;
-	}
-	
 }

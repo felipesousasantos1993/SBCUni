@@ -4,8 +4,9 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
+import org.apache.commons.mail.EmailException;
+
 import br.com.sbcuni.bean.GenericBean;
-import br.com.sbcuni.constantes.Tela;
 import br.com.sbcuni.exception.SbcuniException;
 import br.com.sbcuni.usuario.entity.Usuario;
 import br.com.sbcuni.usuario.service.UsuarioServiceBean;
@@ -38,6 +39,8 @@ public class EsqueceuSenhaBean extends GenericBean {
 				Util.enviarEmail(usuario);
 				exibirMsgSucesso("Senha enviada para seu e-mail");
 			} catch (SbcuniException e) {
+				exibirMsgErro("Erro ao enviar senha por e-mail");
+			} catch (EmailException e) {
 				exibirMsgErro("Erro ao enviar senha por e-mail");
 			}
 		} else {

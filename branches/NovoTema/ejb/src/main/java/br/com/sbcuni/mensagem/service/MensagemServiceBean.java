@@ -40,6 +40,7 @@ public class MensagemServiceBean implements Serializable {
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<Mensagem> consultarRecebidas(Usuario usuario, Integer limite) {
 		Query query = entityManager.createNamedQuery("Mensagem.consultarRecebidas");
 		query.setParameter("idDestinatario", usuario.getIdUsuario());
@@ -54,6 +55,7 @@ public class MensagemServiceBean implements Serializable {
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<Mensagem> consultarRecebidasLixeira(Usuario usuario) {
 		Query query = entityManager.createNamedQuery("Mensagem.consultarRecebidas");
 		query.setParameter("idDestinatario", usuario.getIdUsuario());
@@ -64,6 +66,7 @@ public class MensagemServiceBean implements Serializable {
 			return null;
 		}
 	}
+	@SuppressWarnings("unchecked")
 	public List<Mensagem> consultarEnviadasLixeira(Usuario usuario) {
 		Query query = entityManager.createNamedQuery("Mensagem.consultarEnviadas");
 		query.setParameter("idUsuario", usuario.getIdUsuario());
@@ -87,6 +90,7 @@ public class MensagemServiceBean implements Serializable {
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<Mensagem> pesquisa(String consulta, Usuario usuario) {
 		Query query = entityManager.createNamedQuery("Mensagem.pesquisa");
 		query.setParameter("consulta", "%" + consulta.toLowerCase() + "%");
@@ -97,6 +101,7 @@ public class MensagemServiceBean implements Serializable {
 			return null;
 		}
 	}
+	@SuppressWarnings("unchecked")
 	public List<Mensagem> consultarMensagemNotificacao(Date dtUltimoAcesso, Long idUsuario) {
 		Query query = entityManager.createNamedQuery("Mensagem.consultarMensagemNotificacao");
 		query.setParameter("dtUltimoAcesso", dtUltimoAcesso);
@@ -107,6 +112,7 @@ public class MensagemServiceBean implements Serializable {
 			return null;
 		}
 	}
+	@SuppressWarnings("unchecked")
 	public List<Mensagem> consultarMensagemPainel(Usuario usuario) {
 		Query query = entityManager.createNamedQuery("Mensagem.consultarMensagemPainel");
 		query.setParameter("idUsuario", usuario.getIdUsuario());
