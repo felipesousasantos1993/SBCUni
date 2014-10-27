@@ -55,6 +55,10 @@ public class CriarGrupoEstudoBean extends GenericBean {
 				grupoEstudo.getAlunos().add(a);
 			}
 		}
+		if (grupoEstudo.getAlunos().isEmpty()) {
+			exibirMsgAviso("É necessário incluir pelo menos 1(um) aluno ao grupo de estudo");
+			return null;
+		}
 		grupoEstudo.setProfessor(UsuarioSessionBean.getInstance().getUsuarioSessao());
 		try {
 			grupoEstudoSerivceBean.criarGrupoEstudo(grupoEstudo);

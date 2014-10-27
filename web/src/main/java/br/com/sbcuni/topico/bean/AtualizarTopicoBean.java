@@ -54,7 +54,7 @@ public class AtualizarTopicoBean extends GenericBean {
 			exibirMsgInfo(getMensagem("display.topico.alterado.sucesso", WebResources.MENSAGEM));
 			return Tela.MEUS_TOPICOS;
 		} catch (Exception e) {
-			exibirMsgErro("Erro na Alteração do Tópico");
+			exibirMsgErro(getMensagem("display.erro.atualizar.topico", WebResources.MENSAGEM));
 			return null;
 		}
 	}

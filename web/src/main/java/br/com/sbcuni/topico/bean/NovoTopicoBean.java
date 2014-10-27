@@ -78,7 +78,7 @@ public class NovoTopicoBean extends GenericBean {
 				return Tela.MEUS_TOPICOS;
 			}
 		} catch (Exception e) {
-			exibirMsgAviso("Erro " + e.getMessage());
+			exibirMsgErro(GenericBean.getMensagem("display.erro.criar.topico", WebResources.MENSAGEM));
 			return null;
 		}
 
