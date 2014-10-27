@@ -79,7 +79,7 @@ public class VisualizarTopicoBean extends GenericBean {
 				comentario.setAvaliacaoUsuario(avaliacaoServiceBean.verificarAvaliacaoUsuarioComentario(UsuarioSessionBean.getInstance().getUsuarioSessao(), comentario));
 			}
 		} catch (SbcuniException e) {
-			exibirMsgErro(e.getMessage());
+			exibirMsgErro(GenericBean.getMensagem("display.erro.editar.comentario", WebResources.MENSAGEM));
 		}
 	}
 	
@@ -93,7 +93,7 @@ public class VisualizarTopicoBean extends GenericBean {
 			}
 			idComentario = -1;
 		} catch (Exception e) {
-			exibirMsgErro(e.getMessage());
+			exibirMsgErro(GenericBean.getMensagem("display.erro.erro.comentario", WebResources.MENSAGEM));
 		}
 	}
 	
