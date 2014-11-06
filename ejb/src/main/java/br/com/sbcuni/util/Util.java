@@ -2,6 +2,7 @@ package br.com.sbcuni.util;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.InputMismatchException;
@@ -22,6 +23,10 @@ import org.joda.time.Minutes;
 import org.joda.time.Seconds;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.microtripit.mandrillapp.lutung.MandrillApi;
+import com.microtripit.mandrillapp.lutung.view.MandrillMessage;
+import com.microtripit.mandrillapp.lutung.view.MandrillMessage.Recipient;
 
 import br.com.sbcuni.exception.SbcuniException;
 import br.com.sbcuni.usuario.entity.Usuario;
@@ -108,7 +113,8 @@ public final class Util {
 		return Util.parseDate(FORMATO_DDMMAAAA_COM_BARRA, str);
 	}
 
-	public static Date parseDate(String formato, String str) throws ParseException {
+	public static Date parseDate(String formato, String str)
+			throws ParseException {
 		if (isBlankOrNull(str)) {
 			return null;
 		}
@@ -158,7 +164,8 @@ public final class Util {
 			String terceiraParte = cpf.substring(6, 9);
 			String dv = cpf.substring(9, cpf.length());
 
-			retorno = primeiraParte + "." + segundaParte + "." + terceiraParte + "-" + dv;
+			retorno = primeiraParte + "." + segundaParte + "." + terceiraParte
+					+ "-" + dv;
 		}
 
 		return retorno;
@@ -181,8 +188,17 @@ public final class Util {
 
 		String cpf = vCpf.replaceAll("\\.", "").replace("-", "");
 
-		if (cpf.equals(ZERO.substring(0, TAMANHOCPF)) || cpf.equals(UM.substring(0, TAMANHOCPF)) || cpf.equals(DOIS.substring(0, TAMANHOCPF)) || cpf.equals(TRES.substring(0, TAMANHOCPF)) || cpf.equals(QUATRO.substring(0, TAMANHOCPF)) || cpf.equals(CINCO.substring(0, TAMANHOCPF))
-				|| cpf.equals(SEIS.substring(0, TAMANHOCPF)) || cpf.equals(SETE.substring(0, TAMANHOCPF)) || cpf.equals(OITO.substring(0, TAMANHOCPF)) || cpf.equals(NOVE.substring(0, TAMANHOCPF)) || (cpf.length() != TAMANHOCPF)) {
+		if (cpf.equals(ZERO.substring(0, TAMANHOCPF))
+				|| cpf.equals(UM.substring(0, TAMANHOCPF))
+				|| cpf.equals(DOIS.substring(0, TAMANHOCPF))
+				|| cpf.equals(TRES.substring(0, TAMANHOCPF))
+				|| cpf.equals(QUATRO.substring(0, TAMANHOCPF))
+				|| cpf.equals(CINCO.substring(0, TAMANHOCPF))
+				|| cpf.equals(SEIS.substring(0, TAMANHOCPF))
+				|| cpf.equals(SETE.substring(0, TAMANHOCPF))
+				|| cpf.equals(OITO.substring(0, TAMANHOCPF))
+				|| cpf.equals(NOVE.substring(0, TAMANHOCPF))
+				|| (cpf.length() != TAMANHOCPF)) {
 			return false;
 		}
 
@@ -261,7 +277,8 @@ public final class Util {
 		}
 	}
 
-	public static void enviarEmail(Usuario usuario) throws EmailException, SbcuniException {
+	public static void enviarEmail(Usuario usuario) throws EmailException,
+			SbcuniException {
 		try {
 			Properties props = new Properties();
 			/** Parâmetros de conexão com servidor Hotmail */
@@ -273,23 +290,53 @@ public final class Util {
 			props.put("mail.smtp.auth", "true");
 			props.put("mail.smtp.port", "587");
 
-			Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator() {
-				protected PasswordAuthentication getPasswordAuthentication() {
-					return new PasswordAuthentication("sac.faloo@hotmail.com", "#Mxyzptlk123#");
-				}
-			});
+			Session session = Session.getDefaultInstance(props,
+					new javax.mail.Authenticator() {
+						protected PasswordAuthentication getPasswordAuthentication() {
+							return new PasswordAuthentication(
+									"sac.faloo@hotmail.com", "#Mxyzptlk123#");
+						}
+					});
 
 			session.setDebug(true);
 
 			Message message = new MimeMessage(session);
 			message.setFrom(new InternetAddress("sac.faloo@hotmail.com")); // Remetente
 
-			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(usuario.getEmail())); // Destinatário(s)
+			message.setRecipients(Message.RecipientType.TO,
+					InternetAddress.parse(usuario.getEmail())); // Destinatário(s)
 			message.setSubject("Recuperação de Senha");// Assunto
-			message.setText("**** SEUS DADOS **** \n\nSua senha é: " + usuario.getSenha());
+			message.setText("**** SEUS DADOS **** \n\nSua senha é: "
+					+ usuario.getSenha());
 			Transport.send(message);
 
+		} catch (Exception e) {
+			throw new SbcuniException("Erro ao enviar e-mail", e);
+		}
+	}
 
+	public static void enviarEmailMandrill(Usuario usuario)
+			throws EmailException, SbcuniException {
+
+		MandrillApi mandrillApi = new MandrillApi("Uj7sPnDTFPxrJ7ybsEqJyQ");
+
+		MandrillMessage message = new MandrillMessage();
+		message.setSubject("Recuperação de senha Faloo");
+		message.setHtml("<p>Olá <b>" + usuario.getNome() + "</b></p>"
+				+ "<p>Sua senha é: <b>" + usuario.getSenha() + "</b><p>");
+		message.setAutoText(true);
+		message.setFromEmail("www.ehgm@gmail.com");
+		message.setFromName("Sac Faloo");
+
+		ArrayList<Recipient> recipients = new ArrayList<Recipient>();
+		Recipient recipient = new Recipient();
+		recipient.setEmail(usuario.getEmail());
+		recipients.add(recipient);
+
+		message.setTo(recipients);
+
+		try {
+			mandrillApi.messages().send(message, false);
 		} catch (Exception e) {
 			throw new SbcuniException("Erro ao enviar e-mail", e);
 		}
