@@ -56,7 +56,7 @@ public class CriarGrupoEstudoBean extends GenericBean {
 			}
 		}
 		if (grupoEstudo.getAlunos().isEmpty()) {
-			exibirMsgAviso("É necessário incluir pelo menos 1(um) aluno ao grupo de estudo");
+			exibirMsgAviso(getMensagem("display.necessario.um.aluno.grupo.estudo", WebResources.MENSAGEM));
 			return null;
 		}
 		grupoEstudo.setProfessor(UsuarioSessionBean.getInstance().getUsuarioSessao());
@@ -65,7 +65,7 @@ public class CriarGrupoEstudoBean extends GenericBean {
 			exibirMsgSucesso(getMensagem("display.grupo.criado.sucesso", WebResources.MENSAGEM));
 			return Tela.MEUS_GRUPOS;
 		} catch (SbcuniException e) {
-			exibirMsgErro(e.getMessage());
+			exibirMsgErro(getMensagem("display.erro.criar.grupo.estudo", WebResources.MENSAGEM));
 			return null;
 		}
 	}

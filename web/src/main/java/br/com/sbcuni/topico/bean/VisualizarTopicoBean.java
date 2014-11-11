@@ -97,6 +97,10 @@ public class VisualizarTopicoBean extends GenericBean {
 		}
 	}
 	
+	public void atualizarComentariosTopico() {
+		topico.setComentarios(comentarioServiceBean.consultarComentariosTopico(topico));
+	}
+	
 	public void habilitarCampoComentario() {
 		setTextAreaComentario(Boolean.TRUE);
 	}

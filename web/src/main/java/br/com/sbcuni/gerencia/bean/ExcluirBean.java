@@ -38,7 +38,7 @@ public class ExcluirBean extends GenericBean {
 			exibirMsgInfo("Usuário excluído com sucesso");
 			return Tela.CONSULTAR;
 		} catch (SbcuniException e) {
-			exibirMsgErro(e.getMessage());
+			exibirMsgErro(getMensagem("display.erro.excluir.usuario", WebResources.MENSAGEM));
 			return null;
 		}
 	}

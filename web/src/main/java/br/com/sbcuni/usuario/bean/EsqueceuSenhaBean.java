@@ -37,7 +37,6 @@ public class EsqueceuSenhaBean extends GenericBean {
 			novaSenha = Boolean.TRUE;
 			try {
 				Util.enviarEmailMandrill(usuario);
-			//	Util.enviarEmail(usuario);
 				exibirMsgSucesso("Senha enviada para seu e-mail");
 			} catch (SbcuniException e) {
 				exibirMsgErro("Erro ao enviar senha por e-mail");
@@ -45,10 +44,9 @@ public class EsqueceuSenhaBean extends GenericBean {
 				exibirMsgErro("Erro ao enviar senha por e-mail");
 			}
 		} else {
-			exibirMsgAviso("Dados incorretos");
+			exibirMsgErro("Dados incorretos");
 		}
 	}
-	
 
 	public String getSenha() {
 		return senha;

@@ -51,7 +51,7 @@ public class AlterarUsuarioBean extends GenericBean {
 			WebResources.getFlash().put(WebResources.USUARIO, usuario);
 			return Tela.DETALHAR_USUARIO;
 		} catch (SbcuniException e) {
-			exibirMsgErro(getMensagem(e.getMessage(), WebResources.MENSAGEM));
+			exibirMsgErro(getMensagem("display.erro.alterar.usuario", WebResources.MENSAGEM));
 			return null;
 		}
 	}

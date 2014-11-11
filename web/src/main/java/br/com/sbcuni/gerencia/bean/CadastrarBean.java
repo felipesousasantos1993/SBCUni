@@ -43,7 +43,7 @@ public class CadastrarBean extends GenericBean {
 			exibirMsgInfo(getMensagem("display.usuario.cadastrado.sucesso", WebResources.MENSAGEM));
 			return Tela.DETALHAR;
 		} catch (SbcuniException e) {
-			exibirMsgAviso(getMensagem(e.getMessage(), WebResources.MENSAGEM));
+			exibirMsgAviso(getMensagem("display.erro.cadastrar.usuario", WebResources.MENSAGEM));
 			return null;
 		} catch (Exception e) {
 			exibirMsgErro(getMensagem(WebResources.ERRO_INESPERADO, WebResources.MENSAGEM));

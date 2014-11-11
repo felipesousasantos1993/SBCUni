@@ -104,7 +104,7 @@ public class ConsultarUsuarioBean extends GenericBean {
 				break;
 			}
 		} catch (SbcuniException e) {
-			exibirMsgAviso(e.getMessage());
+			exibirMsgAviso(getMensagem("display.erro.consultar.usuario", WebResources.MENSAGEM));
 			return null;
 		}
 		return null;

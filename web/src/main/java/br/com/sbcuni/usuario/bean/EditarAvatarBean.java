@@ -44,7 +44,7 @@ public class EditarAvatarBean extends GenericBean {
 			exibirMsgSucesso(getMensagem("display.avatar.atualizado.sucesso", WebResources.MENSAGEM));
 			return Tela.PEFIL_PATH;
 		} catch (SbcuniException e) {
-			exibirMsgAviso(e.getMessage());
+			exibirMsgAviso(getMensagem("display.erro.editar.avatar", WebResources.MENSAGEM));
 			return null;
 		}
 	}
