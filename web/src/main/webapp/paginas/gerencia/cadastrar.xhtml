@@ -76,7 +76,7 @@
 								<h:outputText value="#{mensagens['display.cpf']}:" />	
 							</label>
 							<div class="col-sm-2">
-								<h:inputText id="cpf" value="#{cadastrarBean.usuario.cpf}" maxlength="11"  styleClass="form-control cpf" autocomplete="off" required="true" requiredMessage="#{mensagens['display.campo.obrigatorio']}"/>
+								<h:inputText id="cpf" value="#{cadastrarBean.usuario.cpf}" validator="cpfValidator" validatorMessage="#{mensagens['display.cpf.invalido']}" maxlength="11"  styleClass="form-control cpf" autocomplete="off" required="true" requiredMessage="#{mensagens['display.campo.obrigatorio']}"/>
 								<h:message for="cpf" errorClass="msg error"/>
 							</div>
 						</div>
