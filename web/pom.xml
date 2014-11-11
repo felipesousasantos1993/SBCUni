@@ -38,7 +38,17 @@
 			<name>PrimeFaces Maven Repository</name>
 			<url>http://repository.primefaces.org</url>
 			<layout>default</layout>
-		</repository>  
+		</repository>
+		<repository>
+			<id>javanto-releases</id>
+			<url>https://raw.github.com/javanto/repository/releases</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
 	</repositories>
 
 	<dependencies>
@@ -116,32 +126,39 @@
 			<groupId>org.primefaces</groupId>
 			<artifactId>primefaces</artifactId>
 			<version>4.0</version>
-		 	</dependency>
-		<dependency>  
-		    <groupId>org.primefaces.themes</groupId>  
-		    <artifactId>all-themes</artifactId>  
-		    <version>1.0.10</version>  
-		</dependency>  
-					
+		</dependency>
+		<dependency>
+			<groupId>org.primefaces.themes</groupId>
+			<artifactId>all-themes</artifactId>
+			<version>1.0.10</version>
+		</dependency>
+
 		<dependency>
 			<groupId>org.primefaces.themes</groupId>
 			<artifactId>cupertino</artifactId>
 			<version>1.0.10</version>
 		</dependency>
-	
+
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>servlet-api</artifactId>
 			<version>2.5</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>joda-time</groupId>
 			<artifactId>joda-time</artifactId>
 			<version>2.4</version>
 		</dependency>
+
+		<dependency>
+			<groupId>com.nexmo</groupId>
+			<artifactId>nexmo-java-sdk</artifactId>
+			<version>1.2</version>
+		</dependency>
+
 	</dependencies>
-	
+
 	<build>
 		<finalName>${project.artifactId}</finalName>
 		<plugins>
@@ -153,11 +170,11 @@
 					<failOnMissingWebXml>false</failOnMissingWebXml>
 				</configuration>
 			</plugin>
-			 <plugin>
-		        <groupId>org.codehaus.mojo</groupId>
-		        <artifactId>sonar-maven-plugin</artifactId>
-		        <version>2.0</version>
-		    </plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>sonar-maven-plugin</artifactId>
+				<version>2.0</version>
+			</plugin>
 		</plugins>
 	</build>
 

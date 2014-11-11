@@ -33,6 +33,20 @@
 		</license>
 	</licenses>
 
+	<repositories>
+		<repository>
+			<id>javanto-releases</id>
+			<url>https://raw.github.com/javanto/repository/releases</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+
+
 	<dependencies>
 
 		<!-- Declare the APIs we depend on and need for compilation. All of them 
@@ -121,6 +135,11 @@
 			<groupId>com.mandrillapp.wrapper.lutung</groupId>
 			<artifactId>lutung</artifactId>
 			<version>0.0.4</version>
+		</dependency>
+		<dependency>
+			<groupId>com.nexmo</groupId>
+			<artifactId>nexmo-java-sdk</artifactId>
+			<version>1.2</version>
 		</dependency>
 
 	</dependencies>

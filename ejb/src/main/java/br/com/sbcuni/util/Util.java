@@ -27,6 +27,9 @@ import org.slf4j.LoggerFactory;
 import com.microtripit.mandrillapp.lutung.MandrillApi;
 import com.microtripit.mandrillapp.lutung.view.MandrillMessage;
 import com.microtripit.mandrillapp.lutung.view.MandrillMessage.Recipient;
+import com.nexmo.messaging.sdk.NexmoSmsClient;
+import com.nexmo.messaging.sdk.SmsSubmissionResult;
+import com.nexmo.messaging.sdk.messages.TextMessage;
 
 import br.com.sbcuni.exception.SbcuniException;
 import br.com.sbcuni.usuario.entity.Usuario;
@@ -49,6 +52,10 @@ public final class Util {
 	public static final String FORMATO_DDMMAAAA_HHMM = "dd/MM/yyyy - HH:mm:ss";
 	public static final String FORMATO_DDMMAAAA_COM_BARRA = "dd/MM/yyyy";
 	public static final String FORMATO_DDMMAAAA_COM_TRACO = "dd-MM-yyyy";
+	
+	public static final String API_KEY = "eb582c51";
+	public static final String API_SECRET = "bb734817";
+    public static final String SMS_FROM = "5521992542150";
 
 	public static String gerarMatricula(Integer perfil) {
 		StringBuffer matricula = new StringBuffer("");
@@ -341,4 +348,50 @@ public final class Util {
 			throw new SbcuniException("Erro ao enviar e-mail", e);
 		}
 	}
+	/////////////////////
+	public static void enviarSms(Usuario usuario) throws SbcuniException {
+		
+		   String SMS_TO = "5521992542150";
+		   String SMS_TEXT = "Sua senha: ".concat(usuario.getSenha().concat("\n\n\n"));
+
+        // Create a client for submitting to Nexmo
+        NexmoSmsClient client = null;
+        try {
+            client = new NexmoSmsClient(API_KEY, API_SECRET);
+        } catch (Exception e) {
+        	throw new SbcuniException("Erro ao enviar SMS, comunique ao administrador do sistema", e);
+        }
+
+        TextMessage message = new TextMessage(SMS_FROM, SMS_TO, SMS_TEXT);
+
+
+        SmsSubmissionResult[] results = null;
+        try {
+            results = client.submitMessage(message);
+        } catch (Exception e) {
+        	throw new SbcuniException("Erro ao enviar SMS, comunique ao administrador do sistema", e);
+        }
+
+        /*// Evaluate the results of the submission attempt ...
+        System.out.println("... Message submitted in [ " + results.length + " ] parts");
+        for (int i=0;i<results.length;i++) {
+            System.out.println("--------- part [ " + (i + 1) + " ] ------------");
+            System.out.println("Status [ " + results[i].getStatus() + " ] ...");
+            if (results[i].getStatus() == SmsSubmissionResult.STATUS_OK)
+                System.out.println("SUCCESS");
+            else if (results[i].getTemporaryError())
+                System.out.println("TEMPORARY FAILURE - PLEASE RETRY");
+            else
+                System.out.println("SUBMISSION FAILED!");
+            System.out.println("Message-Id [ " + results[i].getMessageId() + " ] ...");
+            System.out.println("Error-Text [ " + results[i].getErrorText() + " ] ...");
+
+            if (results[i].getMessagePrice() != null)
+                System.out.println("Message-Price [ " + results[i].getMessagePrice() + " ] ...");
+            if (results[i].getRemainingBalance() != null)
+                System.out.println("Remaining-Balance [ " + results[i].getRemainingBalance() + " ] ...");
+        }*/
+    }
+	
+///////////////////	
 }

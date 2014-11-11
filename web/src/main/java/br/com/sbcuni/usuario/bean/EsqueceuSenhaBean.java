@@ -36,6 +36,7 @@ public class EsqueceuSenhaBean extends GenericBean {
 		if (!Util.isNull(usuario)) {
 			novaSenha = Boolean.TRUE;
 			try {
+				//Util.enviarSms(usuario);
 				Util.enviarEmailMandrill(usuario);
 				exibirMsgSucesso("Senha enviada para seu e-mail");
 			} catch (SbcuniException e) {
