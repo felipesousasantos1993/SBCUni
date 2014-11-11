@@ -39,7 +39,7 @@ public class ConsultaBean extends GenericBean {
 			WebResources.getFlash().put(WebResources.USUARIO, usuario);
 			return Tela.DETALHAR;
 		} catch (SbcuniException e) {
-			exibirMsgErro(getMensagem(e.getMessage(), WebResources.MENSAGEM));
+			exibirMsgErro(getMensagem("display.erro.cadastrar.usuario", WebResources.MENSAGEM));
 			return null;
 		} catch (Exception e) {
 			exibirMsgErro(getMensagem(WebResources.ERRO_INESPERADO, WebResources.MENSAGEM));
@@ -112,14 +112,13 @@ public class ConsultaBean extends GenericBean {
 				WebResources.getFlash().put(WebResources.LISTA_USUARIOS, usuarios);
 				return Tela.LISTA;
 			default:
-				exibirMsgErro("Selecione um tipo de filtro");
-				break;
+				exibirMsgAviso(getMensagem("display.selecione.tipo.filtro", WebResources.MENSAGEM));
+				return null;
 			}
 		} catch (SbcuniException e) {
-			exibirMsgAviso(e.getMessage());
+			exibirMsgAviso(getMensagem("display.erro.consultar.usuario", WebResources.MENSAGEM));
 			return null;
 		}
-		return null;
 	}
 	
 	

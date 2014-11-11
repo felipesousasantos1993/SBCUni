@@ -65,10 +65,10 @@ public class Usuario implements Serializable {
 	@Column(name = "senha", length = 8, nullable = true)
 	private String senha;
 
-	@Column(name = "perfil", length = 1, nullable = false)
+	@Column(name = "perfil", length = 1, nullable = true)
 	private Integer perfil;
 
-	@Column(name = "dtCadastro", nullable = false)
+	@Column(name = "dtCadastro", nullable = true)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dtCadastro;
 	

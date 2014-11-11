@@ -251,8 +251,9 @@ public final class Util {
 		 * Integer mes = Months.monthsBetween(data, dataAtual).getMonths();
 		 * Integer ano = Years.yearsBetween(data, dataAtual).getYears();
 		 */
-
-		if (segundos < 60) {
+		if (0 == segundos) {
+			return "agora";
+		} else if (segundos < 60) {
 			return "há ".concat(String.valueOf(segundos).concat(" segundos"));
 		} else if (minutos < 60) {
 			if (minutos == 1) {
@@ -315,8 +316,7 @@ public final class Util {
 		}
 	}
 
-	public static void enviarEmailMandrill(Usuario usuario)
-			throws EmailException, SbcuniException {
+	public static void enviarEmailMandrill(Usuario usuario) throws EmailException, SbcuniException {
 
 		MandrillApi mandrillApi = new MandrillApi("Uj7sPnDTFPxrJ7ybsEqJyQ");
 
@@ -325,8 +325,8 @@ public final class Util {
 		message.setHtml("<p>Olá <b>" + usuario.getNome() + "</b></p>"
 				+ "<p>Sua senha é: <b>" + usuario.getSenha() + "</b><p>");
 		message.setAutoText(true);
-		message.setFromEmail("www.ehgm@gmail.com");
-		message.setFromName("Sac Faloo");
+		message.setFromEmail("sac.faloo@hotmail.com");
+		message.setFromName("Sac Faloo"); 
 
 		ArrayList<Recipient> recipients = new ArrayList<Recipient>();
 		Recipient recipient = new Recipient();

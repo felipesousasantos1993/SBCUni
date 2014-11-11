@@ -88,7 +88,7 @@ public class DetalheGrupoEstudoBean extends GenericBean {
 		try {
 			grupoEstudoSerivceBean.alterarGrupoEstudo(grupoEstudo);
 		} catch (SbcuniException e) {
-			exibirMsgErro(e.getMessage());
+			exibirMsgErro(getMensagem("display.erro.excluir.aluno.grupo.estudo", WebResources.MENSAGEM));
 		}
 	}
 	
@@ -97,8 +97,9 @@ public class DetalheGrupoEstudoBean extends GenericBean {
 		repeatPaginatorTopico = new RepeatPaginator(grupoEstudo.getTopicosGrupo());
 		try {
 			grupoEstudoSerivceBean.alterarGrupoEstudo(grupoEstudo);
+			exibirMsgSucesso(getMensagem("display.topico.excluido.sucesso", WebResources.MENSAGEM));
 		} catch (SbcuniException e) {
-			exibirMsgErro(e.getMessage());
+			exibirMsgErro(getMensagem("display.erro.ao.excluir.topico", WebResources.MENSAGEM));
 		}
 	}
 	
@@ -110,7 +111,7 @@ public class DetalheGrupoEstudoBean extends GenericBean {
 		try {
 			grupoEstudoSerivceBean.alterarGrupoEstudo(grupoEstudo);
 		} catch (SbcuniException e) {
-			exibirMsgAviso(e.getMessage());
+			exibirMsgAviso(getMensagem("display.erro.alterar.nome.grupo.estudo", WebResources.MENSAGEM));
 		}
 	}
 

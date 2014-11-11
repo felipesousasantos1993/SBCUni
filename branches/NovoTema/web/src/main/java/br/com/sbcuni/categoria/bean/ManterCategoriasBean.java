@@ -14,6 +14,7 @@ import br.com.sbcuni.constantes.Tela;
 import br.com.sbcuni.exception.SbcuniException;
 import br.com.sbcuni.topico.service.TopicoServiceBean;
 import br.com.sbcuni.util.Util;
+import br.com.sbcuni.util.WebResources;
 
 @ManagedBean
 @ViewScoped
@@ -43,17 +44,17 @@ public class ManterCategoriasBean extends GenericBean {
 		Categoria catAux = categoriaServiceBean.buscarCategoriaPorDescricao(categoria.getDeCategoria());
 		if (!Util.isNull(catAux)) {
 			if (catAux.getDeCategoria().equalsIgnoreCase(categoria.getDeCategoria())) {
-				exibirMsgErro("Categoria já existe");
+				exibirMsgErro(getMensagem("display.categoria.ja.existente", WebResources.MENSAGEM));
 				return null;
 			}
 		}
 		try {
 			categoriaServiceBean.incluirCategoria(categoria);
-			exibirMsgSucesso("Categoria incluída com sucesso");
+			exibirMsgSucesso(getMensagem("display.categoria.incluida.sucesso", WebResources.MENSAGEM));
 			carregarCategorias();
 			return Tela.MANTER_CATEGORIA;
 		} catch (SbcuniException e) {
-			exibirMsgErro("Não foi possível incluir categoria");
+			exibirMsgErro(getMensagem("display.erro.incluir.categoria", WebResources.MENSAGEM));
 			return null;
 		}
 	}
@@ -62,10 +63,10 @@ public class ManterCategoriasBean extends GenericBean {
 		try {
 			categoriaServiceBean.excluirCategoria(categoriaExcluir);
 			carregarCategorias();
-			exibirMsgSucesso("Categoria excluída com sucesso");
+			exibirMsgSucesso(getMensagem("display.categoria.excluida.sucesso", WebResources.MENSAGEM));
 			return Tela.MANTER_CATEGORIA;
 		} catch (Exception e) {
-			exibirMsgErro("Erro ao excluir categoria");
+			exibirMsgErro(getMensagem("display.erro.excluir.caegoria", WebResources.MENSAGEM));
 			return null;
 		}
 	}

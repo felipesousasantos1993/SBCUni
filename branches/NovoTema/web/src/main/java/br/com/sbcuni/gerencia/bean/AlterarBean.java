@@ -42,9 +42,9 @@ public class AlterarBean extends GenericBean {
 			exibirMsgInfo("Usuário alterado com sucesso");
 			return Tela.DETALHAR;
 		} catch (SbcuniException e) {
-			exibirMsgAviso(e.getMessage());
+			exibirMsgAviso(getMensagem("display.erro.alterar.usuario", WebResources.MENSAGEM));
+			return null;
 		}
-		return null;
 	}
 	
 	public void gerarMatricula() {

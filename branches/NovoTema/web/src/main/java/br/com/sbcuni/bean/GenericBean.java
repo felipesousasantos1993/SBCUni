@@ -116,7 +116,7 @@ public class GenericBean implements Serializable {
 			avaliacaoServiceBean.definirAvaliacaoTopico(topico);
 			topico.setAvaliacaoUsuario(avaliacaoServiceBean.verificarAvaliacaoUsuarioTopico(UsuarioSessionBean.getInstance().getUsuarioSessao(), topico));
 		} catch (SbcuniException e) {
-			exibirMsgErro(e.getMessage());
+			exibirMsgErro(getMensagem("display.erro.avaliar.topico", WebResources.MENSAGEM));
 		}
 	}
 
@@ -138,7 +138,7 @@ public class GenericBean implements Serializable {
 			avaliacaoServiceBean.definirAvaliacaoTopico(topico);
 			topico.setAvaliacaoUsuario(avaliacaoServiceBean.verificarAvaliacaoUsuarioTopico(UsuarioSessionBean.getInstance().getUsuarioSessao(), topico));
 		} catch (SbcuniException e) {
-			exibirMsgErro(e.getMessage());
+			exibirMsgErro(getMensagem("display.erro.avaliar.topico", WebResources.MENSAGEM));
 		}
 	}
 
@@ -160,7 +160,7 @@ public class GenericBean implements Serializable {
 			avaliacaoServiceBean.definirAvaliacaoComentario(comentario);
 			comentario.setAvaliacaoUsuario(avaliacaoServiceBean.verificarAvaliacaoUsuarioComentario(UsuarioSessionBean.getInstance().getUsuarioSessao(), comentario));
 		} catch (SbcuniException e) {
-			exibirMsgErro(e.getMessage());
+			exibirMsgErro(getMensagem("display.erro.avaliar.comentario", WebResources.MENSAGEM));
 		}
 	}
 
@@ -182,7 +182,7 @@ public class GenericBean implements Serializable {
 			avaliacaoServiceBean.definirAvaliacaoComentario(comentario);
 			comentario.setAvaliacaoUsuario(avaliacaoServiceBean.verificarAvaliacaoUsuarioComentario(UsuarioSessionBean.getInstance().getUsuarioSessao(), comentario));
 		} catch (SbcuniException e) {
-			exibirMsgErro(e.getMessage());
+			exibirMsgErro(getMensagem("display.erro.avaliar.comentario", WebResources.MENSAGEM));
 		}
 	}
 
@@ -211,7 +211,7 @@ public class GenericBean implements Serializable {
 		String saida = buffer.toString();
 		return saida.substring(0, saida.length() - 1).replace("-", " > ");
 	}
-	
+	 
 	public  List<SelectItem> getEstados() {
 		List<SelectItem> estados = new ArrayList<SelectItem>();
 		estados.add(new SelectItem("RJ", "RJ"));

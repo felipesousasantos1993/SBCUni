@@ -147,7 +147,7 @@ public class CaixaEntradaBean extends GenericBean {
 			msgRecebidas = Boolean.TRUE;
 			return Tela.CAIXA_ENTRADA;
 		} catch (Exception e) {
-			exibirMsgErro(e.getMessage());
+			exibirMsgErro(getMensagem("display.erro.enviar.mensagem", WebResources.MENSAGEM));
 			return null;
 		}
 	}

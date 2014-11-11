@@ -17,6 +17,7 @@ import br.com.sbcuni.mensagem.service.MensagemServiceBean;
 import br.com.sbcuni.usuario.bean.UsuarioSessionBean;
 import br.com.sbcuni.usuario.entity.Usuario;
 import br.com.sbcuni.usuario.service.UsuarioServiceBean;
+import br.com.sbcuni.util.WebResources;
 
 @ViewScoped
 @ManagedBean
@@ -52,10 +53,10 @@ public class NovaMensagemBean extends GenericBean {
 		mensagem.setTipo(Constantes.MSG_PRINCIPAL);
 		try {
 			mensagemServiceBean.enviarMensagem(mensagem);
-			exibirMsgSucesso("Mensagem enviada com sucesso!");
+			exibirMsgSucesso(getMensagem("display.sucesso.enviar.mensagem", WebResources.MENSAGEM));
 			return Tela.CAIXA_ENTRADA;
 		} catch (Exception e) {
-			exibirMsgErro(e.getMessage());
+			exibirMsgErro(getMensagem("display.erro.enviar.mensagem", WebResources.MENSAGEM));
 			return null;
 		}
 	}

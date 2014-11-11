@@ -57,7 +57,7 @@ public class PrimeiroAcessoBean extends GenericBean {
 			exibirMsgSucesso(getMensagem("display.senha.criada.sucesso", WebResources.MENSAGEM));
 			return Tela.LOGIN;
 		} catch (SbcuniException e) {
-			exibirMsgErro(e.getMessage());
+			exibirMsgErro(getMensagem("display.erro.criar.senha", WebResources.MENSAGEM));
 			return null;
 		}
 	}

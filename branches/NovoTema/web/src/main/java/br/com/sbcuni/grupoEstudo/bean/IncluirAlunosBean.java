@@ -58,7 +58,7 @@ public class IncluirAlunosBean extends GenericBean {
 			WebResources.getFlash().put(WebResources.GRUPO_ESTUDO, grupoEstudo);
 			return Tela.DETALHE_GRUPO_ESTUDO_PATH;
 		} catch (SbcuniException e) {
-			exibirMsgAviso(e.getMessage());
+			exibirMsgAviso(getMensagem("display.erro.incluir.aluno.grupo.estudo", WebResources.MENSAGEM));
 			return null;
 		}
 	}

@@ -51,7 +51,7 @@ public class CadastrarUsuarioBean extends GenericBean {
 			WebResources.getFlash().put(WebResources.USUARIO, usuario);
 			return Tela.DETALHAR_USUARIO;
 		} catch (SbcuniException sbce) {
-			exibirMsgAviso(getMensagem(sbce.getMessage(), WebResources.MENSAGEM));
+			exibirMsgAviso(getMensagem("display.erro.cadastrar.usuario", WebResources.MENSAGEM));
 			return null;
 		} catch (Exception e) {
 			exibirMsgErro(getMensagem(WebResources.ERRO_INESPERADO, WebResources.MENSAGEM));

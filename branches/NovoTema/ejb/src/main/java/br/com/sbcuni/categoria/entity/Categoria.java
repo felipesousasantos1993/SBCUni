@@ -34,7 +34,7 @@ public class Categoria implements Serializable {
 	@Column(name = "deCategoria", length = 20, nullable = false)
 	private String deCategoria;
 
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "categorias", targetEntity = Topico.class)
+	@ManyToMany(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY, mappedBy = "categorias", targetEntity = Topico.class)
 	private List<Topico> topicos;
 	
 
