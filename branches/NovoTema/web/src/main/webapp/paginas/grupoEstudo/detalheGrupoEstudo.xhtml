@@ -160,7 +160,7 @@
 													<div class="body">
 														<div class="follower-controls tooltips">
 															<h:outputFormat  id="msgExcluir" rendered="#{topico.marcado}">
-																<h:outputLabel styleClass="labelLink" value="#{mensagens['display.confirma.exclusao.aluno']}" />
+																<h:outputLabel styleClass="labelLink" value="#{mensagens['display.confirma.exclusao.topico']}" />
 																<h:outputLabel styleClass="labelLink marginLeft_5" value="#{mensagens['display.sim']}" >
 																	<f:ajax event="click" render=":form:topicos" listener="#{detalheGrupoEstudoBean.excluirTopico(topico)}"/>
 																</h:outputLabel>

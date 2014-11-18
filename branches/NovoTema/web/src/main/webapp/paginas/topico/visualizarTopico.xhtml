@@ -113,7 +113,7 @@
 														<f:ajax render="@form" execute="descricaoEditar" event="click" onevent="marcaDagua()" listener="#{visualizarTopicoBean.comentar()}"/>
 													</h:outputLabel>
 													<h:outputLabel id="btnCancelar" value="#{mensagens['display.cancelar']}" styleClass="btn btn-default btn-xs pull-left marginLeft_10 labelLink" style="margin-top:5px;">
-														<f:ajax render="comments" execute="descricaoEditar" event="click" onevent="marcaDagua()" listener="#{visualizarTopicoBean.desabilitarCampoComentario()}"/>
+														<f:ajax render=":form:comments" execute="descricaoEditar" event="click" onevent="marcaDagua()" listener="#{visualizarTopicoBean.desabilitarCampoComentario()}"/>
 													</h:outputLabel>
 												</div>
 											</h:panelGroup>
