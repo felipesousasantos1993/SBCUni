@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 import javax.ejb.EJB;
@@ -20,6 +21,7 @@ import br.com.sbcuni.constantes.Tela;
 import br.com.sbcuni.exception.SbcuniException;
 import br.com.sbcuni.grupoEstudo.GrupoEstudo;
 import br.com.sbcuni.mensagem.entity.Mensagem;
+import br.com.sbcuni.relatorios.ConstantesRelatorio;
 import br.com.sbcuni.topico.entity.Topico;
 import br.com.sbcuni.topico.service.TopicoServiceBean;
 import br.com.sbcuni.usuario.bean.UsuarioSessionBean;
@@ -224,9 +226,14 @@ public class GenericBean implements Serializable {
 		return Tela.PEFIL_PATH;
 	}
 	
+	public static Map<String, Object> adicionaImagemCabecalho(Map<String, Object> entrada, FacesContext context) {
+		entrada.put("logo",context.getExternalContext().getRealPath(ConstantesRelatorio.LOGO));
+		return entrada;
+	}
+	
 	protected ResourceBundle getMessages() {
 		if (messages == null) {
-			messages = ResourceBundle.getBundle("br.gov.caixa.sbcuni.mensagens.mensagens");
+			messages = ResourceBundle.getBundle("br.com.sbcuni.mensagens.mensagens");
 		}
 		return messages;
 	}
