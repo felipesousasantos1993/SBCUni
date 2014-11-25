@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report2" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" whenResourceMissingType="Empty">
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Ambientes\\ViewsClearCase\\view_sicmu_fesantos_interacao3\\SICMU\\03-Implementacao\\Fontes\\AmbienteSICMU\\workspace\\SICMU\\SICMU-web\\src\\main\\webapp\\WEB-INF\\relatorios\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="logo" class="java.lang.String"/>
+	<parameter name="titulo" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="noGrupo" class="java.lang.String"/>
+	<field name="professor.nome" class="java.lang.String"/>
+	<field name="nuTopicosAux" class="java.math.BigInteger"/>
+	<title>
+		<band height="84" splitType="Stretch">
+			<rectangle>
+				<reportElement mode="Opaque" x="0" y="0" width="555" height="64" backcolor="#1D89CF"/>
+			</rectangle>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Transparent" x="532" y="64" width="24" height="20" forecolor="#000000" backcolor="#000000"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Trebuchet MS" size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Transparent" x="496" y="64" width="36" height="20" forecolor="#000000" backcolor="#000000"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Trebuchet MS" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Página:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="1" y="64" width="116" height="20" forecolor="#000000" backcolor="#000000"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Trebuchet MS" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Relatório gerado em:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy ">
+				<reportElement mode="Transparent" x="117" y="64" width="77" height="20" forecolor="#000000" backcolor="#000000"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Trebuchet MS" size="10"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<image scaleImage="RetainShape">
+				<reportElement x="239" y="15" width="77" height="49"/>
+				<imageExpression class="java.lang.String"><![CDATA[$P{logo}]]></imageExpression>
+			</image>
+			<textField pattern="HH:mm:ss">
+				<reportElement mode="Transparent" x="194" y="64" width="88" height="20" forecolor="#FFFFFF" backcolor="#000000"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Trebuchet MS" size="10"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="33">
+			<textField>
+				<reportElement x="0" y="0" width="555" height="33"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Trebuchet MS" size="16" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{titulo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="20">
+			<rectangle>
+				<reportElement mode="Opaque" x="0" y="0" width="555" height="20" backcolor="#1D89CF"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="0" width="316" height="20" forecolor="#FFFFFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Trebuchet MS" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nome do Grupo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="493" y="0" width="63" height="20" forecolor="#FFFFFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Trebuchet MS" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tópicos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="317" y="0" width="175" height="20" forecolor="#FFFFFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Trebuchet MS" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Professor]]></text>
+			</staticText>
+			<line>
+				<reportElement x="316" y="0" width="1" height="20" forecolor="#000000" backcolor="#000000"/>
+			</line>
+			<line>
+				<reportElement x="492" y="0" width="1" height="20" forecolor="#000000" backcolor="#000000"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20">
+			<rectangle>
+				<reportElement x="0" y="0" width="555" height="20" backcolor="#E6E6FA">
+					<printWhenExpression><![CDATA[new Boolean(($V{COLUMN_COUNT}.intValue() % 2) == 0)]]></printWhenExpression>
+				</reportElement>
+			</rectangle>
+			<textField>
+				<reportElement x="0" y="0" width="316" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Trebuchet MS" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{noGrupo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="317" y="0" width="175" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Trebuchet MS" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{professor.nome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="493" y="0" width="62" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Trebuchet MS" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Number"><![CDATA[$F{nuTopicosAux}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="316" y="0" width="1" height="20" forecolor="#000000" backcolor="#000000"/>
+			</line>
+			<line>
+				<reportElement x="492" y="0" width="1" height="20" forecolor="#000000" backcolor="#000000"/>
+			</line>
+			<line>
+				<reportElement x="554" y="0" width="1" height="20" forecolor="#000000" backcolor="#000000"/>
+			</line>
+			<line>
+				<reportElement x="0" y="0" width="1" height="20" forecolor="#000000" backcolor="#000000"/>
+			</line>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="20">
+			<rectangle>
+				<reportElement mode="Opaque" x="0" y="0" width="555" height="20" backcolor="#1D89CF"/>
+			</rectangle>
+		</band>
+	</columnFooter>
+</jasperReport>

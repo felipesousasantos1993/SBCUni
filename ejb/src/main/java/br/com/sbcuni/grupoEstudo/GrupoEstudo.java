@@ -67,6 +67,15 @@ public class GrupoEstudo implements Serializable {
 	
 	@Transient
 	private BigInteger nuAvaliacoesNegativas;
+	
+	@Transient
+	private BigInteger nuTopicosAux; 
+	
+	@Transient
+	private BigInteger nuComentarios;
+	
+	@Transient
+	private BigInteger nuAlunos;
 
 	public Long getIdGrupoEstudo() {
 		return idGrupoEstudo;
@@ -154,5 +163,29 @@ public class GrupoEstudo implements Serializable {
 
 	public void setNuAvaliacoesNegativas(BigInteger nuAvaliacoesNegativas) {
 		this.nuAvaliacoesNegativas = nuAvaliacoesNegativas;
+	}
+
+	public BigInteger getNuComentarios() {
+		return nuComentarios;
+	}
+
+	public void setNuComentarios(BigInteger nuComentarios) {
+		this.nuComentarios = nuComentarios;
+	}
+
+	public BigInteger getNuTopicosAux() {
+		return nuTopicosAux;
+	}
+
+	public void setNuTopicosAux(BigInteger nuTopicosAux) {
+		this.nuTopicosAux = nuTopicosAux;
+	}
+
+	public BigInteger getNuAlunos() {
+		return nuAlunos;
+	}
+
+	public void setNuAlunos(BigInteger nuAlunos) {
+		this.nuAlunos = nuAlunos;
 	}
 }

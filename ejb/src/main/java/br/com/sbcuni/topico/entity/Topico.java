@@ -98,6 +98,9 @@ public class Topico implements Serializable {
 	@Transient
 	private Boolean marcado;
 	
+	@Transient
+	private BigInteger nuComentariosAux;
+	
 	public Long getIdTopico() {
 		return idTopico;
 	}
@@ -232,4 +235,13 @@ public class Topico implements Serializable {
 	public void setMarcado(Boolean marcado) {
 		this.marcado = marcado;
 	}
+
+	public BigInteger getNuComentariosAux() {
+		return nuComentariosAux;
+	}
+
+	public void setNuComentariosAux(BigInteger nuComentariosAux) {
+		this.nuComentariosAux = nuComentariosAux;
+	}
+
 }

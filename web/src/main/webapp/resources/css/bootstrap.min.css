@@ -225,7 +225,7 @@ html {
 
 body {
 	font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-	font-size: 13px;
+	font-size: 12px;
 	line-height: 1.42857143;
 	color: #555;
 	background-color: #fff
@@ -358,7 +358,7 @@ hr {
 }
 
 .h5,h5 {
-	font-size: 13px
+	font-size: 12px
 }
 
 .h6,h6 {
@@ -1612,7 +1612,7 @@ input[type=checkbox]:focus,input[type=file]:focus,input[type=radio]:focus
 output {
 	display: block;
 	padding-top: 7px;
-	font-size: 13px;
+	font-size: 12px;
 	line-height: 1.42857143;
 	color: #555
 }
@@ -1622,7 +1622,7 @@ output {
 	width: 100%;
 	height: 32px;
 	padding: 6px 12px;
-	font-size: 13px;
+	font-size: 12px;
 	line-height: 1.42857143;
 	color: #555;
 	background-color: #fff;
@@ -1946,7 +1946,7 @@ select[multiple].input-lg,textarea.input-lg {
 	border: 1px solid transparent;
 	white-space: nowrap;
 	padding: 6px 12px;
-	font-size: 13px;
+	font-size: 12px;
 	line-height: 1.42857143;
 	border-radius: 2px;
 	-webkit-user-select: none;
@@ -3101,7 +3101,7 @@ input[type=button].btn-block,input[type=reset].btn-block,input[type=submit].btn-
 	padding: 5px 0;
 	margin: 2px 0 0;
 	list-style: none;
-	font-size: 13px;
+	font-size: 12px;
 	background-color: #fff;
 	border: 1px solid #ccc;
 	border: 1px solid rgba(0, 0, 0, .15);
@@ -3487,7 +3487,7 @@ select[multiple].input-group-sm>.form-control,select[multiple].input-group-sm>.i
 
 .input-group-addon {
 	padding: 6px 12px;
-	font-size: 13px;
+	font-size: 12px;
 	font-weight: 400;
 	line-height: 1;
 	color: #555;
@@ -5658,7 +5658,7 @@ button.close {
 .popover-title {
 	margin: 0;
 	padding: 8px 14px;
-	font-size: 13px;
+	font-size: 12px;
 	font-weight: 400;
 	line-height: 18px;
 	background-color: #f7f7f7;

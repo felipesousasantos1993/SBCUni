@@ -10,7 +10,7 @@
 		<div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 100%;"><div id="main-menu-inner" style="overflow: hidden; width: auto; height: 100%;">
 			<div class="menu-content top animated fadeIn" id="menu-content-demo">
 				<div>
-					<div class="text-bg"><span class="text-slim">Olá,</span> <span class="text-semibold" ><h:commandLink action="#{menuBean.perfilUsuario(usuarioSessionBean.usuarioSessao)}" value="#{usuarioSessionBean.usuarioSessao.nome}" style="color:#FFF;"/> </span></div>
+					<div class="text-sm"><span class="text-slim">Olá,</span> <span class="text-semibold" ><h:commandLink action="#{menuBean.perfilUsuario(usuarioSessionBean.usuarioSessao)}" value="#{usuarioSessionBean.usuarioSessao.nome}" style="color:#FFF;"/> </span></div>
 					<h:outputLink value="#{facesContext.externalContext.requestContextPath}/paginas/usuario/editarAvatar.jsf">
 						<h:graphicImage library="img" value="/resources/img/avatares/#{usuarioSessionBean.usuarioSessao.avatar}" />
 					</h:outputLink>
@@ -142,8 +142,37 @@
 						</li>
 					</ul>
 				</li>
-				<li class="mm-dropdown mm-dropdown-root">
+				<li>
 					<a href="#{facesContext.externalContext.requestContextPath}/paginas/mensagens/email.jsf"><i class="menu-icon fa  fa-envelope-o"></i><span class="mm-text mmc-dropdown-delay animated fadeIn"><h:outputText value="#{mensagens['display.menu.mensagens']}" /></span></a>
+				</li>
+				<li class="mm-dropdown mm-dropdown-root">
+					<a href="#"><i class="menu-icon fa  fa-bar-chart-o"></i><span class="mm-text mmc-dropdown-delay animated fadeIn"><h:outputText value="#{mensagens['display.relatorios']}" /></span></a>
+					<ul class="mmc-dropdown-delay animated fadeInLeft">
+						<li>
+							<a tabindex="-1" href="#{facesContext.externalContext.requestContextPath}/paginas/relatorios/topicosMaisPopulares.jsf"><span class="mm-text"><h:outputText value="#{mensagens['display.topicos.mais.populares']}" /> </span></a>
+						</li>
+						<li>
+							<a tabindex="-1" href="#{facesContext.externalContext.requestContextPath}/paginas/relatorios/topicosMenosPopulares.jsf"><span class="mm-text"><h:outputText value="#{mensagens['display.topicos.menos.populares']}" /> </span></a>
+						</li>
+						<li>
+							<a tabindex="-1" href="#{facesContext.externalContext.requestContextPath}/paginas/relatorios/topicosMaisVisualizados.jsf"><span class="mm-text"><h:outputText value="#{mensagens['display.topicos.mais.visualizados']}" /> </span></a>
+						</li>
+						<li>
+							<a tabindex="-1" href="#{facesContext.externalContext.requestContextPath}/paginas/relatorios/topicosMaisComentados.jsf"><span class="mm-text"><h:outputText value="#{mensagens['display.topicos.mais.comentados']}" /> </span></a>
+						</li>
+						<li>
+							<a tabindex="-1" href="#{facesContext.externalContext.requestContextPath}/paginas/relatorios/usuariosComMaisTopicosCriados.jsf"><span class="mm-text"><h:outputText value="#{mensagens['display.usuarios.com.mais.topicos']}" /> </span></a>
+						</li>
+						<li>
+							<a tabindex="-1" href="#{facesContext.externalContext.requestContextPath}/paginas/relatorios/usuariosComMaisComentariosCriados.jsf"><span class="mm-text"><h:outputText value="#{mensagens['display.usuarios.que.mais.comentam']}" /> </span></a>
+						</li>
+						<li>
+							<a tabindex="-1" href="#{facesContext.externalContext.requestContextPath}/paginas/relatorios/gruposComMaisTopicos.jsf"><span class="mm-text"><h:outputText value="#{mensagens['display.grupos.estudo.com.mais.topicos']}" /> </span></a>
+						</li>
+						<li>
+							<a tabindex="-1" href="#{facesContext.externalContext.requestContextPath}/paginas/relatorios/gruposComMaisAlunos.jsf"><span class="mm-text"><h:outputText value="#{mensagens['display.grupos.estudo.com.mais.alunos']}" /> </span></a>
+						</li>
+					</ul>
 				</li>
 			</ul> <!-- / .navigation -->
 			

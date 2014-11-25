@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" template="/template/template.xhtml" xmlns:p="http://primefaces.org/ui">
+	<ui:define name="conteudo">
+		<div class="page-header">
+			<ol class="breadcrumb breadcrumb-page">
+				<li><h:outputLink>
+						<h:outputText value="#{mensagens['display.voce.esta.em']}" />
+					</h:outputLink></li>
+				<li><h:outputText value="#{mensagens['display.relatorios']}" /></li>
+				<li class="active"><h:outputText value="#{mensagens['display.topicos.menos.populares']}" /></li>
+			</ol>
+			<h:messages id="mensagens" errorClass="alert alert-danger alert-dark" infoClass="alert alert-info alert-dark" warnClass="alert alert-dark" />
+		</div>
+		<h:form prependId="false" id="form">
+			<div class="page-search">
+				<div id="content" class="content">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="stat-panel">
+								<div class="stat-row">
+									<div class="stat-cell col-sm-4 padding-sm-hr bordered no-border-r valign-top">
+										<h4 class="padding-sm no-padding-t padding-xs-hr">
+											<i class="fa fa-file text-primary" />
+											<h:outputText value="#{mensagens['display.topicos.menos.populares']}" styleClass="marginLeft_5" />
+										</h4>
+										<ul class="list-group no-margin">
+											<ui:repeat var="topico" value="#{topicosMenosPopularesBean.topicos}">
+												<li class="list-group-item no-border-hr padding-xs-hr no-bg no-border-radius">
+													<h:commandLink action="#{topicosMenosPopularesBean.detalharTopico(topico)}" value="#{topico.titulo}" /> 
+													<span class="label label-primary pull-right"> 
+														<h:outputText value="#{topico.usuario.nome}" />
+													</span>
+													
+													<span class="label label pull-right"> 
+														<h:outputText value="#{topico.tempoTopicoCriacao}" />
+													</span>
+													<span class="label label-danger pull-right"> 
+														<h:outputText value="#{topico.nuAvaliacaoNegativas}" />
+													</span>
+												</li>
+											</ui:repeat>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-12">
+							<button onclick="print();" class="btn btn-primary btn-labeled btn-xs">
+								<span class="btn-label icon fa fa-print"/>
+								<h:outputText value="#{mensagens['display.imprimir']}" />
+							</button>
+							<h:commandButton action="#{topicosMenosPopularesBean.gerarPDF()}" value="#{mensagens['display.gerar.pdf']}" styleClass="btn btn-warning btn-xs marginLeft_10"/>
+						</div>
+					</div>
+				</div>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>

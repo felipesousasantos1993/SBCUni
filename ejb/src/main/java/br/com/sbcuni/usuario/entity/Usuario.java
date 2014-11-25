@@ -1,6 +1,7 @@
 package br.com.sbcuni.usuario.entity;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
 
@@ -123,7 +124,13 @@ public class Usuario implements Serializable {
 	
 	@Transient
 	private Integer indice;
+	
+	@Transient
+	private BigInteger nuTopicosCriados;
 
+	@Transient
+	private BigInteger nuComentariosCriados;
+	
 	public Long getIdUsuario() {
 		return idUsuario;
 	}
@@ -452,5 +459,21 @@ public class Usuario implements Serializable {
 
 	public void setIndice(Integer indice) {
 		this.indice = indice;
+	}
+
+	public BigInteger getNuTopicosCriados() {
+		return nuTopicosCriados;
+	}
+
+	public void setNuTopicosCriados(BigInteger nuTopicosCriados) {
+		this.nuTopicosCriados = nuTopicosCriados;
+	}
+
+	public BigInteger getNuComentariosCriados() {
+		return nuComentariosCriados;
+	}
+
+	public void setNuComentariosCriados(BigInteger nuComentariosCriados) {
+		this.nuComentariosCriados = nuComentariosCriados;
 	}
 }
