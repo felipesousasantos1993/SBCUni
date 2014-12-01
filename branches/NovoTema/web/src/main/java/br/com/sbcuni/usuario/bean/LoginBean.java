@@ -48,7 +48,7 @@ public class LoginBean extends GenericBean {
 	}
 
 	public String deslogar() {
-		exibirMsgInfo("Usuário " + UsuarioSessionBean.getInstance().getUsuarioSessao().getNome() + " deslogado(a) com sucesso!");
+		exibirMsgInfo("Usuário(a) " + UsuarioSessionBean.getInstance().getUsuarioSessao().getNome() + " deslogado(a) com sucesso!");
 		UsuarioSessionBean.getInstance().destruirSessao();
 		return Tela.LOGIN;
 	}

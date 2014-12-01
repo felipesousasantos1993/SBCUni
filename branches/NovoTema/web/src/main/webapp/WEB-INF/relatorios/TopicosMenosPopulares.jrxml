@@ -12,7 +12,7 @@
 	<field name="usuario.nome" class="java.lang.String"/>
 	<field name="nuAvaliacaoNegativas" class="java.math.BigInteger"/>
 	<title>
-		<band height="84" splitType="Stretch">
+		<band height="104" splitType="Stretch">
 			<rectangle>
 				<reportElement mode="Opaque" x="0" y="0" width="555" height="64" backcolor="#1D89CF"/>
 			</rectangle>
@@ -30,26 +30,33 @@
 				</textElement>
 				<text><![CDATA[Página:]]></text>
 			</staticText>
+			<image scaleImage="RetainShape">
+				<reportElement x="239" y="15" width="77" height="49"/>
+				<imageExpression class="java.lang.String"><![CDATA[$P{logo}]]></imageExpression>
+			</image>
 			<staticText>
-				<reportElement mode="Transparent" x="1" y="64" width="116" height="20" forecolor="#000000" backcolor="#000000"/>
+				<reportElement mode="Transparent" x="1" y="84" width="35" height="20" forecolor="#000000" backcolor="#000000"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Trebuchet MS" size="10" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Relatório gerado em:]]></text>
+				<text><![CDATA[Hora:]]></text>
 			</staticText>
-			<textField pattern="dd/MM/yyyy ">
-				<reportElement mode="Transparent" x="117" y="64" width="51" height="20" forecolor="#000000" backcolor="#000000"/>
+			<staticText>
+				<reportElement mode="Transparent" x="1" y="64" width="35" height="20" forecolor="#000000" backcolor="#000000"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Trebuchet MS" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" pattern="HH:mm:ss">
+				<reportElement stretchType="RelativeToBandHeight" mode="Transparent" x="36" y="84" width="130" height="20" forecolor="#000000" backcolor="#000000"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Trebuchet MS" size="10"/>
 				</textElement>
 				<textFieldExpression class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
-			<image scaleImage="RetainShape">
-				<reportElement x="239" y="15" width="77" height="49"/>
-				<imageExpression class="java.lang.String"><![CDATA[$P{logo}]]></imageExpression>
-			</image>
-			<textField pattern="HH:mm:ss">
-				<reportElement mode="Transparent" x="168" y="64" width="45" height="20" forecolor="#FFFFFF" backcolor="#000000"/>
+			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy ">
+				<reportElement stretchType="RelativeToBandHeight" mode="Transparent" x="36" y="64" width="130" height="20" forecolor="#000000" backcolor="#000000"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Trebuchet MS" size="10"/>
 				</textElement>

@@ -25,14 +25,16 @@ public class GrupoEstudoSerivceBean implements Serializable {
 
 	@PersistenceContext
 	private EntityManager entityManager;
-	
+
 	@EJB
 	private CategoriaServiceBean categoriaServiceBean;
-	
+
 	private StringBuffer queryAlunosGrupoEstudo = new StringBuffer("SELECT u.idUsuario FROM Usuario u WHERE u.idusuario IN (SELECT alunos_idusuario FROM grupoestudo_usuario WHERE grupos_idgrupoestudo = ?) ORDER BY u.nome ASC");
-	
+
 	private StringBuffer queryGruposEstudosUsuario = new StringBuffer("SELECT idgrupoestudo FROM grupoestudo  WHERE idgrupoestudo IN (SELECT grupos_idgrupoestudo FROM grupoestudo_usuario where alunos_idusuario = ?)");
-	
+
+	private StringBuffer queryVerificaUsuarioPertenceGrupo = new StringBuffer("SELECT * FROM grupoestudo_usuario WHERE grupos_idgrupoestudo = ? AND alunos_idusuario = ?");
+
 	public void criarGrupoEstudo(GrupoEstudo grupoEstudo) throws SbcuniException {
 		try {
 			entityManager.persist(grupoEstudo);
@@ -40,7 +42,7 @@ public class GrupoEstudoSerivceBean implements Serializable {
 			throw new SbcuniException("Erro ao criar grupod de estudo", e);
 		}
 	}
-	
+
 	public void alterarGrupoEstudo(GrupoEstudo grupoEstudo) throws SbcuniException {
 		try {
 			entityManager.merge(grupoEstudo);
@@ -48,7 +50,7 @@ public class GrupoEstudoSerivceBean implements Serializable {
 			throw new SbcuniException("Erro ao criar grupod de estudo", e);
 		}
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public List<GrupoEstudo> consultarGruposProfessor(Usuario usuario) {
 		Query query = entityManager.createNamedQuery("GrupoEstudo.consultarGruposProfessor");
@@ -66,7 +68,7 @@ public class GrupoEstudoSerivceBean implements Serializable {
 			return null;
 		}
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public List<GrupoEstudo> consultarGruposUsuario(Usuario usuario) {
 		Query query = entityManager.createNativeQuery(queryGruposEstudosUsuario.toString());
@@ -88,8 +90,7 @@ public class GrupoEstudoSerivceBean implements Serializable {
 			return null;
 		}
 	}
-	
-	
+
 	public GrupoEstudo buscarGrupoEstudoId(Long id) {
 		Query query = entityManager.createNamedQuery("GrupoEstudo.buscarGrupoEstudoId");
 		query.setParameter("idGrupo", id);
@@ -99,7 +100,7 @@ public class GrupoEstudoSerivceBean implements Serializable {
 			return null;
 		}
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public List<Usuario> consultarAlunosGrupoEstudo(GrupoEstudo grupoEstudo) {
 		Query query = entityManager.createNativeQuery(queryAlunosGrupoEstudo.toString());
@@ -115,7 +116,7 @@ public class GrupoEstudoSerivceBean implements Serializable {
 			return null;
 		}
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public List<GrupoEstudo> pesquisa(String consulta) {
 		Query query = entityManager.createNamedQuery("GrupoEstudo.pesquisa");
@@ -126,7 +127,7 @@ public class GrupoEstudoSerivceBean implements Serializable {
 			return null;
 		}
 	}
-	
+
 	public GrupoEstudo consultarGrupoTopico(Topico topico) {
 		Query query = entityManager.createNamedQuery("GrupoEstudo.consultarGrupoTopico");
 		query.setParameter("idTopico", topico.getIdTopico());
@@ -136,5 +137,30 @@ public class GrupoEstudoSerivceBean implements Serializable {
 			return null;
 		}
 	}
-	
+
+	public Boolean verificaUsuarioPertenceGrupo(GrupoEstudo grupoEstudo, Usuario usuario) {
+		Query query = entityManager.createNativeQuery(queryVerificaUsuarioPertenceGrupo.toString());
+		query.setParameter(1, grupoEstudo.getIdGrupoEstudo());
+		query.setParameter(2, usuario.getIdUsuario());
+		try {
+			query.getSingleResult();
+			return Boolean.TRUE;
+		} catch (NoResultException e) {
+			return Boolean.FALSE;
+		}
+	}
+
+	public Boolean verificarUsuarioProfessorGrupo(GrupoEstudo grupoEstudo, Usuario usuario) {
+		Query query = entityManager.createNamedQuery("GrupoEstudo.verificarUsuarioProfessorGrupo");
+		query.setParameter("idGrupoEstudo", grupoEstudo.getIdGrupoEstudo());
+		query.setParameter("idUsuario", usuario.getIdUsuario());
+		try {
+			query.getSingleResult();
+			return Boolean.TRUE;
+		} catch (NoResultException e) {
+			return Boolean.FALSE;
+		}
+
+	}
+
 }

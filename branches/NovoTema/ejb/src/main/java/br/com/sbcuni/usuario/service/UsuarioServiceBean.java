@@ -23,12 +23,12 @@ public class UsuarioServiceBean implements Serializable {
 
 	@PersistenceContext
 	private EntityManager entityManager;
-	
+
 	private static final Integer PERFIL_TODOS = 0;
-	
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(UsuarioServiceBean.class);
 	public static final String ERRO_INESPERADO = "display.ocorreu.erro.inesperado.favor.consultar.administrador";
-	
+
 	public void cadastrarUsuario(Usuario usuario) throws SbcuniException, Exception {
 		if (null == usuario.getMatricula()) {
 			throw new SbcuniException("display.campos.obrigatorios");
@@ -50,7 +50,7 @@ public class UsuarioServiceBean implements Serializable {
 			throw new SbcuniException(ERRO_INESPERADO, e);
 		}
 	}
-	
+
 	public void alterarUsuario(Usuario usuario) throws SbcuniException {
 		try {
 			entityManager.merge(usuario);
@@ -58,7 +58,7 @@ public class UsuarioServiceBean implements Serializable {
 			throw new SbcuniException("Erro ao alterar usuario", e);
 		}
 	}
-	
+
 	public void excluirUsuario(Usuario usuario) throws SbcuniException {
 		try {
 			usuario = entityManager.find(Usuario.class, usuario.getIdUsuario());
@@ -67,7 +67,7 @@ public class UsuarioServiceBean implements Serializable {
 			throw new SbcuniException("Erro ao excluir usuário", e);
 		}
 	}
-	
+
 	public Usuario consultarPorCpf(String cpf, Integer perfil) throws SbcuniException {
 		StringBuffer q = new StringBuffer("SELECT u FROM Usuario u WHERE u.cpf =:cpf");
 		if (!perfil.equals(PERFIL_TODOS)) {
@@ -84,7 +84,7 @@ public class UsuarioServiceBean implements Serializable {
 			return null;
 		}
 	}
-	
+
 	public Usuario consultarPorEmail(String email, Integer perfil) throws SbcuniException {
 		StringBuffer q = new StringBuffer("SELECT u FROM Usuario u WHERE u.email =:email");
 		if (!perfil.equals(PERFIL_TODOS)) {
@@ -101,7 +101,7 @@ public class UsuarioServiceBean implements Serializable {
 			return null;
 		}
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public List<Usuario> consultarPorNome(String nome, Integer perfil) throws SbcuniException {
 		StringBuffer q = new StringBuffer("SELECT u FROM Usuario u WHERE lower(u.nome) like :nome");
@@ -119,6 +119,7 @@ public class UsuarioServiceBean implements Serializable {
 			return null;
 		}
 	}
+
 	public Usuario consultarPorMatricula(String matricula, Integer perfil) {
 		StringBuffer q = new StringBuffer("SELECT u FROM Usuario u WHERE u.matricula = :matricula");
 		if (!perfil.equals(PERFIL_TODOS)) {
@@ -135,7 +136,7 @@ public class UsuarioServiceBean implements Serializable {
 			return null;
 		}
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public List<Usuario> consultarPorPerfil(Integer perfil) {
 		Query query = entityManager.createNamedQuery("Usuario.buscarPorPerfil");
@@ -146,7 +147,7 @@ public class UsuarioServiceBean implements Serializable {
 			return null;
 		}
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public List<Usuario> buscarTodos() {
 		Query query = entityManager.createNamedQuery("Usuario.buscarTodos");
@@ -156,7 +157,7 @@ public class UsuarioServiceBean implements Serializable {
 			return null;
 		}
 	}
-	
+
 	public Usuario consultarUsuarioLogin(String matricula, String senha) throws SbcuniException {
 		Query query = entityManager.createNamedQuery("Usuario.consultarUsuarioLogin");
 		query.setParameter("matricula", matricula);
@@ -167,7 +168,7 @@ public class UsuarioServiceBean implements Serializable {
 			return null;
 		}
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public List<Usuario> consultarAlunoNomeOuMatricula(String nome, String matricula) {
 		Query query = entityManager.createNamedQuery("Usuario.consultarAlunoNomeOuMatricula");
@@ -179,7 +180,7 @@ public class UsuarioServiceBean implements Serializable {
 			return null;
 		}
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public List<Usuario> consultarAlunoNomeOuEmail(String nome, String email) {
 		Query query = entityManager.createNamedQuery("Usuario.consultarAlunoNomeOuEmail");
@@ -191,7 +192,7 @@ public class UsuarioServiceBean implements Serializable {
 			return null;
 		}
 	}
-	
+
 	public Usuario consultarUsuarioPorId(Long idUsuario) {
 		try {
 			return entityManager.find(Usuario.class, idUsuario);
@@ -199,7 +200,7 @@ public class UsuarioServiceBean implements Serializable {
 			return null;
 		}
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public List<Usuario> pesquisa(String consulta) {
 		Query query = entityManager.createNamedQuery("Usuario.pesquisa");
@@ -212,6 +213,7 @@ public class UsuarioServiceBean implements Serializable {
 			return null;
 		}
 	}
+
 	public Usuario consultarPorMatriculaCpf(String cpf, String matricula) {
 		Query query = entityManager.createNamedQuery("Usuario.consultarPorMatriculaCpf");
 		query.setParameter("cpf", cpf);
@@ -222,6 +224,7 @@ public class UsuarioServiceBean implements Serializable {
 			return null;
 		}
 	}
+
 	public Usuario consultarPorMatriculaCpfEmail(String cpf, String matricula, String email) {
 		Query query = entityManager.createNamedQuery("Usuario.consultarPorMatriculaCpfEmail");
 		query.setParameter("cpf", cpf);

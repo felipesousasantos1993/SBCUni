@@ -43,6 +43,11 @@ public class ExcluirBean extends GenericBean {
 		}
 	}
 	
+	public String telaDetalhar() {
+		WebResources.getFlash().put(WebResources.USUARIO, usuario);
+		return Tela.DETALHAR;
+	}
+	
 	public String telaDetalharUsuario() {
 		WebResources.getFlash().put(WebResources.USUARIO, usuario);
 		return Tela.DETALHAR_USUARIO;

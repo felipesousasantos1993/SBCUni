@@ -107,7 +107,7 @@ public class Usuario implements Serializable {
 	@OneToMany(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY, targetEntity = Mensagem.class, mappedBy = "destinatario")
 	private List<Mensagem> msgsRecebidas;
 
-	@ManyToMany(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY, targetEntity = GrupoEstudo.class, mappedBy = "alunos")
+	@ManyToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, targetEntity = GrupoEstudo.class, mappedBy = "alunos")
 	private List<GrupoEstudo> grupos;
 
 	@OneToMany(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY, targetEntity = GrupoEstudo.class, mappedBy = "professor")
