@@ -34,7 +34,7 @@ public class PrimeiroAcessoBean extends GenericBean {
 	public void verificarMatricula() {
 		usuario = usuarioServiceBean.consultarPorMatricula(matricula, 0);
 		if (Util.isNull(usuario)) {
-			exibirMsgInfo(getMensagem("display.matricula.nao.encontrada", WebResources.MENSAGEM));
+			exibirMsgInfo(getMensagem("display.matricula.inexistente", WebResources.MENSAGEM));
 		} else {
 			if (Util.isBlankOrNull(usuario.getSenha())) {
 				inputSenha = Boolean.TRUE;

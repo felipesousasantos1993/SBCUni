@@ -121,6 +121,7 @@ public class SegurancaFilter implements Filter {
 				|| request.getRequestURI().endsWith("/usuario/altearUsuario.jsf") 
 				|| request.getRequestURI().endsWith("/usuario/cadastrarUsuario.jsf")
 				|| request.getRequestURI().endsWith("/usuario/excluirUsuario.jsf") 
+				|| request.getRequestURI().endsWith("/relatorios/") 
 				|| request.getRequestURI().endsWith("/grupoEstudo/criarGrupo.jsf"));
 	}
 

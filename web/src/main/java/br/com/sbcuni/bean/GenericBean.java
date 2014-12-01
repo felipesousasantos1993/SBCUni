@@ -20,6 +20,7 @@ import br.com.sbcuni.constantes.Constantes;
 import br.com.sbcuni.constantes.Tela;
 import br.com.sbcuni.exception.SbcuniException;
 import br.com.sbcuni.grupoEstudo.GrupoEstudo;
+import br.com.sbcuni.grupoEstudo.service.GrupoEstudoSerivceBean;
 import br.com.sbcuni.mensagem.entity.Mensagem;
 import br.com.sbcuni.relatorios.ConstantesRelatorio;
 import br.com.sbcuni.topico.entity.Topico;
@@ -41,7 +42,9 @@ public class GenericBean implements Serializable {
 	private AvaliacaoServiceBean avaliacaoServiceBean;
 	@EJB
 	private TopicoServiceBean topicoServiceBean;
-	
+	@EJB
+	private GrupoEstudoSerivceBean grupoEstudoSerivceBean;
+
 	public static String getMensagem(String key, Object... args) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ResourceBundle mensagens = ctx.getApplication().getResourceBundle(ctx, "mensagens");
@@ -67,33 +70,39 @@ public class GenericBean implements Serializable {
 
 	public String detalharTopico(Topico topico) {
 		WebResources.getFlash().put(WebResources.TOPICO, topico);
-		topico.setNuVisualizacoes(topico.getNuVisualizacoes()+1);
+		topico.setNuVisualizacoes(topico.getNuVisualizacoes() + 1);
 		topicoServiceBean.alterarTopico(topico);
 		return Tela.VISUALIZAR_TOPICO_PATH;
 	}
+
 	public String detalharGrupoEstudo(GrupoEstudo grupoEstudo) {
-		WebResources.getFlash().put(WebResources.GRUPO_ESTUDO, grupoEstudo);
-		grupoEstudo.setTopicosGrupo(topicoServiceBean.buscarTopicosGrupo(grupoEstudo));
-		return Tela.DETALHE_GRUPO_ESTUDO_PATH;
+		if (grupoEstudoSerivceBean.verificaUsuarioPertenceGrupo(grupoEstudo, UsuarioSessionBean.getInstance().getUsuarioSessao()) || grupoEstudoSerivceBean.verificarUsuarioProfessorGrupo(grupoEstudo, UsuarioSessionBean.getInstance().getUsuarioSessao())) {
+			WebResources.getFlash().put(WebResources.GRUPO_ESTUDO, grupoEstudo);
+			grupoEstudo.setTopicosGrupo(topicoServiceBean.buscarTopicosGrupo(grupoEstudo));
+			return Tela.DETALHE_GRUPO_ESTUDO_PATH;
+		} else {
+			exibirMsgAviso(getMensagem("display.nao.tem.acesso.grupo", WebResources.MENSAGEM));
+			return Tela.PAINEL_PRINCIPAL;
+		}
 	}
 
 	public static String telaAtualizarTopico(Topico topico) {
 		WebResources.getFlash().put(WebResources.TOPICO, topico);
 		return Tela.ATUALIZAR_TOPICO_PATH;
 	}
-	
+
 	public String verMensagem(Mensagem msg) {
 		WebResources.getFlash().put(WebResources.MENSAGEM, msg);
 		WebResources.getFlash().put(WebResources.TELA, "verMensagem");
 		return Tela.CAIXA_ENTRADA;
 	}
-	
+
 	public String enviarMensagemPrivada(Usuario usuario) {
 		WebResources.getFlash().put(WebResources.USUARIO, usuario);
 		WebResources.getFlash().put(WebResources.TELA, "enviarMensagem");
 		return Tela.CAIXA_ENTRADA;
 	}
-	
+
 	public String buscarTopicosCategoria(Categoria categoria) {
 		WebResources.getFlash().put(WebResources.CATEGORIA, categoria);
 		WebResources.getFlash().put(WebResources.LISTA_TOPICOS, topicoServiceBean.buscarTopicoPorCategoria(categoria));
@@ -213,8 +222,8 @@ public class GenericBean implements Serializable {
 		String saida = buffer.toString();
 		return saida.substring(0, saida.length() - 1).replace("-", " > ");
 	}
-	 
-	public  List<SelectItem> getEstados() {
+
+	public List<SelectItem> getEstados() {
 		List<SelectItem> estados = new ArrayList<SelectItem>();
 		estados.add(new SelectItem("RJ", "RJ"));
 		estados.add(new SelectItem("SP", "SP"));
@@ -225,12 +234,12 @@ public class GenericBean implements Serializable {
 		WebResources.getFlash().put(WebResources.USUARIO, usuario);
 		return Tela.PEFIL_PATH;
 	}
-	
+
 	public static Map<String, Object> adicionaImagemCabecalho(Map<String, Object> entrada, FacesContext context) {
-		entrada.put("logo",context.getExternalContext().getRealPath(ConstantesRelatorio.LOGO));
+		entrada.put("logo", context.getExternalContext().getRealPath(ConstantesRelatorio.LOGO));
 		return entrada;
 	}
-	
+
 	protected ResourceBundle getMessages() {
 		if (messages == null) {
 			messages = ResourceBundle.getBundle("br.com.sbcuni.mensagens.mensagens");
